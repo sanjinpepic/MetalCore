@@ -24,6 +24,7 @@ export default function SteelLedger() {
     const [steels, setSteels] = useState(PREMIUM_STEELS);
     const [view, setView] = useState('HOME');
     const [search, setSearch] = useState("");
+    const [knifeSearch, setKnifeSearch] = useState("");
     const [compareList, setCompareList] = useState([]);
     const [filters, setFilters] = useState({ minC: 0, minCr: 0, minV: 0 });
     const [activeProducer, setActiveProducer] = useState("ALL");
@@ -209,24 +210,48 @@ Be concise and premium.`;
         }
     };
 
-    // Filter knives based on whether they contain any of the currently filtered steels
+    // Filter knives based on search query across all fields (name, maker, category, steels, etc.)
     const filteredKnives = useMemo(() => {
-        // Optimisation: Create a set of valid steel names from filteredSteels for O(1) lookup
-        // We normalize names to match the fuzzy linking logic
-        const normalize = (val) => val.toLowerCase().replace(/cpm[- ]?/, "").replace(/böhler |bohler /, "").replace(/sandvik |alleima |alleima-/, "").replace(/[ \-]/g, "").trim();
-        const validSteelNames = new Set(filteredSteels.map(s => normalize(s.name)));
+        if (!knifeSearch) {
+            return POPULAR_KNIVES;
+        }
+
+        const normalize = (val) => {
+            if (!val) return "";
+            return val.toLowerCase()
+                .replace(/cpm[- ]?/, "")
+                .replace(/böhler |bohler /, "")
+                .replace(/sandvik |alleima |alleima-/, "")
+                .replace(/[ \-]/g, "")
+                .trim();
+        };
+
+        const searchLower = knifeSearch.toLowerCase().trim();
 
         return POPULAR_KNIVES.filter(k => {
-            // If text search is active, also filter by knife name/maker
-            if (search) {
-                const searchLower = search.toLowerCase();
-                const matchesName = k.name.toLowerCase().includes(searchLower) || k.maker.toLowerCase().includes(searchLower);
-                if (!matchesName) return false;
-            }
-            // Check if knife has at least one valid steel
-            return k.steels.some(sName => validSteelNames.has(normalize(sName)));
+            // Search in name
+            if (k.name.toLowerCase().includes(searchLower)) return true;
+            // Search in maker/producer
+            if (k.maker.toLowerCase().includes(searchLower)) return true;
+            // Search in category
+            if (k.category.toLowerCase().includes(searchLower)) return true;
+            // Search in description
+            if (k.description.toLowerCase().includes(searchLower)) return true;
+            // Search in whySpecial
+            if (k.whySpecial.toLowerCase().includes(searchLower)) return true;
+            // Search in steel grades
+            const matchesSteel = k.steels.some(steelName => {
+                const normalizedSteel = normalize(steelName);
+                const normalizedSearch = normalize(searchLower);
+                return steelName.toLowerCase().includes(searchLower) || 
+                       normalizedSteel.includes(normalizedSearch) ||
+                       normalizedSearch.includes(normalizedSteel);
+            });
+            if (matchesSteel) return true;
+
+            return false;
         });
-    }, [filteredSteels, search]);
+    }, [knifeSearch]);
 
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">
@@ -328,6 +353,8 @@ Be concise and premium.`;
                     steels={steels}
                     setDetailSteel={setDetailSteel}
                     setDetailKnife={setDetailKnife}
+                    knifeSearch={knifeSearch}
+                    setKnifeSearch={setKnifeSearch}
                 />
             )}
 
