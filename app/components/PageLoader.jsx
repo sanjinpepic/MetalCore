@@ -3,22 +3,55 @@
 import { useEffect, useState } from 'react'
 
 export default function PageLoader() {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(() => {
+        // Only show loader if it hasn't been shown in this session
+        if (typeof window !== 'undefined') {
+            return !sessionStorage.getItem('metalcore_loader_shown')
+        }
+        return true
+    })
 
     useEffect(() => {
+        // If already shown, don't show again
+        if (typeof window !== 'undefined' && sessionStorage.getItem('metalcore_loader_shown')) {
+            setLoading(false)
+            return
+        }
+
+        // Mark loader as shown immediately to prevent multiple flashes
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('metalcore_loader_shown', 'true')
+        }
+
         // Wait for page to load, similar to original HTML behavior
         const hideLoader = () => {
             setLoading(false)
         }
 
+        let timeoutId = null
+
         // Hide loader once DOM is ready and fonts are loaded
-        if (document.readyState === 'complete') {
-            // Add slight delay for smooth transition
-            setTimeout(hideLoader, 100)
-        } else {
-            window.addEventListener('load', () => {
-                setTimeout(hideLoader, 100)
-            })
+        if (typeof window !== 'undefined') {
+            if (document.readyState === 'complete') {
+                // Add slight delay for smooth transition
+                timeoutId = setTimeout(hideLoader, 100)
+            } else {
+                const handleLoad = () => {
+                    timeoutId = setTimeout(hideLoader, 100)
+                }
+                window.addEventListener('load', handleLoad)
+                
+                // Cleanup function
+                return () => {
+                    window.removeEventListener('load', handleLoad)
+                    if (timeoutId) clearTimeout(timeoutId)
+                }
+            }
+        }
+
+        // Cleanup timeout if component unmounts
+        return () => {
+            if (timeoutId) clearTimeout(timeoutId)
         }
     }, [])
 
