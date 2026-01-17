@@ -18,14 +18,22 @@ export default function PageLoader() {
             return
         }
 
-        // Mark loader as shown immediately to prevent multiple flashes
+        // Mark loader as shown to prevent multiple flashes
         if (typeof window !== 'undefined') {
             sessionStorage.setItem('metalcore_loader_shown', 'true')
         }
 
-        // Wait for page to load, similar to original HTML behavior
+        const minDisplayTime = 800 // Minimum time to show loader (for that cool effect)
+        const startTime = Date.now()
+
+        // Wait for page to load, then ensure minimum display time
         const hideLoader = () => {
-            setLoading(false)
+            const elapsed = Date.now() - startTime
+            const remaining = Math.max(0, minDisplayTime - elapsed)
+            // Ensure loader shows for at least minDisplayTime
+            setTimeout(() => {
+                setLoading(false)
+            }, remaining)
         }
 
         let timeoutId = null
@@ -33,11 +41,11 @@ export default function PageLoader() {
         // Hide loader once DOM is ready and fonts are loaded
         if (typeof window !== 'undefined') {
             if (document.readyState === 'complete') {
-                // Add slight delay for smooth transition
-                timeoutId = setTimeout(hideLoader, 100)
+                // Page already loaded, but still show for minimum time to give that cool effect
+                hideLoader()
             } else {
                 const handleLoad = () => {
-                    timeoutId = setTimeout(hideLoader, 100)
+                    hideLoader()
                 }
                 window.addEventListener('load', handleLoad)
                 
@@ -55,8 +63,10 @@ export default function PageLoader() {
         }
     }, [])
 
-    // Don't render on server or if already hidden to prevent hydration errors
-    if (!mounted || !loading) return null
+    // Don't render on server to prevent hydration errors
+    // But once mounted, show loader if loading is true
+    if (!mounted) return null
+    if (!loading) return null
 
     return (
         <div id="loading" style={{ 
