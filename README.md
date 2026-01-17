@@ -1,8 +1,6 @@
-# SteelLedger - Modern React Edition
+# MetalCore AI - Modern React Edition
 
 A premium metallurgy database application for knife enthusiasts, built with React and Vite.
-
-![SteelLedger Preview](https://via.placeholder.com/800x400.png?text=SteelLedger+Dashboard)
 
 ## 🚀 Quick Start
 
