@@ -71,7 +71,7 @@ To use the AI Analyst features:
 
 1. Click the **Gear Icon** in the sidebar.
 2. Enter your **Google Gemini API Key**.
-3. Select your preferred model (e.g., `gemini-1.5-flash`).
+3. Select your preferred model (e.g., `gemini-2.5-flash`).
 
 Get your free API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
