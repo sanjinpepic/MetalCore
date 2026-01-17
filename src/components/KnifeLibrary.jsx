@@ -12,8 +12,8 @@ const normalize = (val) => {
 
 const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSearch, setKnifeSearch }) => {
     return (
-        <div className="flex flex-col flex-1 min-w-0">
-            <header className="sticky top-0 z-10 bg-black/95 backdrop-blur-sm border-b border-white/5 p-4 md:p-12 pb-6 pt-16 md:pt-12 space-y-6">
+        <div className="flex flex-col flex-1 min-w-0 h-full overflow-hidden">
+            <header className="sticky top-0 z-10 bg-black/95 backdrop-blur-sm border-b border-white/5 p-4 md:p-12 pb-6 pt-16 md:pt-12 space-y-6 shrink-0">
                 <div>
                     <h1 className="text-3xl md:text-5xl font-display font-black text-white tracking-tighter mb-4 italic">KNIFE LIBRARY</h1>
                     <p className="text-slate-500 max-w-xl text-sm md:text-base">Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.</p>
@@ -26,7 +26,8 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                     <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none h-10" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
                 </div>
             </header>
-            <div className="flex-1 overflow-y-auto p-4 md:p-12 pt-4 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 pb-32 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+                <div className="p-4 md:p-12 pt-4 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 pb-32">
                 {knives.map(knife => (
                     <div
                         key={knife.id}
@@ -92,6 +93,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                         </div>
                     </div>
                 ))}
+                </div>
             </div>
         </div>
     );
