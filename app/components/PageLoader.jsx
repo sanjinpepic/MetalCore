@@ -3,17 +3,17 @@
 import { useEffect, useState } from 'react'
 
 export default function PageLoader() {
-    const [loading, setLoading] = useState(() => {
-        // Only show loader if it hasn't been shown in this session
-        if (typeof window !== 'undefined') {
-            return !sessionStorage.getItem('metalcore_loader_shown')
-        }
-        return true
-    })
+    // Always start with true to match server render and prevent hydration errors
+    const [loading, setLoading] = useState(true)
+    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
-        // If already shown, don't show again
+        // Mark as mounted (client-side only)
+        setMounted(true)
+
+        // Check if loader has already been shown in this session
         if (typeof window !== 'undefined' && sessionStorage.getItem('metalcore_loader_shown')) {
+            // Already shown, hide immediately
             setLoading(false)
             return
         }
@@ -55,7 +55,8 @@ export default function PageLoader() {
         }
     }, [])
 
-    if (!loading) return null
+    // Don't render on server or if already hidden to prevent hydration errors
+    if (!mounted || !loading) return null
 
     return (
         <div id="loading" style={{ 
