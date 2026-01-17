@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter, JetBrains_Mono, Outfit } from 'next/font/google'
+import PageLoader from './components/PageLoader'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} font-sans`}>
+        <PageLoader />
         {children}
       </body>
     </html>
