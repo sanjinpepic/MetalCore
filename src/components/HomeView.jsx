@@ -30,7 +30,7 @@ const HomeView = ({ setView, steels, setDetailSteel }) => {
 
                 <h1 className="text-5xl md:text-7xl font-display font-black text-white tracking-tighter italic leading-none">
                     ADVANCED<br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-400 to-slate-600 pr-2">METALLURGY</span><br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-400 to-slate-700 pr-2">METALLURGY</span><br />
                     DATABASE
                 </h1>
 
