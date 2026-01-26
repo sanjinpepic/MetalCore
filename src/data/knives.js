@@ -10,7 +10,7 @@ export const POPULAR_KNIVES = [
         description: "A compact refinement of the legendary Para Military 2. Famous for its Compression Lock, extreme ergonomics, and incredible variety of 'Sprint Run' steels. It is the ultimate platform for steel enthusiasts.",
         whySpecial: "The Para 3 is loved for its 'big knife' ergonomics in a compact package. Its flat grand blade and thin profile make it one of the best slicers ever produced.",
         steels: ["CPM-S45VN", "CPM-S30V", "CPM-MagnaCut", "CPM-CruWear", "Maxamet", "CPM-S110V", "Rex 45"],
-        image: "C:/Users/Sanjin/.gemini/antigravity/brain/44ef6c69-1e6e-48c8-937b-7582dcd09ee3/spyderco_para_3_mockup_1768568793673.png",
+        image: "Image\spyderco_para_3_mockup_1768568793673.png",
         link: "https://www.spyderco.com/para-3"
     },
     {
@@ -21,7 +21,7 @@ export const POPULAR_KNIVES = [
         description: "The knife that redefined the 'ultralight' EDC category. Weighing less than 2 ounces, it vanished in the pocket while offering a full-sized Grip and a highly capable drop-point blade.",
         whySpecial: "Its versatility and weight-to-blade ratio are unmatched. With the AXIS lock, it provides a fully ambidextrous, safe, and fidget-friendly experience.",
         steels: ["CPM-S30V", "CPM-S90V", "CPM-20CV", "M390 Microclean", "CPM-MagnaCut"],
-        image: "C:/Users/Sanjin/.gemini/antigravity/brain/44ef6c69-1e6e-48c8-937b-7582dcd09ee3/benchmade_bugout_mockup_1768568808347.png",
+        image: "Image\benchmade_bugout_mockup_1768568808347.png",
         link: "https://www.benchmade.com/bugout"
     },
     {
@@ -33,7 +33,7 @@ export const POPULAR_KNIVES = [
         whySpecial: "The Sebenza is an heirloom tool. It's designed to be disassembled, cleaned, and passed down through generations. Its simplicity is its greatest strength.",
         steels: ["CPM-S45VN", "CPM-MagnaCut"],
         image: "C:/Users/Sanjin/.gemini/antigravity/brain/44ef6c69-1e6e-48c8-937b-7582dcd09ee3/sebenza_31_mockup_1768568822948.png",
-        link: "https://chrisreeve.com/collections/sebenza-31"
+        link: "Image\sebenza_31_mockup_1768568822948.png"
     },
     {
         id: "bm-940",
