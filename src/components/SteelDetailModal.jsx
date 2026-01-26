@@ -4,16 +4,16 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
             <div className="glass-panel w-full h-full md:h-auto md:max-w-2xl p-6 md:p-10 md:rounded-[2.5rem] border-white/10 shadow-2xl relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
-                <div className="flex justify-end sticky top-0 md:absolute md:top-8 md:right-8 z-20 mb-4 md:mb-0">
-                    <button onClick={onClose} className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/5 backdrop-blur-xl">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[110]">
+                    <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 pt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 pt-8 md:pt-4 items-start">
                     <div className="space-y-8">
                         <div>
                             <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2">{steel.producer}</div>
