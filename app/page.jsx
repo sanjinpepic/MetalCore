@@ -210,6 +210,8 @@ Be concise and premium.`;
         }
     };
 
+    const clearCompare = () => setCompareList([]);
+
     // Filter knives based on search query across all fields (name, maker, category, steels, etc.)
     const filteredKnives = useMemo(() => {
         if (!knifeSearch) {
@@ -335,6 +337,7 @@ Be concise and premium.`;
                     filteredSteels={filteredSteels}
                     compareList={compareList}
                     toggleCompare={toggleCompare}
+                    clearCompare={clearCompare}
                     setDetailSteel={setDetailSteel}
                     setView={setView}
                 />
@@ -363,6 +366,7 @@ Be concise and premium.`;
                     items={compareList}
                     setView={setView}
                     toggleCompare={toggleCompare}
+                    clearCompare={clearCompare}
                     generateReport={generateReport}
                     isAiLoading={isAiLoading}
                 />

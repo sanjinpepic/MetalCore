@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, setDetailSteel, setView }) => {
+const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView }) => {
     return (
         <div className="flex flex-col flex-1 min-w-0">
             <header className="p-4 md:p-12 pb-6 pt-16 md:pt-12 space-y-6">
@@ -61,8 +61,16 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
 
             {/* Comparison Tray (Bottom Overlay) */}
             {compareList.length > 0 && (
-                <div className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 glass-panel border border-accent/30 p-2 pr-2 pl-4 md:pl-6 rounded-full flex items-center gap-3 md:gap-6 backdrop-blur-3xl z-50 animate-float shadow-2xl max-w-[90vw]">
-                    <div className="text-xs font-black text-white tracking-widest">{compareList.length} SELECTED</div>
+                <div className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 glass-panel border border-accent/30 p-2 pr-2 pl-4 md:pl-6 rounded-full flex items-center gap-3 md:gap-4 backdrop-blur-3xl z-50 animate-float shadow-2xl max-w-[95vw]">
+                    <div className="flex items-center gap-3 md:gap-4">
+                        <div className="text-[10px] md:text-xs font-black text-white tracking-widest whitespace-nowrap">{compareList.length} SELECTED</div>
+                        <button
+                            onClick={(e) => { e.stopPropagation(); clearCompare(); }}
+                            className="text-[10px] font-bold text-slate-400 hover:text-red-400 uppercase tracking-tighter transition-colors bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:border-red-400/30"
+                        >
+                            Clear All
+                        </button>
+                    </div>
                     <div className="h-6 w-px bg-white/10"></div>
                     <button onClick={() => setView('COMPARE')} className="bg-accent text-black px-4 md:px-8 py-2.5 rounded-full font-bold text-xs md:text-sm flex items-center gap-2 hover:bg-white transition-all shadow-xl shadow-accent/20">
                         <span className="hidden sm:inline">Compare Analysis</span>
