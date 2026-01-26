@@ -24,28 +24,28 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
 
     return (
         <div className="flex flex-col flex-1 min-w-0 h-full overflow-hidden">
-            <header className="sticky top-0 z-10 bg-black/95 backdrop-blur-sm border-b border-white/5 p-4 md:p-12 pb-6 pt-16 md:pt-12 space-y-6 shrink-0">
+            <header className="sticky top-0 z-10 bg-black/95 backdrop-blur-md border-b border-white/5 p-4 md:p-12 pb-4 md:pb-6 pt-20 md:pt-12 space-y-4 md:space-y-6 shrink-0">
                 <div>
-                    <h1 className="text-3xl md:text-5xl font-display font-black text-white tracking-tighter mb-4 italic">KNIFE LIBRARY</h1>
-                    <p className="text-slate-500 max-w-xl text-sm md:text-base">Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.</p>
+                    <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-2 md:mb-4 italic uppercase leading-none">KNIFE LIBRARY</h1>
+                    <p className="text-slate-500 max-w-xl text-[10px] md:text-base leading-snug">Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.</p>
                 </div>
-                <div className="flex flex-col md:flex-row md:items-center gap-6 max-w-4xl">
-                    <div className="relative bg-white/5 border border-white/10 rounded-2xl flex items-center px-4 py-2 group focus-within:border-accent/50 transition-all flex-1">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500 mr-3 group-focus-within:text-accent transition-colors">
+                <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 max-w-4xl">
+                    <div className="relative bg-white/5 border border-white/10 rounded-xl md:rounded-2xl flex items-center px-4 py-1.5 md:py-2 group focus-within:border-accent/50 transition-all flex-1">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500 mr-3 group-focus-within:text-accent transition-colors">
                             <circle cx="11" cy="11" r="8" />
                             <path d="m21 21-4.35-4.35" />
                         </svg>
-                        <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none h-10" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
+                        <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none h-8 md:h-10 text-sm" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2 md:pb-0">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${activeCategory === cat
-                                        ? "bg-accent text-black"
-                                        : "bg-white/5 text-slate-400 hover:bg-white/10"
+                                className={`px-4 py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold transition-all whitespace-nowrap ${activeCategory === cat
+                                    ? "bg-accent text-black"
+                                    : "bg-white/5 text-slate-400 hover:bg-white/10"
                                     }`}
                             >
                                 {cat}

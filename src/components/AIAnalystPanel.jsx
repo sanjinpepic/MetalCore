@@ -2,23 +2,21 @@ import React from 'react';
 
 const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAiQuery, askAi }) => {
     return (
-        <div className={`fixed top-0 right-0 h-full w-full md:w-[400px] glass-panel border-l border-white/10 z-[60] transition-transform duration-500 ${aiOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-            <div className="flex flex-col h-full">
-                <header className="p-6 border-b border-white/5 flex items-center justify-between">
+        <div className={`fixed top-0 right-0 h-full w-full md:w-[400px] glass-panel border-l border-white/10 z-[110] transition-transform duration-500 ease-in-out ${aiOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className="flex flex-col h-full bg-black/95 backdrop-blur-3xl">
+                <header className="p-4 md:p-6 border-b border-white/5 flex items-center justify-between pt-16 md:pt-6 shrink-0">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-indigo-500/10 rounded-xl">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-indigo-400">
+                        <div className="p-1.5 md:p-2 bg-indigo-500/10 rounded-lg md:rounded-xl">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-400">
                                 <rect x="3" y="11" width="18" height="10" rx="2" />
                                 <circle cx="12" cy="5" r="2" />
                                 <path d="M12 7v4" />
-                                <line x1="8" y1="16" x2="8" y2="16" />
-                                <line x1="16" y1="16" x2="16" y2="16" />
                             </svg>
                         </div>
-                        <h3 className="font-display font-black text-white uppercase tracking-tighter italic">AI Analyst</h3>
+                        <h3 className="font-display font-black text-white uppercase tracking-tighter italic text-sm md:text-base">AI Analyst</h3>
                     </div>
-                    <button onClick={() => setAiOpen(false)} className="p-2 hover:bg-white/5 rounded-full text-slate-500 hover:text-white transition-all">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <button onClick={() => setAiOpen(false)} className="p-2 hover:bg-white/5 bg-white/5 rounded-full text-slate-500 hover:text-white transition-all border border-white/5">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>

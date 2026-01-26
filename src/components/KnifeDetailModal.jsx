@@ -7,12 +7,11 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
     const cleanImage = knife.image?.replace('file:///', '') || '';
 
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-            <div className="relative w-full max-w-4xl bg-[#0a0a0b] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] animate-in fade-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
+            <div className="relative w-full h-full md:h-auto md:max-w-4xl bg-[#0a0a0b] md:border md:border-white/10 md:rounded-3xl shadow-2xl overflow-y-auto custom-scrollbar flex flex-col md:flex-row max-h-screen md:max-h-[90vh] animate-in fade-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
 
                 {/* Image Section */}
-                <div className="w-full md:w-1/2 h-64 md:h-auto bg-white/5 relative group">
+                <div className="w-full md:w-1/2 min-h-[40vh] md:h-auto bg-white/5 relative group shrink-0">
                     {cleanImage ? (
                         <img
                             src={cleanImage}
@@ -29,72 +28,83 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                             </svg>
                         </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0a0b]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0a0b]" />
 
                     <button
                         onClick={onClose}
-                        className="absolute top-4 left-4 p-2 bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden"
+                        className="absolute top-6 left-6 p-3 bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden border border-white/10 z-50"
                     >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M18 6 6 18" />
                             <path d="m6 6 12 12" />
                         </svg>
                     </button>
+
+                    <div className="absolute bottom-6 left-6 md:hidden">
+                        <div className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] mb-1">{knife.maker}</div>
+                        <h2 className="text-3xl font-black font-display text-white italic tracking-tight leading-none uppercase">{knife.name}</h2>
+                    </div>
                 </div>
 
                 {/* Content Section */}
-                <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto custom-scrollbar">
+                <div className="w-full md:w-1/2 p-6 md:p-10 relative">
                     <button
                         onClick={onClose}
                         className="hidden md:block absolute top-6 right-6 p-2 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all"
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M18 6 6 18" />
                             <path d="m6 6 12 12" />
                         </svg>
                     </button>
 
-                    <div className="mb-8">
+                    <div className="mb-8 hidden md:block">
                         <div className="text-xs font-bold text-accent uppercase tracking-widest mb-2">{knife.maker}</div>
-                        <h2 className="text-4xl font-black font-display text-white mb-2 italic tracking-tight">{knife.name}</h2>
+                        <h2 className="text-4xl font-black font-display text-white mb-2 italic tracking-tight uppercase leading-none">{knife.name}</h2>
                         <div className="inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold text-slate-300 uppercase tracking-wider">
                             {knife.category}
                         </div>
                     </div>
 
                     <div className="space-y-8">
+                        <div className="md:hidden flex">
+                            <div className="inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold text-slate-300 uppercase tracking-wider">
+                                {knife.category}
+                            </div>
+                        </div>
+
                         <div>
-                            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500">
+                            <h3 className="text-[10px] font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                                 </svg>
-                                The Design
+                                Design Philosophy
                             </h3>
-                            <p className="text-slate-400 leading-relaxed text-sm">
+                            <p className="text-slate-400 leading-relaxed text-[13px] md:text-sm">
                                 {knife.description}
                             </p>
                         </div>
 
                         <div>
-                            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
+                            <h3 className="text-[10px] font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
                                     <path d="M12 2v20" />
                                     <path d="M2 12h20" />
                                     <path d="m4.93 4.93 14.14 14.14" />
                                     <path d="m19.07 4.93-14.14 14.14" />
                                 </svg>
-                                Why It's Special
+                                The "Buy It" Factor
                             </h3>
-                            <div className="p-4 bg-accent/5 border border-accent/10 rounded-xl">
-                                <p className="text-slate-300 leading-relaxed text-sm italic">
+                            <div className="p-4 bg-white/5 border border-white/5 rounded-2xl">
+                                <p className="text-slate-300 leading-relaxed text-[13px] md:text-sm italic">
                                     "{knife.whySpecial}"
                                 </p>
                             </div>
                         </div>
 
                         <div>
-                            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-blue-400">
+                            <h3 className="text-[10px] font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-blue-400">
                                     <line x1="6" y1="3" x2="6" y2="15" />
                                     <circle cx="18" cy="6" r="3" />
                                     <circle cx="6" cy="18" r="3" />
@@ -102,15 +112,15 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                 </svg>
                                 Available Steels
                             </h3>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-2 pb-6 md:pb-0">
                                 {knife.steels.map(steelName => (
                                     <button
                                         key={steelName}
                                         onClick={() => onOpenSteel(steelName)}
-                                        className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition-all group flex items-center gap-2"
+                                        className="px-4 py-2 bg-white/5 hover:bg-accent hover:text-black border border-white/5 rounded-xl text-[11px] font-bold text-slate-300 transition-all group flex items-center gap-2"
                                     >
                                         {steelName}
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all text-accent">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all">
                                             <path d="M5 12h14" />
                                             <path d="m12 5 7 7-7 7" />
                                         </svg>
@@ -120,12 +130,12 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                         </div>
 
                         {knife.link && (
-                            <div className="pt-6 border-t border-white/5 text-center md:text-left">
+                            <div className="pt-6 border-t border-white/5 text-center md:text-left pb-10 md:pb-0">
                                 <a
                                     href={knife.link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-accent transition-colors"
+                                    className="inline-flex items-center gap-2 text-[10px] font-bold text-slate-500 hover:text-accent transition-colors uppercase tracking-widest"
                                 >
                                     Visit Manufacturer Page
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
