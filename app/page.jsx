@@ -245,9 +245,9 @@ Be concise and premium.`;
             const matchesSteel = k.steels.some(steelName => {
                 const normalizedSteel = normalize(steelName);
                 const normalizedSearch = normalize(searchLower);
-                return steelName.toLowerCase().includes(searchLower) || 
-                       normalizedSteel.includes(normalizedSearch) ||
-                       normalizedSearch.includes(normalizedSteel);
+                return steelName.toLowerCase().includes(searchLower) ||
+                    normalizedSteel.includes(normalizedSearch) ||
+                    normalizedSearch.includes(normalizedSteel);
             });
             if (matchesSteel) return true;
 
@@ -347,6 +347,9 @@ Be concise and premium.`;
                 <PerformanceMatrix
                     steels={filteredSteels}
                     setDetailSteel={setDetailSteel}
+                    activeProducer={activeProducer}
+                    setActiveProducer={setActiveProducer}
+                    producers={producers}
                 />
             )}
 

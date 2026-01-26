@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const PerformanceMatrix = ({ steels, setDetailSteel }) => {
+const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActiveProducer, producers }) => {
     const producerColors = {
         "Crucible": "#FF5733", // Vibrant Orange
         "Böhler": "#33FF57",   // Neon Green
@@ -17,36 +17,21 @@ const PerformanceMatrix = ({ steels, setDetailSteel }) => {
     };
 
     const getProducerColor = (producer) => {
-        // Simple match or fallback
         const found = Object.keys(producerColors).find(k => producer.includes(k));
         return found ? producerColors[found] : producerColors["Other"];
     };
 
-    const uniqueProducers = Array.from(new Set(steels.map(s => s.producer))).sort();
-
     return (
-        <div className="flex flex-col flex-1 min-w-0 p-4 md:p-12 pb-6 pt-16 md:pt-12">
-            <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                    <h1 className="text-3xl md:text-5xl font-display font-black text-white tracking-tighter mb-4 italic uppercase">Performance Matrix</h1>
-                    <p className="text-slate-500 text-sm">Visualizing the Toughness vs. Edge Retention trade-off (Larrin Plot).</p>
-                </div>
-
-                {/* Producer Legend */}
-                <div className="flex flex-wrap gap-3 max-w-xl">
-                    {uniqueProducers.map(prod => (
-                        <div key={prod} className="flex items-center gap-2 bg-white/5 px-2 py-1 rounded-md border border-white/5">
-                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getProducerColor(prod) }} />
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{prod}</span>
-                        </div>
-                    ))}
-                </div>
+        <div className="flex flex-col flex-1 min-w-0 p-4 md:p-12 pb-6 pt-16 md:pt-12 h-screen overflow-hidden">
+            <div className="mb-8 shrink-0">
+                <h1 className="text-3xl md:text-5xl font-display font-black text-white tracking-tighter mb-4 italic uppercase">Performance Matrix</h1>
+                <p className="text-slate-500 text-sm">Visualizing the Toughness vs. Edge Retention trade-off (Larrin Plot).</p>
             </div>
 
-            <div className="flex-1 glass-panel rounded-[2.5rem] p-4 md:p-10 relative overflow-hidden">
+            <div className="flex-1 glass-panel rounded-[2.5rem] p-4 md:p-10 relative overflow-hidden mb-8">
                 {/* Quadrant Labels */}
-                <div className="absolute top-10 right-10 text-[10px] font-black text-accent/40 uppercase tracking-[0.2em]">GOD TIER (High Both)</div>
-                <div className="absolute bottom-10 left-10 text-[10px] font-black text-slate-700 uppercase tracking-[0.2em]">BUDGET (Balanced Low)</div>
+                <div className="absolute top-10 right-10 text-[10px] font-black text-accent/40 uppercase tracking-[0.2em] pointer-events-none">GOD TIER (High Both)</div>
+                <div className="absolute bottom-10 left-10 text-[10px] font-black text-slate-700 uppercase tracking-[0.2em] pointer-events-none">BUDGET (Balanced Low)</div>
 
                 <ResponsiveContainer width="100%" height="100%">
                     <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 20 }}>
@@ -112,6 +97,29 @@ const PerformanceMatrix = ({ steels, setDetailSteel }) => {
                         />
                     </ScatterChart>
                 </ResponsiveContainer>
+            </div>
+
+            {/* Interactive Producer Legend at Bottom */}
+            <div className="flex flex-wrap gap-3 justify-center pb-8 shrink-0">
+                {producers.map(prod => {
+                    const isActive = activeProducer === prod;
+                    const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
+                    return (
+                        <button
+                            key={prod}
+                            onClick={() => setActiveProducer(prod)}
+                            className={`flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border transition-all hover:bg-white/10 active:scale-95 ${isActive
+                                    ? "border-white/40 bg-white/10 shadow-lg shadow-white/5"
+                                    : "border-white/5 text-slate-500"
+                                }`}
+                        >
+                            <div className={`w-2 h-2 rounded-full transition-all ${isActive ? "scale-125 shadow-[0_0_8px_rgba(255,255,255,0.5)]" : "opacity-40"}`} style={{ backgroundColor: color }} />
+                            <span className={`text-[10px] font-bold uppercase tracking-wider transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
+                                {prod}
+                            </span>
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );
