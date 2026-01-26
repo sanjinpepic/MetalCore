@@ -8,7 +8,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
-            <div className="relative w-full h-full md:h-auto md:max-w-4xl bg-[#0a0a0b] md:border md:border-white/10 md:rounded-3xl shadow-2xl overflow-y-auto custom-scrollbar flex flex-col md:flex-row max-h-screen md:max-h-[90vh] animate-in fade-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
+            <div className="relative w-full h-full md:h-auto md:max-w-4xl bg-[#0a0a0b] md:border md:border-white/10 md:rounded-3xl shadow-2xl overflow-y-auto custom-scrollbar flex flex-col md:flex-row md:items-start max-h-screen md:max-h-[90vh] animate-in fade-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
 
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 min-h-[40vh] md:h-auto bg-white/5 relative group shrink-0">
@@ -48,15 +48,17 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
 
                 {/* Content Section */}
                 <div className="w-full md:w-1/2 p-6 md:p-10 relative">
-                    <button
-                        onClick={onClose}
-                        className="hidden md:block absolute top-6 right-6 p-2 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all"
-                    >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M18 6 6 18" />
-                            <path d="m6 6 12 12" />
-                        </svg>
-                    </button>
+                    <div className="hidden md:block absolute top-6 right-6 z-50">
+                        <button
+                            onClick={onClose}
+                            className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all border border-white/10 backdrop-blur-3xl group"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
+                                <path d="M18 6 6 18" />
+                                <path d="m6 6 12 12" />
+                            </svg>
+                        </button>
+                    </div>
 
                     <div className="mb-10 hidden md:block">
                         <div className="text-xs font-bold text-accent uppercase tracking-widest mb-2">{knife.maker}</div>
