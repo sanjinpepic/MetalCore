@@ -16,17 +16,17 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 pt-6">
                     <div className="space-y-8">
                         <div>
-                            <div className="text-base font-black text-accent uppercase tracking-[0.2em] mb-3">{steel.producer}</div>
-                            <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-6 leading-none italic uppercase tracking-tighter">{steel.name}</h2>
-                            <div className="h-1.5 w-16 bg-accent rounded-full mb-8"></div>
-                            <p className="text-slate-300 text-lg md:text-xl leading-relaxed font-medium italic">"{steel.desc}"</p>
+                            <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2">{steel.producer}</div>
+                            <h2 className="text-2xl md:text-4xl font-display font-black text-white mb-4 leading-none italic uppercase tracking-tighter">{steel.name}</h2>
+                            <div className="h-1 w-12 bg-accent rounded-full mb-6"></div>
+                            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-medium italic">"{steel.desc}"</p>
                         </div>
 
-                        <div className="space-y-8">
+                        <div className="space-y-6">
                             <div>
-                                <div className="text-base font-bold text-accent uppercase tracking-widest mb-4">Optimal Deployment</div>
-                                <div className="px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-base md:text-lg text-slate-200 flex items-center gap-4 shadow-xl">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent shrink-0">
+                                <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-3">Optimal Deployment</div>
+                                <div className="px-4 py-3.5 bg-white/5 border border-white/10 rounded-2xl text-sm md:text-base text-slate-200 flex items-center gap-3.5 shadow-xl">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent shrink-0">
                                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                                     </svg>
                                     <span className="font-semibold">{steel.use_case}</span>
@@ -35,16 +35,16 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
 
                             {steel.knives && steel.knives.length > 0 && (
                                 <div className="pb-4">
-                                    <div className="text-base font-bold text-slate-500 uppercase tracking-widest mb-4">Popular Examples</div>
-                                    <div className="grid grid-cols-1 gap-3">
+                                    <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Popular Examples</div>
+                                    <div className="grid grid-cols-1 gap-2.5">
                                         {steel.knives.map((k, i) => (
                                             <button
                                                 key={i}
                                                 onClick={() => onOpenKnife && onOpenKnife(k)}
-                                                className="px-5 py-4 bg-white/5 border border-white/5 hover:border-accent/40 hover:bg-white/10 rounded-2xl text-base md:text-lg text-slate-200 text-left transition-all group flex items-center justify-between shadow-lg"
+                                                className="px-4 py-3.5 bg-white/5 border border-white/5 hover:border-accent/40 hover:bg-white/10 rounded-2xl text-sm md:text-base text-slate-200 text-left transition-all group flex items-center justify-between shadow-lg"
                                             >
                                                 <span className="font-bold"> {k}</span>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-40 group-hover:opacity-100 transition-opacity text-accent group-hover:translate-x-1 transition-transform">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-40 group-hover:opacity-100 transition-opacity text-accent group-hover:translate-x-1 transition-transform">
                                                     <path d="M5 12h14" />
                                                     <path d="m12 5 7 7-7 7" />
                                                 </svg>
@@ -57,32 +57,32 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                     </div>
 
                     <div className="space-y-8">
-                        <div className="glass-panel p-6 md:p-10 rounded-[2.5rem] border-white/10 bg-black/40">
-                            <h4 className="text-base font-bold text-white uppercase tracking-widest mb-8 flex items-center gap-3">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
+                        <div className="glass-panel p-6 md:p-8 rounded-[2rem] border-white/10 bg-black/40">
+                            <h4 className="text-sm md:text-base font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-3">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
                                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                                     <polyline points="22 4 12 14.01 9 11.01" />
                                 </svg>
                                 Performance Profile
                             </h4>
-                            <div className="space-y-8">
+                            <div className="space-y-6">
                                 <div>
-                                    <div className="text-sm font-bold text-emerald-500 uppercase tracking-widest mb-4">Core Strengths</div>
-                                    <div className="space-y-3">
+                                    <div className="text-[10px] md:text-xs font-bold text-emerald-500 uppercase tracking-widest mb-3">Core Strengths</div>
+                                    <div className="space-y-2.5">
                                         {steel.pros?.map((p, i) => (
-                                            <div key={i} className="text-base md:text-lg text-slate-400 flex items-start gap-3">
-                                                <div className="mt-2.5 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></div>
+                                            <div key={i} className="text-xs md:text-sm text-slate-400 flex items-start gap-2.5">
+                                                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></div>
                                                 <span className="font-medium">{p}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="text-sm font-bold text-rose-500 uppercase tracking-widest mb-4">Trade-offs</div>
-                                    <div className="space-y-3">
+                                    <div className="text-[10px] md:text-xs font-bold text-rose-500 uppercase tracking-widest mb-3">Trade-offs</div>
+                                    <div className="space-y-2.5">
                                         {steel.cons?.map((p, i) => (
-                                            <div key={i} className="text-base md:text-lg text-slate-400 flex items-start gap-3">
-                                                <div className="mt-2.5 w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></div>
+                                            <div key={i} className="text-xs md:text-sm text-slate-400 flex items-start gap-2.5">
+                                                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></div>
                                                 <span className="font-medium">{p}</span>
                                             </div>
                                         ))}
@@ -94,8 +94,8 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                         <div className="grid grid-cols-3 gap-3 pb-8">
                             {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
                                 <div key={el} className="bg-black/40 rounded-2xl p-4 text-center border border-white/10">
-                                    <div className="text-[10px] text-slate-600 uppercase font-black mb-2">{el}</div>
-                                    <div className="text-lg md:text-2xl font-mono font-black text-white">{steel[el] || 0}%</div>
+                                    <div className="text-[9px] text-slate-600 uppercase font-black mb-1.5">{el}</div>
+                                    <div className="text-base md:text-xl font-mono font-black text-white">{steel[el] || 0}%</div>
                                 </div>
                             ))}
                         </div>

@@ -20,8 +20,8 @@ const Sidebar = ({
     return (
         <aside className={`fixed md:relative w-72 md:w-80 glass-panel border-r border-white/5 flex flex-col z-[80] md:z-10 h-full transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
             <div className="p-6 md:p-8 pb-4 flex items-center justify-between shrink-0">
-                <div className="flex items-center gap-2 md:gap-3 text-accent font-display font-black text-xl md:text-2xl tracking-tighter italic">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <div className="flex items-center gap-2 md:gap-3 text-accent font-display font-black text-lg md:text-xl tracking-tighter italic">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <ellipse cx="12" cy="5" rx="9" ry="3" />
                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
@@ -47,7 +47,7 @@ const Sidebar = ({
                         <button
                             key={nav.id}
                             onClick={() => { setView(nav.id); setMobileMenuOpen(false); }}
-                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-4 text-base font-bold transition-all ${view === nav.id ? 'bg-accent text-black shadow-lg shadow-accent/10 scale-[1.02]' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
+                            className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${view === nav.id ? 'bg-accent text-black shadow-lg shadow-accent/10 scale-[1.02]' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
                         >
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 {nav.id === 'HOME' && <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></>}
@@ -61,7 +61,7 @@ const Sidebar = ({
 
                     <button
                         onClick={() => { setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                        className={`w-full py-4 px-6 rounded-xl flex items-center gap-4 text-base font-bold transition-all mt-2 ${aiOpen ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:bg-white/5 hover:text-indigo-400'}`}
+                        className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all mt-2 ${aiOpen ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:bg-white/5 hover:text-indigo-400'}`}
                     >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                             <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
@@ -72,9 +72,9 @@ const Sidebar = ({
 
                 <div className="my-8 h-px bg-white/5 mx-4" />
 
-                <section className="space-y-6">
-                    <div className="text-base font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-3 px-2">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <section className="space-y-4">
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2.5 px-2">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                         </svg>
                         Filter Producer
@@ -92,9 +92,9 @@ const Sidebar = ({
                     </div>
                 </section>
 
-                <section className="mt-12 space-y-8">
-                    <div className="text-base font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-3 px-2">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <section className="mt-10 space-y-6">
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2.5 px-2">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
                             <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
                         </svg>
@@ -106,13 +106,13 @@ const Sidebar = ({
                             { id: 'minCr', label: 'Chromium', icon: 'Cr' },
                             { id: 'minV', label: 'Vanadium', icon: 'V' },
                         ].map(f => (
-                            <div key={f.id} className="space-y-3">
-                                <div className="flex justify-between items-center text-sm font-mono text-slate-400">
-                                    <span className="flex items-center gap-3">
-                                        <span className="w-6 h-6 flex items-center justify-center bg-white/5 rounded border border-white/10 text-[10px] font-bold text-slate-500">{f.icon}</span>
+                            <div key={f.id} className="space-y-2.5">
+                                <div className="flex justify-between items-center text-xs font-mono text-slate-400">
+                                    <span className="flex items-center gap-2.5">
+                                        <span className="w-5 h-5 flex items-center justify-center bg-white/5 rounded border border-white/10 text-[9px] font-bold text-slate-500">{f.icon}</span>
                                         {f.label}
                                     </span>
-                                    <span className="text-accent font-bold text-base">{filters[f.id]}%</span>
+                                    <span className="text-accent font-bold text-sm">{filters[f.id]}%</span>
                                 </div>
                                 <input
                                     type="range"
@@ -128,9 +128,9 @@ const Sidebar = ({
                     </div>
                 </section>
 
-                <section className="mt-12 pt-8 border-t border-white/5">
-                    <button onClick={handleImportClick} className="w-full py-5 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-base font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
+                <section className="mt-10 pt-6 border-t border-white/5">
+                    <button onClick={handleImportClick} className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                             <polyline points="14 2 14 8 20 8" />
                             <path d="M12 18v-6" />

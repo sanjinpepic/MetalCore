@@ -22,16 +22,16 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     };
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 p-6 md:p-16 pb-8 md:pb-12 pt-24 md:pt-16 h-screen overflow-hidden bg-black">
-            <div className="mb-6 md:mb-12 shrink-0">
-                <h1 className="text-3xl md:text-6xl font-display font-black text-white tracking-tighter mb-4 md:mb-6 italic uppercase leading-none">Performance Matrix</h1>
-                <p className="text-slate-500 text-base md:text-xl leading-relaxed">Visualizing the Toughness vs. Edge Retention trade-off (Larrin Plot).</p>
+        <div className="flex flex-col flex-1 min-w-0 p-6 md:p-12 pb-6 md:pb-8 pt-24 md:pt-12 h-screen overflow-hidden bg-black">
+            <div className="mb-6 md:mb-8 shrink-0">
+                <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-2 md:mb-4 italic uppercase leading-none">Performance Matrix</h1>
+                <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the Toughness vs. Edge Retention trade-off (Larrin Plot).</p>
             </div>
 
-            <div className="flex-1 glass-panel rounded-3xl md:rounded-[3rem] p-4 md:p-12 relative overflow-hidden mb-8 md:mb-12">
+            <div className="flex-1 glass-panel rounded-3xl md:rounded-[2.5rem] p-4 md:p-10 relative overflow-hidden mb-8 md:mb-10">
                 {/* Quadrant Labels */}
-                <div className="absolute top-6 right-8 md:top-12 md:right-12 text-[10px] md:text-base font-black text-accent/40 uppercase tracking-[0.3em] pointer-events-none">GOD TIER</div>
-                <div className="absolute bottom-20 left-8 md:bottom-12 md:left-12 text-[10px] md:text-base font-black text-slate-700 uppercase tracking-[0.3em] pointer-events-none">BUDGET</div>
+                <div className="absolute top-6 right-8 md:top-10 md:right-10 text-[10px] font-black text-accent/40 uppercase tracking-[0.2em] pointer-events-none">GOD TIER</div>
+                <div className="absolute bottom-20 left-8 md:bottom-10 md:left-10 text-[10px] font-black text-slate-700 uppercase tracking-[0.2em] pointer-events-none">BUDGET</div>
 
                 <ResponsiveContainer width="100%" height="100%">
                     <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 10 }}>
@@ -43,8 +43,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             stroke="#475569"
                             unit=""
                             domain={[0, 10]}
-                            tick={{ fontSize: 13, fontWeight: 'bold' }}
-                            label={{ value: 'Edge Retention →', position: 'insideBottom', fill: '#64748b', fontSize: 14, fontWeight: 'bold', dy: 25 }}
+                            tick={{ fontSize: 10, fontWeight: 'bold' }}
+                            label={{ value: 'Edge Retention →', position: 'insideBottom', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dy: 20 }}
                         />
                         <YAxis
                             type="number"
@@ -53,8 +53,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             stroke="#475569"
                             unit=""
                             domain={[0, 10]}
-                            tick={{ fontSize: 13, fontWeight: 'bold' }}
-                            label={{ value: '← Toughness', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 14, fontWeight: 'bold', dx: -5 }}
+                            tick={{ fontSize: 10, fontWeight: 'bold' }}
+                            label={{ value: '← Toughness', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
                         />
                         <Tooltip
                             cursor={{ strokeDasharray: '3 3' }}
@@ -63,20 +63,20 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     const data = payload[0].payload;
                                     const color = getProducerColor(data.producer);
                                     return (
-                                        <div className="glass-panel p-4 md:p-6 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-3xl min-w-[200px]">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
-                                                <div className="text-sm font-bold uppercase tracking-widest" style={{ color: color }}>{data.producer}</div>
+                                        <div className="glass-panel p-3 md:p-4 rounded-xl border border-white/10 shadow-2xl backdrop-blur-3xl min-w-[180px]">
+                                            <div className="flex items-center gap-2 mb-1.5">
+                                                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                                                <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: color }}>{data.producer}</div>
                                             </div>
-                                            <div className="text-lg md:text-xl font-black text-white mb-4 italic uppercase">{data.name}</div>
-                                            <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-4">
+                                            <div className="text-base md:text-lg font-black text-white mb-3 italic uppercase">{data.name}</div>
+                                            <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-3">
                                                 <div>
-                                                    <div className="text-[10px] text-slate-500 uppercase font-black mb-1">Edge</div>
-                                                    <div className="text-base font-mono font-bold text-white">{data.edge}</div>
+                                                    <div className="text-[9px] text-slate-500 uppercase font-black mb-1">Edge</div>
+                                                    <div className="text-sm font-mono font-bold text-white">{data.edge}</div>
                                                 </div>
                                                 <div>
-                                                    <div className="text-[10px] text-slate-500 uppercase font-black mb-1">Toughness</div>
-                                                    <div className="text-base font-mono font-bold text-white">{data.toughness}</div>
+                                                    <div className="text-[9px] text-slate-500 uppercase font-black mb-1">Toughness</div>
+                                                    <div className="text-sm font-mono font-bold text-white">{data.toughness}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </div>
 
             {/* Interactive Producer Legend at Bottom */}
-            <div className="flex flex-wrap md:justify-center gap-3 md:gap-4 pb-12 shrink-0 overflow-x-auto no-scrollbar max-w-full">
+            <div className="flex flex-wrap md:justify-center gap-2 md:gap-3 pb-10 shrink-0 overflow-x-auto no-scrollbar max-w-full">
                 {producers.map(prod => {
                     const isActive = activeProducer === prod;
                     const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
@@ -126,13 +126,13 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         <button
                             key={prod}
                             onClick={() => setActiveProducer(prod)}
-                            className={`flex items-center gap-3 bg-white/5 px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl border transition-all whitespace-nowrap active:scale-95 ${isActive
+                            className={`flex items-center gap-2 md:gap-3 bg-white/5 px-3 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl border transition-all whitespace-nowrap active:scale-95 ${isActive
                                 ? "border-white/40 bg-white/10 shadow-lg shadow-white/5"
                                 : "border-white/5 text-slate-500"
                                 }`}
                         >
-                            <div className={`w-2 h-2 md:w-2.5 md:h-2.5 rounded-full transition-all ${isActive ? "scale-125 glow-white" : "opacity-40"}`} style={{ backgroundColor: color }} />
-                            <span className={`text-base font-bold uppercase tracking-widest transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
+                            <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all ${isActive ? "scale-125 glow-white" : "opacity-40"}`} style={{ backgroundColor: color }} />
+                            <span className={`text-[10px] md:text-xs font-bold uppercase tracking-widest transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
                                 {prod}
                             </span>
                         </button>
