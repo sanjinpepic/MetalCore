@@ -8,10 +8,10 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
-            <div className="relative w-full h-full md:h-auto md:max-w-5xl md:min-h-[700px] bg-[#0a0a0b] md:border md:border-white/10 md:rounded-3xl shadow-2xl overflow-y-auto custom-scrollbar flex flex-col md:flex-row md:items-stretch max-h-screen md:max-h-[90vh] animate-in fade-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
+            <div className="relative w-full h-full md:h-[750px] md:max-w-5xl bg-[#0a0a0b] md:border md:border-white/10 md:rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row md:items-stretch animate-in fade-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
 
                 {/* Image Section */}
-                <div className="w-full md:w-1/2 min-h-[40vh] bg-white/5 relative group shrink-0">
+                <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white/5 relative group shrink-0 overflow-hidden">
                     {cleanImage ? (
                         <img
                             src={cleanImage}
@@ -47,7 +47,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                 </div>
 
                 {/* Content Section */}
-                <div className="w-full md:w-1/2 p-6 md:p-10 relative">
+                <div className="w-full md:w-1/2 p-6 md:p-10 relative overflow-y-auto custom-scrollbar md:h-full">
                     <div className="hidden md:block absolute top-6 right-6 z-50">
                         <button
                             onClick={onClose}
