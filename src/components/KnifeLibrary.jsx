@@ -55,7 +55,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 </div>
             </header>
             <div className="flex-1 overflow-y-auto custom-scrollbar">
-                <div className="p-6 md:p-12 pt-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 pb-32">
+                <div className="p-6 md:p-12 pt-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start pb-32">
                     {filteredKnives.map(knife => (
                         <div
                             key={knife.id}

@@ -81,8 +81,8 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
     return (
         <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar bg-slate-950">
-            <header className="p-6 md:p-12 flex items-center justify-between sticky top-0 bg-slate-950/90 backdrop-blur-xl z-[90] border-b border-white/10 pt-24 md:pt-12">
-                <div className="flex items-center gap-4 md:gap-6 shrink-0">
+            <header className="px-4 py-4 md:p-12 flex items-center justify-between sticky top-0 bg-slate-950/90 backdrop-blur-xl z-[90] border-b border-white/10 pt-14 md:pt-12">
+                <div className="flex items-center gap-3 md:gap-6 shrink-0">
                     <button onClick={() => setView('SEARCH')} className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-400 hover:text-white transition-all border border-white/5 group">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:-translate-x-1 transition-transform">
                             <path d="m15 18-6-6 6-6" />
