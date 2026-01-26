@@ -3,7 +3,7 @@ import React from 'react';
 const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={onClose}>
-            <div className="glass-panel w-full max-w-md p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
+            <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-8">
                     <div className="flex items-center gap-2.5">
                         <div className="p-1.5 bg-white/5 rounded-lg">
