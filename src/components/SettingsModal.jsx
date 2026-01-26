@@ -25,28 +25,28 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                     </button>
                 </div>
 
-                <div className="space-y-6">
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Gemini API Key</label>
+                <div className="space-y-8">
+                    <div className="space-y-4">
+                        <label className="text-base font-black text-slate-500 uppercase tracking-widest block">Gemini API Key</label>
                         <input
                             type="password"
                             placeholder="Paste your API key here..."
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white outline-none focus:border-accent/50 transition-all font-mono"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 text-base md:text-lg text-white outline-none focus:border-accent/50 transition-all font-mono shadow-xl"
                             value={apiKey}
                             onChange={e => {
                                 setApiKey(e.target.value);
                                 localStorage.setItem('metalcore_gemini_key', e.target.value);
                             }}
                         />
-                        <p className="text-[10px] text-slate-500 leading-relaxed italic">
-                            Get a free API key from the <a href="https://aistudio.google.com/app/apikey" target="_blank" className="text-accent underline hover:text-white">Google AI Studio</a>. Keys are stored locally in your browser.
+                        <p className="text-[11px] text-slate-500 leading-relaxed italic font-medium">
+                            Get a free API key from the <a href="https://aistudio.google.com/app/apikey" target="_blank" className="text-accent underline hover:text-white transition-colors">Google AI Studio</a>. Keys are stored safely in local storage.
                         </p>
                     </div>
 
-                    <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Model Version</label>
-                            <div className="flex gap-2">
+                    <div className="space-y-4">
+                        <div className="flex flex-col gap-4">
+                            <label className="text-base font-black text-slate-500 uppercase tracking-widest block">Model Selection</label>
+                            <div className="flex flex-wrap gap-2">
                                 {["gemini-2.0-flash", "gemini-3-flash-preview", "gemini-3-pro-preview"].map(m => (
                                     <button
                                         key={m}
@@ -54,7 +54,7 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                                             setAiModel(m);
                                             localStorage.setItem('metalcore_gemini_model', m);
                                         }}
-                                        className={`text-[9px] px-2 py-1 rounded-md border transition-all ${aiModel === m ? 'bg-accent/20 border-accent/40 text-accent' : 'bg-white/5 border-white/10 text-slate-500 hover:border-white/20'}`}
+                                        className={`text-[11px] px-3 py-2 rounded-lg border transition-all font-bold uppercase tracking-tighter ${aiModel === m ? 'bg-accent text-black border-accent' : 'bg-white/5 border-white/10 text-slate-500 hover:border-white/20'}`}
                                     >
                                         {m.replace('gemini-', '')}
                                     </button>
@@ -64,17 +64,17 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                         <input
                             type="text"
                             placeholder="e.g. gemini-3-flash-preview"
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white outline-none focus:border-accent/50 transition-all font-mono"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 text-base md:text-lg text-white outline-none focus:border-accent/50 transition-all font-mono shadow-xl"
                             value={aiModel}
                             onChange={e => {
                                 setAiModel(e.target.value);
                                 localStorage.setItem('metalcore_gemini_model', e.target.value);
                             }}
                         />
-                        <p className="text-[10px] text-slate-500 leading-relaxed italic">Specify the model ID. Click a suggestion above or type a custom one.</p>
+                        <p className="text-[11px] text-slate-500 leading-relaxed italic font-medium">Specify the model ID. Large models offer deeper analysis but may be slower.</p>
                     </div>
 
-                    <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-widest rounded-2xl text-xs hover:bg-accent transition-all">Save & Close</button>
+                    <button onClick={onClose} className="w-full py-5 bg-white text-black font-black uppercase tracking-[0.2em] rounded-2xl text-base hover:bg-accent transition-all shadow-2xl active:scale-[0.98]">Save & Initialize</button>
                 </div>
             </div>
         </div>
