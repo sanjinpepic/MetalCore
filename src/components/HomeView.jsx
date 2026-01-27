@@ -94,7 +94,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         </h1>
 
                         <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-                            The ultimate metallurgical database. Real-time edge retention, toughness, and chemical analysis for the world's most elite cutlery alloys.
+                            The ultimate metallurgical database. Real-time edge retention, toughness, and chemical analysis for the world's most elite knife alloys.
                         </p>
                     </div>
 
