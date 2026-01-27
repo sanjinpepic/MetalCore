@@ -1,8 +1,19 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending }) => {
     const searchContainerRef = useRef(null);
+
+    // Axis configuration for mini-matrix
+    const axisOptions = {
+        edge: { label: 'Edge Retention', shortLabel: 'Edge' },
+        toughness: { label: 'Toughness', shortLabel: 'Tough' },
+        corrosion: { label: 'Corrosion Resistance', shortLabel: 'Corrosion' },
+        sharpen: { label: 'Ease of Sharpening', shortLabel: 'Sharpen' }
+    };
+
+    const [xAxis, setXAxis] = useState('edge');
+    const [yAxis, setYAxis] = useState('toughness');
 
     // Robust Search Matching (Forgiving hyphens and spaces)
     const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
@@ -39,13 +50,13 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
         return steels[seed % steels.length];
     }, [steels]);
 
-    // Mini-Matrix Data (Only "Elite" steels)
+    // Mini-Matrix Data (Only "Elite" steels based on selected axes)
     const eliteSteels = useMemo(() => {
         return steels
-            .filter(s => s.edge >= 6.5 && s.toughness >= 6)
-            .sort((a, b) => (b.edge + b.toughness) - (a.edge + a.toughness))
+            .filter(s => s[xAxis] >= 6.5 && s[yAxis] >= 6)
+            .sort((a, b) => (b[xAxis] + b[yAxis]) - (a[xAxis] + a[yAxis]))
             .slice(0, 20);
-    }, [steels]);
+    }, [steels, xAxis, yAxis]);
 
     const activeProducers = useMemo(() => {
         const unique = new Set(eliteSteels.map(s => {
@@ -227,24 +238,68 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                 </button>
                             </div>
 
+                            {/* Compact Axis Selectors */}
+                            <div className="flex flex-wrap gap-3 mb-6">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">X:</span>
+                                    <div className="flex gap-1.5">
+                                        {Object.keys(axisOptions).map(key => (
+                                            <button
+                                                key={`home-x-${key}`}
+                                                onClick={() => setXAxis(key)}
+                                                disabled={key === yAxis}
+                                                className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider transition-all ${xAxis === key
+                                                    ? 'bg-accent text-black'
+                                                    : key === yAxis
+                                                        ? 'bg-white/5 text-slate-700 cursor-not-allowed'
+                                                        : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'
+                                                    }`}
+                                            >
+                                                {axisOptions[key].shortLabel}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Y:</span>
+                                    <div className="flex gap-1.5">
+                                        {Object.keys(axisOptions).map(key => (
+                                            <button
+                                                key={`home-y-${key}`}
+                                                onClick={() => setYAxis(key)}
+                                                disabled={key === xAxis}
+                                                className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider transition-all ${yAxis === key
+                                                    ? 'bg-accent text-black'
+                                                    : key === xAxis
+                                                        ? 'bg-white/5 text-slate-700 cursor-not-allowed'
+                                                        : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'
+                                                    }`}
+                                            >
+                                                {axisOptions[key].shortLabel}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="h-[350px] md:h-[450px] w-full bg-black/40 rounded-[2rem] border border-white/5 overflow-hidden relative group-hover:border-white/10 transition-colors">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <ScatterChart margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
                                         <XAxis
                                             type="number"
-                                            dataKey="edge"
+                                            dataKey={xAxis}
                                             domain={[7, 10]}
                                             tick={false}
                                             axisLine={false}
-                                            label={{ value: 'Edge Retention →', position: 'bottom', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
+                                            label={{ value: `${axisOptions[xAxis].label} →`, position: 'bottom', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
                                         />
                                         <YAxis
                                             type="number"
-                                            dataKey="toughness"
+                                            dataKey={yAxis}
                                             domain={[6, 10]}
                                             tick={false}
                                             axisLine={false}
-                                            label={{ value: 'Toughness →', angle: -90, position: 'left', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
+                                            label={{ value: `${axisOptions[yAxis].label} →`, angle: -90, position: 'left', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
                                         />
                                         <Tooltip
                                             cursor={{ strokeDasharray: '3 3' }}
@@ -259,14 +314,22 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                                 <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: color }}>{data.producer}</div>
                                                             </div>
                                                             <div className="text-lg font-black text-white mb-3 italic uppercase">{data.name}</div>
-                                                            <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-3">
-                                                                <div>
-                                                                    <div className="text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest">Edge</div>
+                                                            <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-3">
+                                                                <div className={xAxis === 'edge' || yAxis === 'edge' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'edge' || yAxis === 'edge' ? 'text-accent' : ''}`}>Edge</div>
                                                                     <div className="text-sm font-mono font-bold text-white">{data.edge}</div>
                                                                 </div>
-                                                                <div>
-                                                                    <div className="text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest">Toughness</div>
+                                                                <div className={xAxis === 'toughness' || yAxis === 'toughness' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'toughness' || yAxis === 'toughness' ? 'text-accent' : ''}`}>Tough</div>
                                                                     <div className="text-sm font-mono font-bold text-white">{data.toughness}</div>
+                                                                </div>
+                                                                <div className={xAxis === 'corrosion' || yAxis === 'corrosion' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'corrosion' || yAxis === 'corrosion' ? 'text-accent' : ''}`}>Corr</div>
+                                                                    <div className="text-sm font-mono font-bold text-white">{data.corrosion}</div>
+                                                                </div>
+                                                                <div className={xAxis === 'sharpen' || yAxis === 'sharpen' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'sharpen' || yAxis === 'sharpen' ? 'text-accent' : ''}`}>Sharp</div>
+                                                                    <div className="text-sm font-mono font-bold text-white">{data.sharpen}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
