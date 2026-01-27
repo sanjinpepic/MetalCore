@@ -40,16 +40,43 @@ export default function SteelLedger() {
     const [aiChat, setAiChat] = useState([]);
     const [aiModel, setAiModel] = useState("gemini-1.5-flash");
     const [showSettings, setShowSettings] = useState(false);
+    const [trendingScores, setTrendingScores] = useState({});
 
     const fileInputRef = useRef(null);
 
     const producers = ["ALL", ...new Set(steels.map(s => s.producer))];
+
+    // Trending Logic
+    const incrementTrending = (steelId) => {
+        if (!steelId) return;
+        const newScores = { ...trendingScores, [steelId]: (trendingScores[steelId] || 0) + 1 };
+        setTrendingScores(newScores);
+        localStorage.setItem('metalcore_trending_scores', JSON.stringify(newScores));
+    };
+
+    const trendingList = useMemo(() => {
+        // Return top 4 steels by score
+        return steels
+            .map(s => ({ ...s, score: trendingScores[s.id] || 0 }))
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 4)
+            .filter(s => s.score > 0);
+    }, [steels, trendingScores]);
 
     // Initialize localStorage values on mount (client-side only)
     useEffect(() => {
         if (typeof window !== 'undefined') {
             setApiKey(localStorage.getItem('metalcore_gemini_key') || "");
             setAiModel(localStorage.getItem('metalcore_gemini_model') || "gemini-1.5-flash");
+
+            const savedScores = localStorage.getItem('metalcore_trending_scores');
+            if (savedScores) {
+                try {
+                    setTrendingScores(JSON.parse(savedScores));
+                } catch (e) {
+                    console.error("Failed to parse trending scores");
+                }
+            }
         }
     }, []);
 
@@ -65,6 +92,7 @@ export default function SteelLedger() {
         if (found) {
             setDetailKnife(null); // Close knife modal if open
             setDetailSteel(found);
+            incrementTrending(found.id);
         } else {
             console.warn("Steel not found:", steelName);
         }
@@ -319,6 +347,8 @@ Be concise and premium.`;
                 setShowSettings={setShowSettings}
                 aiOpen={aiOpen}
                 setAiOpen={setAiOpen}
+                setSearch={setSearch}
+                trending={trendingList}
             />
 
             {/* Main Content */}
@@ -327,6 +357,12 @@ Be concise and premium.`;
                     setView={setView}
                     steels={steels}
                     setDetailSteel={setDetailSteel}
+                    search={search}
+                    setSearch={setSearch}
+                    compareList={compareList}
+                    toggleCompare={toggleCompare}
+                    producers={producers}
+                    incrementTrending={incrementTrending}
                 />
             )}
 
