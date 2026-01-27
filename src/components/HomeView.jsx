@@ -67,7 +67,7 @@ const HomeView = ({ setView, steels, setDetailSteel }) => {
                     </div>
                 ))}
                 <div className="glass-panel p-5 md:p-6 rounded-2xl border-white/5 bg-gradient-to-br from-accent/20 to-transparent border-accent/20">
-                    <div className="text-2xl md:text-3xl font-black text-accent mb-1 font-display">2.0</div>
+                    <div className="text-2xl md:text-3xl font-black text-accent mb-1 font-display">2.5</div>
                     <div className="text-[10px] md:text-xs font-bold text-accent/80 uppercase tracking-widest">Version</div>
                 </div>
             </div>
