@@ -39,6 +39,16 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                             <path d="m21 21-4.35-4.35" />
                         </svg>
                         <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none h-10 text-sm md:text-base" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
+                        {knifeSearch && (
+                            <button
+                                onClick={() => setKnifeSearch('')}
+                                className="p-2 hover:bg-white/10 rounded-lg transition-colors ml-2"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
+                                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                                </svg>
+                            </button>
+                        )}
                     </div>
 
                     <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0">

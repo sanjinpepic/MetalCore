@@ -222,11 +222,17 @@ Be concise and premium.`;
     };
 
     const filteredSteels = useMemo(() => {
-        return steels.filter(s =>
-            s.name.toLowerCase().includes(search.toLowerCase()) &&
-            s.C >= filters.minC && s.Cr >= filters.minCr && s.V >= filters.minV &&
-            (activeProducer === "ALL" || s.producer === activeProducer)
-        );
+        const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
+        const normalizedSearch = search ? normalize(search) : '';
+
+        return steels.filter(s => {
+            const matchesSearch = !search ||
+                normalize(s.name).includes(normalizedSearch) ||
+                normalize(s.producer).includes(normalizedSearch);
+            const matchesFilters = s.C >= filters.minC && s.Cr >= filters.minCr && s.V >= filters.minV;
+            const matchesProducer = activeProducer === "ALL" || s.producer === activeProducer;
+            return matchesSearch && matchesFilters && matchesProducer;
+        });
     }, [steels, search, filters, activeProducer]);
 
     const toggleCompare = (steel, e) => {
@@ -240,12 +246,8 @@ Be concise and premium.`;
 
     const clearCompare = () => setCompareList([]);
 
-    // Filter knives based on search query across all fields (name, maker, category, steels, etc.)
+    // Filter knives based on search query AND grade library filters (producer, alloy content)
     const filteredKnives = useMemo(() => {
-        if (!knifeSearch) {
-            return POPULAR_KNIVES;
-        }
-
         const normalize = (val) => {
             if (!val) return "";
             return val.toLowerCase()
@@ -259,29 +261,49 @@ Be concise and premium.`;
         const searchLower = knifeSearch.toLowerCase().trim();
 
         return POPULAR_KNIVES.filter(k => {
-            // Search in name
-            if (k.name.toLowerCase().includes(searchLower)) return true;
-            // Search in maker/producer
-            if (k.maker.toLowerCase().includes(searchLower)) return true;
-            // Search in category
-            if (k.category.toLowerCase().includes(searchLower)) return true;
-            // Search in description
-            if (k.description.toLowerCase().includes(searchLower)) return true;
-            // Search in whySpecial
-            if (k.whySpecial.toLowerCase().includes(searchLower)) return true;
-            // Search in steel grades
-            const matchesSteel = k.steels.some(steelName => {
-                const normalizedSteel = normalize(steelName);
-                const normalizedSearch = normalize(searchLower);
-                return steelName.toLowerCase().includes(searchLower) ||
-                    normalizedSteel.includes(normalizedSearch) ||
-                    normalizedSearch.includes(normalizedSteel);
-            });
-            if (matchesSteel) return true;
+            // First apply search filter
+            let matchesSearch = !knifeSearch;
+            if (knifeSearch) {
+                if (k.name.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.maker.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.category.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.description.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.whySpecial.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.steels.some(steelName => {
+                    const normalizedSteel = normalize(steelName);
+                    const normalizedSearch = normalize(searchLower);
+                    return steelName.toLowerCase().includes(searchLower) ||
+                        normalizedSteel.includes(normalizedSearch) ||
+                        normalizedSearch.includes(normalizedSteel);
+                })) matchesSearch = true;
+            }
 
-            return false;
+            if (!matchesSearch) return false;
+
+            // Now apply grade library filters (producer and alloy content)
+            // A knife passes if ANY of its steel variants match the filters
+            const hasMatchingSteel = k.steels.some(steelName => {
+                const steel = steels.find(s =>
+                    normalize(s.name) === normalize(steelName) ||
+                    s.name.toLowerCase() === steelName.toLowerCase()
+                );
+
+                if (!steel) return false; // Steel not found in database
+
+                // Check producer filter
+                const matchesProducer = activeProducer === "ALL" || steel.producer === activeProducer;
+
+                // Check alloy content filters
+                const matchesFilters = steel.C >= filters.minC &&
+                    steel.Cr >= filters.minCr &&
+                    steel.V >= filters.minV;
+
+                return matchesProducer && matchesFilters;
+            });
+
+            return hasMatchingSteel;
         });
-    }, [knifeSearch]);
+    }, [knifeSearch, steels, activeProducer, filters]);
 
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">

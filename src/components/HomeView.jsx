@@ -113,6 +113,16 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={handleSearchKeyDown}
                             />
+                            {search && (
+                                <button
+                                    onClick={() => setSearch('')}
+                                    className="p-2 hover:bg-white/10 rounded-lg transition-colors mr-2"
+                                >
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
+                                        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                                    </svg>
+                                </button>
+                            )}
                             <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 ml-4 group-focus-within:border-accent/40 transition-colors">
                                 <span className="text-[10px] font-black text-slate-500 group-focus-within:text-accent uppercase tracking-tighter">Enter</span>
                             </div>
@@ -339,25 +349,33 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                             </div>
 
                             {compareList.length > 0 ? (
-                                <div className="space-y-3">
-                                    {compareList.map(s => (
-                                        <div key={s.id} className="flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5 group">
-                                            <div className="flex flex-col">
-                                                <span className="text-[8px] font-black text-slate-600 uppercase tracking-widest">{s.producer}</span>
-                                                <span className="text-xs font-black text-white italic">{s.name}</span>
+                                <>
+                                    <div className="space-y-3 mb-4">
+                                        {compareList.map(s => (
+                                            <div key={s.id} className="flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5 group">
+                                                <div className="flex flex-col">
+                                                    <span className="text-[8px] font-black text-slate-600 uppercase tracking-widest">{s.producer}</span>
+                                                    <span className="text-xs font-black text-white italic">{s.name}</span>
+                                                </div>
+                                                <button
+                                                    onClick={(e) => toggleCompare(s, e)}
+                                                    className="p-1.5 text-slate-600 hover:text-red-400 transition-colors"
+                                                >
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                                </button>
                                             </div>
-                                            <button
-                                                onClick={(e) => toggleCompare(s, e)}
-                                                className="p-1.5 text-slate-600 hover:text-red-400 transition-colors"
-                                            >
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
+                                    <button
+                                        onClick={() => setView('SEARCH')}
+                                        className="w-full py-2.5 text-[9px] font-black text-slate-500 hover:text-indigo-400 uppercase tracking-widest transition-colors border-t border-white/5 pt-4"
+                                    >
+                                        + Add more grades
+                                    </button>
+                                </>
                             ) : (
-                                <div className="py-8 flex flex-col items-center justify-center text-center space-y-4 opacity-40">
-                                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 relative">
+                                <div className="py-8 flex flex-col items-center justify-center text-center space-y-4">
+                                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 relative opacity-40">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500">
                                             <path d="M21 7V3h-4M3 17v4h4M21 17v4h-4M3 7V3h4" />
                                             <path d="M12 12h.01" />
@@ -365,8 +383,14 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl animate-pulse" />
                                     </div>
                                     <div>
-                                        <div className="text-[10px] font-black text-white uppercase tracking-widest mb-1">Analysis Ready</div>
-                                        <p className="text-[9px] text-slate-500 uppercase tracking-tighter leading-tight max-w-[150px]">Select grades from the library to begin comparison</p>
+                                        <div className="text-[10px] font-black text-white uppercase tracking-widest mb-1 opacity-40">Select grades from the library to begin comparison</div>
+                                        <p className="text-[9px] text-slate-500 uppercase tracking-tighter leading-tight max-w-[150px] mb-4"></p>
+                                        <button
+                                            onClick={() => setView('SEARCH')}
+                                            className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/30 rounded-xl text-[9px] font-black text-slate-400 hover:text-white uppercase tracking-widest transition-all"
+                                        >
+                                            Browse Grade Library
+                                        </button>
                                     </div>
                                 </div>
                             )}
