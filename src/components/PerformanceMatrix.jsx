@@ -25,7 +25,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         <div className="flex flex-col flex-1 min-w-0 p-6 md:p-12 pb-6 md:pb-8 pt-24 md:pt-12 h-screen overflow-hidden bg-black">
             <div className="mb-6 md:mb-8 shrink-0">
                 <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-2 md:mb-4 italic uppercase leading-none">Performance Matrix</h1>
-                <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the Toughness vs. Edge Retention trade-off (Larrin Plot).</p>
+                <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the Toughness vs. Edge Retention trade-off.</p>
             </div>
 
             <div className="flex-1 glass-panel rounded-3xl md:rounded-[2.5rem] p-4 md:p-10 relative overflow-hidden mb-8 md:mb-10">
@@ -54,7 +54,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             unit=""
                             domain={[0, 10]}
                             tick={{ fontSize: 10, fontWeight: 'bold' }}
-                            label={{ value: '← Toughness', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
+                            label={{ value: 'Toughness ↑', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
                         />
                         <Tooltip
                             cursor={{ strokeDasharray: '3 3' }}
