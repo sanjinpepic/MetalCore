@@ -2,12 +2,15 @@ import React from 'react';
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView }) => {
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-screen overflow-hidden">
+        <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar">
             <header className="p-6 md:p-12 pb-6 md:pb-8 pt-24 md:pt-12 space-y-4 md:space-y-6 shrink-0">
                 <div>
                     <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-3 md:mb-4 italic uppercase leading-none">GRADE LIBRARY</h1>
                     <p className="text-slate-500 max-w-2xl text-sm md:text-lg leading-relaxed">Comprehensive database of premium knife steels. Filter by alloy content or search by grade.</p>
                 </div>
+            </header>
+
+            <div className="sticky top-0 z-20 px-6 md:px-12 py-4 bg-black/95 backdrop-blur-md border-b border-white/5 md:border-none md:bg-transparent md:backdrop-blur-none">
                 <div className="relative bg-white/5 border border-white/10 rounded-xl md:rounded-2xl flex items-center px-4 py-3 md:py-4 group focus-within:border-accent/50 transition-all max-w-2xl">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-3 group-focus-within:text-accent transition-colors">
                         <circle cx="11" cy="11" r="8" />
@@ -15,9 +18,9 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                     </svg>
                     <input type="text" placeholder="Search grades..." className="w-full bg-transparent border-none text-white outline-none h-10 text-sm md:text-base" value={search} onChange={e => setSearch(e.target.value)} />
                 </div>
-            </header>
+            </div>
 
-            <div className="flex-1 overflow-y-auto p-6 md:p-8 pt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 pb-32 items-start custom-scrollbar">
+            <div className="p-6 md:p-8 pt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 pb-32 items-start">
                 {filteredSteels.map(s => {
                     const isSelected = compareList.find(i => i.id === s.id);
                     return (
