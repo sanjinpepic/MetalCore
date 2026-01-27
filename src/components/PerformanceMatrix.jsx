@@ -43,6 +43,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             stroke="#475569"
                             unit=""
                             domain={[0, 10]}
+                            ticks={[0, 2, 4, 6, 8, 10]}
                             tick={{ fontSize: 10, fontWeight: 'bold' }}
                             label={{ value: 'Edge Retention →', position: 'insideBottom', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dy: 20 }}
                         />
@@ -53,6 +54,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             stroke="#475569"
                             unit=""
                             domain={[0, 10]}
+                            ticks={[0, 2, 4, 6, 8, 10]}
                             tick={{ fontSize: 10, fontWeight: 'bold' }}
                             label={{ value: 'Toughness →', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
                         />
