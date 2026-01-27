@@ -22,13 +22,13 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     };
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 p-6 md:p-12 pb-6 md:pb-8 pt-24 md:pt-12 h-screen overflow-hidden bg-black">
+        <div className="flex flex-col flex-1 min-w-0 px-4 md:p-12 pb-4 md:pb-8 pt-20 md:pt-12 h-screen overflow-hidden bg-black">
             <div className="mb-6 md:mb-8 shrink-0">
                 <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-2 md:mb-4 italic uppercase leading-none">Performance Matrix</h1>
                 <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the Toughness vs. Edge Retention trade-off.</p>
             </div>
 
-            <div className="flex-1 glass-panel rounded-3xl md:rounded-[2.5rem] p-4 md:p-10 relative overflow-hidden mb-8 md:mb-10">
+            <div className="flex-1 glass-panel rounded-2xl md:rounded-[2.5rem] p-2 md:p-10 relative overflow-hidden mb-6 md:mb-10">
                 {/* Quadrant Labels */}
                 <div className="absolute top-6 right-8 md:top-10 md:right-10 text-[10px] font-black text-accent/40 uppercase tracking-[0.2em] pointer-events-none">GOD TIER</div>
                 <div className="absolute bottom-20 left-8 md:bottom-10 md:left-10 text-[10px] font-black text-slate-700 uppercase tracking-[0.2em] pointer-events-none">BUDGET</div>
@@ -120,7 +120,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </div>
 
             {/* Interactive Producer Legend at Bottom */}
-            <div className="flex flex-wrap md:justify-center gap-2 md:gap-3 pb-10 shrink-0 overflow-x-auto no-scrollbar max-w-full">
+            <div className="flex flex-nowrap md:flex-wrap md:justify-center gap-2 md:gap-3 pb-6 md:pb-10 shrink-0 overflow-x-auto no-scrollbar max-w-full">
                 {producers.map(prod => {
                     const isActive = activeProducer === prod;
                     const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
@@ -128,7 +128,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         <button
                             key={prod}
                             onClick={() => setActiveProducer(prod)}
-                            className={`flex items-center gap-2 md:gap-3 bg-white/5 px-3 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl border transition-all whitespace-nowrap active:scale-95 ${isActive
+                            className={`flex items-center gap-2 md:gap-3 bg-white/5 px-2.5 md:px-4 py-1.5 md:py-2.5 rounded-lg md:rounded-xl border transition-all whitespace-nowrap active:scale-95 ${isActive
                                 ? "border-white/40 bg-white/10 shadow-lg shadow-white/5"
                                 : "border-white/5 text-slate-500"
                                 }`}
