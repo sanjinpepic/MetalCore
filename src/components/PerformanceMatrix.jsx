@@ -35,7 +35,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
                 <ResponsiveContainer width="100%" height="100%">
                     <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 10 }}>
-                        <CartesianGrid strokeDasharray="2 2" stroke="#1e293b" vertical={true} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={true} />
                         <XAxis
                             type="number"
                             dataKey="edge"
