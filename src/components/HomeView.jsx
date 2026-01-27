@@ -104,7 +104,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                         <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8]">
                             FORGING<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE<br /></span>
                         </h1>
 
                         <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">

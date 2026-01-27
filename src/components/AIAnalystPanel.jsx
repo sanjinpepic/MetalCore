@@ -29,7 +29,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-500/20 mx-auto">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                             </svg>
-                            <p className="text-slate-500 text-sm md:text-base px-10 leading-relaxed font-medium">Hello, my name is Ferry! Ask me anything about blade steels, use cases, or chemistry. I can also trigger comparisons automatically.</p>
+                            <p className="text-slate-500 text-sm md:text-base px-10 leading-relaxed font-medium">Hello, my name is Ferry!<br /> Ask me anything about blade steels, use cases, or chemistry. I can also trigger comparisons automatically.</p>
                         </div>
                     )}
                     {aiChat.map((msg, i) => (
