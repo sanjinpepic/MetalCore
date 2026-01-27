@@ -69,6 +69,15 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting applications and extreme performance fixed blades."
     },
     {
+        id: 'uddeholm-6', name: "Vanax SuperClean", producer: "Uddeholm", C: 0.36, Cr: 15.5, V: 3.5, Mo: 1.1, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 10, sharpen: 6,
+        ht_curve: "150:60,200:59,250:57",
+        desc: "A nitrogen-alloyed stainless steel with exceptional corrosion resistance and good wear resistance.",
+        knives: ["Quiet Carry Waypoint", "Quiet Carry Drift", "Custom Saltwater Knives"],
+        pros: ["Total rust immunity", "Superior edge retention to LC200N", "Very tough"],
+        cons: ["Expensive", "Requires specialized heat treat"],
+        use_case: "Marine environments and hard-use EDC where corrosion is a major factor."
+    },
+    {
         id: 'uddeholm-4', name: "Sleipner", producer: "Uddeholm", C: 0.9, Cr: 7.8, V: 0.5, Mo: 2.5, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 4, sharpen: 6,
         ht_curve: "200:58,400:56,500:59",
         desc: "A multi-purpose tool steel with a high degree of versatility and better toughness than D2.",
@@ -166,6 +175,33 @@ export const PREMIUM_STEELS = [
         cons: ["Low toughness", "Extremely difficult to sharpen"],
         use_case: "Light-duty slicing where sharpening frequency must be minimal."
     },
+    {
+        id: 'crucible-9', name: "CPM 20CV", producer: "Crucible", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        ht_curve: "200:60,400:58,500:59",
+        desc: "Crucible's version of M390. Highly popular in premium American production folders.",
+        knives: ["Benchmade Bugout (20CV)", "Hinderer XM-18", "McNees PM Mac 2"],
+        pros: ["Elite corrosion resistance", "Top-tier edge retention", "High finishability"],
+        cons: ["Hard to sharpen", "Moderate toughness"],
+        use_case: "Premium folding knives and high-end EDC."
+    },
+    {
+        id: 'crucible-10', name: "CPM S35VN", producer: "Crucible", C: 1.45, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 5.5, corrosion: 8, sharpen: 5,
+        ht_curve: "200:59,400:58,500:56",
+        desc: "The industry standard for premium knives. An upgrade to S30V with added Niobium for better toughness.",
+        knives: ["Chris Reeve Sebenza (S35VN)", "ESEE 6 S35VN", "White River Firecraft 4"],
+        pros: ["Excellent all-around balance", "Very tough for a stainless steel", "Easier to sharpen than S90V"],
+        cons: ["Increasingly seen as 'entry-level' premium"],
+        use_case: "The gold standard for high-end folders and fixed blades."
+    },
+    {
+        id: 'crucible-11', name: "CPM 154", producer: "Crucible", C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        ht_curve: "200:59,400:57,500:58",
+        desc: "A powder metallurgy version of 154CM. Favored by custom makers for its mirror-polish ability.",
+        knives: ["Grimsmo Norseman (Older)", "Custom Traditional Folders"],
+        pros: ["Takes an incredible finish", "Very easy to sharpen", "Consistent performance"],
+        cons: ["Lower edge retention than modern super-steels"],
+        use_case: "Custom knives and premium production folders where aesthetics matter."
+    },
 
     // --- CARPENTER ---
     {
@@ -194,6 +230,15 @@ export const PREMIUM_STEELS = [
         pros: ["Superior edge retention to M4", "Stable at high hardness", "Good toughness for its alloy"],
         cons: ["Rusts very easily", "Difficult to sharpen"],
         use_case: "Hard-use cutting tasks where edge longevity is paramount."
+    },
+    {
+        id: 'carpenter-4', name: "CTS-204P", producer: "Carpenter", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        ht_curve: "200:60,400:58,500:59",
+        desc: "Carpenter's equivalent to M390 and 20CV. Used in many high-end production knives.",
+        knives: ["Microtech Ultratech (204P)", "Zero Tolerance 0562CF"],
+        pros: ["Exceptional corrosion resistance", "Elite edge holding"],
+        cons: ["Difficult to sharpen"],
+        use_case: "Premium EDC and gentleman's folders."
     },
 
     // --- HITACHI & TAKEFU (JAPAN) ---
@@ -232,6 +277,15 @@ export const PREMIUM_STEELS = [
         pros: ["Very stainless", "Easy to sharpen", "Good performance for the price"],
         cons: ["Tends to be chippy in thin grinds", "Lower edge retention than PM steels"],
         use_case: "Entry to mid-range premium kitchen and folding knives."
+    },
+    {
+        id: 'takefu-3', name: "VG-MAX", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0.5, Co: 1.5, edge: 8, toughness: 4, corrosion: 8, sharpen: 6,
+        ht_curve: "150:61,200:60,300:58",
+        desc: "An upgraded version of VG-10 developed exclusively for Shun Knives. Increased Chromium and Vanadium for better performance.",
+        knives: ["Shun Classic Series", "Shun Premier Series"],
+        pros: ["Excellent edge retention", "Very stainless", "Aggressive cutting performance"],
+        cons: ["Can be chippy", "Exclusive to Shun"],
+        use_case: "Premium Japanese kitchen cutlery."
     },
 
     // --- ALLEIMA ---
@@ -272,6 +326,15 @@ export const PREMIUM_STEELS = [
         pros: ["Can reach 69+ HRC", "Incredible wear resistance", "High cobalt content for stability"],
         cons: ["Virtually no corrosion resistance", "Brutal to grind and sharpen"],
         use_case: "The ultimate abrasive cutting tool."
+    },
+    {
+        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0, edge: 8.5, toughness: 8, corrosion: 1, sharpen: 3,
+        ht_curve: "500:64,540:66,580:63",
+        desc: "A high-performance powder metallurgy high-speed steel optimized for extreme toughness and wear resistance.",
+        knives: ["Custom Industrial Knives", "High-Performance Work Tools"],
+        pros: ["Incredible toughness for a HSS", "Very high wear resistance"],
+        cons: ["Non-stainless", "Difficult to source"],
+        use_case: "Heavy-duty work tools where impact resistance and edge life are critical."
     },
 
     // --- OTHERS ---
@@ -368,5 +431,68 @@ export const PREMIUM_STEELS = [
         pros: ["Tough", "Rust resistant", "Easy to sharpen"],
         cons: ["Not a wear monster"],
         use_case: "Value-focused EDC and kitchen knives."
+    },
+    {
+        id: 'others-1', name: "RWL34", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        ht_curve: "200:59,400:57,510:59",
+        desc: "Representing 'Rickard W. Le收ff', this is the powder metallurgy version of ATS-34. Famous for its purity and finishability.",
+        knives: ["Grimsmo Norseman", "Custom European Folders"],
+        pros: ["Exceptional polish capability", "Very consistent", "Easy to sharpen"],
+        cons: ["Outdated edge retention vs modern super-steels"],
+        use_case: "High-end custom and art knives."
+    },
+    {
+        id: 'others-2', name: "DS93X", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
+        ht_curve: "200:59,400:57,510:59",
+        desc: "A combination of RWL34 and PMC27, this is the premier stainless Damascus steel in the world.",
+        knives: ["Grimsmo Norseman (Damascus)", "Custom Grail Knives"],
+        pros: ["Stunning visual patterns", "High performance for a Damascus steel", "Fully stainless"],
+        cons: ["Extremely expensive", "Difficult to etch correctly"],
+        use_case: "High-end luxury and gallery-grade knives."
+    },
+    {
+        id: 'others-3', name: "AUS10A", producer: "Aichi", C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 4, corrosion: 8, sharpen: 7,
+        ht_curve: "150:60,200:59,300:57",
+        desc: "A high-carbon Japanese stainless steel that is a direct competitor to 440C and VG-10.",
+        knives: ["Cold Steel AD15", "Cold Steel Recon 1 (Older)", "Demko AD20.5 (AUS10)"],
+        pros: ["Very easy to sharpen", "Good corrosion resistance", "Inexpensive"],
+        cons: ["Lacks the edge life of PM steels"],
+        use_case: "Budget to mid-range hard-use knives."
+    },
+    {
+        id: 'others-4', name: "CROMOVA 18", producer: "Yoshikin", C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
+        ht_curve: "150:58,200:57,300:55",
+        desc: "Proprietary steel used by Global Knives. Balanced for professional kitchen use.",
+        knives: ["Global G-2 Chef Knife"],
+        pros: ["Extreme rust resistance", "Very easy to hone", "Durable handle integration"],
+        cons: ["Relatively soft edge"],
+        use_case: "High-volume professional kitchens."
+    },
+    {
+        id: 'others-5', name: "Lam. CoS", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0, Co: 2.5, edge: 8, toughness: 6, corrosion: 8, sharpen: 5,
+        ht_curve: "150:60,200:59,300:57",
+        desc: "Laminated Cobalt Steel. Used primarily by Fallkniven for their high-end survival knives.",
+        knives: ["Fallkniven F1 Pro", "Fallkniven A1 Pro"],
+        pros: ["Extremely strong due to lamination", "Excellent edge retention", "Very tough"],
+        cons: ["Difficult to sharpen due to hardness core"],
+        use_case: "Premium survival and hunting knives."
+    },
+    {
+        id: 'others-6', name: "A2", producer: "Various", C: 1.0, Cr: 5.0, V: 0.5, Mo: 1.1, W: 0, Co: 0, edge: 5, toughness: 8, corrosion: 2, sharpen: 8,
+        ht_curve: "200:58,400:56,500:60",
+        desc: "A classic air-hardening tool steel known for its incredible toughness and ease of sharpening.",
+        knives: ["Bark River Bravo 1 (A2)", "Chris Reeve (Vintage)"],
+        pros: ["Very high impact resistance", "Easy to field-sharpen", "Stable edge"],
+        cons: ["Low corrosion resistance"],
+        use_case: "Outdoor knives and heavy-duty survival tools."
+    },
+    {
+        id: 'others-7', name: "YXR7", producer: "Hitachi", C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 9, toughness: 8, corrosion: 1, sharpen: 2,
+        ht_curve: "500:65,540:67,600:63",
+        desc: "A high-performance Matrix High Speed Steel used by Rockstead for its extreme hardness and toughness.",
+        knives: ["Rockstead Higo II", "Rockstead Shin"],
+        pros: ["Extreme hardness (65+ HRC)", "Incredible toughness for its hardness", "Mirror-finishable"],
+        cons: ["Carbon steel (will rust)", "Brutal to sharpen manually"],
+        use_case: "Luxury high-performance folders."
     }
 ];

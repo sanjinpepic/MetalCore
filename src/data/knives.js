@@ -276,6 +276,237 @@ export const POPULAR_KNIVES = [
         steels: ["MC63 (SG2)"],
         image: "https://www.zwilling.com/dw/image/v2/BCNC_PRD/on/demandware.static/-/Sites-zwilling-master-catalog/default/dw1062b55b/images/large/34373-201-0_1.jpg",
         link: "https://www.zwilling.com/us/miyabi-birchwood-sg2-8-inch-chefs-knife-34373-201/34373-201-0.html"
+    },
+    {
+        id: "gm-aceriv",
+        name: "ACE Riv",
+        maker: "GiantMouse",
+        category: "EDC",
+        description: "A compact, stout folder that punches way above its weight class. Designed by Vox and Ansø.",
+        whySpecial: "The Riv is a 'small knife for big tasks'. Its ergonomics allow for a full grip on a very short handle.",
+        steels: ["M390 Microclean", "Elmax SuperClean", "Magnacut"],
+        image: "https://giantmouse.com/cdn/shop/files/riv-ti-main_900x.jpg",
+        link: "https://giantmouse.com/products/ace-riv-titanium"
+    },
+    {
+        id: "spy-manix2",
+        name: "Manix 2",
+        maker: "Spyderco",
+        category: "EDC",
+        description: "A robust workhorse featuring Spyderco's Ball Bearing Lock. Known for its incredible ergonomics and strength.",
+        whySpecial: "The Ball Bearing Lock is completely ambidextrous and self-adjusting, providing one of the most consistent actions in the industry.",
+        steels: ["CPM-S30V", "Maxamet", "CPM-CruWear", "CPM-S110V", "Rex 45"],
+        image: "https://www.spyderco.com/products/Manix-2-Black-G-10-PlainEdge/165",
+        link: "https://www.spyderco.com/catalog/details/C101G2/Manix-reg-2-Black-G-10/418"
+    },
+    {
+        id: "zt-0562",
+        name: "0562CF",
+        maker: "Zero Tolerance",
+        category: "EDC",
+        description: "Designed by Rick Hinderer, this is often considered one of the best production flippers ever made.",
+        whySpecial: "Features the Hinderer 'slicer' grind which provides a perfect balance of toughness and slicing efficiency.",
+        steels: ["CPM-20CV", "CTS-204P", "M390 Microclean", "Elmax SuperClean"],
+        image: "https://zt.kaiusa.com/media/catalog/product/0/5/0562cf_1.jpg",
+        link: "https://zt.kaiusa.com/0562cf.html"
+    },
+    {
+        id: "mt-socom",
+        name: "Socom Elite",
+        maker: "Microtech",
+        category: "Tactical",
+        description: "A legendary tactical folder that has been a staple of the Microtech lineup since the 1990s.",
+        whySpecial: "Its unique handle geometry and ceramic bearing system make it one of the most reliable hard-use folders available.",
+        steels: ["M390 Microclean", "Elmax SuperClean", "CTS-204P"],
+        image: "https://microtechknives.com/cdn/shop/files/socom-elite-manual_900x.jpg",
+        link: "https://microtechknives.com/collections/socom-elite"
+    },
+    {
+        id: "tact-rockwall",
+        name: "Rockwall",
+        maker: "Tactile Knife Co.",
+        category: "EDC",
+        description: "A slim, minimalist folder with incredible machining textures, made entirely in the USA.",
+        whySpecial: "Features a unique internally-milled texture that provides grip without being abrasive, and a very snappy action.",
+        steels: ["CPM-MagnaCut", "M390 Microclean"],
+        image: "https://tactileknife.co/cdn/shop/products/Rockwall-Side_900x.jpg",
+        link: "https://tactileknife.co/products/rockwall"
+    },
+    {
+        id: "hog-deka",
+        name: "Deka",
+        maker: "Hogue Knives",
+        category: "EDC",
+        description: "A lightweight, high-performance folder featuring the Able Lock. A direct competitor to the Benchmade Bugout.",
+        whySpecial: "Offers exceptional value for USA-made quality and premium materials like cross-bar locks and MagnaCut.",
+        steels: ["CPM-MagnaCut", "CPM-20CV"],
+        image: "https://www.hogueknives.com/media/catalog/product/2/4/24260.jpg",
+        link: "https://www.hogueknives.com/knives/hogue/manual-folding-knives/deka"
+    },
+    {
+        id: "cs-srk",
+        name: "SRK (Survival Rescue Knife)",
+        maker: "Cold Steel",
+        category: "Survival",
+        description: "The standard issue knife for Navy SEAL candidates during BUD/S training.",
+        whySpecial: "An incredibly durable, no-nonsense fixed blade designed to withstand the harshest environments on earth.",
+        steels: ["CPM-3V", "SK-5"],
+        image: "https://www.coldsteel.com/media/catalog/product/3/8/38ckc_1.jpg",
+        link: "https://www.coldsteel.com/srk-cpm-3v/"
+    },
+    {
+        id: "ker-leek",
+        name: "Leek",
+        maker: "Kershaw",
+        category: "EDC",
+        description: "Designed by Ken Onion, the Leek is one of the most popular assisted-opening knives ever produced.",
+        whySpecial: "Features the SpeedSafe assisted-opening system and a slim, needle-like tip perfect for detail work.",
+        steels: ["14C28N", "CPM-154", "CPM-MagnaCut", "D2"],
+        image: "https://kershaw.kaiusa.com/media/catalog/product/1/6/1660_1.jpg",
+        link: "https://kershaw.kaiusa.com/leek.html"
+    },
+    {
+        id: "civ-elementum",
+        name: "Elementum",
+        maker: "CIVIVI",
+        category: "EDC",
+        description: "The knife that took the enthusiast world by storm with its clean lines and incredible value.",
+        whySpecial: "Simple, effective design that works for everyone. Its flipper action is widely considered benchmark-tier for the price.",
+        steels: ["Nitro-V", "D2", "12C27", "S35VN"],
+        image: "https://www.civivi.com/cdn/shop/products/C907A-1_900x.jpg",
+        link: "https://www.civivi.com/collections/elementum"
+    },
+    {
+        id: "mora-companion",
+        name: "Companion",
+        maker: "Morakniv",
+        category: "Outdoor",
+        description: "The ultimate 'entry-level' outdoor knife. Used by bushcrafters and campers worldwide.",
+        whySpecial: "Incredible performance for an extremely low price. The Scandi grind is perfect for wood processing.",
+        steels: ["12C27", "Carbon Steel"],
+        image: "https://morakniv.se/wp-content/uploads/2014/11/Companion_MG_S.jpg",
+        link: "https://morakniv.se/en/product/companion-s/"
+    },
+    {
+        id: "boker-kwaiken",
+        name: "Kwaiken",
+        maker: "Boker Plus",
+        category: "EDC",
+        description: "Designed by Lucas Burnley, this knife brings the traditional Japanese Kwaiken design into the modern folder era.",
+        whySpecial: "Extremely sleek, minimalist profile that disappears in the pocket but offers a full-sized blade.",
+        steels: ["N690", "VG-10", "CPM-S35VN"],
+        image: "https://www.boker.de/media/image/ca/61/42/01BO296_1.jpg",
+        link: "https://www.boker.de/en/kwaiken-flipper-01bo296"
+    },
+    {
+        id: "spy-delica4",
+        name: "Delica 4",
+        maker: "Spyderco",
+        category: "EDC",
+        description: "The knife that pioneered the concept of a lightweight, high-performance pocket knife with a clip.",
+        whySpecial: "The Delica is the perfect size for most daily tasks and features Spyderco's Bi-Directional Texturing for a secure grip.",
+        steels: ["VG-10", "K390 Microclean", "ZDP-189", "CPM-S30V"],
+        image: "https://www.spyderco.com/products/Delica-4-Lightweight/209",
+        link: "https://www.spyderco.com/catalog/details/C11G/Delica-reg-4-G-10/282"
+    },
+    {
+        id: "bm-griptilian",
+        name: "Griptilian",
+        maker: "Benchmade",
+        category: "EDC",
+        description: "A classic design that has been a mainstay of the Benchmade lineup for years, known for its extreme versatility.",
+        whySpecial: "The Griptilian offers multiple blade shapes and sizes, and the Valox handle provides a secure, lightweight grip.",
+        steels: ["CPM-S30V", "CPM-S90V", "CPM-20CV"],
+        image: "https://www.benchmade.com/products/551-s30v",
+        link: "https://www.benchmade.com/products/551-s30v"
+    },
+    {
+        id: "cs-recon1",
+        name: "Recon 1",
+        maker: "Cold Steel",
+        category: "Tactical",
+        description: "A heavy-duty tactical folder featuring the world-famous Tri-Ad lock.",
+        whySpecial: "The Tri-Ad lock is arguably the strongest locking mechanism ever put into a production folder, making the Recon 1 virtually a fixed blade.",
+        steels: ["CPM-S35VN", "CTS-XHP", "AUS10A"],
+        image: "https://www.coldsteel.com/media/catalog/product/a/d/ad-10_1.jpg",
+        link: "https://www.coldsteel.com/recon-1-series/"
+    },
+    {
+        id: "spy-shaman",
+        name: "Shaman",
+        maker: "Spyderco",
+        category: "EDC",
+        description: "A larger, more robust evolution of the Native 5, designed for hard use with a Compression Lock.",
+        whySpecial: "The Shaman's handle ergonomics are legendary, filling the hand perfectly for heavy cutting tasks.",
+        steels: ["CPM-S30V", "Rex 45", "CPM-CruWear", "15V"],
+        image: "https://www.spyderco.com/products/Shaman/1057",
+        link: "https://www.spyderco.com/catalog/details/C229G/Shaman-trade-/1057"
+    },
+    {
+        id: "spy-spydiechef",
+        name: "SpydieChef",
+        maker: "Spyderco",
+        category: "Kitchen",
+        description: "A folding chef's knife designed for use in salty, wet environments.",
+        whySpecial: "Fully rust-proof construction using LC200N steel and titanium, making it the ultimate food-prep folder.",
+        steels: ["LC200N / Cronidur 30"],
+        image: "https://www.spyderco.com/products/SpydieChef/1013",
+        link: "https://www.spyderco.com/catalog/details/C211TI/SpydieChef-trade-/1013"
+    },
+    {
+        id: "opi-no8",
+        name: "No. 8",
+        maker: "Opinel",
+        category: "Outdoor",
+        description: "The world's most recognizable folding knife, a timeless French classic.",
+        whySpecial: "Features the simple but effective Virobloc safety ring and a thin, convex-ground blade that is an absolute laser for slicing.",
+        steels: ["12C27", "Carbon Steel"],
+        image: "https://www.opinel-usa.com/products/opinel-no-8-stainless-steel-pocket-knife",
+        link: "https://www.opinel-usa.com/products/opinel-no-8-stainless-steel-pocket-knife"
+    },
+    {
+        id: "zt-0452",
+        name: "0452CF",
+        maker: "Zero Tolerance",
+        category: "EDC",
+        description: "A long, slender flipper based on the award-winning 0454 designed by Dmitry Sinkevich.",
+        whySpecial: "Combines a massive 4.1-inch blade with a slim, carbon fiber handle, providing an incredible blade-to-weight ratio.",
+        steels: ["CPM-S35VN", "CPM-S90V", "MagnaCut"],
+        image: "https://zt.kaiusa.com/0452cf.html",
+        link: "https://zt.kaiusa.com/0452cf.html"
+    },
+    {
+        id: "bm-adamas",
+        name: "Adamas",
+        maker: "Benchmade",
+        category: "Tactical",
+        description: "Designed by Shane Sibert, the Adamas is a beefy, tactical folder built for hard use.",
+        whySpecial: "Everything about this knife is overbuilt, from the thick liners to the robust AXIS lock, making it a favorite for military and law enforcement.",
+        steels: ["CPM-CruWear", "D2"],
+        image: "https://www.benchmade.com/products/275fe-2",
+        link: "https://www.benchmade.com/products/275fe-2"
+    },
+    {
+        id: "bm-bailout",
+        name: "Bailout",
+        maker: "Benchmade",
+        category: "EDC",
+        description: "A slim, tactical-inspired EDC folder that is part of Benchmade's Black Class.",
+        whySpecial: "Features a tanto blade shape optimized for piercing and an ultralight aluminum or Grivory handle with a pommel.",
+        steels: ["CPM-3V", "CPM-M4"],
+        image: "https://www.benchmade.com/products/537gy-1",
+        link: "https://www.benchmade.com/products/537gy-1"
+    },
+    {
+        id: "lion-m4",
+        name: "M4",
+        maker: "LionSteel",
+        category: "Outdoor",
+        description: "A compact, high-quality Italian-made outdoor knife with beautiful wood or G10 handles.",
+        whySpecial: "Perfect size for a hunting or camp knife, featuring LionSteel's impeccable fit and finish and a very ergonomic handle.",
+        steels: ["M390 Microclean", "Sleipner"],
+        image: "https://www.lionsteel.it/en/product/1815_m4/m4_ul",
+        link: "https://www.lionsteel.it/en/product/1815_m4/m4_ul"
     }
 
 ];
