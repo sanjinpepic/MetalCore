@@ -30,8 +30,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 </div>
             </div>
 
-            <div className="flex-1 px-4 md:px-12 pb-2 md:pb-6 flex flex-col min-h-0">
-                <div className="h-[480px] md:h-full glass-panel rounded-2xl md:rounded-[2.5rem] p-2 md:p-10 relative overflow-hidden mb-2 md:mb-10">
+            <div className="flex-1 px-4 md:px-12 pb-0 md:pb-6 flex flex-col min-h-0">
+                <div className="h-[540px] md:h-full glass-panel rounded-2xl md:rounded-[2.5rem] p-2 md:p-10 relative overflow-hidden mb-0 md:mb-10">
                     {/* Quadrant Labels */}
                     <div className="absolute top-6 right-8 md:top-10 md:right-10 text-[10px] font-black text-accent/40 uppercase tracking-[0.2em] pointer-events-none">GOD TIER</div>
                     <div className="absolute bottom-20 left-8 md:bottom-10 md:left-10 text-[10px] font-black text-slate-700 uppercase tracking-[0.2em] pointer-events-none">BUDGET</div>
@@ -124,7 +124,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </div>
 
             {/* Interactive Producer Legend at Bottom */}
-            <div className="sticky bottom-0 z-20 px-4 md:px-12 py-2 md:py-4 bg-black/80 backdrop-blur-md border-t border-white/5 md:border-none md:bg-transparent md:backdrop-blur-none shrink-0 overflow-x-auto no-scrollbar max-w-full">
+            <div className="sticky bottom-0 z-20 px-4 md:px-12 pt-2 pb-10 md:py-4 bg-black/80 backdrop-blur-md border-t border-white/5 md:border-none md:bg-transparent md:backdrop-blur-none shrink-0 overflow-x-auto no-scrollbar max-w-full">
                 <div className="flex flex-nowrap md:flex-wrap md:justify-center gap-2 md:gap-3 pb-2">
                     {producers.map(prod => {
                         const isActive = activeProducer === prod;
