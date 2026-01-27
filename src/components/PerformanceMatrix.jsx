@@ -54,7 +54,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             unit=""
                             domain={[0, 10]}
                             tick={{ fontSize: 10, fontWeight: 'bold' }}
-                            label={{ value: 'Toughness ↑', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
+                            label={{ value: 'Toughness →', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
                         />
                         <Tooltip
                             cursor={{ strokeDasharray: '3 3' }}
