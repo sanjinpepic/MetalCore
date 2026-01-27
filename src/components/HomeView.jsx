@@ -104,7 +104,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                         <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8]">
                             FORGING<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE<br /></span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE</span>
                         </h1>
 
                         <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
@@ -428,7 +428,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         <div className="p-8 rounded-[3rem] border border-white/10 bg-black/40 flex items-center justify-between group hover:border-accent/20 transition-all">
                             <div>
                                 <div className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Platform Sync</div>
-                                <div className="text-2xl font-black text-white font-display uppercase italic">Stable <span className="text-accent underline decoration-accent/40 decoration-2 underline-offset-4 tracking-[0.1em] ml-1">LATEST</span></div>
+                                <div className="text-2xl font-black text-white font-display uppercase italic">Stable <span className="text-accent underline decoration-accent/40 decoration-2 underline-offset-4 tracking-[0.1em] ml-1">ALPHA</span></div>
                             </div>
                             <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-600 group-hover:text-accent transition-colors">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg>
