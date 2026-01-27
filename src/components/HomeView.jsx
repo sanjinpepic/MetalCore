@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending }) => {
+    const searchContainerRef = useRef(null);
+
     // Robust Search Matching (Forgiving hyphens and spaces)
     const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
 
@@ -65,6 +67,18 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
         }
     };
 
+    const handleSearchFocus = () => {
+        // On mobile, scroll the search bar to the top of the viewport
+        if (searchContainerRef.current && window.innerWidth < 768) {
+            setTimeout(() => {
+                searchContainerRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300); // Delay to allow keyboard to appear
+        }
+    };
+
     return (
         <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar bg-black relative isolate">
             {/* Background Decorations */}
@@ -99,7 +113,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     </div>
 
                     {/* Spotlight Global Search */}
-                    <div className="relative group w-full max-w-2xl px-4 md:px-0 z-[100]">
+                    <div ref={searchContainerRef} className="relative group w-full max-w-2xl px-4 md:px-0 z-[100]">
                         <div className="absolute -inset-1 bg-gradient-to-r from-accent/30 to-indigo-500/30 rounded-2xl blur opacity-25 group-focus-within:opacity-100 transition duration-1000" />
                         <div className="relative bg-black/60 border border-white/10 rounded-2xl flex items-center px-6 py-5 backdrop-blur-3xl group-focus-within:border-accent/50 transition-all shadow-2xl">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-5 group-focus-within:text-accent transition-colors">
@@ -112,6 +126,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 onKeyDown={handleSearchKeyDown}
+                                onFocus={handleSearchFocus}
                             />
                             {search && (
                                 <button
@@ -214,10 +229,23 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                             <div className="h-[350px] md:h-[450px] w-full bg-black/40 rounded-[2rem] border border-white/5 overflow-hidden relative group-hover:border-white/10 transition-colors">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <ScatterChart margin={{ top: 30, right: 30, bottom: 20, left: 10 }}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={true} />
-                                        <XAxis type="number" dataKey="edge" domain={[7, 10]} hide />
-                                        <YAxis type="number" dataKey="toughness" domain={[6, 10]} hide />
+                                    <ScatterChart margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
+                                        <XAxis
+                                            type="number"
+                                            dataKey="edge"
+                                            domain={[7, 10]}
+                                            tick={false}
+                                            axisLine={false}
+                                            label={{ value: 'Edge Retention →', position: 'bottom', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
+                                        />
+                                        <YAxis
+                                            type="number"
+                                            dataKey="toughness"
+                                            domain={[6, 10]}
+                                            tick={false}
+                                            axisLine={false}
+                                            label={{ value: 'Toughness →', angle: -90, position: 'left', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
+                                        />
                                         <Tooltip
                                             cursor={{ strokeDasharray: '3 3' }}
                                             content={({ active, payload }) => {
