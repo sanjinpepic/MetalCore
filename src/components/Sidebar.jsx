@@ -175,18 +175,20 @@ const Sidebar = ({
                     </>
                 )}
 
-                <section className="mt-10 pt-6 border-t border-white/5">
-                    <button onClick={handleImportClick} className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                            <polyline points="14 2 14 8 20 8" />
-                            <path d="M12 18v-6" />
-                            <path d="m9 15 3-3 3 3" />
-                        </svg>
-                        IMPORT DATASET
-                    </button>
-                    <input type="file" ref={fileInputRef} className="hidden" accept=".xlsx,.csv" onChange={handleFileUpload} />
-                </section>
+                {(view === 'SEARCH' || view === 'KNIVES') && (
+                    <section className="mt-10 pt-6 border-t border-white/5">
+                        <button onClick={handleImportClick} className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <path d="M12 18v-6" />
+                                <path d="m9 15 3-3 3 3" />
+                            </svg>
+                            IMPORT DATASET
+                        </button>
+                        <input type="file" ref={fileInputRef} className="hidden" accept=".xlsx,.csv" onChange={handleFileUpload} />
+                    </section>
+                )}
 
                 <div className="pb-10 md:pb-8" />
             </div>

@@ -15,6 +15,7 @@ import KnifeDetailModal from '../src/components/KnifeDetailModal.jsx';
 import HomeView from '../src/components/HomeView.jsx';
 import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
 import SettingsModal from '../src/components/SettingsModal.jsx';
+import ImportModal from '../src/components/ImportModal.jsx';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
@@ -40,6 +41,7 @@ export default function SteelLedger() {
     const [aiChat, setAiChat] = useState([]);
     const [aiModel, setAiModel] = useState("gemini-1.5-flash");
     const [showSettings, setShowSettings] = useState(false);
+    const [showImportModal, setShowImportModal] = useState(false);
     const [trendingScores, setTrendingScores] = useState({});
 
     const fileInputRef = useRef(null);
@@ -80,7 +82,11 @@ export default function SteelLedger() {
         }
     }, []);
 
-    const handleImportClick = () => fileInputRef.current.click();
+    const handleImportClick = () => setShowImportModal(true);
+
+    const handleManualImport = (data) => {
+        setSteels(prev => [...prev, data]);
+    };
 
     const openSteelModal = (steelName) => {
         // Fuzzy match steel name
@@ -452,6 +458,15 @@ Be concise and premium.`;
                     aiModel={aiModel}
                     setAiModel={setAiModel}
                     onClose={() => setShowSettings(false)}
+                />
+            )}
+
+            {/* Import Modal */}
+            {showImportModal && (
+                <ImportModal
+                    onClose={() => setShowImportModal(false)}
+                    onManualImport={handleManualImport}
+                    onFileUpload={handleFileUpload}
                 />
             )}
         </div>
