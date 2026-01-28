@@ -177,7 +177,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                                         <label className="text-[9px] font-bold text-slate-600 text-center block">{el}</label>
                                         <input
                                             type="number"
-                                            step="0.01"
+                                            step="0.05"
                                             name={el}
                                             value={formData[el]}
                                             onChange={handleManualChange}
