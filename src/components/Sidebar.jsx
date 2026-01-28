@@ -184,7 +184,7 @@ const Sidebar = ({
                                 <path d="M12 18v-6" />
                                 <path d="m9 15 3-3 3 3" />
                             </svg>
-                            IMPORT DATASET
+                            Import Dataset
                         </button>
                         <input type="file" ref={fileInputRef} className="hidden" accept=".xlsx,.csv" onChange={handleFileUpload} />
                     </section>
