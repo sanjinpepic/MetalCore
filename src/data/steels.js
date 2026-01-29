@@ -202,6 +202,15 @@ export const PREMIUM_STEELS = [
         cons: ["Lower edge retention than modern super-steels"],
         use_case: "Custom knives and premium production folders where aesthetics matter."
     },
+    {
+        id: 'crucible-12', name: "CPM 15V", producer: "Crucible", C: 1.45, Cr: 5.0, V: 15.0, Mo: 4.0, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 5,
+        ht_curve: "200:65,400:60,600:62",
+        desc: "An extremely wear-resistant high-vanadium powder steel designed for maximum edge retention. Popular for heavy-duty and slicer blades where long lasting sharpness matters.",
+        knives: ["Chris Reeve Sebenza (special runs)", "Busse Combat Razel", "Custom Hard-Use Folders"],
+        pros: ["Outstanding edge retention", "Great for demanding cutting tasks", "Excellent wear resistance"],
+        cons: ["Difficult to sharpen", "More challenging to polish than lower-V steels", "Lower corrosion resistance"],
+        use_case: "Heavy-duty fixed blades and folders where extreme edge durability is the priority; less ideal if polish and ease of sharpening are key."
+    },
 
     // --- CARPENTER ---
     {
