@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 
-const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending }) => {
+const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters }) => {
     const searchContainerRef = useRef(null);
 
     // Axis configuration for mini-matrix
@@ -74,6 +74,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
     const handleSearchKeyDown = (e) => {
         if (e.key === 'Enter' && search.length > 0) {
+            if (resetFilters) resetFilters();
             setView('SEARCH');
         }
     };
@@ -165,6 +166,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                 setDetailSteel(result);
                                                 setSearch('');
                                                 incrementTrending(result.id);
+                                                if (resetFilters) resetFilters();
                                             }}
                                             className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded-xl group/item"
                                         >
@@ -194,7 +196,10 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     ))}
                                 </div>
                                 <button
-                                    onClick={() => setView('SEARCH')}
+                                    onClick={() => {
+                                        setView('SEARCH');
+                                        if (resetFilters) resetFilters();
+                                    }}
                                     className="w-full py-3 bg-white/5 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white hover:bg-white/10 transition-all"
                                 >
                                     View all results for "{search}"

@@ -17,7 +17,8 @@ const Sidebar = ({
     aiOpen,
     setAiOpen,
     setSearch,
-    trending
+    trending,
+    resetFilters
 }) => {
     const defaultTrending = [
         { name: "MagnaCut", id: "crucible-1" },
@@ -97,7 +98,11 @@ const Sidebar = ({
                             {displayTrending.map(steel => (
                                 <button
                                     key={steel.id}
-                                    onClick={() => { setSearch(steel.name); setView('SEARCH'); }}
+                                    onClick={() => {
+                                        setSearch(steel.name);
+                                        setView('SEARCH');
+                                        if (resetFilters) resetFilters();
+                                    }}
                                     className="w-full text-left px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-all flex items-center justify-between group"
                                 >
                                     <span className="text-xs font-bold text-slate-400 group-hover:text-white line-clamp-1">{steel.name}</span>
