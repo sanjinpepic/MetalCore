@@ -233,7 +233,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                             <div className="flex items-center justify-between mb-8 md:mb-12">
                                 <div>
                                     <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter">Performance Frontier</h3>
-                                    <p className="text-[10px] md:text-xs text-slate-500 uppercase font-black tracking-widest mt-1">Real-time Visualization of the Top 20 Elite Alloys</p>
+                                    <p className="text-[10px] md:text-xs text-slate-500 uppercase font-black tracking-widest mt-1">Real-time Visualization of the Elite Knife Alloys</p>
                                 </div>
                                 <button
                                     onClick={() => setView('MATRIX')}
