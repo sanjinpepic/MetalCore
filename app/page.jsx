@@ -311,6 +311,11 @@ Be concise and premium.`;
         });
     }, [knifeSearch, steels, activeProducer, filters]);
 
+    const resetFilters = () => {
+        setFilters({ minC: 0, minCr: 0, minV: 0 });
+        setActiveProducer("ALL");
+    };
+
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">
             {/* Mobile Menu Overlay */}
@@ -377,6 +382,7 @@ Be concise and premium.`;
                 setAiOpen={setAiOpen}
                 setSearch={setSearch}
                 trending={trendingList}
+                resetFilters={resetFilters}
             />
 
             {/* Main Content */}
@@ -391,6 +397,7 @@ Be concise and premium.`;
                     toggleCompare={toggleCompare}
                     producers={producers}
                     incrementTrending={incrementTrending}
+                    resetFilters={resetFilters}
                 />
             )}
 
@@ -404,6 +411,7 @@ Be concise and premium.`;
                     clearCompare={clearCompare}
                     setDetailSteel={setDetailSteel}
                     setView={setView}
+                    resetFilters={resetFilters}
                 />
             )}
 

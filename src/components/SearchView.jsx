@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView }) => {
+const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters }) => {
     return (
         <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar">
             <header className="p-6 md:p-12 pb-6 md:pb-8 pt-24 md:pt-12 space-y-4 md:space-y-6 shrink-0">
