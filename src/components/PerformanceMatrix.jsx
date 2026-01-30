@@ -165,6 +165,22 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     const color = getProducerColor(payload.producer);
                                     return (
                                         <g>
+                                            <text
+                                                x={cx}
+                                                y={cy - 15}
+                                                textAnchor="middle"
+                                                fill="rgba(255,255,255,0.7)"
+                                                fontSize={9}
+                                                fontFamily="sans-serif"
+                                                fontWeight="bold"
+                                                style={{
+                                                    pointerEvents: 'none',
+                                                    textShadow: '0 1px 3px rgba(0,0,0,0.9)',
+                                                    letterSpacing: '0.05em'
+                                                }}
+                                            >
+                                                {payload.name}
+                                            </text>
                                             <circle
                                                 cx={cx}
                                                 cy={cy}
