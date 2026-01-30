@@ -213,7 +213,10 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         {stats.map((stat, i) => (
                             <button
                                 key={i}
-                                onClick={() => setView(stat.target)}
+                                onClick={() => {
+                                    setView(stat.target);
+                                    if (stat.target === 'SEARCH' && resetFilters) resetFilters();
+                                }}
                                 className="flex flex-col items-center group transition-all"
                             >
                                 <div className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1 group-hover:text-slate-400 transition-colors">{stat.label}</div>
