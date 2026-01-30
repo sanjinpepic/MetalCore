@@ -100,6 +100,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
     const [xAxis, setXAxis] = useState('edge');
     const [yAxis, setYAxis] = useState('toughness');
+    const [hoveredSteel, setHoveredSteel] = useState(null);
 
     // Chart dimensions for label collision calculation
     const [chartDimensions, setChartDimensions] = useState({ width: 0, height: 0 });
@@ -277,40 +278,49 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     name="Steels"
                                     data={steels}
                                     onClick={(data) => setDetailSteel(data)}
+                                    as="g"
+                                    onMouseEnter={(data) => setHoveredSteel(data.name)}
+                                    onMouseLeave={() => setHoveredSteel(null)}
                                     shape={(props) => {
                                         const { cx, cy, payload } = props;
                                         const color = getProducerColor(payload.producer);
+                                        const isHovered = hoveredSteel === payload.name;
+                                        const isDimmed = hoveredSteel && !isHovered;
 
                                         // Get calculated offset or default
                                         const offset = labelOffsets[payload.name] || { x: 0, y: -15 };
                                         const labelX = cx + offset.x;
                                         const labelY = cy + offset.y;
-                                        const isDisplaced = Math.sqrt(offset.x ** 2 + (offset.y + 15) ** 2) > 10;
+
+                                        // Show line if displaced more than 2px from target or if hovered
+                                        const displacement = Math.sqrt(offset.x ** 2 + (offset.y + 15) ** 2);
+                                        const showLine = displacement > 4 || isHovered;
 
                                         return (
-                                            <g>
-                                                {isDisplaced && (
+                                            <g style={{ opacity: isDimmed ? 0.1 : 1, transition: 'opacity 0.2s' }}>
+                                                {showLine && (
                                                     <line
                                                         x1={cx}
                                                         y1={cy}
                                                         x2={labelX}
-                                                        y2={labelY + 5}
-                                                        stroke="rgba(255,255,255,0.2)"
-                                                        strokeWidth={1}
+                                                        y2={labelY - 2}
+                                                        stroke={isHovered ? "#fff" : "rgba(255,255,255,0.4)"}
+                                                        strokeWidth={isHovered ? 1.5 : 0.8}
                                                     />
                                                 )}
                                                 <text
                                                     x={labelX}
                                                     y={labelY}
                                                     textAnchor="middle"
-                                                    fill="rgba(255,255,255,0.7)"
-                                                    fontSize={9}
+                                                    fill={isHovered ? "#fff" : "rgba(255,255,255,0.7)"}
+                                                    fontSize={isHovered ? 11 : 9}
                                                     fontFamily="sans-serif"
                                                     fontWeight="bold"
                                                     style={{
                                                         pointerEvents: 'none',
                                                         textShadow: '0 1px 3px rgba(0,0,0,0.9)',
-                                                        letterSpacing: '0.05em'
+                                                        letterSpacing: '0.05em',
+                                                        transition: 'font-size 0.2s'
                                                     }}
                                                 >
                                                     {payload.name}
@@ -320,16 +330,20 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                     cy={cy}
                                                     r={window.innerWidth < 768 ? 6 : 8}
                                                     fill={color}
-                                                    className="cursor-pointer hover:r-10 transition-all hover:stroke-white hover:stroke-2"
+                                                    stroke={isHovered ? "#fff" : "none"}
+                                                    strokeWidth={2}
+                                                    className="cursor-pointer transition-all"
                                                 />
-                                                <circle
-                                                    cx={cx}
-                                                    cy={cy}
-                                                    r={window.innerWidth < 768 ? 12 : 16}
-                                                    fill={color}
-                                                    fillOpacity={0.1}
-                                                    className="animate-pulse"
-                                                />
+                                                {isHovered && (
+                                                    <circle
+                                                        cx={cx}
+                                                        cy={cy}
+                                                        r={window.innerWidth < 768 ? 12 : 16}
+                                                        fill={color}
+                                                        fillOpacity={0.2}
+                                                        className="animate-pulse"
+                                                    />
+                                                )}
                                             </g>
                                         );
                                     }}
