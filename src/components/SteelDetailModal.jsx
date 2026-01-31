@@ -91,7 +91,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
 
                         {steel.knives && steel.knives.length > 0 && (
                             <div className="pb-2">
-                                <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Popular Examples</div>
+                                <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Famous in Knives</div>
                                 <div className="grid grid-cols-1 gap-2">
                                     {steel.knives.map((k, i) => (
                                         <button
