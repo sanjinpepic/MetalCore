@@ -154,7 +154,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             <div className="px-4 md:px-12 pt-16 md:pt-12 shrink-0">
                 <div className="mb-6 md:mb-8 shrink-0">
                     <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-2 md:mb-4 italic uppercase leading-none">Performance Matrix</h1>
-                    <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the Toughness vs. Edge Retention trade-off.</p>
+                    <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the four key knife properties & highlight the trade-offs.</p>
                 </div>
             </div>
 
