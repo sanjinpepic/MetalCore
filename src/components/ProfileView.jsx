@@ -34,61 +34,72 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
 
     return (
         <div className="flex-1 overflow-y-auto bg-black custom-scrollbar">
-            {/* Header / Banner Area */}
-            <div className="relative min-h-[14rem] md:h-64 bg-gradient-to-r from-accent/20 via-indigo-500/10 to-transparent border-b border-white/5 flex flex-col justify-end">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 pointer-events-none"></div>
-                <div className="p-6 md:p-10 flex flex-col md:flex-row items-center md:items-end gap-6 relative z-10 w-full" ref={editRef}>
-                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-black border-4 border-accent shadow-2xl flex items-center justify-center overflow-hidden group">
-                        {user.avatar ? (
-                            <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
-                        ) : (
-                            <div className="text-4xl md:text-5xl font-display font-black text-accent italic uppercase">
-                                {user.name.charAt(0)}
+            {/* Header */}
+            <header className="p-8 md:p-12 pb-6 md:pb-8 pt-24 md:pt-16 space-y-6 shrink-0 bg-gradient-to-b from-violet-500/10 to-transparent relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none mix-blend-overlay"></div>
+
+                <div className="relative z-10">
+                    <div className="text-[10px] md:text-xs font-black text-violet-400 mb-6 uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-6 h-px bg-violet-500/30"></span>
+                        Operator Profile
+                    </div>
+
+                    <div className="flex flex-col md:flex-row items-start md:items-end gap-8" ref={editRef}>
+                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-black/50 border-4 border-white/5 shadow-2xl flex items-center justify-center overflow-hidden shrink-0 backdrop-blur-md">
+                            {user.avatar ? (
+                                <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                            ) : (
+                                <div className="text-4xl md:text-5xl font-display font-black text-violet-500 italic uppercase">
+                                    {user.name.charAt(0)}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="flex-1 w-full text-left">
+                            {isEditing ? (
+                                <div className="space-y-4 max-w-lg">
+                                    <input
+                                        type="text"
+                                        value={editForm.name}
+                                        onChange={e => setEditForm({ ...editForm, name: e.target.value })}
+                                        className="bg-white/5 border border-violet-500/30 rounded-xl px-4 py-3 text-white font-display font-black text-3xl md:text-4xl w-full focus:outline-none focus:border-violet-500 italic uppercase"
+                                    />
+                                    <textarea
+                                        value={editForm.bio}
+                                        onChange={e => setEditForm({ ...editForm, bio: e.target.value })}
+                                        className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-slate-300 text-sm w-full h-24 focus:outline-none focus:border-violet-500 resize-none font-medium"
+                                    />
+                                    <div className="flex gap-3">
+                                        <button onClick={handleSaveProfile} className="px-6 py-2 bg-violet-600 text-white font-bold rounded-xl text-sm transition-all hover:bg-violet-500 shadow-lg shadow-violet-600/20">Save Profile</button>
+                                        <button onClick={() => setIsEditing(false)} className="px-6 py-2 bg-white/5 text-slate-400 font-bold rounded-xl text-sm border border-white/5 hover:bg-white/10 hover:text-white">Cancel</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-4">
+                                        <h1 className="text-4xl md:text-6xl font-display font-black text-white italic uppercase tracking-tighter leading-none">
+                                            {user.name}
+                                        </h1>
+                                        <button onClick={() => setIsEditing(true)} className="p-2 bg-white/5 border border-white/10 rounded-xl text-slate-500 hover:text-violet-400 hover:border-violet-500/30 transition-all">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
+                                        </button>
+                                    </div>
+                                    <p className="text-slate-500 text-sm md:text-lg max-w-xl italic font-medium leading-relaxed">"{user.bio}"</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {!isEditing && (
+                            <div className="shrink-0 mb-1">
+                                <button className="px-5 py-3 bg-white/5 border border-white/10 rounded-xl flex items-center gap-2.5 text-xs font-black uppercase tracking-widest text-slate-300 hover:bg-white/10 hover:text-white transition-all group hover:border-violet-500/30">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-violet-500 group-hover:scale-110 transition-transform"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
+                                    Share Identity
+                                </button>
                             </div>
                         )}
-                    </div>
-                    <div className="flex-1 mb-2 w-full text-center md:text-left">
-                        {isEditing ? (
-                            <div className="space-y-3 max-w-md">
-                                <input
-                                    type="text"
-                                    value={editForm.name}
-                                    onChange={e => setEditForm({ ...editForm, name: e.target.value })}
-                                    className="bg-black/60 border border-accent/30 rounded-xl px-4 py-2 text-white font-display font-black text-2xl w-full focus:outline-none focus:border-accent"
-                                />
-                                <textarea
-                                    value={editForm.bio}
-                                    onChange={e => setEditForm({ ...editForm, bio: e.target.value })}
-                                    className="bg-black/60 border border-white/10 rounded-xl px-4 py-2 text-slate-400 text-sm w-full h-20 focus:outline-none focus:border-accent resize-none"
-                                />
-                                <div className="flex gap-2 justify-center md:justify-start">
-                                    <button onClick={handleSaveProfile} className="px-4 py-2 bg-accent text-black font-bold rounded-lg text-sm transition-all hover:scale-105">Save</button>
-                                    <button onClick={() => setIsEditing(false)} className="px-4 py-2 bg-white/5 text-slate-400 font-bold rounded-lg text-sm border border-white/10 hover:bg-white/10">Cancel</button>
-                                </div>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="flex items-center justify-center md:justify-start gap-4">
-                                    <h1 className="text-3xl md:text-5xl font-display font-black text-white italic uppercase tracking-tighter leading-none">
-                                        {user.name}
-                                    </h1>
-                                    <button onClick={() => setIsEditing(true)} className="p-2 bg-white/5 border border-white/10 rounded-lg text-slate-500 hover:text-accent transition-colors">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
-                                    </button>
-                                </div>
-                                <p className="text-slate-400 mt-2 max-w-lg italic font-medium mx-auto md:mx-0">"{user.bio}"</p>
-                            </>
-                        )}
-                    </div>
-                    <div className="flex gap-3 mb-2 shrink-0">
-                        <button className="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-2 text-sm font-bold text-white hover:bg-white/10 transition-all group whitespace-nowrap">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent group-hover:scale-110 transition-transform"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
-                            <span className="hidden sm:inline">Share Profile</span>
-                            <span className="sm:hidden">Share</span>
-                        </button>
                     </div>
                 </div>
-            </div>
+            </header>
 
             <div className="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
                 {/* Column 1: Favorites & Community */}

@@ -151,60 +151,68 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
     return (
         <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto md:overflow-hidden bg-black custom-scrollbar">
-            <div className="px-4 md:px-12 pt-16 md:pt-12 shrink-0">
-                <div className="mb-6 md:mb-8 shrink-0">
-                    <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-2 md:mb-4 italic uppercase leading-none">Performance Matrix</h1>
-                    <p className="text-slate-500 text-sm md:text-lg leading-relaxed">Visualizing the four key knife properties & highlight the trade-offs.</p>
+            {/* Header */}
+            <header className="p-8 md:p-12 pb-6 md:pb-8 pt-24 md:pt-16 space-y-4 md:space-y-6 shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
+                <div>
+                    <div className="text-[10px] md:text-xs font-black text-rose-400 mb-3 uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-6 h-px bg-rose-500/30"></span>
+                        Analytics Engine
+                    </div>
+                    <h1 className="text-3xl md:text-6xl font-display font-black text-white tracking-tighter italic uppercase leading-tight">Performance <br /><span className="text-accent">Matrix</span></h1>
+                    <p className="text-slate-500 max-w-2xl text-sm md:text-lg leading-relaxed mt-4 italic font-medium">Visualizing the four key knife properties to highlight trade-offs. Compare Elite vs. Budget steels in real-time.</p>
+                </div>
+            </header>
+
+            {/* Sticky Axis Controls */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-8 md:px-12 py-4 flex flex-col md:flex-row items-start md:items-center gap-6">
+                {/* Y-Axis Selector */}
+                <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Y-Axis:</span>
+                    <div className="flex gap-2 flex-wrap">
+                        {Object.keys(axisOptions).map(key => (
+                            <button
+                                key={`y-${key}`}
+                                onClick={() => setYAxis(key)}
+                                disabled={key === xAxis}
+                                className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${yAxis === key
+                                    ? 'bg-rose-500 text-white border border-rose-500'
+                                    : key === xAxis
+                                        ? 'bg-white/5 text-slate-700 border border-white/5 cursor-not-allowed'
+                                        : 'bg-white/5 text-slate-400 border border-white/10 hover:bg-white/10 hover:text-white hover:border-rose-500/30'
+                                    }`}
+                            >
+                                {axisOptions[key].shortLabel}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="hidden md:block w-px h-8 bg-white/10"></div>
+
+                {/* X-Axis Selector */}
+                <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">X-Axis:</span>
+                    <div className="flex gap-2 flex-wrap">
+                        {Object.keys(axisOptions).map(key => (
+                            <button
+                                key={`x-${key}`}
+                                onClick={() => setXAxis(key)}
+                                disabled={key === yAxis}
+                                className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${xAxis === key
+                                    ? 'bg-rose-500 text-white border border-rose-500'
+                                    : key === yAxis
+                                        ? 'bg-white/5 text-slate-700 border border-white/5 cursor-not-allowed'
+                                        : 'bg-white/5 text-slate-400 border border-white/10 hover:bg-white/10 hover:text-white hover:border-rose-500/30'
+                                    }`}
+                            >
+                                {axisOptions[key].shortLabel}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            <div className="flex-1 px-4 md:px-12 pb-0 md:pb-6 flex flex-col min-h-0">
-                {/* Axis Selectors */}
-                <div className="flex flex-col md:flex-row gap-3 md:gap-6 mb-4 md:mb-6 px-2">
-                    {/* Y-Axis Selector */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Y-Axis:</span>
-                        <div className="flex gap-2 flex-wrap">
-                            {Object.keys(axisOptions).map(key => (
-                                <button
-                                    key={`y-${key}`}
-                                    onClick={() => setYAxis(key)}
-                                    disabled={key === xAxis}
-                                    className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${yAxis === key
-                                        ? 'bg-accent text-black border border-accent'
-                                        : key === xAxis
-                                            ? 'bg-white/5 text-slate-700 border border-white/5 cursor-not-allowed'
-                                            : 'bg-white/5 text-slate-400 border border-white/10 hover:bg-white/10 hover:text-white hover:border-accent/30'
-                                        }`}
-                                >
-                                    {axisOptions[key].shortLabel}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* X-Axis Selector */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">X-Axis:</span>
-                        <div className="flex gap-2 flex-wrap">
-                            {Object.keys(axisOptions).map(key => (
-                                <button
-                                    key={`x-${key}`}
-                                    onClick={() => setXAxis(key)}
-                                    disabled={key === yAxis}
-                                    className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${xAxis === key
-                                        ? 'bg-accent text-black border border-accent'
-                                        : key === yAxis
-                                            ? 'bg-white/5 text-slate-700 border border-white/5 cursor-not-allowed'
-                                            : 'bg-white/5 text-slate-400 border border-white/10 hover:bg-white/10 hover:text-white hover:border-accent/30'
-                                        }`}
-                                >
-                                    {axisOptions[key].shortLabel}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+            <div className="flex-1 px-4 md:px-12 pb-0 md:pb-6 flex flex-col min-h-0 pt-6">
 
                 <div className="h-[540px] md:h-full glass-panel rounded-2xl md:rounded-[2.5rem] p-2 md:p-10 relative overflow-hidden mb-0 md:mb-10">
                     {/* Quadrant Labels */}
@@ -238,13 +246,14 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     label={{ value: `${axisOptions[yAxis].label} →`, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
                                 />
                                 <Tooltip
+                                    isAnimationActive={false}
                                     cursor={{ strokeDasharray: '3 3' }}
                                     content={({ active, payload }) => {
                                         if (active && payload && payload.length) {
                                             const data = payload[0].payload;
                                             const color = getProducerColor(data.producer);
                                             return (
-                                                <div className="glass-panel p-3 md:p-4 rounded-xl border border-white/10 shadow-2xl backdrop-blur-3xl min-w-[200px]">
+                                                <div className="bg-black/95 p-3 md:p-4 rounded-xl border border-white/10 shadow-xl backdrop-blur-sm min-w-[200px]">
                                                     <div className="flex items-center gap-2 mb-1.5">
                                                         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
                                                         <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: color }}>{data.producer}</div>
@@ -279,6 +288,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     data={steels}
                                     onClick={(data) => setDetailSteel(data)}
                                     as="g"
+                                    isAnimationActive={false}
                                     onMouseEnter={(data) => setHoveredSteel(data.name)}
                                     onMouseLeave={() => setHoveredSteel(null)}
                                     shape={(props) => {
@@ -292,12 +302,12 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         const labelX = cx + offset.x;
                                         const labelY = cy + offset.y;
 
-                                        // Show line if displaced more than 2px from target or if hovered
-                                        const displacement = Math.sqrt(offset.x ** 2 + (offset.y + 15) ** 2);
-                                        const showLine = displacement > 4 || isHovered;
+                                        // Optimize: Don't calculate sqrt unless needed.
+                                        // Simple distance check: offset.x or offset.y > 4 approx
+                                        const showLine = Math.abs(offset.x) > 4 || Math.abs(offset.y + 15) > 4 || isHovered;
 
                                         return (
-                                            <g style={{ opacity: isDimmed ? 0.1 : 1, transition: 'opacity 0.2s' }}>
+                                            <g style={{ opacity: isDimmed ? 0.1 : 1 }}>
                                                 {showLine && (
                                                     <line
                                                         x1={cx}
@@ -316,32 +326,26 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                     fontSize={isHovered ? 11 : 9}
                                                     fontFamily="sans-serif"
                                                     fontWeight="bold"
-                                                    style={{
-                                                        pointerEvents: 'none',
-                                                        textShadow: '0 1px 3px rgba(0,0,0,0.9)',
-                                                        letterSpacing: '0.05em',
-                                                        transition: 'font-size 0.2s'
-                                                    }}
+                                                    style={{ pointerEvents: 'none' }}
                                                 >
                                                     {payload.name}
                                                 </text>
                                                 <circle
                                                     cx={cx}
                                                     cy={cy}
-                                                    r={window.innerWidth < 768 ? 6 : 8}
+                                                    r={6}
                                                     fill={color}
                                                     stroke={isHovered ? "#fff" : "none"}
                                                     strokeWidth={2}
-                                                    className="cursor-pointer transition-all"
+                                                    className="cursor-pointer"
                                                 />
                                                 {isHovered && (
                                                     <circle
                                                         cx={cx}
                                                         cy={cy}
-                                                        r={window.innerWidth < 768 ? 12 : 16}
+                                                        r={14}
                                                         fill={color}
                                                         fillOpacity={0.2}
-                                                        className="animate-pulse"
                                                     />
                                                 )}
                                             </g>

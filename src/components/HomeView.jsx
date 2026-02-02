@@ -104,126 +104,128 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
             <div className="relative z-10 flex flex-col min-h-full">
 
                 {/* Hero Section - Centered Immersive */}
-                <div className="p-6 md:p-12 lg:p-20 pt-24 md:pt-24 flex flex-col items-center text-center max-w-7xl mx-auto w-full space-y-10">
-                    <div className="space-y-6">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20 backdrop-blur-md">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-                            </span>
-                            <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Command Center 2.0</span>
-                        </div>
-
-                        <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8]">
-                            FORGING<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE</span>
-                        </h1>
-
-                        <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-                            The ultimate metallurgical database. Real-time edge retention, toughness, and chemical analysis for the world's most elite knife alloys.
-                        </p>
-                    </div>
-
-                    {/* Spotlight Global Search */}
-                    <div ref={searchContainerRef} className="relative group w-full max-w-2xl px-4 md:px-0 z-[100]">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-accent/30 to-indigo-500/30 rounded-2xl blur opacity-25 group-focus-within:opacity-100 transition duration-1000" />
-                        <div className="relative bg-black/60 border border-white/10 rounded-2xl flex items-center px-6 py-5 backdrop-blur-3xl group-focus-within:border-accent/50 transition-all shadow-2xl">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-5 group-focus-within:text-accent transition-colors">
-                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
-                            </svg>
-                            <input
-                                type="text"
-                                placeholder="Search steels, producers, or performance tiers..."
-                                className="bg-transparent border-none outline-none text-white placeholder:text-slate-600 w-full font-bold text-xl"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                onKeyDown={handleSearchKeyDown}
-                                onFocus={handleSearchFocus}
-                            />
-                            {search && (
-                                <button
-                                    onClick={() => setSearch('')}
-                                    className="p-2 hover:bg-white/10 rounded-lg transition-colors mr-2"
-                                >
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
-                                        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-                                    </svg>
-                                </button>
-                            )}
-                            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 ml-4 group-focus-within:border-accent/40 transition-colors">
-                                <span className="text-[10px] font-black text-slate-500 group-focus-within:text-accent uppercase tracking-tighter">Enter</span>
+                <div className="w-full bg-gradient-to-b from-emerald-500/10 to-transparent pb-12">
+                    <div className="p-6 md:p-12 lg:p-20 pt-24 md:pt-24 flex flex-col items-center text-center max-w-7xl mx-auto w-full space-y-10">
+                        <div className="space-y-6">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20 backdrop-blur-md">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+                                </span>
+                                <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Command Center 2.0</span>
                             </div>
+
+                            <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8]">
+                                FORGING<br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE</span>
+                            </h1>
+
+                            <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+                                The ultimate metallurgical database. Real-time edge retention, toughness, and chemical analysis for the world's most elite knife alloys.
+                            </p>
                         </div>
 
-                        {/* Spotlight Dropdown */}
-                        {searchResults.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
-                                <div className="p-2">
-                                    {searchResults.map((result) => (
-                                        <button
-                                            key={result.id}
-                                            onClick={() => {
-                                                setDetailSteel(result);
-                                                setSearch('');
-                                                incrementTrending(result.id);
-                                                if (resetFilters) resetFilters();
-                                            }}
-                                            className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded-xl group/item"
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-2 h-10 rounded-full" style={{ backgroundColor: getProducerColor(result.producer) }} />
-                                                <div className="text-left">
-                                                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{result.producer}</div>
-                                                    <div className="text-lg font-black text-white italic leading-none group-hover/item:text-accent transition-colors">{result.name}</div>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-6">
-                                                <div className="hidden md:flex items-center gap-4">
-                                                    <div className="text-center">
-                                                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-tighter mb-0.5">Edge</div>
-                                                        <div className="text-xs font-mono font-bold text-slate-300">{result.edge}</div>
-                                                    </div>
-                                                    <div className="text-center">
-                                                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-tighter mb-0.5">Tough</div>
-                                                        <div className="text-xs font-mono font-bold text-slate-300">{result.toughness}</div>
-                                                    </div>
-                                                </div>
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-700 group-hover/item:text-accent group-hover/item:translate-x-1 transition-all">
-                                                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                                                </svg>
-                                            </div>
-                                        </button>
-                                    ))}
+                        {/* Spotlight Global Search */}
+                        <div ref={searchContainerRef} className="relative group w-full max-w-2xl px-4 md:px-0 z-[100]">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-accent/30 to-indigo-500/30 rounded-2xl blur opacity-25 group-focus-within:opacity-100 transition duration-1000" />
+                            <div className="relative bg-black/60 border border-white/10 rounded-2xl flex items-center px-6 py-5 backdrop-blur-3xl group-focus-within:border-accent/50 transition-all shadow-2xl">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-5 group-focus-within:text-accent transition-colors">
+                                    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+                                </svg>
+                                <input
+                                    type="text"
+                                    placeholder="Search steels, producers, or performance tiers..."
+                                    className="bg-transparent border-none outline-none text-white placeholder:text-slate-600 w-full font-bold text-xl"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    onKeyDown={handleSearchKeyDown}
+                                    onFocus={handleSearchFocus}
+                                />
+                                {search && (
+                                    <button
+                                        onClick={() => setSearch('')}
+                                        className="p-2 hover:bg-white/10 rounded-lg transition-colors mr-2"
+                                    >
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
+                                            <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                                        </svg>
+                                    </button>
+                                )}
+                                <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 ml-4 group-focus-within:border-accent/40 transition-colors">
+                                    <span className="text-[10px] font-black text-slate-500 group-focus-within:text-accent uppercase tracking-tighter">Enter</span>
                                 </div>
-                                <button
-                                    onClick={() => {
-                                        setView('SEARCH');
-                                        if (resetFilters) resetFilters();
-                                    }}
-                                    className="w-full py-3 bg-white/5 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white hover:bg-white/10 transition-all"
-                                >
-                                    View all results for "{search}"
-                                </button>
                             </div>
-                        )}
-                    </div>
 
-                    {/* Stats Horizontal - Integrated into flow */}
-                    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full border-y border-white/5 py-8 md:py-12">
-                        {stats.map((stat, i) => (
-                            <button
-                                key={i}
-                                onClick={() => {
-                                    setView(stat.target);
-                                    if (stat.target === 'SEARCH' && resetFilters) resetFilters();
-                                }}
-                                className="flex flex-col items-center group transition-all"
-                            >
-                                <div className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1 group-hover:text-slate-400 transition-colors">{stat.label}</div>
-                                <div className="text-4xl md:text-5xl font-black text-white font-display group-hover:text-accent transition-all group-hover:scale-110">{stat.value}</div>
-                                <div className="h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full mt-2" />
-                            </button>
-                        ))}
+                            {/* Spotlight Dropdown */}
+                            {searchResults.length > 0 && (
+                                <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
+                                    <div className="p-2">
+                                        {searchResults.map((result) => (
+                                            <button
+                                                key={result.id}
+                                                onClick={() => {
+                                                    setDetailSteel(result);
+                                                    setSearch('');
+                                                    incrementTrending(result.id);
+                                                    if (resetFilters) resetFilters();
+                                                }}
+                                                className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded-xl group/item"
+                                            >
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-2 h-10 rounded-full" style={{ backgroundColor: getProducerColor(result.producer) }} />
+                                                    <div className="text-left">
+                                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{result.producer}</div>
+                                                        <div className="text-lg font-black text-white italic leading-none group-hover/item:text-accent transition-colors">{result.name}</div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center gap-6">
+                                                    <div className="hidden md:flex items-center gap-4">
+                                                        <div className="text-center">
+                                                            <div className="text-[8px] font-black text-slate-600 uppercase tracking-tighter mb-0.5">Edge</div>
+                                                            <div className="text-xs font-mono font-bold text-slate-300">{result.edge}</div>
+                                                        </div>
+                                                        <div className="text-center">
+                                                            <div className="text-[8px] font-black text-slate-600 uppercase tracking-tighter mb-0.5">Tough</div>
+                                                            <div className="text-xs font-mono font-bold text-slate-300">{result.toughness}</div>
+                                                        </div>
+                                                    </div>
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-700 group-hover/item:text-accent group-hover/item:translate-x-1 transition-all">
+                                                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                                                    </svg>
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            setView('SEARCH');
+                                            if (resetFilters) resetFilters();
+                                        }}
+                                        className="w-full py-3 bg-white/5 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white hover:bg-white/10 transition-all"
+                                    >
+                                        View all results for "{search}"
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Stats Horizontal - Integrated into flow */}
+                        <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full border-y border-white/5 py-8 md:py-12">
+                            {stats.map((stat, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => {
+                                        setView(stat.target);
+                                        if (stat.target === 'SEARCH' && resetFilters) resetFilters();
+                                    }}
+                                    className="flex flex-col items-center group transition-all"
+                                >
+                                    <div className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1 group-hover:text-slate-400 transition-colors">{stat.label}</div>
+                                    <div className="text-4xl md:text-5xl font-black text-white font-display group-hover:text-accent transition-all group-hover:scale-110">{stat.value}</div>
+                                    <div className="h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full mt-2" />
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

@@ -24,27 +24,33 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
 
     return (
         <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar">
-            <header className="p-6 md:p-12 pb-6 md:pb-8 pt-24 md:pt-12 space-y-6 md:space-y-8 shrink-0">
+            {/* Header */}
+            <header className="p-8 md:p-12 pb-6 md:pb-8 pt-24 md:pt-16 space-y-4 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
                 <div>
-                    <h1 className="text-2xl md:text-5xl font-display font-black text-white tracking-tighter mb-3 md:mb-4 italic uppercase leading-none">KNIFE LIBRARY</h1>
-                    <p className="text-slate-500 max-w-2xl text-sm md:text-lg leading-relaxed">Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.</p>
+                    <div className="text-[10px] md:text-xs font-black text-sky-400 mb-3 uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-6 h-px bg-sky-500/30"></span>
+                        Armory
+                    </div>
+                    <h1 className="text-3xl md:text-6xl font-display font-black text-white tracking-tighter italic uppercase leading-tight">Knife <br /><span className="text-accent">Registry</span></h1>
+                    <p className="text-slate-500 max-w-2xl text-sm md:text-lg leading-relaxed mt-4 italic font-medium">Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.</p>
                 </div>
             </header>
 
-            <div className="sticky top-0 z-20 px-6 md:px-12 py-4 bg-black/95 backdrop-blur-md border-b border-white/5 space-y-6 md:space-y-8">
+            {/* Sticky Filter Bar */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-8 md:px-12 py-4">
                 <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 max-w-5xl">
-                    <div className="relative bg-white/5 border border-white/10 rounded-xl md:rounded-2xl flex items-center px-4 py-3 md:py-4 group focus-within:border-accent/50 transition-all flex-1">
+                    <div className="relative bg-white/5 border border-white/10 rounded-xl flex items-center px-4 py-2.5 group focus-within:border-accent/40 transition-all flex-1">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-3 group-focus-within:text-accent transition-colors">
                             <circle cx="11" cy="11" r="8" />
                             <path d="m21 21-4.35-4.35" />
                         </svg>
-                        <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none h-10 text-sm md:text-base" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
+                        <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none font-bold text-sm" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
                         {knifeSearch && (
                             <button
                                 onClick={() => setKnifeSearch('')}
-                                className="p-2 hover:bg-white/10 rounded-lg transition-colors ml-2"
+                                className="p-1 hover:bg-white/10 rounded-lg transition-colors ml-2"
                             >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
                                     <path d="M18 6 6 18" /><path d="m6 6 12 12" />
                                 </svg>
                             </button>
@@ -56,9 +62,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-5 py-2.5 rounded-lg md:rounded-xl text-xs md:text-sm font-bold transition-all whitespace-nowrap uppercase tracking-widest ${activeCategory === cat
-                                    ? "bg-accent text-black"
-                                    : "bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5"
+                                className={`px-4 py-2 rounded-lg text-[10px] md:text-xs font-black transition-all whitespace-nowrap uppercase tracking-widest ${activeCategory === cat
+                                    ? "bg-sky-500 text-black border border-sky-500"
+                                    : "bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5 hover:border-sky-500/30 hover:text-white"
                                     }`}
                             >
                                 {cat}

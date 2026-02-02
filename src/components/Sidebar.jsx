@@ -57,6 +57,7 @@ const Sidebar = ({
                         { label: 'Grade Library', id: 'SEARCH', icon: 'M12 5rx9ry3 M21 12c0 1.66-4 3-9 3s-9-1.34-9-3 M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5' },
                         { label: 'Performance Matrix', id: 'MATRIX', icon: 'M21 10H3 M21 6H3 M21 14H3 M21 18H3' },
                         { label: 'Knife Library', id: 'KNIVES', icon: 'M14.5 17.5 3 6 3 3 6 3 17.5 14.5 M13 19 19 13 M16 16 20 20 M19 21 21 19' },
+                        { label: 'Academy', id: 'EDUCATION', icon: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z' },
                         { label: 'My Profile', id: 'PROFILE', icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z' },
                     ].map(nav => (
                         <button
@@ -69,6 +70,7 @@ const Sidebar = ({
                                 {nav.id === 'SEARCH' && <><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></>}
                                 {nav.id === 'MATRIX' && <><line x1="21" y1="10" x2="3" y2="10" /><line x1="21" y1="6" x2="3" y2="6" /><line x1="21" y1="14" x2="3" y2="14" /><line x1="21" y1="18" x2="3" y2="18" /></>}
                                 {nav.id === 'KNIVES' && <><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" /><line x1="13" y1="19" x2="19" y2="13" /><line x1="16" y1="16" x2="20" y2="20" /><line x1="19" y1="21" x2="21" y2="19" /></>}
+                                {nav.id === 'EDUCATION' && <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z" /><path d="M12 2v20" /></>}
                                 {nav.id === 'PROFILE' && <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>}
                             </svg>
                             {nav.label}
