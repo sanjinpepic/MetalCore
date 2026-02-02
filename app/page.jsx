@@ -14,6 +14,7 @@ import SteelDetailModal from '../src/components/SteelDetailModal.jsx';
 import KnifeDetailModal from '../src/components/KnifeDetailModal.jsx';
 import HomeView from '../src/components/HomeView.jsx';
 import ProfileView from '../src/components/ProfileView.jsx';
+import EducationView from '../src/components/EducationView.jsx';
 import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
 import SettingsModal from '../src/components/SettingsModal.jsx';
 import ImportModal from '../src/components/ImportModal.jsx';
@@ -463,6 +464,10 @@ Be concise and premium.`;
                     setDetailSteel={setDetailSteel}
                     setView={setView}
                 />
+            )}
+
+            {view === 'EDUCATION' && (
+                <EducationView />
             )}
 
             {/* AI Analyst Panel */}
