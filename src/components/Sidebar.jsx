@@ -1,4 +1,5 @@
 import React from 'react';
+import { useUser } from '../context/UserContext';
 
 const Sidebar = ({
     view,
@@ -20,6 +21,7 @@ const Sidebar = ({
     trending,
     resetFilters
 }) => {
+    const { user } = useUser();
     const defaultTrending = [
         { name: "MagnaCut", id: "crucible-1" },
         { name: "M390 Microclean", id: "bohler-1" },
@@ -55,6 +57,7 @@ const Sidebar = ({
                         { label: 'Grade Library', id: 'SEARCH', icon: 'M12 5rx9ry3 M21 12c0 1.66-4 3-9 3s-9-1.34-9-3 M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5' },
                         { label: 'Performance Matrix', id: 'MATRIX', icon: 'M21 10H3 M21 6H3 M21 14H3 M21 18H3' },
                         { label: 'Knife Library', id: 'KNIVES', icon: 'M14.5 17.5 3 6 3 3 6 3 17.5 14.5 M13 19 19 13 M16 16 20 20 M19 21 21 19' },
+                        { label: 'My Profile', id: 'PROFILE', icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z' },
                     ].map(nav => (
                         <button
                             key={nav.id}
@@ -66,6 +69,7 @@ const Sidebar = ({
                                 {nav.id === 'SEARCH' && <><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></>}
                                 {nav.id === 'MATRIX' && <><line x1="21" y1="10" x2="3" y2="10" /><line x1="21" y1="6" x2="3" y2="6" /><line x1="21" y1="14" x2="3" y2="14" /><line x1="21" y1="18" x2="3" y2="18" /></>}
                                 {nav.id === 'KNIVES' && <><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" /><line x1="13" y1="19" x2="19" y2="13" /><line x1="16" y1="16" x2="20" y2="20" /><line x1="19" y1="21" x2="21" y2="19" /></>}
+                                {nav.id === 'PROFILE' && <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>}
                             </svg>
                             {nav.label}
                         </button>
@@ -195,7 +199,29 @@ const Sidebar = ({
                     </section>
                 )}
 
-                <div className="pb-10 md:pb-8" />
+                <div className="pb-4" />
+
+                <div className="mt-auto px-1 pt-6 border-t border-white/5 pb-8">
+                    <button
+                        onClick={() => { setView('PROFILE'); setMobileMenuOpen(false); }}
+                        className={`w-full p-4 rounded-2xl flex items-center gap-4 transition-all ${view === 'PROFILE' ? 'bg-accent/10 border border-accent/20 shadow-lg shadow-accent/5' : 'bg-white/2 border border-white/5 hover:bg-white/5 hover:border-white/10'}`}
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-black border border-accent/40 flex items-center justify-center shrink-0 overflow-hidden">
+                            {user.avatar ? (
+                                <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                            ) : (
+                                <span className="text-accent font-display font-black text-sm italic">{user.name.charAt(0)}</span>
+                            )}
+                        </div>
+                        <div className="text-left overflow-hidden">
+                            <div className="text-xs font-black text-white truncate uppercase italic">{user.name}</div>
+                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Community Profile</div>
+                        </div>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="ml-auto text-slate-600">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </aside>
     );

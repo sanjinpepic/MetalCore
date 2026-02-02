@@ -13,15 +13,25 @@ import CompareView from '../src/components/CompareView.jsx';
 import SteelDetailModal from '../src/components/SteelDetailModal.jsx';
 import KnifeDetailModal from '../src/components/KnifeDetailModal.jsx';
 import HomeView from '../src/components/HomeView.jsx';
+import ProfileView from '../src/components/ProfileView.jsx';
 import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
 import SettingsModal from '../src/components/SettingsModal.jsx';
 import ImportModal from '../src/components/ImportModal.jsx';
+import { UserProvider } from '../src/context/UserContext.jsx';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export default function SteelLedger() {
+    return (
+        <UserProvider>
+            <AppContent />
+        </UserProvider>
+    );
+}
+
+function AppContent() {
     const [steels, setSteels] = useState(PREMIUM_STEELS);
     const [view, setView] = useState('HOME');
     const [search, setSearch] = useState("");
@@ -444,6 +454,14 @@ Be concise and premium.`;
                     clearCompare={clearCompare}
                     generateReport={generateReport}
                     isAiLoading={isAiLoading}
+                />
+            )}
+
+            {view === 'PROFILE' && (
+                <ProfileView
+                    steels={steels}
+                    setDetailSteel={setDetailSteel}
+                    setView={setView}
                 />
             )}
 
