@@ -27,7 +27,7 @@ const Footer = () => {
                     >
                         <div className="absolute inset-0 bg-accent/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
                         <span className="text-[10px] font-black text-slate-400 group-hover:text-white uppercase tracking-[0.2em] transition-colors relative">
-                            Donate to me
+                            Support me
                         </span>
                         <div className="p-1.5 bg-accent/20 rounded-lg text-accent group-hover:bg-accent group-hover:text-black transition-all relative">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
