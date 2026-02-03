@@ -1,7 +1,6 @@
 import React from 'react';
 import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
-import PremiumGatedFeature from './PremiumGatedFeature';
 import EdgeRetentionPredictor from './EdgeRetentionPredictor';
 import { useUser } from '../context/UserContext';
 
@@ -147,9 +146,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                                 </svg>
                                 Pro Analysis Lab
                             </h4>
-                            <PremiumGatedFeature featureName="Performance Simulators">
-                                <EdgeRetentionPredictor steel={steel} />
-                            </PremiumGatedFeature>
+                            <EdgeRetentionPredictor steel={steel} />
                         </div>
 
                         <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40 space-y-4">

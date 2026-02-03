@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import Footer from './Footer';
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters }) => {
     const searchContainerRef = useRef(null);
@@ -509,6 +510,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         </div>
     );

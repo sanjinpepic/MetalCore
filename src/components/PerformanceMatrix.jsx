@@ -526,6 +526,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 </div>
             </div>
 
+
             {/* Background Texture Overlay */}
             <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
         </div>

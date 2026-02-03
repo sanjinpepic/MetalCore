@@ -13,21 +13,10 @@ export const UserProvider = ({ children }) => {
         isPro: false, // SaaS gating flag
     });
 
-    const [featureFlags, setFeatureFlags] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('metalcore_features');
-            return saved ? JSON.parse(saved) : { pro_lab: false, my_profile: false };
-        }
-        return { pro_lab: false, my_profile: false };
+    const [featureFlags] = useState({
+        pro_lab: false,
+        my_profile: false
     });
-
-    const toggleFeature = (flag) => {
-        setFeatureFlags(prev => {
-            const next = { ...prev, [flag]: !prev[flag] };
-            localStorage.setItem('metalcore_features', JSON.stringify(next));
-            return next;
-        });
-    };
 
     const [favoriteSteels, setFavoriteSteels] = useState([]);
     const [myKnives, setMyKnives] = useState([]);
@@ -102,7 +91,6 @@ export const UserProvider = ({ children }) => {
             user,
             updateProfile,
             featureFlags,
-            toggleFeature,
             favoriteSteels,
             toggleFavorite,
             myKnives,

@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { useUser } from '../context/UserContext';
 import PremiumGatedFeature from './PremiumGatedFeature';
+import Footer from './Footer';
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, AreaChart, Area } from 'recharts';
 
 const ProLabView = ({ steels }) => {
@@ -303,6 +304,7 @@ const ProLabView = ({ steels }) => {
 
                 </div>
             </PremiumGatedFeature>
+            <Footer />
         </div>
     );
 };

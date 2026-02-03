@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { GLOSSARY, FAQ } from '../data/education';
 import ProducerMap from './ProducerMap';
+import Footer from './Footer';
 
 const EducationView = () => {
     const [activeTab, setActiveTab] = useState('GLOSSARY');
@@ -109,6 +110,7 @@ const EducationView = () => {
                     </div>
                 )}
             </div>
+            <Footer />
         </div >
     );
 };
