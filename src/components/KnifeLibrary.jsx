@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import Footer from './Footer';
 
 const normalize = (val) => {
     if (!val) return "";
@@ -155,6 +156,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                     </div>
                 ))}
             </div>
+            <Footer />
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer';
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters }) => {
     return (
@@ -104,6 +105,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                     </button>
                 </div>
             )}
+            <Footer />
         </div>
     );
 };

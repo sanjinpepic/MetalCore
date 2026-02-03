@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useUser } from '../context/UserContext';
 import PerformanceRadar from './PerformanceRadar';
+import Footer from './Footer';
 
 const ProfileView = ({ steels, setDetailSteel, setView }) => {
     const { user, updateProfile, favoriteSteels, toggleFavorite, myKnives, addKnife, removeKnife, updateKnife } = useUser();
@@ -285,6 +286,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                     </section>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

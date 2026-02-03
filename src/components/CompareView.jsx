@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
+import Footer from './Footer';
 
 const CompareView = ({ items, setView, toggleCompare, clearCompare, generateReport, isAiLoading }) => {
 
@@ -158,6 +159,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
