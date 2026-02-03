@@ -15,7 +15,8 @@ export const UserProvider = ({ children }) => {
 
     const [featureFlags] = useState({
         pro_lab: false,
-        my_profile: false
+        my_profile: false,
+        acquisition_info: false
     });
 
     const [favoriteSteels, setFavoriteSteels] = useState([]);

@@ -5,7 +5,7 @@ import EdgeRetentionPredictor from './EdgeRetentionPredictor';
 import { useUser } from '../context/UserContext';
 
 const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
-    const { favoriteSteels, toggleFavorite } = useUser();
+    const { favoriteSteels, toggleFavorite, featureFlags } = useUser();
     const isFavorite = favoriteSteels.includes(steel.id);
 
     return (
@@ -149,38 +149,40 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                             <EdgeRetentionPredictor steel={steel} />
                         </div>
 
-                        <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40 space-y-4">
-                            <div className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-3 italic">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-amber-500">
-                                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" />
-                                </svg>
-                                Acquisition
-                            </div>
-                            <div className="grid grid-cols-2 gap-2">
-                                <a
-                                    href={`https://www.bladehq.com/?search=${encodeURIComponent(steel.name)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 py-2.5 bg-[#111111] hover:bg-[#1a1a1a] border border-white/5 hover:border-accent/40 rounded-xl text-[9px] font-black uppercase tracking-tighter text-white transition-all shadow-xl"
-                                >
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
+                        {featureFlags?.acquisition_info && (
+                            <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40 space-y-4">
+                                <div className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-3 italic">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-amber-500">
                                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" />
                                     </svg>
-                                    BladeHQ
-                                </a>
-                                <a
-                                    href={`https://www.knifecenter.com/find-the-best/${encodeURIComponent(steel.name)}?`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 py-2.5 bg-[#111111] hover:bg-[#1a1a1a] border border-white/5 hover:border-accent/40 rounded-xl text-[9px] font-black uppercase tracking-tighter text-white transition-all shadow-xl"
-                                >
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-sky-400">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" />
-                                    </svg>
-                                    KnifeCenter
-                                </a>
+                                    Acquisition
+                                </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <a
+                                        href={`https://www.bladehq.com/?search=${encodeURIComponent(steel.name)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-2 py-2.5 bg-[#111111] hover:bg-[#1a1a1a] border border-white/5 hover:border-accent/40 rounded-xl text-[9px] font-black uppercase tracking-tighter text-white transition-all shadow-xl"
+                                    >
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
+                                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" />
+                                        </svg>
+                                        BladeHQ
+                                    </a>
+                                    <a
+                                        href={`https://www.knifecenter.com/find-the-best/${encodeURIComponent(steel.name)}?`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-2 py-2.5 bg-[#111111] hover:bg-[#1a1a1a] border border-white/5 hover:border-accent/40 rounded-xl text-[9px] font-black uppercase tracking-tighter text-white transition-all shadow-xl"
+                                    >
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-sky-400">
+                                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" />
+                                        </svg>
+                                        KnifeCenter
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
 
