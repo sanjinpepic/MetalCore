@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
         bio: 'Collector of fine blades and metallurgy geek.',
         themeColor: '#00f2ff', // Default accent
         avatar: '',
+        isPro: false, // SaaS gating flag
     });
 
     const [favoriteSteels, setFavoriteSteels] = useState([]);
@@ -58,12 +59,18 @@ export const UserProvider = ({ children }) => {
     };
 
     const addKnife = (knife) => {
+        // Limit free users to 3 knives
+        if (!user.isPro && myKnives.length >= 3) {
+            return { error: 'PRO_REQUIRED' };
+        }
+
         const newKnife = {
             ...knife,
             id: 'user-knife-' + Date.now(),
             addedAt: new Date().toISOString()
         };
         setMyKnives(prev => [...prev, newKnife]);
+        return { success: true };
     };
 
     const removeKnife = (id) => {

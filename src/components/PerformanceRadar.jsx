@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
-const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'], compact = false }) => {
+const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'], compact = false, noContainer = false, noTitle = false }) => {
     // Transform data for Radar Chart
     // Expected format: [{ subject: 'Edge', SteelA: 5, SteelB: 8 }, ...]
     const radarData = useMemo(() => {
@@ -22,9 +22,9 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
         });
     }, [items]);
 
-    return (
-        <div className={`glass-panel border-white/10 bg-black/40 shadow-2xl ${compact ? '' : 'p-6 md:p-10 rounded-[2.5rem]'}`}>
-            {!compact && (
+    const radarContent = (
+        <>
+            {!noTitle && !compact && (
                 <h3 className="text-lg font-black text-white mb-8 uppercase tracking-widest flex items-center gap-3 italic">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                         <circle cx="12" cy="12" r="10" />
@@ -35,7 +35,7 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
             )}
             <div className={compact ? "h-[250px]" : "h-[450px] md:h-[550px]"}>
                 <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius={compact ? "70%" : "80%"} data={radarData}>
+                    <RadarChart cx="50%" cy="50%" outerRadius={compact ? "75%" : "80%"} data={radarData}>
                         <PolarGrid stroke="#334155" strokeWidth={1} />
                         <PolarAngleAxis
                             dataKey="subject"
@@ -61,6 +61,14 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
                     </RadarChart>
                 </ResponsiveContainer>
             </div>
+        </>
+    );
+
+    if (noContainer) return radarContent;
+
+    return (
+        <div className={`glass-panel border-white/10 bg-black/40 shadow-2xl ${compact ? '' : 'p-6 md:p-10 rounded-[2.5rem]'}`}>
+            {radarContent}
         </div>
     );
 };
