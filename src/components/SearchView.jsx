@@ -4,14 +4,14 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
     return (
         <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar">
             {/* Header */}
-            <header className="p-8 md:p-12 pb-6 md:pb-8 pt-24 md:pt-16 space-y-4 md:space-y-6 shrink-0 bg-gradient-to-b from-amber-500/10 to-transparent">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-amber-500/10 to-transparent">
                 <div>
-                    <div className="text-[10px] md:text-xs font-black text-amber-400 mb-3 uppercase tracking-widest flex items-center gap-2">
+                    <div className="text-[10px] md:text-xs font-black text-amber-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-amber-500/30"></span>
                         Grade Library
                     </div>
-                    <h1 className="text-3xl md:text-6xl font-display font-black text-white tracking-tighter italic uppercase leading-tight">Alloy <br /><span className="text-accent">Database</span></h1>
-                    <p className="text-slate-500 max-w-2xl text-sm md:text-lg leading-relaxed mt-4 italic font-medium">Comprehensive database of premium knife steels. Filter by alloy content or search by grade.</p>
+                    <h1 className="text-2xl md:text-6xl font-display font-black text-white tracking-tighter italic uppercase leading-none md:leading-tight">Alloy <br className="hidden md:block" /><span className="text-accent">Database</span></h1>
+                    <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">Comprehensive database of premium knife steels. Filter by alloy content or search by grade.</p>
                 </div>
             </header>
 

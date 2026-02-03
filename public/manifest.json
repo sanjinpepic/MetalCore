@@ -1,0 +1,22 @@
+{
+    "name": "MetalCore - Premium Metallurgy",
+    "short_name": "MetalCore",
+    "description": "Premium metallurgy and knife analysis platform",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#f43f5e",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
