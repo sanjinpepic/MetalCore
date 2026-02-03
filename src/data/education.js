@@ -48,15 +48,15 @@ export const GLOSSARY = [
 export const FAQ = [
     {
         q: "What is the best knife steel?",
-        a: "There is no single 'best' steel. The right choice depends on your needs. For daily carry, CPM MagnaCut offers an elite balance. For pure toughness, CPM 3V is legendary. For ultimate edge retention, CPM S125V or Maxamet."
+        a: "There is no single 'best' steel. The right choice depends on your needs. For daily carry, M390 offers an elite balance. For pure toughness, CPM 3V is legendary. For ultimate edge retention, CPM S125V or Maxamet."
     },
     {
         q: "Why does my stainless steel knife have rust spots?",
         a: "No steel is truly 'rust-proof' (except maybe LC200N or Vanax). Even stainless steels can corrode if exposed to salt, acids, or moisture for long periods. Proper cleaning and drying are essential."
     },
     {
-        q: "What is the difference between CPM and conventional steel?",
-        a: "CPM (Crucible Particle Metallurgy) steels have a finer, more consistent grain structure than conventionally melted steels, allowing for higher alloy content without sacrificing as much toughness."
+        q: "What is the difference between Powder Steel (PM) and conventional steel?",
+        a: "PM (Powder Metallurgy) steels have a finer, more consistent grain structure than conventionally melted steels, allowing for higher alloy content without sacrificing as much toughness."
     },
     {
         q: "How often should I sharpen my knife?",
