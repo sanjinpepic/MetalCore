@@ -1,6 +1,8 @@
 import React from 'react';
+import { useUser } from '../context/UserContext';
 
 const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
+    const { featureFlags, toggleFeature } = useUser();
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={onClose}>
             <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
@@ -41,34 +43,48 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                     </div>
 
                     <div className="space-y-3">
-                        <div className="flex flex-col gap-3">
-                            <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Model Selection</label>
-                            <div className="flex flex-wrap gap-2">
-                                {["gemini-2.0-flash", "gemini-3-flash-preview", "gemini-3-pro-preview"].map(m => (
-                                    <button
-                                        key={m}
-                                        onClick={() => {
-                                            setAiModel(m);
-                                            localStorage.setItem('metalcore_gemini_model', m);
-                                        }}
-                                        className={`text-[9px] md:text-[10px] px-2.5 py-1.5 rounded-md border transition-all font-bold uppercase tracking-tight ${aiModel === m ? 'bg-accent text-black border-accent' : 'bg-white/5 border-white/10 text-slate-500 hover:border-white/20'}`}
-                                    >
-                                        {m.replace('gemini-', '')}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="e.g. gemini-3-flash-preview"
-                            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs md:text-sm text-white outline-none focus:border-accent/50 transition-all font-mono shadow-xl"
+                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Model Selection</label>
+                        <select
                             value={aiModel}
                             onChange={e => {
                                 setAiModel(e.target.value);
                                 localStorage.setItem('metalcore_gemini_model', e.target.value);
                             }}
-                        />
-                        <p className="text-[9px] md:text-[10px] text-slate-500 leading-relaxed italic font-medium">Specify the model ID. Large models offer deeper analysis but may be slower.</p>
+                            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs md:text-sm text-white outline-none focus:border-accent/50 transition-all shadow-xl appearance-none"
+                        >
+                            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                            <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+                            <option value="gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+                        </select>
+                    </div>
+
+                    <div className="pt-4 border-t border-white/5">
+                        <label className="text-[10px] md:text-xs font-black text-indigo-400 uppercase tracking-[0.2em] block mb-4">Beta Features</label>
+                        <div className="flex items-center justify-between p-4 bg-indigo-500/5 border border-indigo-500/10 rounded-2xl">
+                            <div>
+                                <div className="text-xs font-black text-white uppercase italic">Pro Lab Access</div>
+                                <div className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Experimental Analytical Tools</div>
+                            </div>
+                            <button
+                                onClick={() => toggleFeature('pro_lab')}
+                                className={`w-12 h-6 rounded-full transition-all relative flex items-center px-1 ${featureFlags.pro_lab ? 'bg-indigo-600' : 'bg-slate-800'}`}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white transition-all ${featureFlags.pro_lab ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
+                        <div className="flex items-center justify-between p-4 bg-indigo-500/5 border border-indigo-500/10 rounded-2xl mt-4">
+                            <div>
+                                <div className="text-xs font-black text-white uppercase italic">Community Profile</div>
+                                <div className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Experimental Profile Views</div>
+                            </div>
+                            <button
+                                onClick={() => toggleFeature('my_profile')}
+                                className={`w-12 h-6 rounded-full transition-all relative flex items-center px-1 ${featureFlags.my_profile ? 'bg-indigo-600' : 'bg-slate-800'}`}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white transition-all ${featureFlags.my_profile ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
                     </div>
 
                     <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Save & Initialize</button>
