@@ -11,6 +11,17 @@ export default function PageLoader() {
         // Mark as mounted (client-side only)
         setMounted(true)
 
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then((reg) => {
+                    console.log('Service worker registered.', reg);
+                }).catch((err) => {
+                    console.warn('Service worker registration failed.', err);
+                });
+            });
+        }
+
         // Check if loader has already been shown in this session
         if (typeof window !== 'undefined' && sessionStorage.getItem('metalcore_loader_shown')) {
             // Already shown, hide immediately
@@ -48,7 +59,7 @@ export default function PageLoader() {
                     hideLoader()
                 }
                 window.addEventListener('load', handleLoad)
-                
+
                 // Cleanup function
                 return () => {
                     window.removeEventListener('load', handleLoad)
@@ -69,7 +80,7 @@ export default function PageLoader() {
     if (!loading) return null
 
     return (
-        <div id="loading" style={{ 
+        <div id="loading" style={{
             position: 'fixed',
             top: 0,
             left: 0,
@@ -85,18 +96,18 @@ export default function PageLoader() {
             transition: 'opacity 0.5s ease-out'
         }}>
             <div className="spinner"></div>
-            <h2 style={{ 
-                fontSize: '1.25rem', 
-                fontWeight: 'bold', 
-                color: 'white', 
-                marginBottom: '0.5rem' 
+            <h2 style={{
+                fontSize: '1.25rem',
+                fontWeight: 'bold',
+                color: 'white',
+                marginBottom: '0.5rem'
             }}>
                 Initialize MetalCore
             </h2>
-            <p style={{ 
-                fontSize: '0.75rem', 
-                color: '#64748b', 
-                fontFamily: 'JetBrains Mono, monospace' 
+            <p style={{
+                fontSize: '0.75rem',
+                color: '#64748b',
+                fontFamily: 'JetBrains Mono, monospace'
             }}>
                 Loading resources...
             </p>
