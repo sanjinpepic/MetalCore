@@ -88,7 +88,7 @@ export const PRODUCERS = [
         desc: "A global leader in high-performance tool steels. Famous for M390, Elmax, and Vanax SuperClean."
     },
     {
-        name: "Sandvik / Alleima",
+        name: "Alleima",
         location: "Sandviken, Sweden",
         coords: [60.6208, 16.7735],
         region: "Europe",
