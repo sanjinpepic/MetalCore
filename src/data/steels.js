@@ -4,7 +4,7 @@
 export const PREMIUM_STEELS = [
     // --- BÖHLER ---
     {
-        id: 'bohler-1', name: "M390 Microclean", producer: "Böhler", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        id: 'bohler-1', name: "M390", producer: "Böhler", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
         ht_curve: "200:60,400:58,500:59,600:56",
         desc: "Third-generation powder metallurgy stainless steel. Widely considered the gold standard for high-end folders.",
         knives: ["Benchmade Bugout (Limited)", "Microtech Ultratech", "GiantMouse ACE Riv"],
@@ -13,7 +13,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium EDC folders and gentleman's knives where edge retention is prioritized."
     },
     {
-        id: 'bohler-2', name: "K390 Microclean", producer: "Böhler", C: 2.47, Cr: 4.2, V: 9.0, Mo: 3.8, W: 1.0, Co: 2.0, edge: 10, toughness: 6, corrosion: 2, sharpen: 2,
+        id: 'bohler-2', name: "K390", producer: "Böhler", C: 2.47, Cr: 4.2, V: 9.0, Mo: 3.8, W: 1.0, Co: 2.0, edge: 10, toughness: 6, corrosion: 2, sharpen: 2,
         ht_curve: "500:62,540:64,600:61",
         desc: "High-alloy cold work tool steel with extreme wear resistance and high compressive strength.",
         knives: ["Spyderco Police 4 Lightweight", "Spyderco Endela K390", "Spyderco Delica 4"],
@@ -31,7 +31,7 @@ export const PREMIUM_STEELS = [
         use_case: "Tactical folders, diving knives, and kitchen cutlery where maintenance is key."
     },
     {
-        id: 'bohler-4', name: "M398 Microclean", producer: "Böhler", C: 2.7, Cr: 20.0, V: 7.2, Mo: 1.0, W: 0.7, Co: 0, edge: 10, toughness: 3, corrosion: 9, sharpen: 1,
+        id: 'bohler-4', name: "M398", producer: "Böhler", C: 2.7, Cr: 20.0, V: 7.2, Mo: 1.0, W: 0.7, Co: 0, edge: 10, toughness: 3, corrosion: 9, sharpen: 1,
         ht_curve: "200:61,400:59,500:60",
         desc: "An evolution of M390 with significantly higher carbon and vanadium for extreme edge retention.",
         knives: ["Shirogorov F3NS (M398)", "Custom configurations"],
@@ -42,7 +42,7 @@ export const PREMIUM_STEELS = [
 
     // --- UDDEHOLM ---
     {
-        id: 'uddeholm-1', name: "Elmax SuperClean", producer: "Uddeholm", C: 1.7, Cr: 18.0, V: 3.0, Mo: 1.0, W: 0, Co: 0, edge: 8, toughness: 5, corrosion: 8, sharpen: 5,
+        id: 'uddeholm-1', name: "Elmax", producer: "Uddeholm", C: 1.7, Cr: 18.0, V: 3.0, Mo: 1.0, W: 0, Co: 0, edge: 8, toughness: 5, corrosion: 8, sharpen: 5,
         ht_curve: "200:60,400:58,500:59",
         desc: "A versatile powder stainless steel balancing high wear resistance with ease of maintenance.",
         knives: ["Zero Tolerance 0562", "Microtech Socom Elite", "TRC Knives South Pole"],
@@ -51,7 +51,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end outdoor fixed blades and rugged folding knives."
     },
     {
-        id: 'uddeholm-2', name: "Vanadis 4 Extra", producer: "Uddeholm", C: 1.4, Cr: 4.7, V: 3.7, Mo: 3.5, W: 0, Co: 0, edge: 8, toughness: 9, corrosion: 1, sharpen: 4,
+        id: 'uddeholm-2', name: "Vanadis 4E", producer: "Uddeholm", C: 1.4, Cr: 4.7, V: 3.7, Mo: 3.5, W: 0, Co: 0, edge: 8, toughness: 9, corrosion: 1, sharpen: 4,
         ht_curve: "500:60,540:62,600:58",
         desc: "A chromium-molybdenum-vanadium alloyed steel characterized by high wear resistance and very good toughness.",
         knives: ["Custom Bushcraft Knives", "Heavy Duty Choppers"],
@@ -69,7 +69,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting applications and extreme performance fixed blades."
     },
     {
-        id: 'uddeholm-6', name: "Vanax SuperClean", producer: "Uddeholm", C: 0.36, Cr: 15.5, V: 3.5, Mo: 1.1, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 10, sharpen: 6,
+        id: 'uddeholm-6', name: "Vanax", producer: "Uddeholm", C: 0.36, Cr: 15.5, V: 3.5, Mo: 1.1, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 10, sharpen: 6,
         ht_curve: "150:60,200:59,250:57",
         desc: "A nitrogen-alloyed stainless steel with exceptional corrosion resistance and good wear resistance.",
         knives: ["Quiet Carry Waypoint", "Quiet Carry Drift", "Custom Saltwater Knives"],
