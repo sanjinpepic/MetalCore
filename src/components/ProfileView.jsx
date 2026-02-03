@@ -35,11 +35,11 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
     return (
         <div className="flex-1 overflow-y-auto bg-black custom-scrollbar">
             {/* Header */}
-            <header className="p-8 md:p-12 pb-6 md:pb-8 pt-24 md:pt-16 space-y-6 shrink-0 bg-gradient-to-b from-violet-500/10 to-transparent relative overflow-hidden">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-3 md:space-y-6 shrink-0 bg-gradient-to-b from-violet-500/10 to-transparent relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none mix-blend-overlay"></div>
 
                 <div className="relative z-10">
-                    <div className="text-[10px] md:text-xs font-black text-violet-400 mb-6 uppercase tracking-widest flex items-center gap-2">
+                    <div className="text-[10px] md:text-xs font-black text-violet-400 mb-2 md:mb-6 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-violet-500/30"></span>
                         Operator Profile
                     </div>
@@ -77,14 +77,14 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                             ) : (
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-4">
-                                        <h1 className="text-4xl md:text-6xl font-display font-black text-white italic uppercase tracking-tighter leading-none">
+                                        <h1 className="text-3xl md:text-6xl font-display font-black text-white italic uppercase tracking-tighter leading-none">
                                             {user.name}
                                         </h1>
                                         <button onClick={() => setIsEditing(true)} className="p-2 bg-white/5 border border-white/10 rounded-xl text-slate-500 hover:text-violet-400 hover:border-violet-500/30 transition-all">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
                                         </button>
                                     </div>
-                                    <p className="text-slate-500 text-sm md:text-lg max-w-xl italic font-medium leading-relaxed">"{user.bio}"</p>
+                                    <p className="text-slate-500 text-xs md:text-lg max-w-xl italic font-medium leading-relaxed hidden md:block">"{user.bio}"</p>
                                 </div>
                             )}
                         </div>
