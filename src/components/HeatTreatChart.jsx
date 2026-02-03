@@ -20,7 +20,8 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
         if (allTemps.size === 0) return [];
 
         return Array.from(allTemps).sort((a, b) => a - b).map(t => {
-            const entry = { temp: t };
+            const cTemp = Math.round((t - 32) * 5 / 9);
+            const entry = { temp: cTemp };
             items.forEach(s => {
                 if (s.ht_curve) {
                     const point = s.ht_curve.split(',').find(p => parseFloat(p.split(':')[0]) === t);

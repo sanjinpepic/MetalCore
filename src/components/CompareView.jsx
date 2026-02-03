@@ -57,7 +57,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                     <button
                         onClick={generateReport}
                         disabled={isAiLoading}
-                        className="flex items-center gap-2.5 px-6 md:px-7 py-3 md:py-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 text-white rounded-xl md:rounded-2xl font-black transition-all shadow-lg text-xs md:text-sm"
+                        className="group flex items-center gap-2.5 px-6 md:px-7 py-3 md:py-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 text-white rounded-xl md:rounded-2xl font-black transition-all shadow-lg text-xs md:text-sm relative overflow-hidden"
                     >
                         {isAiLoading ? (
                             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -67,7 +67,11 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                             </svg>
                         )}
                         <span className="hidden sm:inline">Generate Analytical Report</span>
-                        <span className="sm:hidden uppercase tracking-widest">Report</span>
+                        <span className="sm:hidden uppercase tracking-widest text-[10px]">AI Report</span>
+
+                        <div className="absolute top-0 right-0 py-0.5 px-2 bg-accent text-black text-[8px] font-black uppercase tracking-tighter">
+                            PRO
+                        </div>
                     </button>
 
                     <button

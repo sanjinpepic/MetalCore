@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { useUser } from '../context/UserContext';
 
@@ -21,7 +23,8 @@ const Sidebar = ({
     trending,
     resetFilters
 }) => {
-    const { user } = useUser();
+    const { user, featureFlags } = useUser();
+
     const defaultTrending = [
         { name: "MagnaCut", id: "crucible-1" },
         { name: "M390 Microclean", id: "bohler-1" },
@@ -30,6 +33,46 @@ const Sidebar = ({
     ];
 
     const displayTrending = trending && trending.length > 0 ? trending : defaultTrending;
+
+    const navItems = [
+        {
+            label: 'Dashboard', id: 'HOME', icon: (
+                <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></>
+            )
+        },
+        {
+            label: 'Grade Library', id: 'SEARCH', icon: (
+                <><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></>
+            )
+        },
+        {
+            label: 'Pro Lab', id: 'PRO_LAB', isPro: true, featureFlag: 'pro_lab', icon: (
+                <><path d="M10 2v7.5" /><path d="M14 2v7.5" /><path d="M8.5 2h7" /><path d="M14 10.5h.5a4.5 4.5 0 0 1 4.5 4.5v3.5a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3V15a4.5 4.5 0 0 1 4.5-4.5h.5" /></>
+            )
+        },
+        {
+            label: 'Performance Matrix', id: 'MATRIX', icon: (
+                <><line x1="21" y1="10" x2="3" y2="10" /><line x1="21" y1="6" x2="3" y2="6" /><line x1="21" y1="14" x2="3" y2="14" /><line x1="21" y1="18" x2="3" y2="18" /></>
+            )
+        },
+        {
+            label: 'Knife Library', id: 'KNIVES', icon: (
+                <><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" /><line x1="13" y1="19" x2="19" y2="13" /><line x1="16" y1="16" x2="20" y2="20" /><line x1="19" y1="21" x2="21" y2="19" /></>
+            )
+        },
+        {
+            label: 'Academy', id: 'EDUCATION', icon: (
+                <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z" /><path d="M12 2v20" /></>
+            )
+        },
+        {
+            label: 'My Profile', id: 'PROFILE', featureFlag: 'my_profile', icon: (
+                <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>
+            )
+        },
+    ];
+
+    const filteredNavItems = navItems.filter(item => !item.featureFlag || (featureFlags && featureFlags[item.featureFlag]));
 
     return (
         <aside className={`fixed md:relative w-72 md:w-80 glass-panel border-r border-white/5 flex flex-col z-[80] md:z-10 h-full transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
@@ -52,28 +95,19 @@ const Sidebar = ({
 
             <div className="flex-1 overflow-y-auto px-6 md:px-8 py-2 custom-scrollbar no-scrollbar scroll-smooth">
                 <div className="flex flex-col gap-1.5 mt-4 md:mt-8">
-                    {[
-                        { label: 'Dashboard', id: 'HOME', icon: 'm3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22 9 12 15 12 15 22' },
-                        { label: 'Grade Library', id: 'SEARCH', icon: 'M12 5rx9ry3 M21 12c0 1.66-4 3-9 3s-9-1.34-9-3 M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5' },
-                        { label: 'Performance Matrix', id: 'MATRIX', icon: 'M21 10H3 M21 6H3 M21 14H3 M21 18H3' },
-                        { label: 'Knife Library', id: 'KNIVES', icon: 'M14.5 17.5 3 6 3 3 6 3 17.5 14.5 M13 19 19 13 M16 16 20 20 M19 21 21 19' },
-                        { label: 'Academy', id: 'EDUCATION', icon: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z' },
-                        { label: 'My Profile', id: 'PROFILE', icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z' },
-                    ].map(nav => (
+                    {filteredNavItems.map(nav => (
                         <button
                             key={nav.id}
                             onClick={() => { setView(nav.id); setMobileMenuOpen(false); }}
                             className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${view === nav.id ? 'bg-accent text-black shadow-lg shadow-accent/10 scale-[1.02]' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
                         >
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
-                                {nav.id === 'HOME' && <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></>}
-                                {nav.id === 'SEARCH' && <><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></>}
-                                {nav.id === 'MATRIX' && <><line x1="21" y1="10" x2="3" y2="10" /><line x1="21" y1="6" x2="3" y2="6" /><line x1="21" y1="14" x2="3" y2="14" /><line x1="21" y1="18" x2="3" y2="18" /></>}
-                                {nav.id === 'KNIVES' && <><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" /><line x1="13" y1="19" x2="19" y2="13" /><line x1="16" y1="16" x2="20" y2="20" /><line x1="19" y1="21" x2="21" y2="19" /></>}
-                                {nav.id === 'EDUCATION' && <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z" /><path d="M12 2v20" /></>}
-                                {nav.id === 'PROFILE' && <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>}
+                                {nav.icon}
                             </svg>
                             {nav.label}
+                            {nav.isPro && (
+                                <span className="ml-auto text-[7px] font-black bg-white/10 text-accent px-1.5 py-0.5 rounded-sm uppercase tracking-tighter">PRO</span>
+                            )}
                         </button>
                     ))}
 
@@ -152,7 +186,7 @@ const Sidebar = ({
                             <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2.5 px-2">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                     <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34-9-3V5" />
                                 </svg>
                                 Alloy Minimums %
                             </div>
@@ -203,27 +237,29 @@ const Sidebar = ({
 
                 <div className="pb-4" />
 
-                <div className="mt-auto px-1 pt-6 border-t border-white/5 pb-8">
-                    <button
-                        onClick={() => { setView('PROFILE'); setMobileMenuOpen(false); }}
-                        className={`w-full p-4 rounded-2xl flex items-center gap-4 transition-all ${view === 'PROFILE' ? 'bg-accent/10 border border-accent/20 shadow-lg shadow-accent/5' : 'bg-white/2 border border-white/5 hover:bg-white/5 hover:border-white/10'}`}
-                    >
-                        <div className="w-10 h-10 rounded-xl bg-black border border-accent/40 flex items-center justify-center shrink-0 overflow-hidden">
-                            {user.avatar ? (
-                                <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
-                            ) : (
-                                <span className="text-accent font-display font-black text-sm italic">{user.name.charAt(0)}</span>
-                            )}
-                        </div>
-                        <div className="text-left overflow-hidden">
-                            <div className="text-xs font-black text-white truncate uppercase italic">{user.name}</div>
-                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Community Profile</div>
-                        </div>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="ml-auto text-slate-600">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg>
-                    </button>
-                </div>
+                {featureFlags && featureFlags.my_profile && (
+                    <div className="mt-auto px-1 pt-6 border-t border-white/5 pb-8">
+                        <button
+                            onClick={() => { setView('PROFILE'); setMobileMenuOpen(false); }}
+                            className={`w-full p-4 rounded-2xl flex items-center gap-4 transition-all ${view === 'PROFILE' ? 'bg-accent/10 border border-accent/20 shadow-lg shadow-accent/5' : 'bg-white/2 border border-white/5 hover:bg-white/5 hover:border-white/10'}`}
+                        >
+                            <div className="w-10 h-10 rounded-xl bg-black border border-accent/40 flex items-center justify-center shrink-0 overflow-hidden">
+                                {user.avatar ? (
+                                    <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                                ) : (
+                                    <span className="text-accent font-display font-black text-sm italic">{user.name.charAt(0)}</span>
+                                )}
+                            </div>
+                            <div className="text-left overflow-hidden">
+                                <div className="text-xs font-black text-white truncate uppercase italic">{user.name}</div>
+                                <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Community Profile</div>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="ml-auto text-slate-600">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
             </div>
         </aside>
     );
