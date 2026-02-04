@@ -50,15 +50,15 @@ If you add other environment variables in the future (like `NEXT_PUBLIC_...` or 
 ### Step 4.5: Set Node.js Version
 
 > [!IMPORTANT]
-> You must set the Node.js version to 24 for Prisma to work correctly.
+> You must set the Node.js version to 20 for Prisma to work correctly.
 
 In your Application service's **Variables** tab:
 1.  Click **"New Variable"**
 2.  Key: `NIXPACKS_NODE_VERSION`
-3.  Value: `24`
+3.  Value: `20`
 4.  Click **"Add"**
 
-This ensures Railway uses Node.js 24.x instead of the default v18.
+This ensures Railway uses Node.js 20.x (compatible with Prisma 7.3.0) instead of the default v18.
 
 ## Step 5: Verify Deployment
 
