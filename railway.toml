@@ -5,5 +5,5 @@ buildCommand = "npx prisma generate && npm run build"
 [deploy]
 startCommand = "npx prisma migrate deploy && npm start"
 
-[nixpacks.plan.phases.setup]
-nixPkgs = ["nodejs-22_x"]
+[[build.env]]
+NIXPACKS_NODE_VERSION = "22"
