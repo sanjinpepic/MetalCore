@@ -33,7 +33,7 @@ export default async function Page() {
         producers = producersData;
     } catch (err) {
         console.error('Database connection failed:', err.message);
-        dbError = true;
+        dbError = err.message;
     }
 
     return (
