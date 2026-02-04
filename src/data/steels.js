@@ -39,6 +39,24 @@ export const PREMIUM_STEELS = [
         cons: ["Extreme sharpening difficulty", "Fragile at low angles"],
         use_case: "Luxury 'safe queen' folders or high-performance enthusiasts who enjoy technical sharpening."
     },
+    {
+        id: 'bohler-5', name: "N95", producer: "Böhler", C: 0.8, Cr: 14.5, V: 0.2, Mo: 1.4, W: 0, Co: 0, edge: 5, toughness: 6, corrosion: 8, sharpen: 7,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "A mid-tier nitrogen-alloyed stainless from Böhler. A step up from budget steels with solid corrosion resistance and easy maintenance.",
+        knives: ["Budget European folders", "Entry-level production knives"],
+        pros: ["Good corrosion resistance for the price", "Easy to sharpen", "Consistent quality"],
+        cons: ["Not a performance steel", "Average edge retention"],
+        use_case: "Entry to mid-range production knives where reliability matters more than peak performance."
+    },
+    {
+        id: 'bohler-6', name: "M340", producer: "Böhler", C: 1.05, Cr: 15.0, V: 0.6, Mo: 1.0, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
+        ht_curve: "200:60,400:58,500:59",
+        desc: "A popular mid-range powder stainless from Böhler. Balances edge retention and corrosion resistance well for production knives.",
+        knives: ["Spyderco (older models)", "European production folders"],
+        pros: ["Good balance of performance and workability", "Decent corrosion resistance", "Takes a good edge"],
+        cons: ["Outperformed by super-steels", "Not exceptional in any single area"],
+        use_case: "Mid-range production folders and everyday carry."
+    },
 
     // --- UDDEHOLM ---
     {
@@ -89,7 +107,7 @@ export const PREMIUM_STEELS = [
     {
         id: 'uddeholm-5', name: "AEB-L", producer: "Uddeholm",
         C: 0.67, Cr: 13.0, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
-        edge: 6, toughness: 9, corrosion: 8.5, sharpen: 9,
+        edge: 5, toughness: 9, corrosion: 8.5, sharpen: 9,
         ht_curve: "150:60,200:59,250:58",
         desc: "Originally a razor blade steel. Famous for fine grain and toughness.",
         knives: ["Custom Kitchen Knives", "Outdoor Fixed Blades"],
@@ -136,7 +154,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use EDC and tactical folders that need to survive prying or impact."
     },
     {
-        id: 'crucible-5', name: "CPM S45VN", producer: "Crucible", C: 1.48, Cr: 16.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 5, corrosion: 8, sharpen: 5,
+        id: 'crucible-5', name: "CPM S45VN", producer: "Crucible", C: 1.48, Cr: 16.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "200:60,400:58,500:59",
         desc: "An improvement over S35VN, adding more Chromium and Niobium for better corrosion resistance and toughness.",
         knives: ["Chris Reeve Inkosi", "Spyderco Para 3", "Benchmade 940 (Modern)"],
@@ -185,7 +203,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium folding knives and high-end EDC."
     },
     {
-        id: 'crucible-10', name: "CPM S35VN", producer: "Crucible", C: 1.45, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 5.5, corrosion: 8, sharpen: 5,
+        id: 'crucible-10', name: "CPM S35VN", producer: "Crucible", C: 1.45, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "200:59,400:58,500:56",
         desc: "The industry standard for premium knives. An upgrade to S30V with added Niobium for better toughness.",
         knives: ["Chris Reeve Sebenza (S35VN)", "ESEE 6 S35VN", "White River Firecraft 4"],
@@ -203,7 +221,7 @@ export const PREMIUM_STEELS = [
         use_case: "Custom knives and premium production folders where aesthetics matter."
     },
     {
-        id: 'crucible-12', name: "CPM 15V", producer: "Crucible", C: 1.45, Cr: 5.0, V: 15.0, Mo: 4.0, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 5,
+        id: 'crucible-12', name: "CPM 15V", producer: "Crucible", C: 1.45, Cr: 5.0, V: 15.0, Mo: 4.0, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 3,
         ht_curve: "200:65,400:60,600:62",
         desc: "An extremely wear-resistant high-vanadium powder steel designed for maximum edge retention. Popular for heavy-duty and slicer blades where long lasting sharpness matters.",
         knives: ["Chris Reeve Sebenza (special runs)", "Busse Combat Razel", "Custom Hard-Use Folders"],
@@ -279,7 +297,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium kitchen cutlery and high-end production Japanese knives."
     },
     {
-        id: 'takefu-2', name: "VG-10", producer: "Takefu", C: 1.0, Cr: 15.0, V: 0.2, Mo: 1.0, W: 0, Co: 1.5, edge: 6, toughness: 4, corrosion: 8, sharpen: 7,
+        id: 'takefu-2', name: "VG-10", producer: "Takefu", C: 1.0, Cr: 15.0, V: 0.2, Mo: 1.0, W: 0, Co: 1.5, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "150:60,200:59,300:57",
         desc: "The workforce of Japanese stainless steel. Cobalt-enriched to maintain hardness and offer a good balance of properties.",
         knives: ["Spyderco Delica 4 (Standard)", "Tojiro DP", "Shun Classic"],
@@ -288,7 +306,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry to mid-range premium kitchen and folding knives."
     },
     {
-        id: 'takefu-3', name: "VG-MAX", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0.5, Co: 1.5, edge: 8, toughness: 4, corrosion: 8, sharpen: 6,
+        id: 'takefu-3', name: "VG-MAX", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0.5, Co: 1.5, edge: 8, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "150:61,200:60,300:58",
         desc: "An upgraded version of VG-10 developed exclusively for Shun Knives. Increased Chromium and Vanadium for better performance.",
         knives: ["Shun Classic Series", "Shun Premier Series"],
@@ -317,6 +335,15 @@ export const PREMIUM_STEELS = [
         use_case: "Standard utility knives, kitchen tools, and outdoor beaters."
     },
 
+    {
+        id: 'alleima-3', name: "SPY27", producer: "Alleima", C: 0.22, Cr: 27, V: 0, Mo: 1.5, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 10, sharpen: 8,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "Spyderco's proprietary super-stainless with 27% chromium. Built for absolute corrosion immunity in any environment.",
+        knives: ["Spyderco Salt", "Spyderco Salt 2", "Spyderco Yojana"],
+        pros: ["Virtually rust-proof in any conditions", "Very tough", "Easy to maintain"],
+        cons: ["Modest edge retention", "Not a performance steel for cutting"],
+        use_case: "Marine, food-service, and sweat-heavy environments where corrosion is non-negotiable."
+    },
     // --- ERATEEL ---
     {
         id: 'erasteel-1', name: "ASP 2030", producer: "Erasteel", C: 1.28, Cr: 4.2, V: 3.1, Mo: 5.0, W: 6.4, Co: 8.5, edge: 8.5, toughness: 7.5, corrosion: 1, sharpen: 3,
@@ -385,7 +412,7 @@ export const PREMIUM_STEELS = [
     {
         id: 'hitachi-3', name: "Shirogami #1 (White 1)", producer: "Hitachi",
         C: 1.35, Cr: 0.0, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
-        edge: 9, toughness: 5, corrosion: 0, sharpen: 10,
+        edge: 6, toughness: 5, corrosion: 0, sharpen: 10,
         ht_curve: "150:65,200:64,250:62",
         desc: "Ultra-pure carbon steel with no alloying elements. The sharpest-feeling steel available.",
         knives: ["Sakai Takayuki", "Masamoto", "Custom Japanese Gyuto"],
@@ -396,7 +423,7 @@ export const PREMIUM_STEELS = [
     {
         id: 'hitachi-4', name: "Shirogami #2 (White 2)", producer: "Hitachi",
         C: 1.05, Cr: 0.0, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
-        edge: 8, toughness: 6, corrosion: 0, sharpen: 10,
+        edge: 5, toughness: 6, corrosion: 0, sharpen: 10,
         ht_curve: "150:63,200:61,250:60",
         desc: "More forgiving than White #1 with slightly better toughness.",
         knives: ["Tojiro White Steel", "Yoshihiro"],
@@ -407,7 +434,7 @@ export const PREMIUM_STEELS = [
     {
         id: 'hitachi-5', name: "Aogami #2 (Blue 2)", producer: "Hitachi",
         C: 1.1, Cr: 0.5, V: 0.25, Mo: 0, W: 1.5, Co: 0,
-        edge: 8.5, toughness: 6.5, corrosion: 0,
+        edge: 7, toughness: 6.5, corrosion: 0,
         sharpen: 9,
         ht_curve: "150:64,200:62,250:61",
         desc: "A more wear-resistant version of White steel using tungsten.",
@@ -416,17 +443,63 @@ export const PREMIUM_STEELS = [
         cons: ["Reactive", "Requires patina management"],
         use_case: "High-end Japanese chef knives."
     },
+    {
+        id: 'hitachi-6', name: "Aogami #1 (Blue 1)", producer: "Hitachi", C: 1.2, Cr: 0.5, V: 0.25, Mo: 0, W: 2, Co: 0, edge: 9, toughness: 5.5, corrosion: 0, sharpen: 8.5,
+        ht_curve: "150:65,200:63,250:62",
+        desc: "The hardest and most wear-resistant of Hitachi's traditional carbon steels. Higher carbon and tungsten than Blue 2 make it the performance king of Japanese carbons.",
+        knives: ["Tanaka", "Misono UX10", "Premium Japanese Gyuto"],
+        pros: ["Outstanding edge retention for a carbon steel", "Razor-sharp capability", "Excellent in thin grinds"],
+        cons: ["Very reactive (instant rust)", "Fragile at thin edges", "Demands skilled heat treatment"],
+        use_case: "High-end Japanese chef knives where edge retention and sharpness are the priority."
+    },
+    {
+        id: 'hitachi-7', name: "Shirogami #3 (White 3)", producer: "Hitachi", C: 0.85, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 0, sharpen: 10,
+        ht_curve: "150:62,200:60,250:58",
+        desc: "The softest and most forgiving of Hitachi's white steels. Easiest to heat treat and sharpen, making it the ideal entry point into Japanese carbon.",
+        knives: ["Budget Japanese carbon knives", "Tojiro Carbon", "Entry-level santoku"],
+        pros: ["Extremely forgiving heat treatment", "Effortless sharpening", "Great for learning whetstone technique"],
+        cons: ["Lowest edge retention of the white steels", "Very reactive"],
+        use_case: "Entry-level Japanese carbon knives and budget kitchen blades."
+    },
     // --- AMERICAN CARBON ---
     {
         id: 'carbon-1', name: "52100", producer: "Various",
         C: 1.0, Cr: 1.5, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
-        edge: 7.5, toughness: 8, corrosion: 1, sharpen: 9,
+        edge: 6, toughness: 8, corrosion: 1, sharpen: 9,
         ht_curve: "150:62,200:61,250:60",
         desc: "A legendary ball-bearing steel with outstanding toughness and edge stability.",
         knives: ["Custom Hunters", "Kitchen Customs"],
         pros: ["Excellent toughness", "Very fine grain"],
         cons: ["Rust-prone"],
         use_case: "Custom chef knives and outdoor blades."
+    },
+
+    {
+        id: 'carbon-2', name: "1095", producer: "Various", C: 0.95, Cr: 0.03, V: 0, Mo: 0, W: 0, Co: 0, edge: 6, toughness: 8, corrosion: 1, sharpen: 8,
+        ht_curve: "150:60,200:59,250:58",
+        desc: "The most common high-carbon survival steel. Simple composition, predictable heat treatment, and trivially easy to field-sharpen.",
+        knives: ["Ka-Bar", "ESEE 4", "Gerber Bear Grylls", "Morakniv Carbon"],
+        pros: ["Extremely easy to sharpen", "Good toughness", "Forgiving heat treatment"],
+        cons: ["Rusts quickly without maintenance", "Moderate edge retention"],
+        use_case: "Survival knives, camp knives, and anything where field sharpening is part of the routine."
+    },
+    {
+        id: 'carbon-3', name: "1080", producer: "Various", C: 0.8, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 1, sharpen: 9,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "The workhorse of bushcraft and survival knives. Exceptional toughness and trivially easy to sharpen with any abrasive.",
+        knives: ["Mora 2000", "Condor Hamador", "Many custom bushcraft knives"],
+        pros: ["Outstanding toughness", "Dead simple to sharpen", "Cheap and widely available"],
+        cons: ["Low corrosion resistance", "Modest edge retention"],
+        use_case: "Bushcraft, batoning, and hard-use outdoor blades where toughness is king."
+    },
+    {
+        id: 'carbon-4', name: "1075", producer: "Various", C: 0.75, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 4, toughness: 9.5, corrosion: 1, sharpen: 9.5,
+        ht_curve: "150:57,200:56,250:55",
+        desc: "The softest and toughest of the common 10XX carbon steels. Nearly impossible to break and the easiest steel to sharpen.",
+        knives: ["Budget machetes", "Condor knives", "Entry-level fixed blades"],
+        pros: ["Incredible impact resistance", "Easiest to sharpen", "Very inexpensive"],
+        cons: ["Poor edge retention", "Rusts fast", "Soft edge dulls quickly"],
+        use_case: "Choppers, machetes, and tools where surviving abuse matters more than holding an edge."
     },
 
     // --- BUDGET / MODERN STAINLESS ---
@@ -460,7 +533,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end luxury and gallery-grade knives."
     },
     {
-        id: 'others-3', name: "AUS10A", producer: "Aichi", C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 4, corrosion: 8, sharpen: 7,
+        id: 'others-3', name: "AUS10A", producer: "Aichi", C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "150:60,200:59,300:57",
         desc: "A high-carbon Japanese stainless steel that is a direct competitor to 440C and VG-10.",
         knives: ["Cold Steel AD15", "Cold Steel Recon 1 (Older)", "Demko AD20.5 (AUS10)"],
@@ -503,5 +576,52 @@ export const PREMIUM_STEELS = [
         pros: ["Extreme hardness (65+ HRC)", "Incredible toughness for its hardness", "Mirror-finishable"],
         cons: ["Carbon steel (will rust)", "Brutal to sharpen manually"],
         use_case: "Luxury high-performance folders."
+    },
+
+    // --- CLASSIC & BUDGET STEELS ---
+    {
+        id: 'others-8', name: "D2", producer: "Various", C: 1.55, Cr: 11.38, V: 0.9, Mo: 0.78, W: 0.27, Co: 0, edge: 7, toughness: 5, corrosion: 3, sharpen: 5,
+        ht_curve: "200:60,500:62,600:59",
+        desc: "One of the most iconic tool steels in the knife world. Semi-stainless with excellent hardness and strong edge retention. The steel that defined a generation of production knives.",
+        knives: ["Buck 119 (D2)", "Benchmade Anthem", "Spyderco Smock", "Zero Tolerance 0747"],
+        pros: ["Excellent edge retention", "High hardness capability (60-62 HRC)", "Massive knife selection"],
+        cons: ["Not truly stainless — will spot rust", "Can chip at high hardness"],
+        use_case: "Hard-use EDC, hunting, and any knife where edge retention outweighs corrosion immunity."
+    },
+    {
+        id: 'others-9', name: "440C", producer: "Various", C: 1, Cr: 16.75, V: 0.07, Mo: 0.75, W: 0, Co: 0, edge: 6, toughness: 4, corrosion: 7, sharpen: 7,
+        ht_curve: "200:58,400:56,500:58",
+        desc: "A classic high-chromium stainless that dominated the production knife market for decades before super-steels arrived.",
+        knives: ["Buck Classic (vintage)", "Gerber (vintage)", "Budget hunting knives"],
+        pros: ["Good corrosion resistance", "Decent hardness at 58-60 HRC", "Historically widely available"],
+        cons: ["Outperformed by every modern super-steel", "Soft by current standards"],
+        use_case: "Legacy knives, vintage collections, and budget production models."
+    },
+    {
+        id: 'others-10', name: "420HC", producer: "Carpenter", C: 0.42, Cr: 13.5, V: 0.02, Mo: 0.3, W: 0, Co: 0, edge: 4, toughness: 7, corrosion: 8, sharpen: 9,
+        ht_curve: "150:56,200:55,250:54",
+        desc: "Buck Knives signature steel — a high-carbon 420 stainless with proprietary heat treatment. The workhorse of American production knives for decades.",
+        knives: ["Buck 119", "Buck 110", "Buck Bantam", "Buck Lites"],
+        pros: ["Very tough and forgiving", "Great corrosion resistance", "Trivially easy to sharpen"],
+        cons: ["Low edge retention", "Soft by enthusiast standards"],
+        use_case: "Reliable everyday production knives and rugged outdoor tools."
+    },
+    {
+        id: 'others-11', name: "O1", producer: "Various", C: 0.9, Cr: 0.5, V: 0.1, Mo: 0, W: 1.25, Co: 0, edge: 6, toughness: 7, corrosion: 1, sharpen: 7,
+        ht_curve: "200:60,400:62,500:59",
+        desc: "A classic oil-hardening tool steel with a long history in cutlery. Prized for fine grain, a keen edge, and predictable heat treatment.",
+        knives: ["Ontario Rat 1 (O1)", "Queen knives", "Custom bushcraft knives"],
+        pros: ["Takes an extremely keen edge", "Good toughness", "Relatively easy to sharpen"],
+        cons: ["Rusts quickly without care", "Moderate edge retention"],
+        use_case: "Outdoor fixed blades and custom knives prioritizing sharpness and character over corrosion immunity."
+    },
+    {
+        id: 'others-12', name: "8Cr13MoV", producer: "Various", C: 0.8, Cr: 13, V: 0.2, Mo: 1, W: 0, Co: 0, edge: 5, toughness: 5, corrosion: 7, sharpen: 7,
+        ht_curve: "150:58,200:57,300:56",
+        desc: "China's most common knife steel. A direct competitor to AUS-8 that has become the foundation of the budget knife market. Performance varies by the manufacturer's heat treatment.",
+        knives: ["CIVIVI (budget lines)", "Ganzo", "Budget kitchen knives"],
+        pros: ["Decent performance at the price", "Good corrosion resistance", "Widely available"],
+        cons: ["Inconsistent heat treatment across brands", "Not a performance steel"],
+        use_case: "Budget EDC knives and affordable kitchen cutlery."
     }
 ];
