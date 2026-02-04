@@ -26,12 +26,17 @@ export async function fetchAllData() {
     const knifeCol = knifIds.has(sampleA) ? 'A' : 'B';
     const steelCol = knifeCol === 'A' ? 'B' : 'A';
 
-    // Build knife id -> [steel names] map
+    // Build knife id -> [steel names] and steel id -> [knife names] maps
     const knifeToSteels = new Map();
+    const steelToKnives = new Map();
+    const knifeNameMap = new Map(knivesRes.rows.map(k => [k.id, k.name]));
     for (const row of joinRes.rows) {
         const kId = row[knifeCol];
+        const sId = row[steelCol];
         if (!knifeToSteels.has(kId)) knifeToSteels.set(kId, []);
-        knifeToSteels.get(kId).push(steelNameMap.get(row[steelCol]));
+        knifeToSteels.get(kId).push(steelNameMap.get(sId));
+        if (!steelToKnives.has(sId)) steelToKnives.set(sId, []);
+        steelToKnives.get(sId).push(knifeNameMap.get(kId));
     }
 
     const formattedKnives = knivesRes.rows.map(k => ({
@@ -40,7 +45,10 @@ export async function fetchAllData() {
     }));
 
     return {
-        steels: steelsRes.rows,
+        steels: steelsRes.rows.map(s => ({
+            ...s,
+            knives: steelToKnives.get(s.id) || [],
+        })),
         knives: formattedKnives,
         glossary: glossaryRes.rows,
         faq: faqRes.rows,
