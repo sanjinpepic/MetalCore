@@ -42,6 +42,54 @@ export const GLOSSARY = [
     {
         term: "Tempering",
         def: "A secondary heating process after hardening to reduce brittleness and increase toughness by making the steel less 'stressed'."
+    },
+    {
+        term: "Stainless vs Carbon Steel",
+        def: "Stainless steels contain 10.5%+ Chromium, giving them corrosion resistance but often at the cost of toughness. Carbon steels (e.g. 1095, SK-5) are tougher and easier to sharpen but rust without maintenance."
+    },
+    {
+        term: "Grain Structure",
+        def: "The microscopic crystalline pattern within a steel. Finer grain = stronger and tougher steel. Powder metallurgy and proper heat treatment both refine grain structure."
+    },
+    {
+        term: "Quenching",
+        def: "Rapidly cooling steel from its hardening temperature (usually 1050–1100°C) to lock in the hard martensitic structure. The quenching medium (oil, water, air) affects the final result."
+    },
+    {
+        term: "Chromium (Cr)",
+        def: "The key element that grants corrosion resistance. Above ~10.5% Cr, steel is classified as 'stainless'. Cr also forms hard chromium carbides that contribute to wear resistance."
+    },
+    {
+        term: "Molybdenum (Mo)",
+        def: "Increases hardenability, wear resistance, and corrosion resistance. Common in tool steels and high-performance stainless grades like M390 and CTS-XHP."
+    },
+    {
+        term: "Cobalt (Co)",
+        def: "Raises the hardening temperature and increases the amount of martensite formed, leading to higher achievable hardness. Found in super steels like Maxamet and Rex 45."
+    },
+    {
+        term: "Tungsten (W)",
+        def: "Forms extremely hard tungsten carbides, boosting wear resistance significantly. A defining element in steels like Maxamet, CPM M4, and the ASP series."
+    },
+    {
+        term: "Wear Resistance",
+        def: "A steel's ability to resist abrasive material removal during cutting. Driven primarily by carbide volume and hardness. High wear resistance directly translates to longer edge life."
+    },
+    {
+        term: "Nitrogen (N)",
+        def: "Added to some modern steels (e.g. 14C28N, LC200N) to form nitrides that improve hardness and corrosion resistance without the downsides of heavy carbide formation."
+    },
+    {
+        term: "Secondary Hardening",
+        def: "A phenomenon where certain alloy carbides (Mo, V, W) precipitate during tempering, actually increasing hardness at higher temper temperatures. Key to optimizing steels like CPM M4."
+    },
+    {
+        term: "Retained Austenite",
+        def: "Austenite that fails to transform to martensite during quenching. It reduces hardness and edge stability. Cryogenic treatment is the primary method to eliminate it."
+    },
+    {
+        term: "CPM (Crucible Particle Metallurgy)",
+        def: "Crucible's proprietary powder metallurgy process. Molten steel is atomized into fine powder, then compacted and forged. The result is an extremely uniform carbide distribution, producing steels with exceptional toughness for their hardness."
     }
 ];
 
@@ -69,6 +117,30 @@ export const FAQ = [
     {
         q: "What is MagnaCut and why is everyone talking about it?",
         a: "MagnaCut is a revolutionary 'super steel' designed specifically for knives. It offers high toughness, high edge retention, AND incredible corrosion resistance—a trio of properties previously thought impossible to achieve at such high levels simultaneously."
+    },
+    {
+        q: "What is the difference between stainless and carbon steel?",
+        a: "Carbon steels (1075, 1095, SK-5) are tougher, easier to sharpen, and hold a keen edge well, but they rust without regular maintenance. Stainless steels (M390, S30V, VG-10) resist corrosion thanks to Chromium but are generally harder to sharpen. Neither is objectively 'better'—it depends on your use case and how much maintenance you want."
+    },
+    {
+        q: "How do I maintain and clean my knife?",
+        a: "Wipe the blade dry after each use, especially after cutting acidic foods (citrus, tomatoes). A light coat of mineral oil or camellia oil on the blade protects against moisture. For carbon steels, a patina (dark oxide layer) actually provides a layer of corrosion protection and is considered desirable by many collectors."
+    },
+    {
+        q: "What sharpening angle should I use?",
+        a: "Most factory knives are sharpened at 15–20° per side. Higher-hardness steels (60+ HRC) like Japanese knives often use 10–15° per side for a finer edge. Softer steels or knives used for heavy tasks do better at 20–25° per side for durability. When in doubt, match the factory angle."
+    },
+    {
+        q: "Are CPM or powder metallurgy steels worth the extra cost?",
+        a: "Generally yes, if you value performance. PM steels achieve a better balance of toughness and edge retention than conventional steels at similar hardness levels. The uniform carbide structure means fewer weak spots and more consistent sharpening. For a premium EDC folder, the difference is noticeable. For a budget beater knife, conventional steel is perfectly fine."
+    },
+    {
+        q: "What does 'SuperClean' or 'Microclean' mean on steels like M390 or Elmax?",
+        a: "These are trademarked names for extra-pure versions of the steel. The base alloy is the same, but impurities (sulfur, phosphorus) are reduced to near-zero levels. This results in better corrosion resistance, more consistent heat treatment response, and finer grain structure. M390 Microclean and Elmax SuperClean are the versions typically used in knives."
+    },
+    {
+        q: "What is cladding and why does it matter?",
+        a: "Cladding wraps a hard, high-performance core steel (like White 2 or SG2) in softer, tougher layers of stainless or carbon steel. The core provides the edge, while the cladding protects it and resists chipping. It's common in Japanese kitchen knives and gives them both excellent cutting ability and durability."
     }
 ];
 
@@ -114,5 +186,47 @@ export const PRODUCERS = [
         coords: [40.3356, -75.9269],
         region: "North America",
         desc: "Producers of extremely hard steels like Maxamet and CTS-XHP."
+    },
+    {
+        name: "Damasteel",
+        location: "Tampere, Finland",
+        coords: [61.4987, 23.7867],
+        region: "Europe",
+        desc: "Specialists in Damascus pattern steels and high-end stainless grades. Known for RWL34 and DS93X, both favorites in the knife-making community."
+    },
+    {
+        name: "Zapp",
+        location: "Krefeld, Germany",
+        coords: [51.2277, 6.7735],
+        region: "Europe",
+        desc: "German tool steel manufacturer behind LC200N (Cronidur 30), one of the most corrosion-resistant steels available. Popular in bearing and surgical applications."
+    },
+    {
+        name: "Erasteel",
+        location: "Stockholm, Sweden",
+        coords: [59.3293, 18.0686],
+        region: "Europe",
+        desc: "Swedish powder metallurgy specialist producing the ASP series (ASP 2030, 2060, 2003). These high-alloy tool steels push the limits of edge retention and wear resistance."
+    },
+    {
+        name: "Aichi Steel",
+        location: "Nagoya, Japan",
+        coords: [35.1815, 136.9066],
+        region: "Asia",
+        desc: "Japanese manufacturer behind AUS-10A and AUS-8, two of the most widely used budget stainless steels in the knife industry. Reliable and well-rounded performers."
+    },
+    {
+        name: "Yoshikin",
+        location: "Saki, Japan",
+        coords: [37.7519, 138.8284],
+        region: "Asia",
+        desc: "Known for CROMOVA 18, a high-chromium stainless steel used in premium Japanese kitchen knives. The parent company behind the Global knife brand."
+    },
+    {
+        name: "New Jersey Steel Baron",
+        location: "Morris Plains, NJ, USA",
+        coords: [40.8029, -74.4510],
+        region: "North America",
+        desc: "A boutique American steel supplier specializing in Nitro-V, a nitrogen-alloyed stainless steel that punches well above its price class. A favorite among budget-conscious knife enthusiasts."
     }
 ];

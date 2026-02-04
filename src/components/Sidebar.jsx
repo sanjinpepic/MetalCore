@@ -23,7 +23,7 @@ const Sidebar = ({
     trending,
     resetFilters
 }) => {
-    const { user, featureFlags } = useUser();
+    const { user } = useUser();
 
     const defaultTrending = [
         { name: "MagnaCut", id: "crucible-1" },
@@ -46,7 +46,7 @@ const Sidebar = ({
             )
         },
         {
-            label: 'Pro Lab', id: 'PRO_LAB', isPro: true, featureFlag: 'pro_lab', icon: (
+            label: 'Pro Lab', id: 'PRO_LAB', icon: (
                 <><path d="M10 2v7.5" /><path d="M14 2v7.5" /><path d="M8.5 2h7" /><path d="M14 10.5h.5a4.5 4.5 0 0 1 4.5 4.5v3.5a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3V15a4.5 4.5 0 0 1 4.5-4.5h.5" /></>
             )
         },
@@ -66,13 +66,13 @@ const Sidebar = ({
             )
         },
         {
-            label: 'My Profile', id: 'PROFILE', featureFlag: 'my_profile', icon: (
+            label: 'My Profile', id: 'PROFILE', icon: (
                 <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>
             )
         },
     ];
 
-    const filteredNavItems = navItems.filter(item => !item.featureFlag || (featureFlags && featureFlags[item.featureFlag]));
+    const filteredNavItems = navItems;
 
     return (
         <aside className={`fixed md:relative w-72 md:w-80 glass-panel border-r border-white/5 flex flex-col z-[80] md:z-10 h-full transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
@@ -105,9 +105,6 @@ const Sidebar = ({
                                 {nav.icon}
                             </svg>
                             {nav.label}
-                            {nav.isPro && (
-                                <span className="ml-auto text-[7px] font-black bg-white/10 text-accent px-1.5 py-0.5 rounded-sm uppercase tracking-tighter">PRO</span>
-                            )}
                         </button>
                     ))}
 
@@ -237,8 +234,7 @@ const Sidebar = ({
 
                 <div className="pb-4" />
 
-                {featureFlags && featureFlags.my_profile && (
-                    <div className="mt-auto px-1 pt-6 border-t border-white/5 pb-8">
+                <div className="mt-auto px-1 pt-6 border-t border-white/5 pb-8">
                         <button
                             onClick={() => { setView('PROFILE'); setMobileMenuOpen(false); }}
                             className={`w-full p-4 rounded-2xl flex items-center gap-4 transition-all ${view === 'PROFILE' ? 'bg-accent/10 border border-accent/20 shadow-lg shadow-accent/5' : 'bg-white/2 border border-white/5 hover:bg-white/5 hover:border-white/10'}`}
@@ -258,8 +254,7 @@ const Sidebar = ({
                                 <path d="m9 18 6-6-6-6" />
                             </svg>
                         </button>
-                    </div>
-                )}
+                </div>
             </div>
         </aside>
     );

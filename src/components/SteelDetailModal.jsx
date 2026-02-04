@@ -5,7 +5,7 @@ import EdgeRetentionPredictor from './EdgeRetentionPredictor';
 import { useUser } from '../context/UserContext';
 
 const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
-    const { favoriteSteels, toggleFavorite, featureFlags } = useUser();
+    const { favoriteSteels, toggleFavorite } = useUser();
     const isFavorite = favoriteSteels.includes(steel.id);
 
     return (
@@ -149,8 +149,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                             <EdgeRetentionPredictor steel={steel} />
                         </div>
 
-                        {featureFlags?.acquisition_info && (
-                            <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40 space-y-4">
+                        <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40 space-y-4">
                                 <div className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-3 italic">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-amber-500">
                                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" />
@@ -181,8 +180,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                                         KnifeCenter
                                     </a>
                                 </div>
-                            </div>
-                        )}
+                        </div>
                     </div>
                 </div>
 

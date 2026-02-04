@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import { useUser } from '../context/UserContext';
-import PremiumGatedFeature from './PremiumGatedFeature';
 import Footer from './Footer';
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, AreaChart, Area } from 'recharts';
 
@@ -115,8 +114,7 @@ const ProLabView = ({ steels }) => {
                 </p>
             </header>
 
-            <PremiumGatedFeature featureName="Laboratory Research Access">
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 pb-32">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 pb-32">
 
                     {/* 1. Collection Fingerprint Card */}
                     <div className="glass-panel p-8 rounded-[2.5rem] border-white/10 bg-black/40 flex flex-col h-[550px]">
@@ -302,8 +300,7 @@ const ProLabView = ({ steels }) => {
                         </div>
                     </div>
 
-                </div>
-            </PremiumGatedFeature>
+            </div>
             <Footer />
         </div>
     );

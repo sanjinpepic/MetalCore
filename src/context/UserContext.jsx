@@ -13,12 +13,6 @@ export const UserProvider = ({ children }) => {
         isPro: false, // SaaS gating flag
     });
 
-    const [featureFlags] = useState({
-        pro_lab: false,
-        my_profile: false,
-        acquisition_info: false
-    });
-
     const [favoriteSteels, setFavoriteSteels] = useState([]);
     const [myKnives, setMyKnives] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -65,11 +59,6 @@ export const UserProvider = ({ children }) => {
     };
 
     const addKnife = (knife) => {
-        // Limit free users to 3 knives
-        if (!user.isPro && myKnives.length >= 3) {
-            return { error: 'PRO_REQUIRED' };
-        }
-
         const newKnife = {
             ...knife,
             id: 'user-knife-' + Date.now(),
@@ -91,7 +80,6 @@ export const UserProvider = ({ children }) => {
         <UserContext.Provider value={{
             user,
             updateProfile,
-            featureFlags,
             favoriteSteels,
             toggleFavorite,
             myKnives,

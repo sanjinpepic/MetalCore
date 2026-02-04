@@ -1,8 +1,5 @@
 import React from 'react';
-import { useUser } from '../context/UserContext';
-
 const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
-    const { featureFlags } = useUser();
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={onClose}>
             <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
