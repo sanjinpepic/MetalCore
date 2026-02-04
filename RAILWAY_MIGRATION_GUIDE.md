@@ -93,6 +93,7 @@ docker run -i postgres:15 psql "postgresql://postgres:TAzhTCWNQyDUgyiQaCBYAnFFNz
 
 ## Troubleshooting
 
+- **"DATABASE_URL resolved to an empty string"**: This means the `DATABASE_URL` environment variable is not set in your Application service. Go back to **Step 3** and ensure you added `DATABASE_URL` with the value `${{PostgreSQL.DATABASE_URL}}` in your Application service's Variables tab. After adding it, redeploy.
 - **Database Errors**: Check the Deploy Logs. If `prisma migrate deploy` fails, ensure your `DATABASE_URL` is correct.
 - **Build Errors**: Check the Build Logs. Ensure all dependencies are in `package.json`.
 - **Data Restore Issues**: If the restore fails due to "relation already exists" errors, the `--clean` flag in the dump command should handle it, but you might need to drop the public schema on Railway manually if conflicts persist.
