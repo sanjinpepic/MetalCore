@@ -5,26 +5,36 @@ import SteelLedgerClient from './SteelLedgerClient';
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-    // Parallel data fetching
-    const [steels, knives, glossary, faq, producers] = await Promise.all([
-        prisma.steel.findMany(),
-        prisma.knife.findMany({
-            include: {
-                steels: {
-                    select: { name: true } // We only need names for compatibility with existing UI logic
-                }
-            }
-        }),
-        prisma.glossary.findMany(),
-        prisma.fAQ.findMany(),
-        prisma.producer.findMany()
-    ]);
+    let steels = [], formattedKnives = [], glossary = [], faq = [], producers = [];
+    let dbError = false;
 
-    // Transform knives data to match the expected format (array of steel names)
-    const formattedKnives = knives.map(k => ({
-        ...k,
-        steels: k.steels.map(s => s.name)
-    }));
+    try {
+        const [steelsData, knives, glossaryData, faqData, producersData] = await Promise.all([
+            prisma.steel.findMany(),
+            prisma.knife.findMany({
+                include: {
+                    steels: {
+                        select: { name: true }
+                    }
+                }
+            }),
+            prisma.glossary.findMany(),
+            prisma.fAQ.findMany(),
+            prisma.producer.findMany()
+        ]);
+
+        steels = steelsData;
+        formattedKnives = knives.map(k => ({
+            ...k,
+            steels: k.steels.map(s => s.name)
+        }));
+        glossary = glossaryData;
+        faq = faqData;
+        producers = producersData;
+    } catch (err) {
+        console.error('Database connection failed:', err.message);
+        dbError = true;
+    }
 
     return (
         <SteelLedgerClient
@@ -33,6 +43,7 @@ export default async function Page() {
             initialGlossary={glossary}
             initialFaq={faq}
             initialProducers={producers}
+            dbError={dbError}
         />
     );
 }

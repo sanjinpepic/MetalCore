@@ -24,7 +24,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers }) {
+export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
     return (
         <UserProvider>
             <AppContent
@@ -33,13 +33,15 @@ export default function SteelLedgerClient({ initialSteels, initialKnives, initia
                 initialGlossary={initialGlossary}
                 initialFaq={initialFaq}
                 initialProducers={initialProducers}
+                dbError={dbError}
             />
         </UserProvider>
     );
 }
 
-function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers }) {
+function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
     const [steels, setSteels] = useState(initialSteels);
+    const [showDbBanner, setShowDbBanner] = useState(dbError);
     const [view, setView] = useState('HOME');
     const [search, setSearch] = useState("");
     const [knifeSearch, setKnifeSearch] = useState("");
@@ -335,6 +337,29 @@ Be concise and premium.`;
 
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">
+            {/* Database Unavailable Banner */}
+            {showDbBanner && (
+                <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
+                    <div className="flex items-center gap-2.5 text-amber-400 text-sm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                            <path d="M12 9v4m0 4h.01" />
+                            <circle cx="12" cy="12" r="10" />
+                        </svg>
+                        <span>Database is currently unavailable — data will appear once the connection is restored.</span>
+                    </div>
+                    <button
+                        onClick={() => setShowDbBanner(false)}
+                        className="text-amber-500 hover:text-amber-300 shrink-0"
+                        aria-label="Dismiss"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+            )}
+
             {/* Mobile Menu Overlay */}
             {mobileMenuOpen && (
                 <div
