@@ -6,4 +6,4 @@ buildCommand = "npx prisma generate && npm run build"
 startCommand = "npx prisma migrate deploy && npm start"
 
 [[build.env]]
-NIXPACKS_NODE_VERSION = "24"
+NIXPACKS_NODE_VERSION = "20"
