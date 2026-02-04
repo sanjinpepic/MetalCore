@@ -1,7 +1,6 @@
-import prisma from '../src/lib/prisma';
+import { fetchAllData } from '../src/lib/db';
 import SteelLedgerClient from './SteelLedgerClient';
 
-// Force dynamic rendering to ensure fresh data on each request (optional, can be cached)
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
@@ -9,32 +8,15 @@ export default async function Page() {
     let dbError = false;
 
     try {
-        const [steelsData, knives, glossaryData, faqData, producersData] = await Promise.all([
-            prisma.steel.findMany(),
-            prisma.knife.findMany({
-                include: {
-                    steels: {
-                        select: { name: true }
-                    }
-                }
-            }),
-            prisma.glossary.findMany(),
-            prisma.fAQ.findMany(),
-            prisma.producer.findMany()
-        ]);
-
-        steels = steelsData;
-        formattedKnives = knives.map(k => ({
-            ...k,
-            steels: k.steels.map(s => s.name)
-        }));
-        glossary = glossaryData;
-        faq = faqData;
-        producers = producersData;
+        const data = await fetchAllData();
+        steels = data.steels;
+        formattedKnives = data.knives;
+        glossary = data.glossary;
+        faq = data.faq;
+        producers = data.producers;
     } catch (err) {
-        const urlStatus = process.env.DATABASE_URL ? `URL_SET(host=${new URL(process.env.DATABASE_URL).hostname})` : 'URL_UNDEFINED';
-        console.error('Database connection failed:', err.message, urlStatus);
-        dbError = `${err.message} [${urlStatus}]`;
+        console.error('Database connection failed:', err.message);
+        dbError = err.message;
     }
 
     return (

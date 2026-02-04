@@ -345,7 +345,7 @@ Be concise and premium.`;
                             <path d="M12 9v4m0 4h.01" />
                             <circle cx="12" cy="12" r="10" />
                         </svg>
-                        <span>DB unavailable{typeof dbError === 'string' ? `: ${dbError}` : ' — data will appear once the connection is restored.'}</span>
+                        <span>Database is currently unavailable — data will appear once the connection is restored.</span>
                     </div>
                     <button
                         onClick={() => setShowDbBanner(false)}
