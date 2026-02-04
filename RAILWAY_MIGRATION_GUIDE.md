@@ -40,10 +40,12 @@ This guide will walk you through deploying your MetalCore-Next application and i
 
 ## Step 4: Configure Environment Variables
 
-You likely have other environment variables in your `.env` file. Add them to the **Variables** tab in your Application service:
+The only critical environment variable required for your backend to run is `DATABASE_URL`, which we covered in Step 3.
 
-- `NEXT_PUBLIC_...` (Any public variables used in your frontend)
-- Any other API keys or secrets.
+**Check your local environment:**
+Your specific setup currently only uses `DATABASE_URL` in the `.env` file. Your Google AI key is handled on the client-side (via user input), so you do NOT need to set it here for the server.
+
+If you add other environment variables in the future (like `NEXT_PUBLIC_...` or API keys), remember to add them in the **Variables** tab in your Application service.
 
 ## Step 5: Verify Deployment
 
@@ -52,7 +54,32 @@ You likely have other environment variables in your `.env` file. Add them to the
 3.  Watch the deploy logs. You should see `prisma migrate deploy` running.
 4.  Once "Active", click the generated URL to open your app.
 
+## Step 6: Migrate Data (Local -> Railway)
+
+If you have important data in your local Docker database, follow these steps to move it to Railway.
+
+**1. Create a Backup of Local Data**:
+Run this command in your project root terminal (PowerShell) to dump your local data to a file named `backup.sql`.
+```powershell
+docker exec -t metalcore-db pg_dump -U postgres --clean --if-exists metalcore_db > backup.sql
+```
+
+**2. Restore Data to Railway**:
+You will need the **Public** connection URL from Railway.
+1.  Go to your Railway project.
+2.  Click on the **PostgreSQL** service.
+3.  Go to the **"Variables"** tab.
+4.  Copy the `DATABASE_PUBLIC_URL`. If you don't see it, go to the **"Settings"** tab, scroll to **"Networking"**, and click **"Generate Domain"** to create a public proxy. Then go back to variables and copy `DATABASE_PUBLIC_URL`.
+    *   *Note: Using the public URL allows you to connect from your local machine.*
+
+Run this command to push your local data to Railway (replace the URL with yours):
+```powershell
+docker run -i postgres:15 psql "postgresql://postgres:TAzhTCWNQyDUgyiQaCBYAnFFNzIjRrjH@shinkansen.proxy.rlwy.net:24311/railway" < backup.sql
+```
+*Note: We use `docker run` to ensure you have the `psql` tool available without installing it on Windows.*
+
 ## Troubleshooting
 
 - **Database Errors**: Check the Deploy Logs. If `prisma migrate deploy` fails, ensure your `DATABASE_URL` is correct.
 - **Build Errors**: Check the Build Logs. Ensure all dependencies are in `package.json`.
+- **Data Restore Issues**: If the restore fails due to "relation already exists" errors, the `--clean` flag in the dump command should handle it, but you might need to drop the public schema on Railway manually if conflicts persist.
