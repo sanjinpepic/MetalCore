@@ -103,7 +103,7 @@ async function main() {
     console.log('Seeding Producers...');
     for (const p of PRODUCERS) {
         await pool.query(
-            'INSERT INTO "Producer" (name, location, coords, region, desc) VALUES ($1,$2,$3,$4,$5)',
+            'INSERT INTO "Producer" (name, location, coords, region, "desc") VALUES ($1,$2,$3,$4,$5)',
             [p.name, p.location, p.coords, p.region, p.desc]
         );
     }
