@@ -4,3 +4,6 @@ buildCommand = "npx prisma generate && npm run build"
 
 [deploy]
 startCommand = "npx prisma db push --accept-data-loss && npm start"
+
+[[build.env]]
+NIXPACKS_NODE_VERSION = "20"

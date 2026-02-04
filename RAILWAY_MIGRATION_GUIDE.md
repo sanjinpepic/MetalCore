@@ -91,6 +91,9 @@ docker run -i postgres:15 psql "postgresql://postgres:TAzhTCWNQyDUgyiQaCBYAnFFNz
 ```
 *Note: We use `docker run` to ensure you have the `psql` tool available without installing it on Windows.*
 
+**3. Verify Data Migration**:
+After running the restore command, your data should be in the Railway database. Refresh your Railway application URL and you should see your data displayed. If you see errors, check the Railway deploy logs for any database connection issues.
+
 ## Troubleshooting
 
 - **"DATABASE_URL resolved to an empty string"**: This means the `DATABASE_URL` environment variable is not set in your Application service. Go back to **Step 3** and ensure you added `DATABASE_URL` with the value `${{PostgreSQL.DATABASE_URL}}` in your Application service's Variables tab. After adding it, redeploy.
