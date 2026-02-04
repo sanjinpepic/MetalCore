@@ -1,0 +1,519 @@
+'use client'
+
+// Import removed
+// Import removed
+
+// Import components
+import Sidebar from '../src/components/Sidebar.jsx';
+import SearchView from '../src/components/SearchView.jsx';
+import PerformanceMatrix from '../src/components/PerformanceMatrix.jsx';
+import KnifeLibrary from '../src/components/KnifeLibrary.jsx';
+import CompareView from '../src/components/CompareView.jsx';
+import SteelDetailModal from '../src/components/SteelDetailModal.jsx';
+import KnifeDetailModal from '../src/components/KnifeDetailModal.jsx';
+import HomeView from '../src/components/HomeView.jsx';
+import ProfileView from '../src/components/ProfileView.jsx';
+import EducationView from '../src/components/EducationView.jsx';
+import ProLabView from '../src/components/ProLabView.jsx';
+import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
+import SettingsModal from '../src/components/SettingsModal.jsx';
+import ImportModal from '../src/components/ImportModal.jsx';
+import { UserProvider } from '../src/context/UserContext.jsx';
+
+import { useState, useMemo, useEffect, useRef } from 'react';
+import * as XLSX from 'xlsx';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers }) {
+    return (
+        <UserProvider>
+            <AppContent
+                initialSteels={initialSteels}
+                initialKnives={initialKnives}
+                initialGlossary={initialGlossary}
+                initialFaq={initialFaq}
+                initialProducers={initialProducers}
+            />
+        </UserProvider>
+    );
+}
+
+function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers }) {
+    const [steels, setSteels] = useState(initialSteels);
+    const [view, setView] = useState('HOME');
+    const [search, setSearch] = useState("");
+    const [knifeSearch, setKnifeSearch] = useState("");
+    const [compareList, setCompareList] = useState([]);
+    const [filters, setFilters] = useState({ minC: 0, minCr: 0, minV: 0 });
+    const [activeProducer, setActiveProducer] = useState("ALL");
+    const [detailSteel, setDetailSteel] = useState(null);
+    const [detailKnife, setDetailKnife] = useState(null);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // AI State
+    const [apiKey, setApiKey] = useState("");
+    const [isAiLoading, setIsAiLoading] = useState(false);
+    const [aiOpen, setAiOpen] = useState(false);
+    const [aiQuery, setAiQuery] = useState("");
+    const [aiChat, setAiChat] = useState([]);
+    const [aiModel, setAiModel] = useState("gemini-1.5-flash");
+    const [showSettings, setShowSettings] = useState(false);
+    const [showImportModal, setShowImportModal] = useState(false);
+    const [trendingScores, setTrendingScores] = useState({});
+
+    const fileInputRef = useRef(null);
+
+    const producers = ["ALL", ...new Set(steels.map(s => s.producer))];
+
+    // Trending Logic
+    const incrementTrending = (steelId) => {
+        if (!steelId) return;
+        const newScores = { ...trendingScores, [steelId]: (trendingScores[steelId] || 0) + 1 };
+        setTrendingScores(newScores);
+        localStorage.setItem('metalcore_trending_scores', JSON.stringify(newScores));
+    };
+
+    const trendingList = useMemo(() => {
+        // Return top 4 steels by score
+        return steels
+            .map(s => ({ ...s, score: trendingScores[s.id] || 0 }))
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 4)
+            .filter(s => s.score > 0);
+    }, [steels, trendingScores]);
+
+    // Initialize localStorage values on mount (client-side only)
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setApiKey(localStorage.getItem('metalcore_gemini_key') || "");
+            setAiModel(localStorage.getItem('metalcore_gemini_model') || "gemini-1.5-flash");
+
+            const savedScores = localStorage.getItem('metalcore_trending_scores');
+            if (savedScores) {
+                try {
+                    setTrendingScores(JSON.parse(savedScores));
+                } catch (e) {
+                    console.error("Failed to parse trending scores");
+                }
+            }
+        }
+    }, []);
+
+    const handleImportClick = () => setShowImportModal(true);
+
+    const handleManualImport = (data) => {
+        setSteels(prev => [...prev, data]);
+    };
+
+    const openSteelModal = (steelName) => {
+        // Fuzzy match steel name
+        const found = steels.find(s =>
+            s.name.toLowerCase() === steelName.toLowerCase() ||
+            s.name.toLowerCase().includes(steelName.toLowerCase()) ||
+            steelName.toLowerCase().includes(s.name.toLowerCase())
+        );
+        if (found) {
+            setDetailKnife(null); // Close knife modal if open
+            setDetailSteel(found);
+            incrementTrending(found.id);
+        } else {
+            console.warn("Steel not found:", steelName);
+        }
+    };
+
+    const openKnifeModal = (knifeName) => {
+        // Find knife by name (exact or partial)
+        const found = initialKnives.find(k =>
+            k.name.toLowerCase() === knifeName.toLowerCase() ||
+            knifeName.toLowerCase().includes(k.name.toLowerCase())
+        );
+        if (found) {
+            setDetailSteel(null); // Close steel modal if open
+            setDetailKnife(found);
+        }
+    };
+
+    const askAi = async (query = aiQuery) => {
+        if (!apiKey) {
+            setShowSettings(true);
+            return;
+        }
+        if (!query.trim()) return;
+
+        setIsAiLoading(true);
+        const userMsg = { role: 'user', content: query };
+        setAiChat(prev => [...prev, userMsg]);
+        setAiQuery("");
+
+        try {
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({ model: aiModel });
+
+            const systemPrompt = `You are the MetalCore AI Analyst. Expert in metallurgy and iconic knives. Your name is Ferry.
+Database: ${steels.map(s => `${s.name} (${s.producer}): C:${s.C}, Cr:${s.Cr}, V:${s.V}, Edge:${s.edge}, Toughness:${s.toughness}`).join(' | ')}
+Knives: ${initialKnives.map(k => `${k.name} by ${k.maker}: Steels: ${k.steels.join(', ')}`).join(' | ')}
+If recommending steels, trigger comparison with this exact JSON on a new line:
+COMMAND: {"action": "compare", "steels": ["ExactName1", "ExactName2"]}
+Be concise and premium.`;
+
+            const result = await model.generateContent([systemPrompt, ...aiChat.map(m => m.content), query]);
+            const responseText = result.response.text();
+
+            // Parse commands
+            const commandMatch = responseText.match(/COMMAND: ({.*})/);
+            if (commandMatch) {
+                try {
+                    const cmd = JSON.parse(commandMatch[1]);
+                    if (cmd.action === 'compare' && cmd.steels) {
+                        const toCompare = steels.filter(s => cmd.steels.includes(s.name));
+                        if (toCompare.length > 0) {
+                            setCompareList(toCompare);
+                            setView('COMPARE');
+                        }
+                    }
+                } catch (e) { console.error("AI Command Parse Error", e); }
+            }
+
+            setAiChat(prev => [...prev, { role: 'assistant', content: responseText.replace(/COMMAND: {.*}/, "") }]);
+        } catch (err) {
+            setAiChat(prev => [...prev, { role: 'assistant', content: "Error: " + err.message }]);
+        } finally {
+            setIsAiLoading(false);
+        }
+    };
+
+    const generateReport = async () => {
+        if (!apiKey) { setShowSettings(true); return; }
+        if (compareList.length === 0) return;
+
+        setIsAiLoading(true);
+        try {
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({ model: aiModel });
+
+            const list = compareList.map(s => JSON.stringify(s)).join('\n');
+            const prompt = `Act as a senior metallurgist. Generate a professional "Comparative Performance Report" for these steels:\n${list}\nDetailed trade-offs, carbide structure analysis (based on alloy), and recommended deployment. Use clean Markdown.`;
+
+            const result = await model.generateContent(prompt);
+            setAiChat(prev => [...prev, { role: 'assistant', content: result.response.text(), isReport: true }]);
+            setAiOpen(true);
+        } catch (err) {
+            alert("Report Error: " + err.message);
+        } finally {
+            setIsAiLoading(false);
+        }
+    };
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            try {
+                const bstr = evt.target.result;
+                const wb = XLSX.read(bstr, { type: 'binary' });
+                const ws = wb.Sheets[wb.SheetNames[0]];
+                const data = XLSX.utils.sheet_to_json(ws);
+                const formatted = data.map((row, idx) => {
+                    const getVal = (key) => {
+                        const k = Object.keys(row).find(k => k.toLowerCase() === key.toLowerCase());
+                        return k ? row[k] : undefined;
+                    };
+                    return {
+                        id: 'imported-' + Date.now() + idx,
+                        name: getVal('Grade') || getVal('Name') || `Unknown ${idx + 1}`,
+                        producer: getVal('Producer') || "Unknown",
+                        C: parseFloat(getVal('C') || 0),
+                        Cr: parseFloat(getVal('Cr') || 0),
+                        V: parseFloat(getVal('V') || 0),
+                        Mo: parseFloat(getVal('Mo') || 0),
+                        W: parseFloat(getVal('W') || 0),
+                        Co: parseFloat(getVal('Co') || 0),
+                        edge: parseFloat(getVal('Edge') || 5),
+                        toughness: parseFloat(getVal('Toughness') || 5),
+                        corrosion: parseFloat(getVal('Corrosion') || 5),
+                        sharpen: parseFloat(getVal('Sharpen') || 5),
+                        ht_curve: getVal('ht_curve') || "",
+                        desc: "Custom imported grade.",
+                        knives: []
+                    };
+                });
+                setSteels(prev => [...prev, ...formatted]);
+            } catch (err) { console.error(err); }
+        };
+        reader.readAsBinaryString(file);
+    };
+
+    const filteredSteels = useMemo(() => {
+        const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
+        const normalizedSearch = search ? normalize(search) : '';
+
+        return steels.filter(s => {
+            const matchesSearch = !search ||
+                normalize(s.name).includes(normalizedSearch) ||
+                normalize(s.producer).includes(normalizedSearch);
+            const matchesFilters = s.C >= filters.minC && s.Cr >= filters.minCr && s.V >= filters.minV;
+            const matchesProducer = activeProducer === "ALL" || s.producer === activeProducer;
+            return matchesSearch && matchesFilters && matchesProducer;
+        });
+    }, [steels, search, filters, activeProducer]);
+
+    const toggleCompare = (steel, e) => {
+        if (e) e.stopPropagation();
+        if (compareList.find(i => i.id === steel.id)) {
+            setCompareList(compareList.filter(i => i.id !== steel.id));
+        } else if (compareList.length < 4) {
+            setCompareList([...compareList, steel]);
+        }
+    };
+
+    const clearCompare = () => setCompareList([]);
+
+    // Filter knives based on search query AND grade library filters (producer, alloy content)
+    const filteredKnives = useMemo(() => {
+        const normalize = (val) => {
+            if (!val) return "";
+            return val.toLowerCase()
+                .replace(/cpm[- ]?/, "")
+                .replace(/böhler |bohler /, "")
+                .replace(/sandvik |alleima |alleima-/, "")
+                .replace(/[ \-]/g, "")
+                .trim();
+        };
+
+        const searchLower = knifeSearch.toLowerCase().trim();
+
+        return initialKnives.filter(k => {
+            // First apply search filter
+            let matchesSearch = !knifeSearch;
+            if (knifeSearch) {
+                if (k.name.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.maker.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.category.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.description.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.whySpecial.toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if (k.steels.some(steelName => {
+                    const normalizedSteel = normalize(steelName);
+                    const normalizedSearch = normalize(searchLower);
+                    return steelName.toLowerCase().includes(searchLower) ||
+                        normalizedSteel.includes(normalizedSearch) ||
+                        normalizedSearch.includes(normalizedSteel);
+                })) matchesSearch = true;
+            }
+
+            if (!matchesSearch) return false;
+
+            // Now apply grade library filters (producer and alloy content)
+            // A knife passes if ANY of its steel variants match the filters
+            const hasMatchingSteel = k.steels.some(steelName => {
+                const steel = steels.find(s =>
+                    normalize(s.name) === normalize(steelName) ||
+                    s.name.toLowerCase() === steelName.toLowerCase()
+                );
+
+                if (!steel) return false; // Steel not found in database
+
+                // Check producer filter
+                const matchesProducer = activeProducer === "ALL" || steel.producer === activeProducer;
+
+                // Check alloy content filters
+                const matchesFilters = steel.C >= filters.minC &&
+                    steel.Cr >= filters.minCr &&
+                    steel.V >= filters.minV;
+
+                return matchesProducer && matchesFilters;
+            });
+
+            return hasMatchingSteel;
+        });
+    }, [knifeSearch, steels, activeProducer, filters]);
+
+    const resetFilters = () => {
+        setFilters({ minC: 0, minCr: 0, minV: 0 });
+        setActiveProducer("ALL");
+    };
+
+    return (
+        <div className="flex h-screen overflow-hidden font-sans bg-black relative">
+            {/* Mobile Menu Overlay */}
+            {mobileMenuOpen && (
+                <div
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+                    onClick={() => setMobileMenuOpen(false)}
+                />
+            )}
+
+            {/* Detail Modal */}
+            {detailSteel && (
+                <SteelDetailModal
+                    steel={detailSteel}
+                    onClose={() => setDetailSteel(null)}
+                    onOpenKnife={openKnifeModal}
+                />
+            )}
+
+            {detailKnife && (
+                <KnifeDetailModal
+                    knife={detailKnife}
+                    onClose={() => setDetailKnife(null)}
+                    onOpenSteel={openSteelModal}
+                />
+            )}
+
+            {/* Mobile Menu Button */}
+            <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="fixed top-4 left-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
+            >
+                {mobileMenuOpen ? (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                ) : (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                )}
+            </button>
+
+            {/* Sidebar */}
+            <Sidebar
+                activeProducer={activeProducer}
+                setActiveProducer={setActiveProducer}
+                filters={filters}
+                setFilters={setFilters}
+                steels={steels}
+                view={view}
+                setView={setView}
+                mobileMenuOpen={mobileMenuOpen}
+                setMobileMenuOpen={setMobileMenuOpen}
+                producers={producers}
+                handleImportClick={handleImportClick}
+                fileInputRef={fileInputRef}
+                handleFileUpload={handleFileUpload}
+                setShowSettings={setShowSettings}
+                aiOpen={aiOpen}
+                setAiOpen={setAiOpen}
+                setSearch={setSearch}
+                trending={trendingList}
+                resetFilters={resetFilters}
+            />
+
+            {/* Main Content */}
+            {view === 'HOME' && (
+                <HomeView
+                    setView={setView}
+                    steels={steels}
+                    setDetailSteel={setDetailSteel}
+                    search={search}
+                    setSearch={setSearch}
+                    compareList={compareList}
+                    toggleCompare={toggleCompare}
+                    producers={producers}
+                    incrementTrending={incrementTrending}
+                    resetFilters={resetFilters}
+                />
+            )}
+
+            {view === 'SEARCH' && (
+                <SearchView
+                    search={search}
+                    setSearch={setSearch}
+                    filteredSteels={filteredSteels}
+                    compareList={compareList}
+                    toggleCompare={toggleCompare}
+                    clearCompare={clearCompare}
+                    setDetailSteel={setDetailSteel}
+                    setView={setView}
+                    resetFilters={resetFilters}
+                />
+            )}
+
+            {view === 'MATRIX' && (
+                <PerformanceMatrix
+                    steels={filteredSteels}
+                    setDetailSteel={setDetailSteel}
+                    activeProducer={activeProducer}
+                    setActiveProducer={setActiveProducer}
+                    producers={producers}
+                />
+            )}
+
+            {view === 'KNIVES' && (
+                <KnifeLibrary
+                    knives={filteredKnives}
+                    steels={steels}
+                    setDetailSteel={setDetailSteel}
+                    setDetailKnife={setDetailKnife}
+                    knifeSearch={knifeSearch}
+                    setKnifeSearch={setKnifeSearch}
+                />
+            )}
+
+            {view === 'COMPARE' && (
+                <CompareView
+                    items={compareList}
+                    setView={setView}
+                    toggleCompare={toggleCompare}
+                    clearCompare={clearCompare}
+                    generateReport={generateReport}
+                    isAiLoading={isAiLoading}
+                />
+            )}
+
+            {view === 'PROFILE' && (
+                <ProfileView
+                    steels={steels}
+                    setDetailSteel={setDetailSteel}
+                    setView={setView}
+                />
+            )}
+
+            {view === 'EDUCATION' && (
+                <EducationView
+                    glossary={initialGlossary}
+                    faq={initialFaq}
+                    producers={initialProducers}
+                />
+            )}
+
+            {view === 'PRO_LAB' && (
+                <ProLabView steels={steels} />
+            )}
+
+            {/* AI Analyst Panel */}
+            <AIAnalystPanel
+                aiOpen={aiOpen}
+                setAiOpen={setAiOpen}
+                aiChat={aiChat}
+                isAiLoading={isAiLoading}
+                aiQuery={aiQuery}
+                setAiQuery={setAiQuery}
+                askAi={askAi}
+            />
+
+            {/* Settings Modal */}
+            {showSettings && (
+                <SettingsModal
+                    apiKey={apiKey}
+                    setApiKey={setApiKey}
+                    aiModel={aiModel}
+                    setAiModel={setAiModel}
+                    onClose={() => setShowSettings(false)}
+                />
+            )}
+
+            {/* Import Modal */}
+            {showImportModal && (
+                <ImportModal
+                    onClose={() => setShowImportModal(false)}
+                    onManualImport={handleManualImport}
+                    onFileUpload={handleFileUpload}
+                />
+            )}
+        </div>
+    );
+}

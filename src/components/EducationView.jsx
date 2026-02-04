@@ -1,17 +1,17 @@
 'use client'
 
 import React, { useState, useMemo } from 'react';
-import { GLOSSARY, FAQ } from '../data/education';
+// Imports removed
 import ProducerMap from './ProducerMap';
 import Footer from './Footer';
 
-const EducationView = () => {
+const EducationView = ({ glossary, faq, producers }) => {
     const [activeTab, setActiveTab] = useState('GLOSSARY');
     const [searchTerm, setSearchTerm] = useState('');
 
     const filteredGlossary = useMemo(() => {
-        if (!searchTerm) return GLOSSARY;
-        return GLOSSARY.filter(item =>
+        if (!searchTerm) return glossary;
+        return glossary.filter(item =>
             item.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.def.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -87,13 +87,13 @@ const EducationView = () => {
 
                 {activeTab === 'PRODUCERS' && (
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <ProducerMap />
+                        <ProducerMap producers={producers} />
                     </div>
                 )}
 
                 {activeTab === 'FAQ' && (
                     <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        {FAQ.map((item, idx) => (
+                        {faq.map((item, idx) => (
                             <div key={idx} className="glass-panel p-6 md:p-8 rounded-[2rem] border-white/5 bg-gradient-to-r from-indigo-500/5 to-transparent">
                                 <div className="flex gap-6">
                                     <div className="w-12 h-12 rounded-2xl bg-indigo-600/20 flex items-center justify-center shrink-0 border border-indigo-500/20 text-indigo-400 font-display font-black italic">Q</div>

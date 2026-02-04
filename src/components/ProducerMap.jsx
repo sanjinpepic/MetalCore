@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { PRODUCERS } from '../data/education';
+// Import removed
 
-const ProducerMap = () => {
+const ProducerMap = ({ producers }) => {
     const [activeProducer, setActiveProducer] = useState(null);
 
     return (
@@ -16,7 +16,7 @@ const ProducerMap = () => {
 
             {/* Producer List View (Replacing the map) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                {PRODUCERS.map((p, i) => (
+                {producers.map((p, i) => (
                     <div
                         key={i}
                         className={`group p-8 rounded-[2.5rem] border transition-all cursor-pointer relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent ${activeProducer?.name === p.name ? 'border-accent/30 shadow-2xl scale-[1.02]' : 'border-white/5 hover:border-white/10'}`}
@@ -56,7 +56,7 @@ const ProducerMap = () => {
             {/* System Footer (Internal) */}
             <div className="mt-16 pt-8 border-t border-white/5 flex justify-between items-center text-[8px] font-mono text-slate-800 uppercase tracking-[0.4em] font-bold">
                 <span>Network Integrity: Verified</span>
-                <span>Active Nodes: {PRODUCERS.length}</span>
+                <span>Active Nodes: {producers.length}</span>
             </div>
         </div>
     );
