@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react';
-import { useUser } from '../context/UserContext';
 
 const Sidebar = ({
     view,
@@ -23,8 +22,6 @@ const Sidebar = ({
     trending,
     resetFilters
 }) => {
-    const { user } = useUser();
-
     const defaultTrending = [
         { name: "MagnaCut", id: "crucible-1" },
         { name: "M390 Microclean", id: "bohler-1" },
@@ -46,11 +43,6 @@ const Sidebar = ({
             )
         },
         {
-            label: 'Pro Lab', id: 'PRO_LAB', icon: (
-                <><path d="M10 2v7.5" /><path d="M14 2v7.5" /><path d="M8.5 2h7" /><path d="M14 10.5h.5a4.5 4.5 0 0 1 4.5 4.5v3.5a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3V15a4.5 4.5 0 0 1 4.5-4.5h.5" /></>
-            )
-        },
-        {
             label: 'Performance Matrix', id: 'MATRIX', icon: (
                 <><line x1="21" y1="10" x2="3" y2="10" /><line x1="21" y1="6" x2="3" y2="6" /><line x1="21" y1="14" x2="3" y2="14" /><line x1="21" y1="18" x2="3" y2="18" /></>
             )
@@ -63,11 +55,6 @@ const Sidebar = ({
         {
             label: 'Academy', id: 'EDUCATION', icon: (
                 <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z" /><path d="M12 2v20" /></>
-            )
-        },
-        {
-            label: 'My Profile', id: 'PROFILE', icon: (
-                <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>
             )
         },
     ];
@@ -233,28 +220,6 @@ const Sidebar = ({
                 )}
 
                 <div className="pb-4" />
-
-                <div className="mt-auto px-1 pt-6 border-t border-white/5 pb-8">
-                        <button
-                            onClick={() => { setView('PROFILE'); setMobileMenuOpen(false); }}
-                            className={`w-full p-4 rounded-2xl flex items-center gap-4 transition-all ${view === 'PROFILE' ? 'bg-accent/10 border border-accent/20 shadow-lg shadow-accent/5' : 'bg-white/2 border border-white/5 hover:bg-white/5 hover:border-white/10'}`}
-                        >
-                            <div className="w-10 h-10 rounded-xl bg-black border border-accent/40 flex items-center justify-center shrink-0 overflow-hidden">
-                                {user.avatar ? (
-                                    <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
-                                ) : (
-                                    <span className="text-accent font-display font-black text-sm italic">{user.name.charAt(0)}</span>
-                                )}
-                            </div>
-                            <div className="text-left overflow-hidden">
-                                <div className="text-xs font-black text-white truncate uppercase italic">{user.name}</div>
-                                <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">Community Profile</div>
-                            </div>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="ml-auto text-slate-600">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
-                </div>
             </div>
         </aside>
     );
