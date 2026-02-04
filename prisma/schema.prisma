@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Steel {
+  id          String   @id
+  name        String
+  producer    String
+  C           Float
+  Cr          Float
+  V           Float
+  Mo          Float
+  W           Float
+  Co          Float
+  edge        Float
+  toughness   Float
+  corrosion   Float
+  sharpen     Float
+  ht_curve    String
+  desc        String
+  use_case    String
+  pros        String[]
+  cons        String[]
+  knives      Knife[]  @relation("SteelToKnife")
+}
+
+model Knife {
+  id          String   @id
+  name        String
+  maker       String
+  category    String
+  description String
+  whySpecial  String
+  image       String
+  link        String
+  steels      Steel[]  @relation("SteelToKnife")
+}
+
+model Glossary {
+  id          Int      @id @default(autoincrement())
+  term        String
+  def         String
+}
+
+model FAQ {
+  id          Int      @id @default(autoincrement())
+  q           String
+  a           String
+}
+
+model Producer {
+  id          Int      @id @default(autoincrement())
+  name        String
+  location    String
+  coords      Float[]
+  region      String
+  desc        String
+}
