@@ -32,8 +32,9 @@ export default async function Page() {
         faq = faqData;
         producers = producersData;
     } catch (err) {
-        console.error('Database connection failed:', err.message);
-        dbError = err.message;
+        const urlStatus = process.env.DATABASE_URL ? `URL_SET(host=${new URL(process.env.DATABASE_URL).hostname})` : 'URL_UNDEFINED';
+        console.error('Database connection failed:', err.message, urlStatus);
+        dbError = `${err.message} [${urlStatus}]`;
     }
 
     return (
