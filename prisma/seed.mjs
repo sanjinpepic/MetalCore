@@ -66,6 +66,32 @@ async function main() {
         steelLookup.set(s.name.toLowerCase(), s.id);
         steelLookup.set(s.id.toLowerCase(), s.id);
     }
+    // Aliases: knives.js uses different name variants than steels.js
+    const aliases = {
+        'cpm-s30v':           'crucible-7',
+        'cpm-s35vn':          'crucible-10',
+        'cpm-s45vn':          'crucible-5',
+        'cpm-s90v':           'crucible-2',
+        'cpm-s110v':          'crucible-8',
+        'cpm-20cv':           'crucible-9',
+        'cpm-3v':             'crucible-3',
+        'cpm-154':            'crucible-11',
+        'cpm-m4':             'crucible-6',
+        'cpm-cruwear':        'crucible-4',
+        'cpm-magnacut':       'crucible-1',
+        'm390 microclean':    'bohler-1',
+        'elmax superclean':   'uddeholm-1',
+        'k390 microclean':    'bohler-2',
+        'vanax superclean':   'uddeholm-6',
+        's35vn':              'crucible-10',
+        '15v':                'crucible-12',
+        'mc63 (sg2)':         'takefu-1',
+        'm4':                 'crucible-6',
+        'carbon steel':       'carbon-4',   // generic "Carbon Steel" -> 1075
+    };
+    for (const [alias, id] of Object.entries(aliases)) {
+        steelLookup.set(alias, id);
+    }
 
     console.log('Seeding Knives...');
     for (const k of POPULAR_KNIVES) {

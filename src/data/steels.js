@@ -502,6 +502,18 @@ export const PREMIUM_STEELS = [
         use_case: "Choppers, machetes, and tools where surviving abuse matters more than holding an edge."
     },
 
+    {
+        id: 'carbon-5', name: "SK-5", producer: "Various",
+        C: 0.86, Cr: 0.3, V: 0.1, Mo: 0.05, W: 0, Co: 0,
+        edge: 6, toughness: 8, corrosion: 1, sharpen: 8,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "A Japanese industrial carbon steel commonly used in fixed blades and machetes. Similar to 1075 but with slightly higher carbon and tighter tolerances.",
+        knives: ["Buck SRK", "Cold Steel fixed blades"],
+        pros: ["Very tough", "Easy to sharpen", "Good edge for the hardness"],
+        cons: ["Rusts quickly", "Needs maintenance", "Moderate edge retention"],
+        use_case: "Fixed blades, survival knives, and outdoor cutting tasks."
+    },
+
     // --- BUDGET / MODERN STAINLESS ---
     {
         id: 'budget-1', name: "Nitro-V", producer: "New Jersey Steel Baron",
