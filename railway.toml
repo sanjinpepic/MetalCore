@@ -1,9 +1,9 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "npx prisma generate && npm run build"
+buildCommand = "npm run build"
 
 [deploy]
-startCommand = "npx prisma migrate deploy && next start -p $PORT"
+startCommand = "node .next/standalone/server.js"
 healthcheckPath = "/"
 healthcheckTimeout = 300
 
