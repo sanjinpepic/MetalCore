@@ -1,13 +1,15 @@
 'use client'
 
 import { motion, AnimatePresence, useMotionValue, useDragControls } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { hapticFeedback } from '../hooks/useMobile';
 
 export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0.4, 0.95] }) {
     const [snapPoint, setSnapPoint] = useState(snapPoints[0]);
     const y = useMotionValue(0);
     const dragControls = useDragControls();
+    const contentRef = useRef(null);
+    const touchStartY = useRef(0);
 
     // Calculate height based on snap point (percentage of viewport)
     const getHeight = (point) => {
@@ -17,6 +19,24 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
 
     // Get the maximum snap point for container height
     const maxSnapPoint = Math.max(...snapPoints);
+
+    // Handle touch events to enable drag when at scroll top
+    const handleTouchStart = (e) => {
+        touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e) => {
+        if (!contentRef.current) return;
+
+        const scrollTop = contentRef.current.scrollTop;
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchY - touchStartY.current;
+
+        // If at top of scroll and user is swiping down, enable drag
+        if (scrollTop === 0 && deltaY > 0) {
+            dragControls.start(e);
+        }
+    };
 
     useEffect(() => {
         if (isOpen) {
@@ -125,7 +145,12 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                     </div>
 
                     {/* Content */}
-                    <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-safe overscroll-contain touch-pan-y">
+                    <div
+                        ref={contentRef}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-safe overscroll-contain touch-pan-y"
+                    >
                         {children}
                     </div>
                 </div>
