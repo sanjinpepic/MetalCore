@@ -44,12 +44,18 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
 
     return (
         <motion.div
-            className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10"
+            className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10 will-change-transform"
             drag="y"
             dragControls={dragControls}
             dragListener={false}
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0}
+            dragElastic={0.1}
+            dragMomentum={true}
+            dragTransition={{
+                bounceStiffness: 300,
+                bounceDamping: 30,
+                power: 0.2
+            }}
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
         >
@@ -86,6 +92,10 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                     animate={{
                         height: isExpanded ? 'auto' : 0,
                         opacity: isExpanded ? 1 : 0,
+                    }}
+                    transition={{
+                        duration: 0.2,
+                        ease: [0.22, 1, 0.36, 1]
                     }}
                     className="overflow-hidden"
                 >

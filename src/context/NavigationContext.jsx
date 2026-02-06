@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { hapticFeedback } from '../hooks/useMobile';
 
 const NavigationContext = createContext();
 
@@ -86,6 +87,9 @@ export function NavigationProvider({ children }) {
     }, [isInitialized]);
 
     const goBack = useCallback(() => {
+        // Add haptic feedback before navigating back
+        hapticFeedback('light');
+
         if (navigationStack.length > 1) {
             window.history.back();
         } else {

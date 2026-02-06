@@ -181,3 +181,38 @@ html {
         min-width: 44px;
     }
 }
+
+/* Performance Optimization Utilities */
+
+/* GPU Acceleration - Force hardware acceleration for smooth animations */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Smooth Touch Interactions - Optimize touch responsiveness */
+.smooth-touch {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+}
+
+/* Native Scroll Behavior - Optimize scrolling performance */
+.native-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    scroll-behavior: smooth;
+}
+
+/* Reduce Motion for Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

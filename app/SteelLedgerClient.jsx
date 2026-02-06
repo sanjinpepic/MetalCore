@@ -20,7 +20,6 @@ import SettingsModal from '../src/components/SettingsModal.jsx';
 import ImportModal from '../src/components/ImportModal.jsx';
 import { UserProvider } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
-import GestureHandler from '../src/components/GestureHandler.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 import { useSwipeable } from 'react-swipeable';
 
@@ -481,89 +480,101 @@ Be concise and premium.`;
                 resetFilters={resetFilters}
             />
 
-            {/* Main Content with Gestures */}
-            <GestureHandler viewKey={view}>
-                {view === 'HOME' && (
-                <HomeView
-                    setView={setView}
-                    steels={steels}
-                    setDetailSteel={setDetailSteel}
-                    search={search}
-                    setSearch={setSearch}
-                    compareList={compareList}
-                    toggleCompare={toggleCompare}
-                    producers={producers}
-                    incrementTrending={incrementTrending}
-                    resetFilters={resetFilters}
-                />
-            )}
+            {/* Main Content with View Transitions */}
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                    key={view}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                        duration: 0.15,
+                        ease: [0.22, 1, 0.36, 1]
+                    }}
+                    className="flex-1 overflow-hidden"
+                >
+                    {view === 'HOME' && (
+                        <HomeView
+                            setView={setView}
+                            steels={steels}
+                            setDetailSteel={setDetailSteel}
+                            search={search}
+                            setSearch={setSearch}
+                            compareList={compareList}
+                            toggleCompare={toggleCompare}
+                            producers={producers}
+                            incrementTrending={incrementTrending}
+                            resetFilters={resetFilters}
+                        />
+                    )}
 
-            {view === 'SEARCH' && (
-                <SearchView
-                    search={search}
-                    setSearch={setSearch}
-                    filteredSteels={filteredSteels}
-                    compareList={compareList}
-                    toggleCompare={toggleCompare}
-                    clearCompare={clearCompare}
-                    setDetailSteel={setDetailSteel}
-                    setView={setView}
-                    resetFilters={resetFilters}
-                />
-            )}
+                    {view === 'SEARCH' && (
+                        <SearchView
+                            search={search}
+                            setSearch={setSearch}
+                            filteredSteels={filteredSteels}
+                            compareList={compareList}
+                            toggleCompare={toggleCompare}
+                            clearCompare={clearCompare}
+                            setDetailSteel={setDetailSteel}
+                            setView={setView}
+                            resetFilters={resetFilters}
+                        />
+                    )}
 
-            {view === 'MATRIX' && (
-                <PerformanceMatrix
-                    steels={filteredSteels}
-                    setDetailSteel={setDetailSteel}
-                    activeProducer={activeProducer}
-                    setActiveProducer={setActiveProducer}
-                    producers={producers}
-                />
-            )}
+                    {view === 'MATRIX' && (
+                        <PerformanceMatrix
+                            steels={filteredSteels}
+                            setDetailSteel={setDetailSteel}
+                            activeProducer={activeProducer}
+                            setActiveProducer={setActiveProducer}
+                            producers={producers}
+                        />
+                    )}
 
-            {view === 'KNIVES' && (
-                <KnifeLibrary
-                    knives={filteredKnives}
-                    steels={steels}
-                    setDetailSteel={setDetailSteel}
-                    setDetailKnife={setDetailKnife}
-                    knifeSearch={knifeSearch}
-                    setKnifeSearch={setKnifeSearch}
-                />
-            )}
+                    {view === 'KNIVES' && (
+                        <KnifeLibrary
+                            knives={filteredKnives}
+                            steels={steels}
+                            setDetailSteel={setDetailSteel}
+                            setDetailKnife={setDetailKnife}
+                            knifeSearch={knifeSearch}
+                            setKnifeSearch={setKnifeSearch}
+                        />
+                    )}
 
-            {view === 'COMPARE' && (
-                <CompareView
-                    items={compareList}
-                    setView={setView}
-                    toggleCompare={toggleCompare}
-                    clearCompare={clearCompare}
-                    generateReport={generateReport}
-                    isAiLoading={isAiLoading}
-                />
-            )}
+                    {view === 'COMPARE' && (
+                        <CompareView
+                            items={compareList}
+                            setView={setView}
+                            toggleCompare={toggleCompare}
+                            clearCompare={clearCompare}
+                            generateReport={generateReport}
+                            isAiLoading={isAiLoading}
+                        />
+                    )}
 
-            {view === 'PROFILE' && (
-                <ProfileView
-                    steels={steels}
-                    setDetailSteel={setDetailSteel}
-                    setView={setView}
-                />
-            )}
+                    {view === 'PROFILE' && (
+                        <ProfileView
+                            steels={steels}
+                            setDetailSteel={setDetailSteel}
+                            setView={setView}
+                        />
+                    )}
 
-            {view === 'EDUCATION' && (
-                <EducationView
-                    glossary={initialGlossary}
-                    faq={initialFaq}
-                    producers={initialProducers}
-                />
-            )}
+                    {view === 'EDUCATION' && (
+                        <EducationView
+                            glossary={initialGlossary}
+                            faq={initialFaq}
+                            producers={initialProducers}
+                        />
+                    )}
 
-            {view === 'PRO_LAB' && (
-                <ProLabView steels={steels} />
-            )}
-            </GestureHandler>
+                    {view === 'PRO_LAB' && (
+                        <ProLabView steels={steels} />
+                    )}
+                </motion.div>
+            </AnimatePresence>
 
             {/* AI Analyst Panel */}
             <AIAnalystPanel

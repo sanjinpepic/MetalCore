@@ -10,7 +10,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
     const isFavorite = favoriteSteels.includes(steel.id);
 
     return (
-        <BottomSheet isOpen={!!steel} onClose={onClose} snapPoints={[0.95, 0.4]}>
+        <BottomSheet isOpen={!!steel} onClose={onClose}>
             <div className="relative">
                 {/* Close button - positioned for both mobile and desktop */}
                 <div className="absolute top-0 right-0 z-10">
