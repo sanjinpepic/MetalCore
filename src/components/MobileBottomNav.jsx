@@ -1,15 +1,11 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useTransform, PanInfo } from 'framer-motion';
-import { useNavigation } from '../context/NavigationContext';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { hapticFeedback } from '../hooks/useMobile';
 
 export default function MobileBottomNav({ view, setView }) {
-    const { canGoBack, goBack } = useNavigation();
     const [isExpanded, setIsExpanded] = useState(false);
-    const y = useMotionValue(0);
-    const opacity = useTransform(y, [-100, 0], [1, 0.5]);
 
     const navItems = [
         { id: 'HOME', icon: HomeIcon, label: 'Home' },
@@ -19,14 +15,9 @@ export default function MobileBottomNav({ view, setView }) {
         { id: 'EDUCATION', icon: BookIcon, label: 'Learn' },
     ];
 
-    const handleDragEnd = (event, info) => {
-        if (info.offset.y < -50) {
-            setIsExpanded(true);
-            hapticFeedback('light');
-        } else if (info.offset.y > 50 && isExpanded) {
-            setIsExpanded(false);
-            hapticFeedback('light');
-        }
+    const toggleExpanded = () => {
+        setIsExpanded(!isExpanded);
+        hapticFeedback('light');
     };
 
     const handleNavClick = (viewId) => {
@@ -36,20 +27,14 @@ export default function MobileBottomNav({ view, setView }) {
     };
 
     return (
-        <motion.div
-            className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10"
-            style={{ y, opacity }}
-            drag="y"
-            dragConstraints={{ top: -100, bottom: 0 }}
-            dragElastic={0.2}
-            onDragEnd={handleDragEnd}
-            initial={{ y: 0 }}
-            animate={{ y: 0 }}
-        >
+        <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10">
             {/* Drag Handle */}
-            <div className="flex justify-center pt-2 pb-1">
+            <button
+                onClick={toggleExpanded}
+                className="w-full flex justify-center pt-2 pb-1 cursor-pointer active:opacity-50 transition-opacity"
+            >
                 <div className="w-12 h-1 rounded-full bg-white/20" />
-            </div>
+            </button>
 
             {/* Main Nav Bar */}
             <div className="px-2 pb-safe">
@@ -111,7 +96,7 @@ export default function MobileBottomNav({ view, setView }) {
                     </div>
                 </motion.div>
             </div>
-        </motion.div>
+        </div>
     );
 }
 

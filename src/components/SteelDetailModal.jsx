@@ -29,7 +29,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                                 <h2 className="text-2xl md:text-3xl font-display font-black text-white leading-none italic uppercase tracking-tighter">{steel.name}</h2>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); toggleFavorite(steel.id); }}
-                                    className={`p-2 rounded-xl border transition-all ${isFavorite ? 'bg-accent text-black border-accent shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 border-white/10 hover:text-accent'}`}
+                                    className={`p-2 rounded-xl border transition-all flex items-center justify-center ${isFavorite ? 'bg-accent text-black border-accent shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 border-white/10 hover:text-accent'}`}
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5">
                                         <path d="m12 17.75-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
