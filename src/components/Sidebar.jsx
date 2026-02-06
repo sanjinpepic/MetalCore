@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react';
+import { useSwipeable } from 'react-swipeable';
+import { motion } from 'framer-motion';
 
 const Sidebar = ({
     view,
@@ -43,7 +45,7 @@ const Sidebar = ({
             )
         },
         {
-            label: 'Performance Matrix', id: 'MATRIX', icon: (
+            label: 'Performance', id: 'MATRIX', icon: (
                 <><line x1="21" y1="10" x2="3" y2="10" /><line x1="21" y1="6" x2="3" y2="6" /><line x1="21" y1="14" x2="3" y2="14" /><line x1="21" y1="18" x2="3" y2="18" /></>
             )
         },
@@ -61,8 +63,23 @@ const Sidebar = ({
 
     const filteredNavItems = navItems;
 
+    // Swipe handlers for mobile
+    const handlers = useSwipeable({
+        onSwipedLeft: () => {
+            if (mobileMenuOpen) {
+                setMobileMenuOpen(false);
+            }
+        },
+        trackMouse: false,
+        trackTouch: true,
+        preventScrollOnSwipe: false,
+    });
+
     return (
-        <aside className={`fixed md:relative w-72 md:w-80 glass-panel border-r border-white/5 flex flex-col z-[80] md:z-10 h-full transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+        <aside
+            {...handlers}
+            className={`fixed md:relative w-72 md:w-80 glass-panel border-r border-white/5 flex flex-col z-[80] md:z-10 h-full transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        >
             <div className="p-6 md:p-8 pb-4 flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-2 md:gap-3 text-accent font-display font-black text-lg md:text-xl tracking-tighter italic">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

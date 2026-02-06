@@ -22,8 +22,8 @@ import { UserProvider } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
 import GestureHandler from '../src/components/GestureHandler.jsx';
 import PullToRefresh from '../src/components/PullToRefresh.jsx';
-import BackButton from '../src/components/BackButton.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
+import { useSwipeable } from 'react-swipeable';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
@@ -372,6 +372,19 @@ Be concise and premium.`;
         return new Promise(resolve => setTimeout(resolve, 1000));
     };
 
+    // Swipe handlers for opening sidebar from left edge
+    const edgeSwipeHandlers = useSwipeable({
+        onSwipedRight: (eventData) => {
+            // Only trigger if swipe starts near the left edge (first 50px)
+            if (eventData.initial[0] < 50 && !mobileMenuOpen) {
+                setMobileMenuOpen(true);
+            }
+        },
+        trackMouse: false,
+        trackTouch: true,
+        preventScrollOnSwipe: false,
+    });
+
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">
             {/* Database Unavailable Banner */}
@@ -402,6 +415,15 @@ Be concise and premium.`;
                 <div
                     className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
                     onClick={() => setMobileMenuOpen(false)}
+                />
+            )}
+
+            {/* Swipe Zone for Opening Sidebar */}
+            {!mobileMenuOpen && (
+                <div
+                    {...edgeSwipeHandlers}
+                    className="fixed left-0 top-0 bottom-0 w-12 z-30 md:hidden pointer-events-auto"
+                    aria-label="Swipe right to open menu"
                 />
             )}
 
@@ -467,11 +489,6 @@ Be concise and premium.`;
             {/* Main Content with Gestures */}
             <GestureHandler viewKey={`${view}-${detailSteelId}-${detailKnifeId}`}>
                 <PullToRefresh onRefresh={handleRefresh}>
-                    {/* Back Button */}
-                    <div className="fixed top-4 right-4 z-40 md:top-6 md:right-6">
-                        <BackButton />
-                    </div>
-
                     {view === 'HOME' && (
                 <HomeView
                     setView={setView}
