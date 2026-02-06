@@ -19,6 +19,11 @@ import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
 import SettingsModal from '../src/components/SettingsModal.jsx';
 import ImportModal from '../src/components/ImportModal.jsx';
 import { UserProvider } from '../src/context/UserContext.jsx';
+import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
+import GestureHandler from '../src/components/GestureHandler.jsx';
+import PullToRefresh from '../src/components/PullToRefresh.jsx';
+import BackButton from '../src/components/BackButton.jsx';
+import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
@@ -27,30 +32,39 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
     return (
         <UserProvider>
-            <AppContent
-                initialSteels={initialSteels}
-                initialKnives={initialKnives}
-                initialGlossary={initialGlossary}
-                initialFaq={initialFaq}
-                initialProducers={initialProducers}
-                dbError={dbError}
-            />
+            <NavigationProvider>
+                <AppContent
+                    initialSteels={initialSteels}
+                    initialKnives={initialKnives}
+                    initialGlossary={initialGlossary}
+                    initialFaq={initialFaq}
+                    initialProducers={initialProducers}
+                    dbError={dbError}
+                />
+            </NavigationProvider>
         </UserProvider>
     );
 }
 
 function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
+    const { currentState, navigate } = useNavigation();
     const [steels, setSteels] = useState(initialSteels);
     const [showDbBanner, setShowDbBanner] = useState(dbError);
-    const [view, setView] = useState('HOME');
     const [search, setSearch] = useState("");
     const [knifeSearch, setKnifeSearch] = useState("");
     const [compareList, setCompareList] = useState([]);
     const [filters, setFilters] = useState({ minC: 0, minCr: 0, minV: 0 });
     const [activeProducer, setActiveProducer] = useState("ALL");
-    const [detailSteel, setDetailSteel] = useState(null);
-    const [detailKnife, setDetailKnife] = useState(null);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // Get current navigation state
+    const view = currentState.view || 'HOME';
+    const detailSteelId = currentState.detailSteel;
+    const detailKnifeId = currentState.detailKnife;
+
+    // Resolve the actual steel and knife objects from IDs
+    const detailSteel = detailSteelId ? steels.find(s => s.id === detailSteelId || s.name === detailSteelId) : null;
+    const detailKnife = detailKnifeId ? initialKnives.find(k => k.id === detailKnifeId || k.name === detailKnifeId) : null;
 
     // AI State
     const [apiKey, setApiKey] = useState("");
@@ -115,8 +129,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
             steelName.toLowerCase().includes(s.name.toLowerCase())
         );
         if (found) {
-            setDetailKnife(null); // Close knife modal if open
-            setDetailSteel(found);
+            navigate({ detailSteel: found.id || found.name, detailKnife: null });
             incrementTrending(found.id);
         } else {
             console.warn("Steel not found:", steelName);
@@ -130,8 +143,27 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
             knifeName.toLowerCase().includes(k.name.toLowerCase())
         );
         if (found) {
-            setDetailSteel(null); // Close steel modal if open
-            setDetailKnife(found);
+            navigate({ detailKnife: found.id || found.name, detailSteel: null });
+        }
+    };
+
+    const setView = (newView) => {
+        navigate({ view: newView, detailSteel: null, detailKnife: null });
+    };
+
+    const setDetailSteel = (steel) => {
+        if (steel) {
+            navigate({ detailSteel: steel.id || steel.name });
+        } else {
+            navigate({ detailSteel: null });
+        }
+    };
+
+    const setDetailKnife = (knife) => {
+        if (knife) {
+            navigate({ detailKnife: knife.id || knife.name });
+        } else {
+            navigate({ detailKnife: null });
         }
     };
 
@@ -170,7 +202,7 @@ Be concise and premium.`;
                         const toCompare = steels.filter(s => cmd.steels.includes(s.name));
                         if (toCompare.length > 0) {
                             setCompareList(toCompare);
-                            setView('COMPARE');
+                            navigate({ view: 'COMPARE' });
                         }
                     }
                 } catch (e) { console.error("AI Command Parse Error", e); }
@@ -335,6 +367,11 @@ Be concise and premium.`;
         setActiveProducer("ALL");
     };
 
+    const handleRefresh = async () => {
+        // Simulate a refresh - you can add actual data fetching here
+        return new Promise(resolve => setTimeout(resolve, 1000));
+    };
+
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">
             {/* Database Unavailable Banner */}
@@ -372,7 +409,7 @@ Be concise and premium.`;
             {detailSteel && (
                 <SteelDetailModal
                     steel={detailSteel}
-                    onClose={() => setDetailSteel(null)}
+                    onClose={() => navigate({ detailSteel: null })}
                     onOpenKnife={openKnifeModal}
                 />
             )}
@@ -380,7 +417,7 @@ Be concise and premium.`;
             {detailKnife && (
                 <KnifeDetailModal
                     knife={detailKnife}
-                    onClose={() => setDetailKnife(null)}
+                    onClose={() => navigate({ detailKnife: null })}
                     onOpenSteel={openSteelModal}
                 />
             )}
@@ -427,8 +464,15 @@ Be concise and premium.`;
                 resetFilters={resetFilters}
             />
 
-            {/* Main Content */}
-            {view === 'HOME' && (
+            {/* Main Content with Gestures */}
+            <GestureHandler viewKey={`${view}-${detailSteelId}-${detailKnifeId}`}>
+                <PullToRefresh onRefresh={handleRefresh}>
+                    {/* Back Button */}
+                    <div className="fixed top-4 right-4 z-40 md:top-6 md:right-6">
+                        <BackButton />
+                    </div>
+
+                    {view === 'HOME' && (
                 <HomeView
                     setView={setView}
                     steels={steels}
@@ -508,6 +552,8 @@ Be concise and premium.`;
             {view === 'PRO_LAB' && (
                 <ProLabView steels={steels} />
             )}
+                </PullToRefresh>
+            </GestureHandler>
 
             {/* AI Analyst Panel */}
             <AIAnalystPanel
@@ -539,6 +585,9 @@ Be concise and premium.`;
                     onFileUpload={handleFileUpload}
                 />
             )}
+
+            {/* Mobile Bottom Navigation */}
+            <MobileBottomNav view={view} setView={setView} />
         </div>
     );
 }

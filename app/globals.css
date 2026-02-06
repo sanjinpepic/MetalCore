@@ -2,16 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* Safe area insets for mobile devices */
+    --safe-area-top: env(safe-area-inset-top);
+    --safe-area-bottom: env(safe-area-inset-bottom);
+    --safe-area-left: env(safe-area-inset-left);
+    --safe-area-right: env(safe-area-inset-right);
+}
+
 body {
     background-color: #050505;
     color: #e2e8f0;
     overflow-x: hidden;
     width: 100%;
+    /* Prevent pull-to-refresh on mobile browsers */
+    overscroll-behavior-y: contain;
+    /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch;
 }
 
 html {
     overflow-x: hidden;
     font-size: 16px;
+    /* Prevent iOS zoom on input focus */
+    -webkit-text-size-adjust: 100%;
+    /* Better font rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .glass-panel {
@@ -128,5 +145,39 @@ html {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* Mobile Safe Area Utilities */
+.pb-safe {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+
+.pl-safe {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+}
+
+.pr-safe {
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+}
+
+/* Prevent text selection on mobile gestures */
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Better touch targets */
+@media (max-width: 768px) {
+    button, a {
+        min-height: 44px;
+        min-width: 44px;
     }
 }
