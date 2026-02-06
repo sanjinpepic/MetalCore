@@ -84,9 +84,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 </div>
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                            <div className="absolute bottom-6 left-8">
+                            <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-8 md:right-8">
                                 <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-1.5">{knife.maker}</div>
-                                <h3 className="text-2xl md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">{knife.name}</h3>
+                                <h3 className="text-xl md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">{knife.name}</h3>
                             </div>
                         </div>
                         <div className="xl:w-3/5 p-8 md:p-10 flex flex-col justify-between">

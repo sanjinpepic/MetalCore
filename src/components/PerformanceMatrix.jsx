@@ -528,16 +528,17 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     </div>
                 </div>
 
-                {/* Legend (Mobile Only) - Compact */}
+                {/* Legend (Mobile Only) - Horizontal Scrollable Bar */}
                 <div className="lg:hidden sticky bottom-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
-                    <div className="px-3 pt-3 pb-24 overflow-x-auto no-scrollbar">
-                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <div className="px-3 pt-2 pb-20">
+                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
                             <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                 <circle cx="12" cy="12" r="10" />
                             </svg>
                             Producers
                         </div>
-                        <div className="flex flex-wrap gap-1.5">
+                        {/* Single row, horizontally scrollable */}
+                        <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
                             {producers.map(prod => {
                                 const isActive = activeProducer === prod;
                                 const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
@@ -547,7 +548,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     <button
                                         key={prod}
                                         onClick={() => setActiveProducer(prod)}
-                                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg border transition-all active:scale-95 ${isActive ? "border-accent bg-accent/10 shadow-md shadow-accent/20" : "border-white/10 bg-white/5"}`}
+                                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg border transition-all active:scale-95 flex-shrink-0 ${isActive ? "border-accent bg-accent/10 shadow-md shadow-accent/20" : "border-white/10 bg-white/5"}`}
                                     >
                                         <div
                                             className={`w-1.5 h-1.5 rounded-full transition-all ${isActive ? "scale-110" : "scale-100"}`}
