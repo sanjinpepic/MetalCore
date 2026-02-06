@@ -37,3 +37,9 @@ next-env.d.ts
 
 # Railway migration guide
 RAILWAY_MIGRATION_GUIDE.md
+
+# Admin Panel (local only - not for deployment)
+middleware.js
+/app/admin/
+/app/api/admin/
+/src/components/admin/

@@ -11,17 +11,18 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
 
     return (
         <BottomSheet isOpen={!!steel} onClose={onClose} snapPoints={[0.95, 0.4]}>
-            {/* Close button - positioned for both mobile and desktop */}
-            <div className="absolute top-4 right-4 md:top-6 md:right-6 z-10">
-                <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                </button>
-            </div>
+            <div className="relative">
+                {/* Close button - positioned for both mobile and desktop */}
+                <div className="absolute top-0 right-0 z-10">
+                    <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-4 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-4 items-start">
                     <div className="space-y-6">
                         <div>
                             <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2">{steel.producer}</div>
@@ -153,9 +154,10 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                     </div>
                 </div>
 
-            <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-slate-700 uppercase tracking-[0.4em] font-bold">
-                <span>Metallurgy Core</span>
-                <span>System v2.5</span>
+                <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-slate-700 uppercase tracking-[0.4em] font-bold">
+                    <span>Metallurgy Core</span>
+                    <span>System v2.5</span>
+                </div>
             </div>
         </BottomSheet>
     );
