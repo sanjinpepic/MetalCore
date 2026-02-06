@@ -22,7 +22,20 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
         if (isOpen) {
             setSnapPoint(snapPoints[0]);
             hapticFeedback('light');
+
+            // Prevent body scroll on mobile when modal is open
+            if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                document.body.style.overflow = 'hidden';
+            }
+        } else {
+            // Restore body scroll when modal closes
+            document.body.style.overflow = '';
         }
+
+        // Cleanup on unmount
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [isOpen, snapPoints]);
 
     const handleDragEnd = (event, info) => {
@@ -110,7 +123,7 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                     </div>
 
                     {/* Content */}
-                    <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-safe">
+                    <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-safe overscroll-contain touch-pan-y">
                         {children}
                     </div>
                 </div>
@@ -132,7 +145,7 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
                         transition={{ type: 'spring', damping: 30, stiffness: 400, mass: 0.8 }}
                         onClick={(e) => e.stopPropagation()}
-                        className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar"
+                        className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar overscroll-contain touch-pan-y"
                     >
                         {children}
                     </motion.div>
