@@ -201,17 +201,17 @@ export default function BottomSheet({ isOpen, onClose, children }) {
         <AnimatePresence>
             {isOpen && (
                 <>
-                    {/* Mobile Backdrop - opacity follows sheet position */}
+                    {/* Mobile Backdrop - progressive glass follows sheet position */}
                     <motion.div
                         key="mobile-backdrop"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[90] md:hidden"
+                        transition={{ duration: 0.15 }}
+                        className="fixed inset-0 z-[90] md:hidden"
                     >
                         <motion.div
-                            className="absolute inset-0"
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                             style={{ opacity: backdropOpacity }}
                             onClick={onClose}
                         />
