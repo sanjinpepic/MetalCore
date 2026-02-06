@@ -14,6 +14,9 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
         return window.innerHeight * point;
     };
 
+    // Get the maximum snap point for container height
+    const maxSnapPoint = Math.max(...snapPoints);
+
     useEffect(() => {
         if (isOpen) {
             setSnapPoint(snapPoints[0]);
@@ -22,22 +25,28 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
     }, [isOpen, snapPoints]);
 
     const handleDragEnd = (event, info) => {
-        const threshold = 100;
+        const threshold = 80;
         const velocity = info.velocity.y;
         const offset = info.offset.y;
 
-        // Swipe down with velocity or significant distance -> close
-        if (velocity > 500 || offset > threshold) {
-            onClose();
-            hapticFeedback('medium');
+        // Swipe down with velocity or significant distance
+        if (velocity > 400 || offset > threshold) {
+            // If at the smallest snap point, close. Otherwise go to smaller snap point
+            const minSnapPoint = Math.min(...snapPoints);
+            if (snapPoint === minSnapPoint) {
+                onClose();
+                hapticFeedback('medium');
+            } else {
+                setSnapPoint(minSnapPoint);
+                hapticFeedback('light');
+            }
             return;
         }
 
-        // Swipe up with velocity -> expand to next snap point
-        if (velocity < -500 || offset < -threshold) {
-            const currentIndex = snapPoints.indexOf(snapPoint);
-            if (currentIndex < snapPoints.length - 1) {
-                setSnapPoint(snapPoints[currentIndex + 1]);
+        // Swipe up with velocity -> expand to larger snap point
+        if (velocity < -400 || offset < -threshold) {
+            if (snapPoint !== maxSnapPoint) {
+                setSnapPoint(maxSnapPoint);
                 hapticFeedback('light');
             }
             return;
@@ -56,6 +65,7 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 onClick={onClose}
                 className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] md:hidden"
             />
@@ -64,7 +74,8 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
             <motion.div
                 drag="y"
                 dragConstraints={{ top: 0, bottom: 0 }}
-                dragElastic={0.2}
+                dragElastic={0.15}
+                dragMomentum={false}
                 onDragEnd={handleDragEnd}
                 initial={{ y: '100%' }}
                 animate={{
@@ -73,18 +84,23 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                 exit={{ y: '100%' }}
                 transition={{
                     type: 'spring',
-                    damping: 30,
-                    stiffness: 300,
+                    damping: 35,
+                    stiffness: 400,
+                    mass: 0.8,
                 }}
                 style={{ y }}
                 className="fixed inset-x-0 bottom-0 z-[100] md:hidden"
             >
                 <div className="bg-[#0a0a0b] rounded-t-3xl shadow-2xl border-t border-white/10 overflow-hidden flex flex-col"
-                     style={{ height: `${getHeight(snapPoints[snapPoints.length - 1])}px` }}>
+                     style={{ height: `${getHeight(maxSnapPoint)}px` }}>
 
                     {/* Drag Handle */}
-                    <div className="flex justify-center pt-3 pb-2 shrink-0">
-                        <div className="w-12 h-1 rounded-full bg-white/20" />
+                    <div className="flex justify-center pt-3 pb-2 shrink-0 cursor-grab active:cursor-grabbing">
+                        <motion.div
+                            className="w-12 h-1 rounded-full bg-white/20"
+                            whileTap={{ scale: 1.1 }}
+                            transition={{ duration: 0.1 }}
+                        />
                     </div>
 
                     {/* Content */}
@@ -94,20 +110,21 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                 </div>
             </motion.div>
 
-            {/* Desktop Modal (unchanged) */}
+            {/* Desktop Modal */}
             <div className="hidden md:block">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
                     onClick={onClose}
                     className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-6"
                 >
                     <motion.div
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.9, opacity: 0 }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                        initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                        transition={{ type: 'spring', damping: 30, stiffness: 400, mass: 0.8 }}
                         onClick={(e) => e.stopPropagation()}
                         className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar"
                     >
