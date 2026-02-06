@@ -98,7 +98,8 @@ const Sidebar = ({
             </div>
 
             <div className="flex-1 overflow-y-auto px-6 md:px-8 py-2 custom-scrollbar no-scrollbar scroll-smooth">
-                <div className="flex flex-col gap-1.5 mt-4 md:mt-8">
+                {/* Desktop Navigation - Hidden on Mobile */}
+                <div className="hidden md:flex flex-col gap-1.5 mt-4 md:mt-8">
                     {filteredNavItems.map(nav => (
                         <button
                             key={nav.id}
@@ -120,6 +121,19 @@ const Sidebar = ({
                             <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                         </svg>
                         Ask Ferry
+                    </button>
+                </div>
+
+                {/* Mobile Quick Actions */}
+                <div className="flex md:hidden flex-col gap-3 mt-4">
+                    <button
+                        onClick={() => { setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
+                        className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${aiOpen ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:bg-white/5 hover:text-indigo-400 border border-white/5'}`}
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                        </svg>
+                        Ask Ferry AI
                     </button>
                 </div>
 

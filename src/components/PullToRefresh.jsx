@@ -7,6 +7,7 @@ export default function PullToRefresh({ onRefresh, children }) {
     const [pullDistance, setPullDistance] = useState(0);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [canPull, setCanPull] = useState(false);
+    const [isAtTop, setIsAtTop] = useState(true);
     const startY = useRef(0);
     const currentY = useRef(0);
     const containerRef = useRef(null);
@@ -17,27 +18,47 @@ export default function PullToRefresh({ onRefresh, children }) {
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
+        // Check if we're at the top on scroll
+        const handleScroll = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            setIsAtTop(scrollTop <= 5); // Allow small threshold
+
+            // Reset pull state if scrolling
+            if (scrollTop > 5 && canPull) {
+                setCanPull(false);
+                setPullDistance(0);
+            }
+        };
+
         const handleTouchStart = (e) => {
-            // Only allow pull to refresh when at the top of the page
-            const scrollTop = containerRef.current?.scrollTop || window.scrollY;
-            if (scrollTop === 0) {
+            // Only allow pull to refresh when at the very top of the page
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+            if (scrollTop <= 5) {
                 startY.current = e.touches[0].clientY;
                 setCanPull(true);
+            } else {
+                setCanPull(false);
             }
         };
 
         const handleTouchMove = (e) => {
-            if (!canPull || isRefreshing) return;
+            if (!canPull || isRefreshing || !isAtTop) return;
 
             currentY.current = e.touches[0].clientY;
             const distance = currentY.current - startY.current;
 
+            // Only allow pulling down (positive distance) and when at top
             if (distance > 0 && distance < maxPullDistance) {
                 setPullDistance(distance);
                 // Prevent default scrolling when pulling
                 if (distance > 10) {
                     e.preventDefault();
                 }
+            } else if (distance < 0) {
+                // If scrolling up, disable pull
+                setCanPull(false);
+                setPullDistance(0);
             }
         };
 
@@ -63,16 +84,21 @@ export default function PullToRefresh({ onRefresh, children }) {
             setCanPull(false);
         };
 
+        window.addEventListener('scroll', handleScroll, { passive: true });
         document.addEventListener('touchstart', handleTouchStart, { passive: true });
         document.addEventListener('touchmove', handleTouchMove, { passive: false });
         document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
+        // Initial check
+        handleScroll();
+
         return () => {
+            window.removeEventListener('scroll', handleScroll);
             document.removeEventListener('touchstart', handleTouchStart);
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [canPull, isRefreshing, pullDistance, onRefresh]);
+    }, [canPull, isRefreshing, pullDistance, onRefresh, isAtTop]);
 
     const rotationDegree = (pullDistance / maxPullDistance) * 360;
     const opacity = Math.min(pullDistance / triggerDistance, 1);
