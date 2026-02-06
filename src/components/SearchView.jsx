@@ -72,7 +72,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
 
             {/* Comparison Tray (Bottom Overlay) */}
             {compareList.length > 0 && (
-                <div className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 glass-panel border border-accent/40 p-3 md:p-3 pr-3 md:pr-3 pl-6 md:pl-10 rounded-full flex items-center gap-4 md:gap-8 backdrop-blur-3xl z-[90] animate-in slide-in-from-bottom-10 duration-500 shadow-[0_20px_50px_rgba(245,158,11,0.2)] ring-1 ring-white/10">
+                <div className="fixed bottom-24 md:bottom-10 left-1/2 -translate-x-1/2 glass-panel border border-accent/40 p-3 md:p-3 pr-3 md:pr-3 pl-6 md:pl-10 rounded-full flex items-center gap-4 md:gap-8 backdrop-blur-3xl z-[90] animate-in slide-in-from-bottom-10 duration-500 shadow-[0_20px_50px_rgba(245,158,11,0.2)] ring-1 ring-white/10">
                     <div className="flex items-center gap-4 md:gap-6">
                         <div className="flex flex-col">
                             <div className="text-sm md:text-base font-black text-white tracking-[0.2em] whitespace-nowrap leading-none mb-1">{compareList.length} <span className="hidden xs:inline">GRADES</span></div>

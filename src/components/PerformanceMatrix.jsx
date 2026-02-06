@@ -164,9 +164,14 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         if (labelDensity === 'none' && !hoveredSteel) return [];
         if (labelDensity === 'all') return matrixSteels.map(s => s.name);
 
-        // 'high' density or default
+        // 'high' density or default — show only top performers on mobile
         if (!hoveredSteel && isMobile) {
-            return matrixSteels.slice(0, 5).map(s => s.name);
+            const sorted = [...matrixSteels].sort((a, b) => {
+                const scoreA = (a[xAxis] || 0) + (a[yAxis] || 0);
+                const scoreB = (b[xAxis] || 0) + (b[yAxis] || 0);
+                return scoreB - scoreA;
+            });
+            return sorted.slice(0, 5).map(s => s.name);
         }
 
         // On desktop with 'high', maybe label more but not all? 

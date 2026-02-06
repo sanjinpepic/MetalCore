@@ -38,7 +38,8 @@ export default function StickySearchBar({ value, onChange, placeholder = "Search
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
                         onClick={() => onChange('')}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 !min-w-0 !min-h-0 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all z-10"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all z-10"
+                        style={{ minWidth: 0, minHeight: 0 }}
                     >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <line x1="18" y1="6" x2="6" y2="18" />
