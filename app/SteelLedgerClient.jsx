@@ -597,7 +597,7 @@ Be concise and premium.`;
             )}
 
             {/* Mobile Bottom Navigation */}
-            <MobileBottomNav view={view} setView={setView} />
+            <MobileBottomNav view={view} setView={setView} setAiOpen={setAiOpen} />
         </div>
     );
 }

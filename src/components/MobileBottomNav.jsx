@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import { motion, useDragControls } from 'framer-motion';
 import { hapticFeedback } from '../hooks/useMobile';
 
-export default function MobileBottomNav({ view, setView }) {
+export default function MobileBottomNav({ view, setView, setAiOpen }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const dragControls = useDragControls();
     const startY = useRef(0);
@@ -112,7 +112,11 @@ export default function MobileBottomNav({ view, setView }) {
                             <span className="text-xs font-medium">Pro Lab</span>
                         </button>
                         <button
-                            onClick={() => { handleNavClick('AI'); }}
+                            onClick={() => {
+                                setAiOpen(true);
+                                setIsExpanded(false);
+                                hapticFeedback('medium');
+                            }}
                             className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 border border-accent/30 text-accent hover:from-accent/30 hover:to-accent/20"
                         >
                             <SparklesIcon className="w-5 h-5" />

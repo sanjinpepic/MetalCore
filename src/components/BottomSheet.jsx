@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, useDragControls } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useDragControls } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { hapticFeedback } from '../hooks/useMobile';
 
@@ -70,22 +70,24 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
         hapticFeedback('light');
     };
 
-    if (!isOpen) return null;
-
     return (
-        <>
-            {/* Backdrop */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                onClick={onClose}
-                className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] md:hidden"
-            />
+        <AnimatePresence mode="wait">
+            {isOpen && (
+                <>
+                    {/* Mobile Backdrop */}
+                    <motion.div
+                        key="mobile-backdrop"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        onClick={onClose}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] md:hidden"
+                    />
 
-            {/* Bottom Sheet */}
-            <motion.div
+                    {/* Mobile Bottom Sheet */}
+                    <motion.div
+                        key="mobile-sheet"
                 drag="y"
                 dragControls={dragControls}
                 dragListener={false}
@@ -129,28 +131,29 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                 </div>
             </motion.div>
 
-            {/* Desktop Modal */}
-            <div className="hidden md:block">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
-                    onClick={onClose}
-                    className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-6"
-                >
+                    {/* Desktop Modal */}
                     <motion.div
-                        initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                        animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                        transition={{ type: 'spring', damping: 30, stiffness: 400, mass: 0.8 }}
-                        onClick={(e) => e.stopPropagation()}
-                        className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar overscroll-contain touch-pan-y"
+                        key="desktop-modal"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        onClick={onClose}
+                        className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-6 hidden md:flex"
                     >
-                        {children}
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                            transition={{ type: 'spring', damping: 30, stiffness: 400, mass: 0.8 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar overscroll-contain touch-pan-y"
+                        >
+                            {children}
+                        </motion.div>
                     </motion.div>
-                </motion.div>
-            </div>
-        </>
+                </>
+            )}
+        </AnimatePresence>
     );
 }
