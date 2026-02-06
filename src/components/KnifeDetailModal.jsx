@@ -33,7 +33,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
 
                     <button
                         onClick={onClose}
-                        className="absolute top-6 left-6 w-11 h-11 flex items-center justify-center bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden border border-white/10 z-50"
+                        className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden border border-white/10 z-50"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M18 6 6 18" />

@@ -32,8 +32,8 @@ const EducationView = ({ glossary, faq, producers }) => {
             </header>
 
             {/* Navigation Tabs & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-8 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div className="flex flex-wrap gap-2">
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto">
                     {[
                         { id: 'GLOSSARY', label: 'Glossary', icon: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z' },
                         { id: 'PRODUCERS', label: 'Producers', icon: 'M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2c0 7.3 8 11.8 8 11.8z' },
@@ -42,7 +42,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`px-6 py-3 rounded-2xl flex items-center gap-3 text-xs md:text-sm font-black uppercase italic tracking-wider transition-all ${activeTab === tab.id ? 'bg-accent text-black scale-105 shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                            className={`px-3 py-2 md:px-6 md:py-3 rounded-2xl flex items-center gap-2 md:gap-3 text-[10px] md:text-sm font-black uppercase italic tracking-wider transition-all shrink-0 ${activeTab === tab.id ? 'bg-accent text-black scale-105 shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
                         >
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path d={tab.icon} />

@@ -55,7 +55,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-4 py-2 rounded-lg text-[10px] md:text-xs font-black transition-all whitespace-nowrap uppercase tracking-widest ${activeCategory === cat
+                                className={`px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-[10px] md:text-xs font-black transition-all whitespace-nowrap uppercase tracking-wider md:tracking-widest shrink-0 overflow-hidden ${activeCategory === cat
                                     ? "bg-sky-500 text-black border border-sky-500"
                                     : "bg-white/5 text-slate-400 hover:bg-white/10 border border-white/5 hover:border-sky-500/30 hover:text-white"
                                     }`}
