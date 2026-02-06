@@ -21,7 +21,6 @@ import ImportModal from '../src/components/ImportModal.jsx';
 import { UserProvider } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
 import GestureHandler from '../src/components/GestureHandler.jsx';
-import PullToRefresh from '../src/components/PullToRefresh.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 import { useSwipeable } from 'react-swipeable';
 
@@ -367,11 +366,6 @@ Be concise and premium.`;
         setActiveProducer("ALL");
     };
 
-    const handleRefresh = async () => {
-        // Simulate a refresh - you can add actual data fetching here
-        return new Promise(resolve => setTimeout(resolve, 1000));
-    };
-
     // Swipe handlers for opening sidebar from left edge
     const edgeSwipeHandlers = useSwipeable({
         onSwipedRight: (eventData) => {
@@ -489,8 +483,7 @@ Be concise and premium.`;
 
             {/* Main Content with Gestures */}
             <GestureHandler viewKey={view}>
-                <PullToRefresh onRefresh={handleRefresh}>
-                    {view === 'HOME' && (
+                {view === 'HOME' && (
                 <HomeView
                     setView={setView}
                     steels={steels}
@@ -570,7 +563,6 @@ Be concise and premium.`;
             {view === 'PRO_LAB' && (
                 <ProLabView steels={steels} />
             )}
-                </PullToRefresh>
             </GestureHandler>
 
             {/* AI Analyst Panel */}
