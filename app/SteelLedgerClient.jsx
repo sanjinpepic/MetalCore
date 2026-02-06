@@ -487,7 +487,7 @@ Be concise and premium.`;
             />
 
             {/* Main Content with Gestures */}
-            <GestureHandler viewKey={`${view}-${detailSteelId}-${detailKnifeId}`}>
+            <GestureHandler viewKey={view}>
                 <PullToRefresh onRefresh={handleRefresh}>
                     {view === 'HOME' && (
                 <HomeView
