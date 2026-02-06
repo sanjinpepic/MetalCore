@@ -3,7 +3,7 @@ builder = "NIXPACKS"
 buildCommand = "npm run build"
 
 [deploy]
-startCommand = "HOST=0.0.0.0 node .next/standalone/server.js"
+startCommand = "HOST=0.0.0.0 PORT=${PORT} node .next/standalone/server.js"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 300
 
