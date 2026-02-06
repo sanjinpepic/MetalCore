@@ -308,7 +308,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             {/* Main Area */}
             <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto lg:overflow-hidden relative bg-black">
                 {/* Mobile Header (Hidden on LG) */}
-                <header className="lg:hidden p-6 pb-4 pt-20 space-y-2 shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
+                <header className="lg:hidden p-6 pb-3 pt-6 pt-safe space-y-2 shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
                     <div className="text-[10px] font-black text-rose-400 mb-1 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-rose-500/30"></span>
                         Analytics Engine
@@ -317,35 +317,62 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 </header>
 
                 {/* Sticky Axis Controls (Mobile Only) */}
-                <div className="lg:hidden sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 py-3 flex flex-col gap-3">
-                    <div className="flex items-center gap-2">
-                        <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">Y:</span>
-                        <div className="flex gap-1.5 flex-1">
-                            {Object.keys(axisOptions).map(key => (
-                                <button
-                                    key={`y-${key}`}
-                                    onClick={() => setYAxis(key)}
-                                    disabled={key === xAxis}
-                                    className={`flex-1 px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-wider transition-all ${yAxis === key ? 'bg-rose-500 text-white border border-rose-500' : 'bg-white/5 text-slate-400 border border-white/10'}`}
-                                >
-                                    {axisOptions[key].shortLabel}
-                                </button>
-                            ))}
+                <div className="lg:hidden sticky top-0 z-30 bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
+                    <div className="px-4 pt-3 pb-3 space-y-3">
+                        {/* Y-Axis */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-1 h-3 bg-rose-500 rounded-full"></div>
+                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Y-Axis</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-4 gap-2">
+                                {Object.keys(axisOptions).map(key => (
+                                    <button
+                                        key={`y-${key}`}
+                                        onClick={() => setYAxis(key)}
+                                        disabled={key === xAxis}
+                                        className={`px-2 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-tight transition-all ${
+                                            yAxis === key
+                                                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30 scale-105'
+                                                : key === xAxis
+                                                    ? 'bg-white/5 text-slate-600 border border-white/5 opacity-40'
+                                                    : 'bg-white/5 text-slate-400 border border-white/10 active:scale-95'
+                                        }`}
+                                    >
+                                        {axisOptions[key].shortLabel}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex items-center gap-2 border-t border-white/5 pt-2">
-                        <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">X:</span>
-                        <div className="flex gap-1.5 flex-1">
-                            {Object.keys(axisOptions).map(key => (
-                                <button
-                                    key={`x-${key}`}
-                                    onClick={() => setXAxis(key)}
-                                    disabled={key === yAxis}
-                                    className={`flex-1 px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-wider transition-all ${xAxis === key ? 'bg-rose-500 text-white border border-rose-500' : 'bg-white/5 text-slate-400 border border-white/10'}`}
-                                >
-                                    {axisOptions[key].shortLabel}
-                                </button>
-                            ))}
+
+                        {/* X-Axis */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-3 h-1 bg-rose-500 rounded-full"></div>
+                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">X-Axis</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-4 gap-2">
+                                {Object.keys(axisOptions).map(key => (
+                                    <button
+                                        key={`x-${key}`}
+                                        onClick={() => setXAxis(key)}
+                                        disabled={key === yAxis}
+                                        className={`px-2 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-tight transition-all ${
+                                            xAxis === key
+                                                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30 scale-105'
+                                                : key === yAxis
+                                                    ? 'bg-white/5 text-slate-600 border border-white/5 opacity-40'
+                                                    : 'bg-white/5 text-slate-400 border border-white/10 active:scale-95'
+                                        }`}
+                                    >
+                                        {axisOptions[key].shortLabel}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -506,22 +533,40 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 </div>
 
                 {/* Legend (Mobile Only) */}
-                <div className="lg:hidden sticky bottom-0 z-20 px-4 pt-2 pb-10 bg-black/80 backdrop-blur-md border-t border-white/5 overflow-x-auto no-scrollbar">
-                    <div className="flex flex-nowrap gap-2 pb-2">
-                        {producers.map(prod => {
-                            const isActive = activeProducer === prod;
-                            const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
-                            return (
-                                <button
-                                    key={prod}
-                                    onClick={() => setActiveProducer(prod)}
-                                    className={`flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border transition-all active:scale-95 ${isActive ? "border-white/40 bg-white/10" : "border-white/5 text-slate-500"}`}
-                                >
-                                    <div className={`w-1.5 h-1.5 rounded-full ${isActive ? "scale-125 glow-white" : "opacity-40"}`} style={{ backgroundColor: color }} />
-                                    <span className={`text-[10px] font-bold uppercase tracking-widest ${isActive ? "text-white" : "text-slate-500"}`}>{prod}</span>
-                                </button>
-                            );
-                        })}
+                <div className="lg:hidden sticky bottom-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
+                    <div className="px-4 pt-4 pb-32 overflow-x-auto no-scrollbar">
+                        <div className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                <circle cx="12" cy="12" r="10" />
+                            </svg>
+                            Producers
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {producers.map(prod => {
+                                const isActive = activeProducer === prod;
+                                const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
+                                // Abbreviate long names for mobile
+                                const shortName = prod === "ALL" ? "ALL" : prod.slice(0, 4).toUpperCase();
+                                return (
+                                    <button
+                                        key={prod}
+                                        onClick={() => setActiveProducer(prod)}
+                                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all active:scale-95 ${isActive ? "border-accent bg-accent/10 shadow-lg shadow-accent/20" : "border-white/10 bg-white/5"}`}
+                                    >
+                                        <div
+                                            className={`w-2 h-2 rounded-full transition-all ${isActive ? "scale-110" : "scale-100"}`}
+                                            style={{
+                                                backgroundColor: color,
+                                                boxShadow: isActive ? `0 0 8px ${color}` : 'none'
+                                            }}
+                                        />
+                                        <span className={`text-[9px] font-black tracking-wide transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
+                                            {shortName}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
