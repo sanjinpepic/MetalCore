@@ -8,7 +8,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
     const cleanImage = knife.image?.replace('file:///', '') || '';
 
     return (
-        <BottomSheet isOpen={!!knife} onClose={onClose} snapPoints={[0.6, 0.95]}>
+        <BottomSheet isOpen={!!knife} onClose={onClose} snapPoints={[0.9, 0.5]}>
             <div className="relative w-full flex flex-col md:flex-row md:items-stretch md:min-h-[750px]">
 
                 {/* Image Section */}

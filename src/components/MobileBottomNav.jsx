@@ -37,7 +37,7 @@ export default function MobileBottomNav({ view, setView }) {
 
     return (
         <motion.div
-            className="fixed bottom-0 left-0 right-0 z-30 md:hidden"
+            className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10"
             style={{ y, opacity }}
             drag="y"
             dragConstraints={{ top: -100, bottom: 0 }}
@@ -47,12 +47,12 @@ export default function MobileBottomNav({ view, setView }) {
             animate={{ y: 0 }}
         >
             {/* Drag Handle */}
-            <div className="flex justify-center pt-2 pb-1 bg-gradient-to-t from-black to-transparent">
+            <div className="flex justify-center pt-2 pb-1">
                 <div className="w-12 h-1 rounded-full bg-white/20" />
             </div>
 
             {/* Main Nav Bar */}
-            <div className="bg-black/95 backdrop-blur-xl border-t border-white/10 px-2 pb-safe">
+            <div className="px-2 pb-safe">
                 <div className="flex items-center justify-around py-2">
                     {navItems.map((item) => (
                         <button
@@ -79,7 +79,7 @@ export default function MobileBottomNav({ view, setView }) {
                     }}
                     className="overflow-hidden"
                 >
-                    <div className="grid grid-cols-3 gap-2 pt-2 pb-4 border-t border-white/5">
+                    <div className="grid grid-cols-4 gap-2 pt-2 pb-4 border-t border-white/5">
                         <button
                             onClick={() => { handleNavClick('COMPARE'); }}
                             className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300"
@@ -100,6 +100,13 @@ export default function MobileBottomNav({ view, setView }) {
                         >
                             <FlaskIcon className="w-5 h-5" />
                             <span className="text-xs font-medium">Pro Lab</span>
+                        </button>
+                        <button
+                            onClick={() => { handleNavClick('AI'); }}
+                            className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 border border-accent/30 text-accent hover:from-accent/30 hover:to-accent/20"
+                        >
+                            <SparklesIcon className="w-5 h-5" />
+                            <span className="text-xs font-medium">Ferry AI</span>
                         </button>
                     </div>
                 </motion.div>
@@ -184,6 +191,18 @@ function FlaskIcon({ className }) {
         <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M9 3h6v7.5L21 21H3L9 10.5V3z" />
             <path d="M7.5 3h9" />
+        </svg>
+    );
+}
+
+function SparklesIcon({ className }) {
+    return (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+            <path d="M5 3v4" />
+            <path d="M19 17v4" />
+            <path d="M3 5h4" />
+            <path d="M17 19h4" />
         </svg>
     );
 }

@@ -34,7 +34,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             />
 
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-4 md:pt-8 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
                 <div>
                     <div className="text-[10px] md:text-xs font-black text-sky-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-sky-500/30"></span>
@@ -46,7 +46,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </header>
 
             {/* Category Filters */}
-            <div className="sticky top-16 z-30 bg-black/95 backdrop-blur-xl border-b border-white/5 px-4 md:px-12 py-3">
+            <div className="sticky top-[60px] md:top-0 z-30 bg-black/95 backdrop-blur-xl border-b border-white/5 px-4 md:px-12 py-3">
                 <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0 max-w-5xl mx-auto">
                         {categories.map(cat => (
                             <button

@@ -19,7 +19,7 @@ export default function StickySearchBar({ value, onChange, placeholder = "Search
 
     return (
         <motion.div
-            className="sticky top-0 z-40 px-4 pt-safe"
+            className="sticky top-0 z-40"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: 'spring', damping: 20 }}
@@ -28,7 +28,7 @@ export default function StickySearchBar({ value, onChange, placeholder = "Search
                 animate={{
                     backgroundColor: isScrolled ? 'rgba(5, 5, 5, 0.95)' : 'rgba(5, 5, 5, 0)',
                 }}
-                className="backdrop-blur-xl -mx-4 px-4 py-3 border-b transition-all"
+                className="backdrop-blur-xl px-4 py-3 pt-safe border-b transition-all"
                 style={{
                     borderColor: isScrolled ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
                 }}
