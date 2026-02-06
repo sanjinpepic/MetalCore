@@ -24,6 +24,7 @@ import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 import { useSwipeable } from 'react-swipeable';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
