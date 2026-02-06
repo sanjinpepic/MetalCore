@@ -18,7 +18,7 @@ const EducationView = ({ glossary, faq, producers }) => {
     }, [searchTerm]);
 
     return (
-        <div className="flex-1 overflow-y-auto bg-black custom-scrollbar">
+        <div className="flex-1 h-full overflow-y-auto bg-black custom-scrollbar">
             {/* Header */}
             <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-indigo-500/10 to-transparent">
                 <div>

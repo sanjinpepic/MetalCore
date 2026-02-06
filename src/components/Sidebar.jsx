@@ -223,10 +223,9 @@ const Sidebar = ({
         <>
             {/* Mobile Backdrop - follows sidebar position */}
             <motion.div
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden pointer-events-auto"
+                className={`fixed inset-0 bg-black/60 z-40 md:hidden ${mobileMenuOpen ? 'pointer-events-auto backdrop-blur-sm' : 'pointer-events-none'}`}
                 style={{ opacity: backdropOpacity }}
                 onClick={() => setMobileMenuOpen(false)}
-                // Hide completely when sidebar is fully closed
                 initial={false}
             />
 
