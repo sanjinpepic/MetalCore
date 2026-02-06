@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import Footer from './Footer';
+import StickySearchBar from './StickySearchBar';
 
 const normalize = (val) => {
     if (!val) return "";
@@ -25,8 +26,15 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
 
     return (
         <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar">
+            {/* Sticky Search Bar */}
+            <StickySearchBar
+                value={knifeSearch}
+                onChange={setKnifeSearch}
+                placeholder="Search knives by name, maker, or steel..."
+            />
+
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-4 md:pt-8 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
                 <div>
                     <div className="text-[10px] md:text-xs font-black text-sky-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-sky-500/30"></span>
@@ -37,28 +45,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 </div>
             </header>
 
-            {/* Sticky Filter Bar */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-8 md:px-12 py-4">
-                <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 max-w-5xl">
-                    <div className="relative bg-white/5 border border-white/10 rounded-xl flex items-center px-4 py-2.5 group focus-within:border-accent/40 transition-all flex-1">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-3 group-focus-within:text-accent transition-colors">
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="m21 21-4.35-4.35" />
-                        </svg>
-                        <input type="text" placeholder="Search knives..." className="w-full bg-transparent border-none text-white outline-none font-bold text-sm" value={knifeSearch} onChange={e => setKnifeSearch(e.target.value)} />
-                        {knifeSearch && (
-                            <button
-                                onClick={() => setKnifeSearch('')}
-                                className="p-1 hover:bg-white/10 rounded-lg transition-colors ml-2"
-                            >
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
-                                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-                                </svg>
-                            </button>
-                        )}
-                    </div>
-
-                    <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+            {/* Category Filters */}
+            <div className="sticky top-16 z-30 bg-black/95 backdrop-blur-xl border-b border-white/5 px-4 md:px-12 py-3">
+                <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0 max-w-5xl mx-auto">
                         {categories.map(cat => (
                             <button
                                 key={cat}
@@ -71,7 +60,6 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 {cat}
                             </button>
                         ))}
-                    </div>
                 </div>
             </div>
 

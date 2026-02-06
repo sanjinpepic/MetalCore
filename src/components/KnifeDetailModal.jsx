@@ -1,4 +1,5 @@
 import React from 'react';
+import BottomSheet from './BottomSheet';
 
 const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
     if (!knife) return null;
@@ -7,8 +8,8 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
     const cleanImage = knife.image?.replace('file:///', '') || '';
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
-            <div className="relative w-full h-full md:h-[750px] md:max-w-5xl bg-[#0a0a0b] md:border md:border-white/10 md:rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row md:items-stretch animate-in fade-in zoom-in-95 duration-300" onClick={e => e.stopPropagation()}>
+        <BottomSheet isOpen={!!knife} onClose={onClose} snapPoints={[0.6, 0.95]}>
+            <div className="relative w-full flex flex-col md:flex-row md:items-stretch md:min-h-[750px]">
 
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white/5 relative group shrink-0 overflow-hidden">
@@ -151,7 +152,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </BottomSheet>
     );
 };
 

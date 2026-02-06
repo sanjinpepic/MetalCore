@@ -3,24 +3,25 @@ import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
 import EdgeRetentionPredictor from './EdgeRetentionPredictor';
 import { useUser } from '../context/UserContext';
+import BottomSheet from './BottomSheet';
 
 const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
     const { favoriteSteels, toggleFavorite } = useUser();
     const isFavorite = favoriteSteels.includes(steel.id);
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
-            <div className="glass-panel w-full h-full md:h-auto md:max-h-[90vh] md:max-w-7xl p-6 md:p-8 md:rounded-[2.5rem] border-white/10 shadow-2xl relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
-                <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[110]">
-                    <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
-                </div>
+        <BottomSheet isOpen={!!steel} onClose={onClose} snapPoints={[0.5, 0.95]}>
+            {/* Close button - positioned for both mobile and desktop */}
+            <div className="absolute top-4 right-4 md:top-6 md:right-6 z-10">
+                <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-8 md:pt-4 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-4 items-start">
                     <div className="space-y-6">
                         <div>
                             <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2">{steel.producer}</div>
@@ -152,12 +153,11 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-slate-700 uppercase tracking-[0.4em] font-bold">
-                    <span>Metallurgy Core</span>
-                    <span>System v2.5</span>
-                </div>
+            <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-slate-700 uppercase tracking-[0.4em] font-bold">
+                <span>Metallurgy Core</span>
+                <span>System v2.5</span>
             </div>
-        </div>
+        </BottomSheet>
     );
 };
 
