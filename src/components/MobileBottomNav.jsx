@@ -1,11 +1,13 @@
 'use client'
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, useDragControls } from 'framer-motion';
 import { hapticFeedback } from '../hooks/useMobile';
 
 export default function MobileBottomNav({ view, setView }) {
     const [isExpanded, setIsExpanded] = useState(false);
+    const dragControls = useDragControls();
+    const startY = useRef(0);
 
     const navItems = [
         { id: 'HOME', icon: HomeIcon, label: 'Home' },
@@ -15,9 +17,23 @@ export default function MobileBottomNav({ view, setView }) {
         { id: 'EDUCATION', icon: BookIcon, label: 'Learn' },
     ];
 
-    const toggleExpanded = () => {
-        setIsExpanded(!isExpanded);
-        hapticFeedback('light');
+    const handleDragStart = (event, info) => {
+        startY.current = info.point.y;
+    };
+
+    const handleDragEnd = (event, info) => {
+        const dragDistance = startY.current - info.point.y;
+
+        // Swipe up to expand
+        if (dragDistance > 30 && !isExpanded) {
+            setIsExpanded(true);
+            hapticFeedback('light');
+        }
+        // Swipe down to collapse
+        else if (dragDistance < -30 && isExpanded) {
+            setIsExpanded(false);
+            hapticFeedback('light');
+        }
     };
 
     const handleNavClick = (viewId) => {
@@ -27,14 +43,23 @@ export default function MobileBottomNav({ view, setView }) {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10">
+        <motion.div
+            className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10"
+            drag="y"
+            dragControls={dragControls}
+            dragListener={false}
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+        >
             {/* Drag Handle */}
-            <button
-                onClick={toggleExpanded}
-                className="w-full flex justify-center pt-2 pb-1 cursor-pointer active:opacity-50 transition-opacity"
+            <div
+                onPointerDown={(e) => dragControls.start(e)}
+                className="w-full flex justify-center pt-2 pb-1 cursor-grab active:cursor-grabbing touch-none"
             >
                 <div className="w-12 h-1 rounded-full bg-white/20" />
-            </button>
+            </div>
 
             {/* Main Nav Bar */}
             <div className="px-2 pb-safe">
@@ -96,7 +121,7 @@ export default function MobileBottomNav({ view, setView }) {
                     </div>
                 </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

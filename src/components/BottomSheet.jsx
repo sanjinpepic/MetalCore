@@ -1,12 +1,13 @@
 'use client'
 
-import { motion, useMotionValue, useTransform, PanInfo } from 'framer-motion';
+import { motion, useMotionValue, useDragControls } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { hapticFeedback } from '../hooks/useMobile';
 
 export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0.4, 0.95] }) {
     const [snapPoint, setSnapPoint] = useState(snapPoints[0]);
     const y = useMotionValue(0);
+    const dragControls = useDragControls();
 
     // Calculate height based on snap point (percentage of viewport)
     const getHeight = (point) => {
@@ -73,6 +74,8 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
             {/* Bottom Sheet */}
             <motion.div
                 drag="y"
+                dragControls={dragControls}
+                dragListener={false}
                 dragConstraints={{ top: 0, bottom: 0 }}
                 dragElastic={0.15}
                 dragMomentum={false}
@@ -95,7 +98,10 @@ export default function BottomSheet({ isOpen, onClose, children, snapPoints = [0
                      style={{ height: `${getHeight(maxSnapPoint)}px` }}>
 
                     {/* Drag Handle */}
-                    <div className="flex justify-center pt-3 pb-2 shrink-0 cursor-grab active:cursor-grabbing">
+                    <div
+                        onPointerDown={(e) => dragControls.start(e)}
+                        className="flex justify-center pt-3 pb-2 shrink-0 cursor-grab active:cursor-grabbing touch-none"
+                    >
                         <motion.div
                             className="w-12 h-1 rounded-full bg-white/20"
                             whileTap={{ scale: 1.1 }}
