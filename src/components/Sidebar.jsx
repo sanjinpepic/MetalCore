@@ -89,50 +89,62 @@ const Sidebar = ({
 
         let touchStartX = 0;
         let touchStartY = 0;
-        let isEdgeSwipe = false;
+        let isOpenSwipe = false;
         let isVerticalScroll = false;
+        let gestureDecided = false;
+        let potentialSwipe = false;
 
         const handleTouchStart = (e) => {
             const touch = e.touches[0];
             touchStartX = touch.clientX;
             touchStartY = touch.clientY;
             isVerticalScroll = false;
+            gestureDecided = false;
+            isOpenSwipe = false;
 
-            // Edge swipe: start within 30px of left edge when sidebar is closed
-            if (touch.clientX < 30 && !mobileMenuOpen) {
-                isEdgeSwipe = true;
-                isDragging.current = true;
-                dragStartX.current = touch.clientX;
-                dragStartSidebarX.current = sidebarX.get();
+            if (!mobileMenuOpen) {
+                // Track as potential open-swipe from anywhere
+                potentialSwipe = true;
                 hasTriggeredHaptic.current = false;
             }
-            // Swipe to close: touching the backdrop area (right of sidebar)
-            else if (mobileMenuOpen && touch.clientX > SIDEBAR_WIDTH) {
-                isDragging.current = true;
-                dragStartX.current = touch.clientX;
-                dragStartSidebarX.current = sidebarX.get();
-                isEdgeSwipe = false;
-                hasTriggeredHaptic.current = false;
-            }
-            // Swipe to close: touching within the sidebar and dragging left
+            // Swipe to close: touching the backdrop or within sidebar
             else if (mobileMenuOpen) {
                 isDragging.current = true;
                 dragStartX.current = touch.clientX;
                 dragStartSidebarX.current = sidebarX.get();
-                isEdgeSwipe = false;
                 hasTriggeredHaptic.current = false;
+                gestureDecided = true;
             }
         };
 
         const handleTouchMove = (e) => {
-            if (!isDragging.current) return;
-
             const touch = e.touches[0];
-            const deltaX = touch.clientX - dragStartX.current;
+            const deltaX = touch.clientX - touchStartX;
             const deltaY = touch.clientY - touchStartY;
 
-            // Determine if this is a vertical scroll (only check once)
-            if (!isVerticalScroll && Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+            // Decide gesture direction for potential open-swipe
+            if (potentialSwipe && !gestureDecided) {
+                if (Math.abs(deltaX) > 12 || Math.abs(deltaY) > 12) {
+                    gestureDecided = true;
+
+                    // Right swipe and more horizontal than vertical → sidebar open
+                    if (deltaX > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+                        isOpenSwipe = true;
+                        isDragging.current = true;
+                        dragStartX.current = touch.clientX;
+                        dragStartSidebarX.current = sidebarX.get();
+                    } else {
+                        potentialSwipe = false;
+                        return;
+                    }
+                }
+                return;
+            }
+
+            if (!isDragging.current) return;
+
+            // Vertical scroll detection for close gestures
+            if (!isOpenSwipe && !isVerticalScroll && Math.abs(deltaY) > Math.abs(touch.clientX - dragStartX.current) && Math.abs(deltaY) > 10) {
                 isVerticalScroll = true;
                 isDragging.current = false;
                 return;
@@ -141,7 +153,8 @@ const Sidebar = ({
             if (isVerticalScroll) return;
 
             // Calculate new sidebar position
-            let newX = dragStartSidebarX.current + deltaX;
+            const dragDelta = touch.clientX - dragStartX.current;
+            let newX = dragStartSidebarX.current + dragDelta;
             newX = Math.max(-SIDEBAR_WIDTH, Math.min(0, newX));
 
             sidebarX.set(newX);
@@ -156,28 +169,28 @@ const Sidebar = ({
             }
 
             // Prevent scroll while dragging sidebar
-            if (Math.abs(deltaX) > 10) {
+            if (Math.abs(dragDelta) > 10) {
                 e.preventDefault();
             }
         };
 
         const handleTouchEnd = (e) => {
+            potentialSwipe = false;
+
             if (!isDragging.current) return;
             isDragging.current = false;
 
             const currentX = sidebarX.get();
             const progress = (currentX + SIDEBAR_WIDTH) / SIDEBAR_WIDTH;
 
-            // Use velocity if available
             const touch = e.changedTouches[0];
             const deltaX = touch.clientX - dragStartX.current;
-            const timeDelta = e.timeStamp - (e.touches?.[0]?.timeStamp || e.timeStamp);
 
             // Determine intent: open or close
-            const shouldOpen = progress > 0.4 || (deltaX > 50 && isEdgeSwipe);
+            const shouldOpen = progress > 0.4 || (deltaX > 50 && isOpenSwipe);
             const shouldClose = progress < 0.6 || deltaX < -50;
 
-            if (isEdgeSwipe ? shouldOpen : !shouldClose) {
+            if (isOpenSwipe ? shouldOpen : !shouldClose) {
                 // Snap open
                 animate(sidebarX, 0, {
                     type: 'spring',
@@ -199,7 +212,7 @@ const Sidebar = ({
                 hapticFeedback('light');
             }
 
-            isEdgeSwipe = false;
+            isOpenSwipe = false;
         };
 
         document.addEventListener('touchstart', handleTouchStart, { passive: true });
