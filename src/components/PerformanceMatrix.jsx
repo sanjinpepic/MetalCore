@@ -390,7 +390,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             <div className="text-[8px] font-bold text-slate-700 uppercase tracking-[0.1em]">BUDGET ZONE</div>
                         </div>
 
-                        <div ref={chartRef} className="w-full h-full">
+                        <div ref={chartRef} className="w-full h-full" onClick={(e) => { if (isMobile && e.target.tagName !== 'circle') setSelectedSteel(null); }}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 10 }}>
                                     <CartesianGrid strokeDasharray="6 6" stroke="#1e293b" vertical={true} strokeOpacity={0.5} />
@@ -419,7 +419,9 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     <Tooltip
                                         isAnimationActive={false}
                                         cursor={{ stroke: 'rgba(245, 158, 11, 0.4)', strokeWidth: 2, strokeDasharray: '5 5' }}
+                                        active={isMobile ? false : undefined}
                                         content={({ active, payload }) => {
+                                            if (isMobile) return null;
                                             if (active && payload && payload.length) {
                                                 const data = payload[0].payload;
                                                 const color = getProducerColor(data.producer);
@@ -527,6 +529,38 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         </div>
                     </div>
                 </div>
+
+                {/* Mobile Selected Steel Info Bar */}
+                {isMobile && selectedSteel && (
+                    <div className="lg:hidden px-3 pb-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                        <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3">
+                            <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: getProducerColor(selectedSteel.producer) }} />
+                            <div className="flex-1 min-w-0">
+                                <div className="text-xs font-black text-white uppercase tracking-tight truncate">{selectedSteel.name}</div>
+                                <div className="flex gap-3 mt-0.5">
+                                    <span className="text-[9px] text-slate-400 font-bold"><span className="text-rose-400">{axisOptions[yAxis].shortLabel}</span> {selectedSteel[yAxis]}</span>
+                                    <span className="text-[9px] text-slate-400 font-bold"><span className="text-accent">{axisOptions[xAxis].shortLabel}</span> {selectedSteel[xAxis]}</span>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setDetailSteel(selectedSteel)}
+                                className="p-2 bg-accent text-black rounded-xl shrink-0 active:scale-95 !min-w-0 !min-h-0"
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                    <path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                </svg>
+                            </button>
+                            <button
+                                onClick={() => setSelectedSteel(null)}
+                                className="p-2 bg-white/10 text-slate-400 rounded-xl shrink-0 active:scale-95 !min-w-0 !min-h-0"
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Legend (Mobile Only) - Horizontal Scrollable Bar */}
                 <div className="lg:hidden sticky bottom-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
