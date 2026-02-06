@@ -25,7 +25,10 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
     }, [knives, activeCategory]);
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar">
+        <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar relative">
+            {/* Full-screen gradient overlay so search bar glass effect is visible */}
+            <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-sky-500/15 via-sky-500/5 to-transparent pointer-events-none z-0" />
+
             {/* Sticky Search Bar */}
             <StickySearchBar
                 value={knifeSearch}
@@ -34,7 +37,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             />
 
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 relative z-[1]">
                 <div>
                     <div className="text-[10px] md:text-xs font-black text-sky-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-sky-500/30"></span>

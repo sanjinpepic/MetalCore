@@ -21,9 +21,10 @@ import ImportModal from '../src/components/ImportModal.jsx';
 import { UserProvider } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
-import { useSwipeable } from 'react-swipeable';
+import CommandPalette from '../src/components/CommandPalette.jsx';
+import { hapticFeedback } from '../src/hooks/useMobile';
 
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -366,18 +367,39 @@ Be concise and premium.`;
         setActiveProducer("ALL");
     };
 
-    // Swipe handlers for opening sidebar from left edge
-    const edgeSwipeHandlers = useSwipeable({
-        onSwipedRight: (eventData) => {
-            // Only trigger if swipe starts near the left edge (first 50px)
-            if (eventData.initial[0] < 50 && !mobileMenuOpen) {
-                setMobileMenuOpen(true);
+    // Command Palette state
+    const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+
+    // Cmd+K / Ctrl+K keyboard shortcut for Command Palette
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                setCommandPaletteOpen(prev => !prev);
             }
-        },
-        trackMouse: false,
-        trackTouch: true,
-        preventScrollOnSwipe: false,
-    });
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const handleCommandNavigate = useCallback((viewId) => {
+        hapticFeedback('medium');
+        setView(viewId);
+    }, []);
+
+    const handleCommandOpenSteel = useCallback((steel) => {
+        navigate({ detailSteel: steel.id || steel.name, detailKnife: null });
+        incrementTrending(steel.id);
+    }, [navigate, incrementTrending]);
+
+    const handleCommandOpenKnife = useCallback((knife) => {
+        navigate({ detailKnife: knife.id || knife.name, detailSteel: null });
+    }, [navigate]);
+
+    const handleCommandAction = useCallback((actionId) => {
+        if (actionId === 'ai') setAiOpen(true);
+        else if (actionId === 'settings') setShowSettings(true);
+    }, []);
 
     return (
         <div className="flex h-screen overflow-hidden font-sans bg-black relative">
@@ -404,22 +426,17 @@ Be concise and premium.`;
                 </div>
             )}
 
-            {/* Mobile Menu Overlay */}
-            {mobileMenuOpen && (
-                <div
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
-                    onClick={() => setMobileMenuOpen(false)}
-                />
-            )}
-
-            {/* Swipe Zone for Opening Sidebar */}
-            {!mobileMenuOpen && (
-                <div
-                    {...edgeSwipeHandlers}
-                    className="fixed left-0 top-0 bottom-0 w-12 z-30 md:hidden pointer-events-auto"
-                    aria-label="Swipe right to open menu"
-                />
-            )}
+            {/* Command Palette */}
+            <CommandPalette
+                isOpen={commandPaletteOpen}
+                onClose={() => setCommandPaletteOpen(false)}
+                steels={steels}
+                knives={initialKnives}
+                onNavigate={handleCommandNavigate}
+                onOpenSteel={handleCommandOpenSteel}
+                onOpenKnife={handleCommandOpenKnife}
+                onAction={handleCommandAction}
+            />
 
             {/* Detail Modal */}
             {detailSteel && (
@@ -441,7 +458,7 @@ Be concise and premium.`;
             {/* Mobile Filters Button - Only show on views with filters */}
             {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
                 <button
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    onClick={() => { hapticFeedback('medium'); setMobileMenuOpen(!mobileMenuOpen); }}
                     className="fixed top-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
                     aria-label={mobileMenuOpen ? "Close filters" : "Open filters"}
                 >

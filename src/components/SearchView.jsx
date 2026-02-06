@@ -1,10 +1,14 @@
 import React from 'react';
 import Footer from './Footer';
 import StickySearchBar from './StickySearchBar';
+import { hapticFeedback } from '../hooks/useMobile';
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters }) => {
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar">
+        <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar relative">
+            {/* Full-screen gradient overlay so search bar glass effect is visible */}
+            <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-amber-500/15 via-amber-500/5 to-transparent pointer-events-none z-0" />
+
             {/* Sticky Search Bar */}
             <StickySearchBar
                 value={search}
@@ -13,7 +17,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             />
 
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-amber-500/10 to-transparent">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 relative z-[1]">
                 <div>
                     <div className="text-[10px] md:text-xs font-black text-amber-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-amber-500/30"></span>
@@ -28,7 +32,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 {filteredSteels.map(s => {
                     const isSelected = compareList.find(i => i.id === s.id);
                     return (
-                        <div key={s.id} onClick={() => setDetailSteel(s)} className={`glass-panel rounded-2xl md:rounded-3xl p-6 md:p-8 cursor-pointer border transition-all hover:border-white/20 active:scale-[0.98] relative group ${isSelected ? 'border-accent bg-accent/5' : 'border-white/5'}`}>
+                        <div key={s.id} onClick={() => { hapticFeedback('light'); setDetailSteel(s); }} className={`glass-panel rounded-2xl md:rounded-3xl p-6 md:p-8 cursor-pointer border transition-all hover:border-white/20 active:scale-[0.98] relative group ${isSelected ? 'border-accent bg-accent/5' : 'border-white/5'}`}>
                             <div className="flex justify-between items-start mb-4 md:mb-6">
                                 <div className="min-w-0">
                                     <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">{s.producer}</div>
@@ -36,7 +40,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                                     <p className="text-xs md:text-sm text-slate-400 line-clamp-1 mt-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity italic">{s.desc}</p>
                                 </div>
                                 <div className={`p-2.5 rounded-full transition-all shrink-0 ${isSelected ? 'bg-accent text-black scale-110 shadow-lg shadow-accent/40' : 'bg-white/5 text-slate-500 hover:text-white hover:bg-white/10'}`}
-                                    onClick={(e) => { e.stopPropagation(); toggleCompare(s); }}>
+                                    onClick={(e) => { e.stopPropagation(); hapticFeedback('medium'); toggleCompare(s); }}>
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                         <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
                                         <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />

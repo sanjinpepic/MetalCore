@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import Footer from './Footer';
+import { hapticFeedback } from '../hooks/useMobile';
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters }) => {
     const searchContainerRef = useRef(null);
@@ -165,6 +166,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                             <button
                                                 key={result.id}
                                                 onClick={() => {
+                                                    hapticFeedback('light');
                                                     setDetailSteel(result);
                                                     setSearch('');
                                                     incrementTrending(result.id);

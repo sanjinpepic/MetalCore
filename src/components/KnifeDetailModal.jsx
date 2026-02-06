@@ -33,7 +33,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
 
                     <button
                         onClick={onClose}
-                        className="absolute top-6 left-6 p-3 bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden border border-white/10 z-50"
+                        className="absolute top-6 left-6 w-11 h-11 flex items-center justify-center bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden border border-white/10 z-50"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M18 6 6 18" />
@@ -52,7 +52,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                     <div className="hidden md:block absolute top-6 right-6 z-50">
                         <button
                             onClick={onClose}
-                            className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all border border-white/10 backdrop-blur-3xl group"
+                            className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all border border-white/10 backdrop-blur-3xl group"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
                                 <path d="M18 6 6 18" />
