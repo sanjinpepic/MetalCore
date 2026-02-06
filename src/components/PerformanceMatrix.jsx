@@ -307,37 +307,35 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
             {/* Main Area */}
             <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto lg:overflow-hidden relative bg-black">
-                {/* Mobile Header (Hidden on LG) */}
-                <header className="lg:hidden p-6 pb-3 pt-6 pt-safe space-y-2 shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
-                    <div className="text-[10px] font-black text-rose-400 mb-1 uppercase tracking-widest flex items-center gap-2">
-                        <span className="w-6 h-px bg-rose-500/30"></span>
+                {/* Mobile Header (Hidden on LG) - Compact */}
+                <header className="lg:hidden px-4 py-3 pt-safe shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
+                    <div className="text-[9px] font-black text-rose-400 mb-0.5 uppercase tracking-widest flex items-center gap-1.5">
+                        <span className="w-4 h-px bg-rose-500/30"></span>
                         Analytics Engine
                     </div>
-                    <h1 className="text-2xl font-display font-black text-white tracking-tighter italic uppercase leading-none">Performance <span className="text-accent">Matrix</span></h1>
+                    <h1 className="text-xl font-display font-black text-white tracking-tighter italic uppercase leading-none">Performance <span className="text-accent">Matrix</span></h1>
                 </header>
 
-                {/* Sticky Axis Controls (Mobile Only) */}
+                {/* Sticky Axis Controls (Mobile Only) - Compact */}
                 <div className="lg:hidden sticky top-0 z-30 bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
-                    <div className="px-4 pt-3 pb-3 space-y-3">
-                        {/* Y-Axis */}
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-1 h-3 bg-rose-500 rounded-full"></div>
-                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Y-Axis</span>
-                                </div>
+                    <div className="px-3 py-2.5 space-y-2">
+                        {/* Y-Axis - Compact */}
+                        <div className="space-y-1">
+                            <div className="flex items-center gap-1.5">
+                                <div className="w-0.5 h-2 bg-rose-500 rounded-full"></div>
+                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider">Y</span>
                             </div>
-                            <div className="grid grid-cols-4 gap-2">
+                            <div className="grid grid-cols-4 gap-1.5">
                                 {Object.keys(axisOptions).map(key => (
                                     <button
                                         key={`y-${key}`}
                                         onClick={() => setYAxis(key)}
                                         disabled={key === xAxis}
-                                        className={`px-2 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-tight transition-all ${
+                                        className={`px-1.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-tight transition-all ${
                                             yAxis === key
-                                                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30 scale-105'
+                                                ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
                                                 : key === xAxis
-                                                    ? 'bg-white/5 text-slate-600 border border-white/5 opacity-40'
+                                                    ? 'bg-white/5 text-slate-600 opacity-30'
                                                     : 'bg-white/5 text-slate-400 border border-white/10 active:scale-95'
                                         }`}
                                     >
@@ -347,25 +345,23 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             </div>
                         </div>
 
-                        {/* X-Axis */}
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-3 h-1 bg-rose-500 rounded-full"></div>
-                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">X-Axis</span>
-                                </div>
+                        {/* X-Axis - Compact */}
+                        <div className="space-y-1">
+                            <div className="flex items-center gap-1.5">
+                                <div className="w-2 h-0.5 bg-rose-500 rounded-full"></div>
+                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider">X</span>
                             </div>
-                            <div className="grid grid-cols-4 gap-2">
+                            <div className="grid grid-cols-4 gap-1.5">
                                 {Object.keys(axisOptions).map(key => (
                                     <button
                                         key={`x-${key}`}
                                         onClick={() => setXAxis(key)}
                                         disabled={key === yAxis}
-                                        className={`px-2 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-tight transition-all ${
+                                        className={`px-1.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-tight transition-all ${
                                             xAxis === key
-                                                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30 scale-105'
+                                                ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
                                                 : key === yAxis
-                                                    ? 'bg-white/5 text-slate-600 border border-white/5 opacity-40'
+                                                    ? 'bg-white/5 text-slate-600 opacity-30'
                                                     : 'bg-white/5 text-slate-400 border border-white/10 active:scale-95'
                                         }`}
                                     >
@@ -377,9 +373,9 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     </div>
                 </div>
 
-                {/* Chart Container */}
-                <div className="flex-1 px-4 lg:px-12 py-6 lg:py-10 flex flex-col min-h-0">
-                    <div className="flex-1 glass-panel rounded-[2rem] lg:rounded-[3rem] p-4 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
+                {/* Chart Container - Reduced padding on mobile to maximize graph */}
+                <div className="flex-1 px-3 lg:px-12 py-3 lg:py-10 flex flex-col min-h-0">
+                    <div className="flex-1 glass-panel rounded-[1.5rem] lg:rounded-[3rem] p-3 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
                         {/* Background Gradients */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[120px] pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/5 blur-[120px] pointer-events-none"></div>
@@ -532,16 +528,16 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     </div>
                 </div>
 
-                {/* Legend (Mobile Only) */}
+                {/* Legend (Mobile Only) - Compact */}
                 <div className="lg:hidden sticky bottom-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
-                    <div className="px-4 pt-4 pb-32 overflow-x-auto no-scrollbar">
-                        <div className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-3 flex items-center gap-2">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <div className="px-3 pt-3 pb-24 overflow-x-auto no-scrollbar">
+                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                 <circle cx="12" cy="12" r="10" />
                             </svg>
                             Producers
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5">
                             {producers.map(prod => {
                                 const isActive = activeProducer === prod;
                                 const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
@@ -551,16 +547,16 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     <button
                                         key={prod}
                                         onClick={() => setActiveProducer(prod)}
-                                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all active:scale-95 ${isActive ? "border-accent bg-accent/10 shadow-lg shadow-accent/20" : "border-white/10 bg-white/5"}`}
+                                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg border transition-all active:scale-95 ${isActive ? "border-accent bg-accent/10 shadow-md shadow-accent/20" : "border-white/10 bg-white/5"}`}
                                     >
                                         <div
-                                            className={`w-2 h-2 rounded-full transition-all ${isActive ? "scale-110" : "scale-100"}`}
+                                            className={`w-1.5 h-1.5 rounded-full transition-all ${isActive ? "scale-110" : "scale-100"}`}
                                             style={{
                                                 backgroundColor: color,
-                                                boxShadow: isActive ? `0 0 8px ${color}` : 'none'
+                                                boxShadow: isActive ? `0 0 6px ${color}` : 'none'
                                             }}
                                         />
-                                        <span className={`text-[9px] font-black tracking-wide transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
+                                        <span className={`text-[8px] font-black tracking-wide transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
                                             {shortName}
                                         </span>
                                     </button>
