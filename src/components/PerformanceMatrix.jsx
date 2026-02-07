@@ -157,7 +157,13 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         "Other": "#ffffff"
     };
 
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 1024);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
 
     // Filter steels to show labels for: Top performers or hovered
     const labeledSteels = useMemo(() => {
