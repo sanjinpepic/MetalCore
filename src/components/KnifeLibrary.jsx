@@ -38,8 +38,8 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </header>
 
             {/* Category Filters & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div className="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto">
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-4 overflow-hidden">
+                <div className="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto min-w-0">
                     {categories.map(cat => (
                         <button
                             key={cat}

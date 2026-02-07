@@ -197,7 +197,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const displaySteel = selectedSteel || steels.find(s => s.name === hoveredSteel) || null;
 
     return (
-        <div className="flex flex-col lg:flex-row flex-1 min-w-0 min-h-dvh md:h-full bg-black md:overflow-hidden">
+        <div className="flex flex-col lg:flex-row flex-1 min-w-0 h-dvh bg-black overflow-hidden">
 
             {/* Left Sidebar: Controls & Details (Desktop Only) */}
             <aside className="hidden lg:flex flex-col w-[400px] border-r border-white/5 bg-slate-950/50 backdrop-blur-3xl overflow-y-auto no-scrollbar">
@@ -317,7 +317,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </aside>
 
             {/* Main Area */}
-            <div className="flex-1 flex flex-col min-w-0 md:h-full md:overflow-y-auto lg:overflow-hidden relative bg-black">
+            <div className="flex-1 flex flex-col min-w-0 min-h-0 h-full overflow-hidden relative bg-black">
                 {/* Mobile Header (Hidden on LG) - Compact */}
                 <header className="lg:hidden px-3 py-2 pt-safe shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
                     <div className="text-[8px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-1.5">
@@ -378,8 +378,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 </div>
 
                 {/* Chart Container - Tight on mobile to maximize graph */}
-                <div className="flex-1 px-2 lg:px-12 py-2 lg:py-10 flex flex-col min-h-0">
-                    <div className="flex-1 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
+                <div className="flex-1 px-2 lg:px-12 py-2 lg:py-10 flex flex-col min-h-0 overflow-hidden">
+                    <div className="flex-1 min-h-0 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
                         {/* Background Gradients */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[120px] pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/5 blur-[120px] pointer-events-none"></div>
@@ -506,9 +506,26 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                             {payload.name}
                                                         </text>
                                                     )}
+                                                    {/* Invisible larger touch target for mobile */}
+                                                    {isMobile && (
+                                                        <circle
+                                                            cx={cx} cy={cy}
+                                                            r={20}
+                                                            fill="transparent"
+                                                            className="cursor-pointer"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                if (selectedSteel?.name === payload.name) {
+                                                                    setSelectedSteel(null);
+                                                                } else {
+                                                                    setSelectedSteel(payload);
+                                                                }
+                                                            }}
+                                                        />
+                                                    )}
                                                     <circle
                                                         cx={cx} cy={cy}
-                                                        r={isSelected ? (isMobile ? 7 : 10) : isHovered ? (isMobile ? 6 : 8) : (isMobile ? 4 : 6)}
+                                                        r={isSelected ? (isMobile ? 7 : 10) : isHovered ? (isMobile ? 6 : 8) : (isMobile ? 5 : 6)}
                                                         fill={color}
                                                         stroke={isSelected ? "#fff" : isHovered ? color : "none"}
                                                         strokeWidth={isSelected ? (isMobile ? 2 : 3) : 0}
@@ -567,7 +584,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 )}
 
                 {/* Legend (Mobile Only) - Horizontal Scrollable Bar */}
-                <div className="lg:hidden sticky bottom-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
+                <div className="lg:hidden shrink-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
                     <div className="px-3 pt-1 pb-20">
                         {/* Single row, horizontally scrollable */}
                         <div className="flex gap-1 overflow-x-auto no-scrollbar pb-1">
