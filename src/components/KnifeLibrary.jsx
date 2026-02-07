@@ -24,7 +24,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
     }, [knives, activeCategory]);
 
     return (
-        <div className="flex-1 min-h-dvh md:h-full overflow-y-auto overflow-x-hidden bg-black custom-scrollbar">
+        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar">
             {/* Header */}
             <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
                 <div>
@@ -37,23 +37,22 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 </div>
             </header>
 
-            {/* Category Filters & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 space-y-3 md:space-y-0 md:flex md:justify-between md:items-center md:gap-4">
-                <div className="overflow-x-auto no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
-                    <div className="flex gap-2">
-                        {categories.map(cat => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`px-3 py-2 md:px-6 md:py-3 rounded-2xl text-[10px] md:text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
-                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
-                                    : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
+            {/* Category Filters & Search — identical to SearchView layout */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
+                {/* Categories — hidden on mobile for now */}
+                <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar w-auto">
+                    {categories.map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => setActiveCategory(cat)}
+                            className={`px-6 py-3 rounded-2xl text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
+                                ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
+                                : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
+                                }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
                 </div>
 
                 <div className="relative w-full md:w-64 md:shrink-0">
