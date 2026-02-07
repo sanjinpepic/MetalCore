@@ -197,7 +197,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const displaySteel = selectedSteel || steels.find(s => s.name === hoveredSteel) || null;
 
     return (
-        <div className="flex flex-col lg:flex-row flex-1 min-w-0 h-dvh bg-black overflow-hidden">
+        <div className="flex flex-col lg:flex-row flex-1 min-w-0 min-h-dvh lg:h-full bg-black lg:overflow-hidden">
 
             {/* Left Sidebar: Controls & Details (Desktop Only) */}
             <aside className="hidden lg:flex flex-col w-[400px] border-r border-white/5 bg-slate-950/50 backdrop-blur-3xl overflow-y-auto no-scrollbar">
@@ -317,7 +317,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </aside>
 
             {/* Main Area */}
-            <div className="flex-1 flex flex-col min-w-0 min-h-0 h-full overflow-hidden relative bg-black">
+            <div className="flex-1 flex flex-col min-w-0 lg:min-h-0 lg:h-full lg:overflow-hidden relative bg-black">
                 {/* Mobile Header (Hidden on LG) - Compact */}
                 <header className="lg:hidden px-3 py-2 pt-safe shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
                     <div className="text-[8px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-1.5">
@@ -377,9 +377,9 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     </div>
                 </div>
 
-                {/* Chart Container - Constrained on mobile */}
-                <div className="flex-1 px-2 lg:px-12 py-2 lg:py-10 flex flex-col min-h-0 overflow-hidden">
-                    <div className="flex-1 min-h-0 max-h-[45vh] lg:max-h-none glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
+                {/* Chart Container */}
+                <div className="px-2 lg:px-12 py-2 lg:py-10 lg:flex-1 lg:flex lg:flex-col lg:min-h-0">
+                    <div className="h-[50vh] lg:h-auto lg:flex-1 lg:min-h-0 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
                         {/* Background Gradients */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[120px] pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/5 blur-[120px] pointer-events-none"></div>
@@ -584,8 +584,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 )}
 
                 {/* Legend (Mobile Only) - Horizontal Scrollable Bar */}
-                <div className="lg:hidden shrink-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
-                    <div className="px-3 pt-1 pb-20">
+                <div className="lg:hidden shrink-0 z-10">
+                    <div className="px-3 pt-1 pb-24">
                         {/* Single row, horizontally scrollable */}
                         <div className="flex gap-1 overflow-x-auto no-scrollbar pb-1">
                             {producers.map(prod => {
