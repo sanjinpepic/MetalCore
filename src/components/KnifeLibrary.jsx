@@ -37,22 +37,23 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 </div>
             </header>
 
-            {/* Category Filters & Search — identical to SearchView layout */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
-                {/* Categories — hidden on mobile for now */}
-                <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar w-auto">
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={`px-6 py-3 rounded-2xl text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
-                                ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
-                                : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
-                                }`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+            {/* Category Filters & Search */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-3 md:gap-4">
+                <div className="w-full md:w-auto overflow-x-auto no-scrollbar">
+                    <div className="flex gap-2">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`px-3 py-2 md:px-6 md:py-3 rounded-2xl text-[10px] md:text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
+                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
+                                    : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="relative w-full md:w-64 md:shrink-0">
