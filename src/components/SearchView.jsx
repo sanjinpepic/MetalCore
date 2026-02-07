@@ -5,7 +5,7 @@ import { hapticFeedback } from '../hooks/useMobile';
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters }) => {
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar relative">
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar relative">
             {/* Full-screen gradient overlay so search bar glass effect is visible */}
             <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-amber-500/15 via-amber-500/5 to-transparent pointer-events-none z-0" />
 

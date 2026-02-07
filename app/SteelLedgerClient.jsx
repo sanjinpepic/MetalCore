@@ -115,34 +115,12 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
         }
     }, []);
 
-    // Mobile browser: collapse URL bar on first touch interaction.
-    // Temporarily unlocks body scroll, scrolls 1px to trigger browser
-    // URL bar collapse, then locks body again to prevent overscroll bounce.
+    // Scroll to top when switching views on mobile (body is the scroll container)
     useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-            || window.navigator.standalone === true;
-        if (isStandalone) return; // PWA mode has no URL bar
-
-        const collapseUrlBar = () => {
-            document.documentElement.style.height = '';
-            document.body.style.height = '';
-            document.body.style.overflow = 'auto';
-            document.body.style.minHeight = 'calc(100vh + 1px)';
-            requestAnimationFrame(() => {
-                window.scrollTo(0, 1);
-                setTimeout(() => {
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.minHeight = '';
-                    document.body.style.height = '100%';
-                    document.documentElement.style.height = '100%';
-                }, 400);
-            });
-        };
-
-        window.addEventListener('touchstart', collapseUrlBar, { once: true, passive: true });
-        return () => window.removeEventListener('touchstart', collapseUrlBar);
-    }, []);
+        if (typeof window !== 'undefined' && window.innerWidth < 769) {
+            window.scrollTo(0, 0);
+        }
+    }, [view]);
 
     const handleImportClick = () => setShowImportModal(true);
 
@@ -538,7 +516,7 @@ Be concise and premium.`;
                         duration: 0.15,
                         ease: [0.22, 1, 0.36, 1]
                     }}
-                    className="flex-1 overflow-hidden"
+                    className="flex-1 md:overflow-hidden"
                 >
                     {view === 'HOME' && (
                         <HomeView

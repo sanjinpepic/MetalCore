@@ -103,7 +103,7 @@ const ProLabView = ({ steels }) => {
     }, [collectionFingerprint, steels]);
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar bg-slate-950 p-6 md:p-12">
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-slate-950 p-6 md:p-12">
             <header className="mb-12">
                 <div className="text-xs font-black text-accent uppercase tracking-[0.3em] mb-2 italic">Analytical Hub</div>
                 <h1 className="text-4xl md:text-6xl font-display font-black text-white italic uppercase tracking-tighter leading-none">

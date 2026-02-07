@@ -191,7 +191,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const displaySteel = selectedSteel || steels.find(s => s.name === hoveredSteel) || null;
 
     return (
-        <div className="flex flex-col lg:flex-row flex-1 min-w-0 h-full bg-black overflow-hidden">
+        <div className="flex flex-col lg:flex-row flex-1 min-w-0 min-h-dvh md:h-full bg-black md:overflow-hidden">
 
             {/* Left Sidebar: Controls & Details (Desktop Only) */}
             <aside className="hidden lg:flex flex-col w-[400px] border-r border-white/5 bg-slate-950/50 backdrop-blur-3xl overflow-y-auto no-scrollbar">
@@ -311,7 +311,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </aside>
 
             {/* Main Area */}
-            <div className="flex-1 flex flex-col min-w-0 h-full overflow-y-auto lg:overflow-hidden relative bg-black">
+            <div className="flex-1 flex flex-col min-w-0 md:h-full md:overflow-y-auto lg:overflow-hidden relative bg-black">
                 {/* Mobile Header (Hidden on LG) - Compact */}
                 <header className="lg:hidden px-4 py-3 pt-safe shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
                     <div className="text-[9px] font-black text-rose-400 mb-0.5 uppercase tracking-widest flex items-center gap-1.5">

@@ -28,7 +28,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
     if (!items || items.length === 0) {
         return (
-            <div className="flex items-center justify-center h-full bg-slate-950 text-slate-500">
+            <div className="flex items-center justify-center min-h-dvh md:h-full bg-slate-950 text-slate-500">
                 <div className="text-center">
                     <p className="mb-4">No items selected for comparison.</p>
                     <button onClick={() => setView('SEARCH')} className="px-4 py-2 bg-accent text-black rounded-lg font-bold">
@@ -40,7 +40,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
     }
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar bg-slate-950">
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-slate-950">
             <header className="px-4 py-3 md:p-12 flex items-center justify-between sticky top-0 bg-slate-950/90 backdrop-blur-xl z-[90] border-b border-white/10 pt-12 md:pt-12">
                 <div className="flex items-center gap-3 md:gap-6 shrink-0">
                     <button onClick={() => setView('SEARCH')} className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-400 hover:text-white transition-all border border-white/5 group">
