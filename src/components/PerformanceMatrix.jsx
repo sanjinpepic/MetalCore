@@ -105,6 +105,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const [selectedSteel, setSelectedSteel] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [labelDensity, setLabelDensity] = useState('high'); // 'all', 'high', 'none'
+    const [isMobile, setIsMobile] = useState(false);
 
     // Chart dimensions for label collision calculation
     const [chartDimensions, setChartDimensions] = useState({ width: 0, height: 0 });
@@ -127,6 +128,13 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         updateSize();
 
         return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 1024);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
     }, []);
 
     // Local search within the already filtered steels
@@ -156,14 +164,6 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         "Various": "#94a3b8",
         "Other": "#ffffff"
     };
-
-    const [isMobile, setIsMobile] = useState(false);
-    useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < 1024);
-        check();
-        window.addEventListener('resize', check);
-        return () => window.removeEventListener('resize', check);
-    }, []);
 
     // Filter steels to show labels for: Top performers or hovered
     const labeledSteels = useMemo(() => {
