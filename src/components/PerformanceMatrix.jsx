@@ -5,7 +5,7 @@ import PerformanceRadar from './PerformanceRadar';
 // Helper for collision detection
 const solveLabelCollisions = (steels, xAxisKey, yAxisKey, width, height, mobile = false) => {
     // margins must match the chart
-    const margin = mobile ? { top: 8, right: 8, bottom: 28, left: 4 } : { top: 20, right: 20, bottom: 40, left: 10 };
+    const margin = mobile ? { top: 8, right: 8, bottom: 20, left: 0 } : { top: 20, right: 20, bottom: 40, left: 10 };
     const innerW = width - margin.left - margin.right;
     const innerH = height - margin.top - margin.bottom;
 
@@ -396,7 +396,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
                         <div ref={chartRef} className="w-full h-full" onClick={(e) => { if (isMobile && e.target.tagName !== 'circle') setSelectedSteel(null); }}>
                             <ResponsiveContainer width="100%" height="100%">
-                                <ScatterChart margin={isMobile ? { top: 8, right: 8, bottom: 28, left: 4 } : { top: 20, right: 20, bottom: 40, left: 10 }}>
+                                <ScatterChart margin={isMobile ? { top: 8, right: 8, bottom: 20, left: 0 } : { top: 20, right: 20, bottom: 40, left: 10 }}>
                                     <CartesianGrid strokeDasharray="6 6" stroke="#1e293b" vertical={true} strokeOpacity={0.5} />
                                     <XAxis
                                         type="number"
@@ -407,7 +407,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         domain={[0, 10]}
                                         ticks={[0, 2, 4, 6, 8, 10]}
                                         tick={{ fontSize: isMobile ? 8 : 10, fontWeight: 'black', fill: '#475569' }}
-                                        label={{ value: `${axisOptions[xAxis].shortLabel} →`, position: 'insideBottom', fill: '#64748b', fontSize: isMobile ? 9 : 11, fontWeight: 'black', dy: isMobile ? 18 : 25, letterSpacing: '0.1em' }}
+                                        label={{ value: `${axisOptions[xAxis].shortLabel} →`, position: 'insideBottom', fill: '#64748b', fontSize: isMobile ? 9 : 11, fontWeight: 'black', dy: isMobile ? 12 : 25, letterSpacing: '0.1em' }}
                                     />
                                     <YAxis
                                         type="number"
@@ -418,7 +418,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         domain={[0, 10]}
                                         ticks={[0, 2, 4, 6, 8, 10]}
                                         tick={{ fontSize: isMobile ? 8 : 10, fontWeight: 'black', fill: '#475569' }}
-                                        label={{ value: `← ${axisOptions[yAxis].shortLabel}`, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: isMobile ? 9 : 11, fontWeight: 'black', dx: isMobile ? 2 : 5, letterSpacing: '0.1em' }}
+                                        label={{ value: `${axisOptions[yAxis].shortLabel} →`, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: isMobile ? 9 : 11, fontWeight: 'black', dx: isMobile ? -2 : 5, letterSpacing: '0.1em' }}
                                     />
                                     <Tooltip
                                         isAnimationActive={false}
