@@ -197,7 +197,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const displaySteel = selectedSteel || steels.find(s => s.name === hoveredSteel) || null;
 
     return (
-        <div className="flex flex-col lg:flex-row flex-1 min-w-0 min-h-dvh lg:h-full bg-black lg:overflow-hidden">
+        <div className="flex flex-col lg:flex-row flex-1 min-w-0 min-h-dvh lg:h-full bg-black lg:overflow-hidden max-w-[100vw] overflow-x-hidden">
 
             {/* Left Sidebar: Controls & Details (Desktop Only) */}
             <aside className="hidden lg:flex flex-col w-[400px] border-r border-white/5 bg-slate-950/50 backdrop-blur-3xl overflow-y-auto no-scrollbar">
