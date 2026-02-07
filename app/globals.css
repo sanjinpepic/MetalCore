@@ -21,6 +21,12 @@ body {
     background-color: #050505;
     color: #e2e8f0;
     -webkit-overflow-scrolling: touch;
+    /* Use clip instead of hidden to prevent horizontal scroll.
+       overflow-x: hidden implicitly sets overflow-y: auto (per CSS spec),
+       which creates a scroll context on body — breaking position:sticky
+       and single-finger touch scrolling on Android.
+       overflow-x: clip clips content without creating a scroll context. */
+    overflow-x: clip;
 }
 
 /* Desktop: contained layout — sidebar + content locked to viewport */
@@ -36,16 +42,11 @@ body {
     }
 }
 
-/* Mobile: natural document scroll — this is what triggers
-   the browser URL bar to collapse when the user scrolls down.
-   Content flows through body instead of inner overflow containers. */
+/* Mobile: natural document scroll.
+   Don't set overflow-y on html or body — let the browser's native
+   viewport scrolling handle it. This is what triggers URL bar collapse
+   and ensures position:sticky, touch events, etc. all work natively. */
 @media (max-width: 768px) {
-    html, body {
-        overflow-x: hidden;
-        overflow-y: auto;
-        overscroll-behavior-y: none; /* prevent iOS rubber-band bounce */
-    }
-
     .app-shell {
         height: auto;
         min-height: 100dvh;
