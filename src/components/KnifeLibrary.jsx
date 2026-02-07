@@ -24,7 +24,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
     }, [knives, activeCategory]);
 
     return (
-        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar">
+        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar overflow-x-hidden">
             {/* Header */}
             <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-sky-500/10 to-transparent">
                 <div>
