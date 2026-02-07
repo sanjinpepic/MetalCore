@@ -94,7 +94,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
     };
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 h-screen overflow-y-auto custom-scrollbar bg-black relative isolate">
+        <div className="flex flex-col flex-1 min-w-0 h-full overflow-y-auto custom-scrollbar bg-black relative isolate">
             {/* Background Decorations */}
             <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-accent/5 rounded-full blur-[200px] -translate-y-1/2 translate-x-1/2" />

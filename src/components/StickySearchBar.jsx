@@ -6,7 +6,7 @@ export default function StickySearchBar({ value, onChange, placeholder = "Search
 
     return (
         <motion.div
-            className="sticky top-0 z-40 px-4 py-3 pt-safe"
+            className="sticky top-0 z-40 px-4 py-3"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: 'spring', damping: 20 }}

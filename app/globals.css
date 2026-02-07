@@ -10,25 +10,59 @@
     --safe-area-right: env(safe-area-inset-right);
 }
 
+html {
+    overflow: hidden;
+    font-size: 16px;
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+}
+
 body {
     background-color: #050505;
     color: #e2e8f0;
-    overflow-x: hidden;
+    overflow: hidden;
     width: 100%;
-    /* Prevent pull-to-refresh on mobile browsers */
-    overscroll-behavior-y: contain;
-    /* Smooth scrolling */
+    height: 100%;
+    overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
 }
 
-html {
-    overflow-x: hidden;
-    font-size: 16px;
-    /* Prevent iOS zoom on input focus */
-    -webkit-text-size-adjust: 100%;
-    /* Better font rendering on mobile */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* App shell: fills exact visible viewport using fixed positioning.
+   On mobile, position:fixed tracks the visual viewport exactly —
+   when the URL bar hides/shows, the shell resizes automatically.
+   Uses env(safe-area-inset-*) for notch/Dynamic Island/gesture bar. */
+.app-shell {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+/* On desktop, use normal flow (no need for fixed positioning) */
+@media (min-width: 769px) {
+    .app-shell {
+        position: relative;
+        height: 100vh;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* Prevent overscroll bounce on all scroll containers within the app */
+@media (max-width: 768px) {
+    .custom-scrollbar,
+    .overflow-y-auto {
+        overscroll-behavior-y: contain;
+    }
 }
 
 .glass-panel {
@@ -155,6 +189,15 @@ html {
 
 .pt-safe {
     padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+
+/* Safe-area-aware fixed positioning for elements inside the app shell */
+.top-safe-4 {
+    top: calc(1rem + env(safe-area-inset-top));
+}
+
+.top-safe-0 {
+    top: env(safe-area-inset-top);
 }
 
 .pl-safe {

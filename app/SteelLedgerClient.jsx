@@ -115,6 +115,35 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
         }
     }, []);
 
+    // Mobile browser: collapse URL bar on first touch interaction.
+    // Temporarily unlocks body scroll, scrolls 1px to trigger browser
+    // URL bar collapse, then locks body again to prevent overscroll bounce.
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+            || window.navigator.standalone === true;
+        if (isStandalone) return; // PWA mode has no URL bar
+
+        const collapseUrlBar = () => {
+            document.documentElement.style.height = '';
+            document.body.style.height = '';
+            document.body.style.overflow = 'auto';
+            document.body.style.minHeight = 'calc(100vh + 1px)';
+            requestAnimationFrame(() => {
+                window.scrollTo(0, 1);
+                setTimeout(() => {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.minHeight = '';
+                    document.body.style.height = '100%';
+                    document.documentElement.style.height = '100%';
+                }, 400);
+            });
+        };
+
+        window.addEventListener('touchstart', collapseUrlBar, { once: true, passive: true });
+        return () => window.removeEventListener('touchstart', collapseUrlBar);
+    }, []);
+
     const handleImportClick = () => setShowImportModal(true);
 
     const handleManualImport = (data) => {
@@ -402,10 +431,10 @@ Be concise and premium.`;
     }, []);
 
     return (
-        <div className="flex h-screen overflow-hidden font-sans bg-black relative">
+        <div className="flex app-shell font-sans bg-black relative">
             {/* Database Unavailable Banner */}
             {showDbBanner && (
-                <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
+                <div className="fixed top-safe-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
                     <div className="flex items-center gap-2.5 text-amber-400 text-sm">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                             <path d="M12 9v4m0 4h.01" />
@@ -459,7 +488,7 @@ Be concise and premium.`;
             {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
                 <button
                     onClick={() => { hapticFeedback('medium'); setMobileMenuOpen(!mobileMenuOpen); }}
-                    className="fixed top-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
+                    className="fixed top-safe-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
                     aria-label={mobileMenuOpen ? "Close filters" : "Open filters"}
                 >
                     {mobileMenuOpen ? (
