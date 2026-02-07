@@ -377,9 +377,9 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     </div>
                 </div>
 
-                {/* Chart Container - Tight on mobile to maximize graph */}
+                {/* Chart Container - Constrained on mobile */}
                 <div className="flex-1 px-2 lg:px-12 py-2 lg:py-10 flex flex-col min-h-0 overflow-hidden">
-                    <div className="flex-1 min-h-0 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
+                    <div className="flex-1 min-h-0 max-h-[45vh] lg:max-h-none glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
                         {/* Background Gradients */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[120px] pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/5 blur-[120px] pointer-events-none"></div>
