@@ -38,14 +38,15 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </header>
 
             {/* Category Filters & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-3 md:gap-4">
-                <div className="w-full md:w-auto overflow-x-auto no-scrollbar">
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5">
+                {/* Mobile categories — plain block, NOT inside flex */}
+                <div className="md:hidden px-4 pt-4 pb-2 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-3 py-2 md:px-6 md:py-3 rounded-2xl text-[10px] md:text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
+                                className={`px-3 py-2 rounded-2xl text-[10px] font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
                                     ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
                                     : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
                                     }`}
@@ -56,17 +57,35 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                     </div>
                 </div>
 
-                <div className="relative w-full md:w-64 md:shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
-                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                    </svg>
-                    <input
-                        type="text"
-                        placeholder="Search knives..."
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
-                        value={knifeSearch}
-                        onChange={e => setKnifeSearch(e.target.value)}
-                    />
+                {/* Desktop: categories + search row. Mobile: just search */}
+                <div className="px-4 md:px-12 pb-4 pt-2 md:py-4 flex justify-between items-center gap-4">
+                    <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`px-6 py-3 rounded-2xl text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
+                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
+                                    : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="relative w-full md:w-64 md:shrink-0">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
+                            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                        </svg>
+                        <input
+                            type="text"
+                            placeholder="Search knives..."
+                            className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
+                            value={knifeSearch}
+                            onChange={e => setKnifeSearch(e.target.value)}
+                        />
+                    </div>
                 </div>
             </div>
 
