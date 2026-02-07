@@ -3,9 +3,9 @@ import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Responsive
 import PerformanceRadar from './PerformanceRadar';
 
 // Helper for collision detection
-const solveLabelCollisions = (steels, xAxisKey, yAxisKey, width, height) => {
+const solveLabelCollisions = (steels, xAxisKey, yAxisKey, width, height, mobile = false) => {
     // margins must match the chart
-    const margin = { top: 20, right: 20, bottom: 40, left: 10 };
+    const margin = mobile ? { top: 8, right: 8, bottom: 28, left: 4 } : { top: 20, right: 20, bottom: 40, left: 10 };
     const innerW = width - margin.left - margin.right;
     const innerH = height - margin.top - margin.bottom;
 
@@ -140,8 +140,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
     // Calculate optimal label positions
     const labelOffsets = useMemo(() => {
-        return solveLabelCollisions(matrixSteels, xAxis, yAxis, chartDimensions.width, chartDimensions.height);
-    }, [matrixSteels, xAxis, yAxis, chartDimensions]);
+        return solveLabelCollisions(matrixSteels, xAxis, yAxis, chartDimensions.width, chartDimensions.height, isMobile);
+    }, [matrixSteels, xAxis, yAxis, chartDimensions, isMobile]);
 
     const producerColors = {
         "Crucible": "#FF5733",
@@ -313,35 +313,32 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             {/* Main Area */}
             <div className="flex-1 flex flex-col min-w-0 md:h-full md:overflow-y-auto lg:overflow-hidden relative bg-black">
                 {/* Mobile Header (Hidden on LG) - Compact */}
-                <header className="lg:hidden px-4 py-3 pt-safe shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
-                    <div className="text-[9px] font-black text-rose-400 mb-0.5 uppercase tracking-widest flex items-center gap-1.5">
-                        <span className="w-4 h-px bg-rose-500/30"></span>
-                        Analytics Engine
+                <header className="lg:hidden px-3 py-2 pt-safe shrink-0 bg-gradient-to-b from-rose-500/10 to-transparent">
+                    <div className="text-[8px] font-black text-rose-400 uppercase tracking-widest flex items-center gap-1.5">
+                        <span className="w-3 h-px bg-rose-500/30"></span>
+                        Analytics
                     </div>
-                    <h1 className="text-xl font-display font-black text-white tracking-tighter italic uppercase leading-none">Performance <span className="text-accent">Matrix</span></h1>
+                    <h1 className="text-lg font-display font-black text-white tracking-tighter italic uppercase leading-none">Performance <span className="text-accent">Matrix</span></h1>
                 </header>
 
-                {/* Sticky Axis Controls (Mobile Only) - Compact */}
+                {/* Sticky Axis Controls (Mobile Only) - Ultra Compact */}
                 <div className="lg:hidden sticky top-0 z-30 bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
-                    <div className="px-3 py-2.5 space-y-2">
-                        {/* Y-Axis - Compact */}
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-1.5">
-                                <div className="w-0.5 h-2 bg-rose-500 rounded-full"></div>
-                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider">Y</span>
-                            </div>
-                            <div className="grid grid-cols-4 gap-1.5">
+                    <div className="px-3 py-2 space-y-1.5">
+                        {/* Y-Axis - Inline */}
+                        <div className="flex items-center gap-2">
+                            <span className="text-[8px] font-black text-rose-400 uppercase w-3 shrink-0">Y</span>
+                            <div className="flex gap-1 flex-1">
                                 {Object.keys(axisOptions).map(key => (
                                     <button
                                         key={`y-${key}`}
                                         onClick={() => setYAxis(key)}
                                         disabled={key === xAxis}
-                                        className={`px-1.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-tight transition-all ${
+                                        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${
                                             yAxis === key
-                                                ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
+                                                ? 'bg-rose-500 text-white'
                                                 : key === xAxis
                                                     ? 'bg-white/5 text-slate-600 opacity-30'
-                                                    : 'bg-white/5 text-slate-400 border border-white/10 active:scale-95'
+                                                    : 'bg-white/5 text-slate-400 active:scale-95'
                                         }`}
                                     >
                                         {axisOptions[key].shortLabel}
@@ -349,25 +346,21 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                 ))}
                             </div>
                         </div>
-
-                        {/* X-Axis - Compact */}
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-1.5">
-                                <div className="w-2 h-0.5 bg-rose-500 rounded-full"></div>
-                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-wider">X</span>
-                            </div>
-                            <div className="grid grid-cols-4 gap-1.5">
+                        {/* X-Axis - Inline */}
+                        <div className="flex items-center gap-2">
+                            <span className="text-[8px] font-black text-rose-400 uppercase w-3 shrink-0">X</span>
+                            <div className="flex gap-1 flex-1">
                                 {Object.keys(axisOptions).map(key => (
                                     <button
                                         key={`x-${key}`}
                                         onClick={() => setXAxis(key)}
                                         disabled={key === yAxis}
-                                        className={`px-1.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-tight transition-all ${
+                                        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${
                                             xAxis === key
-                                                ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
+                                                ? 'bg-rose-500 text-white'
                                                 : key === yAxis
                                                     ? 'bg-white/5 text-slate-600 opacity-30'
-                                                    : 'bg-white/5 text-slate-400 border border-white/10 active:scale-95'
+                                                    : 'bg-white/5 text-slate-400 active:scale-95'
                                         }`}
                                     >
                                         {axisOptions[key].shortLabel}
@@ -378,26 +371,26 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     </div>
                 </div>
 
-                {/* Chart Container - Reduced padding on mobile to maximize graph */}
-                <div className="flex-1 px-3 lg:px-12 py-3 lg:py-10 flex flex-col min-h-0">
-                    <div className="flex-1 glass-panel rounded-[1.5rem] lg:rounded-[3rem] p-3 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
+                {/* Chart Container - Tight on mobile to maximize graph */}
+                <div className="flex-1 px-2 lg:px-12 py-2 lg:py-10 flex flex-col min-h-0">
+                    <div className="flex-1 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
                         {/* Background Gradients */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[120px] pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/5 blur-[120px] pointer-events-none"></div>
 
-                        {/* Quadrant Indicators */}
-                        <div className="absolute top-10 right-10 flex flex-col items-end opacity-20 pointer-events-none">
+                        {/* Quadrant Indicators - Desktop Only */}
+                        <div className="hidden lg:flex absolute top-10 right-10 flex-col items-end opacity-20 pointer-events-none">
                             <div className="text-[10px] font-black text-accent uppercase tracking-[0.3em]">HIGH PERFORMANCE</div>
                             <div className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.1em]">ELITE ZONE</div>
                         </div>
-                        <div className="absolute bottom-10 left-10 flex flex-col items-start opacity-20 pointer-events-none">
+                        <div className="hidden lg:flex absolute bottom-10 left-10 flex-col items-start opacity-20 pointer-events-none">
                             <div className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">UTILITY/VALUE</div>
                             <div className="text-[8px] font-bold text-slate-700 uppercase tracking-[0.1em]">BUDGET ZONE</div>
                         </div>
 
                         <div ref={chartRef} className="w-full h-full" onClick={(e) => { if (isMobile && e.target.tagName !== 'circle') setSelectedSteel(null); }}>
                             <ResponsiveContainer width="100%" height="100%">
-                                <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 10 }}>
+                                <ScatterChart margin={isMobile ? { top: 8, right: 8, bottom: 28, left: 4 } : { top: 20, right: 20, bottom: 40, left: 10 }}>
                                     <CartesianGrid strokeDasharray="6 6" stroke="#1e293b" vertical={true} strokeOpacity={0.5} />
                                     <XAxis
                                         type="number"
@@ -407,8 +400,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         unit=""
                                         domain={[0, 10]}
                                         ticks={[0, 2, 4, 6, 8, 10]}
-                                        tick={{ fontSize: 10, fontWeight: 'black', fill: '#475569' }}
-                                        label={{ value: `${axisOptions[xAxis].label} →`, position: 'insideBottom', fill: '#64748b', fontSize: 11, fontWeight: 'black', dy: 25, letterSpacing: '0.1em' }}
+                                        tick={{ fontSize: isMobile ? 8 : 10, fontWeight: 'black', fill: '#475569' }}
+                                        label={{ value: `${axisOptions[xAxis].shortLabel} →`, position: 'insideBottom', fill: '#64748b', fontSize: isMobile ? 9 : 11, fontWeight: 'black', dy: isMobile ? 18 : 25, letterSpacing: '0.1em' }}
                                     />
                                     <YAxis
                                         type="number"
@@ -418,8 +411,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         unit=""
                                         domain={[0, 10]}
                                         ticks={[0, 2, 4, 6, 8, 10]}
-                                        tick={{ fontSize: 10, fontWeight: 'black', fill: '#475569' }}
-                                        label={{ value: `← ${axisOptions[yAxis].label}`, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'black', dx: 5, letterSpacing: '0.1em' }}
+                                        tick={{ fontSize: isMobile ? 8 : 10, fontWeight: 'black', fill: '#475569' }}
+                                        label={{ value: `← ${axisOptions[yAxis].shortLabel}`, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: isMobile ? 9 : 11, fontWeight: 'black', dx: isMobile ? 2 : 5, letterSpacing: '0.1em' }}
                                     />
                                     <Tooltip
                                         isAnimationActive={false}
@@ -476,10 +469,10 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                             const isSelected = selectedSteel?.name === payload.name;
                                             const isDimmed = (hoveredSteel && !isHovered) || (selectedSteel && !isSelected && !isHovered);
 
-                                            const offset = labelOffsets[payload.name] || { x: 0, y: -15 };
+                                            const offset = labelOffsets[payload.name] || { x: 0, y: -12 };
                                             const labelX = cx + offset.x;
                                             const labelY = cy + offset.y;
-                                            const showLine = Math.abs(offset.x) > 4 || Math.abs(offset.y + 15) > 4 || isHovered || isSelected;
+                                            const showLine = Math.abs(offset.x) > 4 || Math.abs(offset.y + 12) > 4 || isHovered || isSelected;
 
                                             const showLabel = labeledSteels.includes(payload.name) || isHovered || isSelected;
 
@@ -499,7 +492,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                             x={labelX} y={labelY}
                                                             textAnchor="middle"
                                                             fill={isHovered || isSelected ? "#fff" : "rgba(255,255,255,0.5)"}
-                                                            fontSize={isHovered || isSelected ? 12 : 10}
+                                                            fontSize={isMobile ? (isHovered || isSelected ? 9 : 7) : (isHovered || isSelected ? 12 : 10)}
                                                             fontFamily="Inter, sans-serif"
                                                             fontWeight="900"
                                                             style={{ pointerEvents: 'none', textTransform: 'uppercase', letterSpacing: '0.05em' }}
@@ -509,17 +502,17 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                     )}
                                                     <circle
                                                         cx={cx} cy={cy}
-                                                        r={isSelected ? 10 : isHovered ? 8 : (isMobile ? 5 : 6)}
+                                                        r={isSelected ? (isMobile ? 7 : 10) : isHovered ? (isMobile ? 6 : 8) : (isMobile ? 4 : 6)}
                                                         fill={color}
                                                         stroke={isSelected ? "#fff" : isHovered ? color : "none"}
-                                                        strokeWidth={isSelected ? 3 : 0}
+                                                        strokeWidth={isSelected ? (isMobile ? 2 : 3) : 0}
                                                         className="cursor-pointer"
-                                                        style={{ filter: isHovered || isSelected ? `drop-shadow(0 0 10px ${color})` : 'none' }}
+                                                        style={{ filter: isHovered || isSelected ? `drop-shadow(0 0 ${isMobile ? '6' : '10'}px ${color})` : 'none' }}
                                                     />
                                                     {(isHovered || isSelected) && (
                                                         <circle
                                                             cx={cx} cy={cy}
-                                                            r={20}
+                                                            r={isMobile ? 14 : 20}
                                                             fill={color}
                                                             fillOpacity={0.15}
                                                             className="animate-pulse"
@@ -569,15 +562,9 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
                 {/* Legend (Mobile Only) - Horizontal Scrollable Bar */}
                 <div className="lg:hidden sticky bottom-0 z-10 bg-gradient-to-t from-black via-black to-transparent">
-                    <div className="px-3 pt-2 pb-20">
-                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                <circle cx="12" cy="12" r="10" />
-                            </svg>
-                            Producers
-                        </div>
+                    <div className="px-3 pt-1 pb-20">
                         {/* Single row, horizontally scrollable */}
-                        <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+                        <div className="flex gap-1 overflow-x-auto no-scrollbar pb-1">
                             {producers.map(prod => {
                                 const isActive = activeProducer === prod;
                                 const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
@@ -587,16 +574,16 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     <button
                                         key={prod}
                                         onClick={() => setActiveProducer(prod)}
-                                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg border transition-all active:scale-95 flex-shrink-0 ${isActive ? "border-accent bg-accent/10 shadow-md shadow-accent/20" : "border-white/10 bg-white/5"}`}
+                                        className={`flex items-center gap-1 px-1.5 py-1 rounded-md border transition-all active:scale-95 flex-shrink-0 ${isActive ? "border-accent bg-accent/10" : "border-white/10 bg-white/5"}`}
                                     >
                                         <div
-                                            className={`w-1.5 h-1.5 rounded-full transition-all ${isActive ? "scale-110" : "scale-100"}`}
+                                            className="w-1.5 h-1.5 rounded-full"
                                             style={{
                                                 backgroundColor: color,
                                                 boxShadow: isActive ? `0 0 6px ${color}` : 'none'
                                             }}
                                         />
-                                        <span className={`text-[8px] font-black tracking-wide transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
+                                        <span className={`text-[7px] font-black tracking-wide transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
                                             {shortName}
                                         </span>
                                     </button>

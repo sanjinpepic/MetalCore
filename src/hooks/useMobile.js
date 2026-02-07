@@ -32,21 +32,6 @@ export function useMobile() {
     return { isMobile, isStandalone };
 }
 
-export function hapticFeedback(type = 'light') {
-    if (typeof window === 'undefined') return;
-
-    try {
-        if (navigator.vibrate) {
-            const patterns = {
-                light: [10],
-                medium: [20],
-                heavy: [30],
-                success: [10, 50, 10],
-                error: [50, 100, 50],
-            };
-            navigator.vibrate(patterns[type] || patterns.light);
-        }
-    } catch (error) {
-        // Vibration API not supported, fail silently
-    }
+export function hapticFeedback() {
+    // Disabled - vibrations turned off
 }

@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import Footer from './Footer';
-import StickySearchBar from './StickySearchBar';
 
 const normalize = (val) => {
     if (!val) return "";
@@ -29,15 +28,8 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             {/* Full-screen gradient overlay so search bar glass effect is visible */}
             <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-sky-500/15 via-sky-500/5 to-transparent pointer-events-none z-0" />
 
-            {/* Sticky Search Bar */}
-            <StickySearchBar
-                value={knifeSearch}
-                onChange={setKnifeSearch}
-                placeholder="Search knives by name, maker, or steel..."
-            />
-
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 relative z-[1]">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-8 space-y-2 md:space-y-6 shrink-0 relative z-[1]">
                 <div>
                     <div className="text-[10px] md:text-xs font-black text-sky-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-sky-500/30"></span>
@@ -48,9 +40,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 </div>
             </header>
 
-            {/* Category Filters */}
-            <div className="sticky sticky-below-search z-30 bg-black/95 backdrop-blur-xl border-b border-white/5 px-4 md:px-12 py-3">
-                <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0 max-w-5xl mx-auto">
+            {/* Category Filters & Search - Sticks under header like Academy */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar w-full md:w-auto">
                         {categories.map(cat => (
                             <button
                                 key={cat}
@@ -63,6 +55,19 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 {cat}
                             </button>
                         ))}
+                </div>
+
+                <div className="relative w-full md:w-64">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
+                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search knives..."
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
+                        value={knifeSearch}
+                        onChange={e => setKnifeSearch(e.target.value)}
+                    />
                 </div>
             </div>
 

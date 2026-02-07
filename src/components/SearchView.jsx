@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from './Footer';
-import StickySearchBar from './StickySearchBar';
 import { hapticFeedback } from '../hooks/useMobile';
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters }) => {
@@ -9,15 +8,8 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             {/* Full-screen gradient overlay so search bar glass effect is visible */}
             <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-amber-500/15 via-amber-500/5 to-transparent pointer-events-none z-0" />
 
-            {/* Sticky Search Bar */}
-            <StickySearchBar
-                value={search}
-                onChange={setSearch}
-                placeholder="Search steels by name or producer..."
-            />
-
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-6 md:pt-8 space-y-2 md:space-y-6 shrink-0 relative z-[1]">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-8 space-y-2 md:space-y-6 shrink-0 relative z-[1]">
                 <div>
                     <div className="text-[10px] md:text-xs font-black text-amber-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
                         <span className="w-6 h-px bg-amber-500/30"></span>
@@ -27,6 +19,22 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                     <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">Comprehensive database of premium knife steels. Filter by alloy content or search by grade.</p>
                 </div>
             </header>
+
+            {/* Sticky Search Bar - sticks under header like Academy */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5 px-4 md:px-12 py-4 flex justify-end">
+                <div className="relative w-full md:w-64">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
+                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search steels by name or producer..."
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                </div>
+            </div>
 
             <div className="p-6 md:p-12 pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 pb-32 items-start">
                 {filteredSteels.map(s => {
