@@ -153,7 +153,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry to mid-range production knives where reliability matters more than peak performance."
     },
     {
-        id: 'bohler-11', name: "S390 Microclean", producer: "Böhler",
+        id: 'bohler-11', name: "S390", producer: "Böhler",
         C: 1.64, Cr: 4.8, V: 5.0, Mo: 2.0, W: 10.5, Co: 8.0,
         edge: 10, toughness: 5, corrosion: 1, sharpen: 2,
         ht_curve: "500:66,540:68,580:64",
