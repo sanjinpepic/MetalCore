@@ -18,11 +18,13 @@ export function NavigationProvider({ children }) {
             const view = params.get('view') || 'HOME';
             const steelId = params.get('steel');
             const knifeId = params.get('knife');
+            const compareSteels = params.get('steels') || null;
 
             const initialState = {
                 view,
                 detailSteel: steelId || null,
                 detailKnife: knifeId || null,
+                compareSteels,
             };
 
             setNavigationStack([initialState]);
@@ -37,7 +39,7 @@ export function NavigationProvider({ children }) {
                 setNavigationStack(event.state.navigationStack || [event.state.navigationState]);
             } else {
                 // If no state, go to home
-                setNavigationStack([{ view: 'HOME', detailSteel: null, detailKnife: null }]);
+                setNavigationStack([{ view: 'HOME', detailSteel: null, detailKnife: null, compareSteels: null }]);
             }
         };
 
@@ -49,7 +51,7 @@ export function NavigationProvider({ children }) {
         if (!isInitialized) return;
 
         setNavigationStack(prev => {
-            const current = prev[prev.length - 1] || { view: 'HOME', detailSteel: null, detailKnife: null };
+            const current = prev[prev.length - 1] || { view: 'HOME', detailSteel: null, detailKnife: null, compareSteels: null };
             const mergedState = { ...current, ...newState };
 
             // Build URL
@@ -62,6 +64,9 @@ export function NavigationProvider({ children }) {
             }
             if (mergedState.detailKnife) {
                 params.set('knife', mergedState.detailKnife);
+            }
+            if (mergedState.compareSteels && mergedState.view === 'COMPARE') {
+                params.set('steels', mergedState.compareSteels);
             }
 
             const url = params.toString() ? `?${params.toString()}` : '/';
@@ -106,6 +111,7 @@ export function NavigationProvider({ children }) {
         view: 'HOME',
         detailSteel: null,
         detailKnife: null,
+        compareSteels: null,
     };
 
     return (

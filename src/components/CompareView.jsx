@@ -1,11 +1,22 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
 import Footer from './Footer';
 
 const CompareView = ({ items, setView, toggleCompare, clearCompare, generateReport, isAiLoading }) => {
+    const [copied, setCopied] = useState(false);
 
+    const shareComparison = useCallback(() => {
+        const steelNames = items.map(s => encodeURIComponent(s.name)).join(',');
+        const url = `${window.location.origin}${window.location.pathname}?view=COMPARE&steels=${steelNames}`;
+        navigator.clipboard.writeText(url).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }).catch(() => {
+            prompt('Copy this link:', url);
+        });
+    }, [items]);
 
     // Transform data for Composition Bar Chart (Elements on X-axis)
     // Expected format: [{ element: 'C', SteelA: 1.5, SteelB: 0.8 }, ...]
@@ -73,6 +84,24 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                         <div className="absolute top-0 right-0 py-0.5 px-2 bg-accent text-black text-[8px] font-black uppercase tracking-tighter">
                             PRO
                         </div>
+                    </button>
+
+                    <button
+                        onClick={shareComparison}
+                        className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-slate-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all"
+                        title="Share Comparison"
+                    >
+                        {copied ? (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-green-400">
+                                <path d="M20 6 9 17l-5-5" />
+                            </svg>
+                        ) : (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                                <polyline points="16 6 12 2 8 6" />
+                                <line x1="12" y1="2" x2="12" y2="15" />
+                            </svg>
+                        )}
                     </button>
 
                     <button

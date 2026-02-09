@@ -117,6 +117,35 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
         }
     }, []);
 
+    // Hydrate compareList from URL steels param (shareable links)
+    useEffect(() => {
+        if (!currentState.compareSteels || compareList.length > 0) return;
+        const steelNames = currentState.compareSteels
+            .split(',')
+            .map(name => decodeURIComponent(name.trim()))
+            .filter(Boolean)
+            .slice(0, 4);
+        const resolved = [];
+        for (const name of steelNames) {
+            const found = steels.find(s =>
+                s.name.toLowerCase() === name.toLowerCase() || s.id === name
+            );
+            if (found && !resolved.find(r => r.id === found.id)) {
+                resolved.push(found);
+            }
+        }
+        if (resolved.length > 0) setCompareList(resolved);
+    }, [currentState.compareSteels, steels]);
+
+    // Keep URL in sync when on compare view
+    useEffect(() => {
+        if (view !== 'COMPARE' || compareList.length === 0) return;
+        const steelNames = compareList.map(s => encodeURIComponent(s.name)).join(',');
+        if (currentState.compareSteels !== steelNames) {
+            navigate({ compareSteels: steelNames }, true);
+        }
+    }, [view, compareList]);
+
     // Scroll to top when switching views on mobile (body is the scroll container)
     useEffect(() => {
         if (typeof window !== 'undefined' && window.innerWidth < 769) {
@@ -303,14 +332,23 @@ Be concise and premium.`;
 
     const toggleCompare = (steel, e) => {
         if (e) e.stopPropagation();
+        let newList;
         if (compareList.find(i => i.id === steel.id)) {
-            setCompareList(compareList.filter(i => i.id !== steel.id));
+            newList = compareList.filter(i => i.id !== steel.id);
         } else if (compareList.length < 4) {
-            setCompareList([...compareList, steel]);
+            newList = [...compareList, steel];
+        } else {
+            return;
         }
+        setCompareList(newList);
     };
 
-    const clearCompare = () => setCompareList([]);
+    const clearCompare = () => {
+        setCompareList([]);
+        if (view === 'COMPARE') {
+            navigate({ compareSteels: null }, true);
+        }
+    };
 
     // Filter knives based on search query AND grade library filters (producer, alloy content)
     const filteredKnives = useMemo(() => {
