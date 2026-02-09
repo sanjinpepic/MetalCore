@@ -797,6 +797,28 @@ export const PREMIUM_STEELS = [
         use_case: "Marine environments and hard-use EDC where corrosion is a major factor."
     },
 
+    // --- YOSHIKIN ---
+    {
+        id: 'others-4', name: "CROMOVA 18", producer: "Yoshikin", C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
+        ht_curve: "150:58,200:57,300:55",
+        desc: "Proprietary steel used by Global Knives. Balanced for professional kitchen use.",
+        knives: ["Global G-2 Chef Knife"],
+        pros: ["Extreme rust resistance", "Very easy to hone", "Durable handle integration"],
+        cons: ["Relatively soft edge"],
+        use_case: "High-volume professional kitchens."
+    },
+
+    // --- ZAPP ---
+    {
+        id: 'zapp-1', name: "LC200N / Cronidur 30", producer: "Zapp", C: 0.3, Cr: 15.0, V: 0, Mo: 0.95, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 10, sharpen: 7,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "A nitrogen-based alloy that is virtually rust-proof. Used by NASA for ball bearings and by Spyderco for sea knives.",
+        knives: ["Spyderco SpydieChef", "Spyderco Salt 2 (LC200N)", "Quiet Carry Waypoint"],
+        pros: ["Total rust immunity", "Incredible toughness", "Takes a very fine edge"],
+        cons: ["Average edge retention", "Not as hard as high-carbon alloys"],
+        use_case: "Salt-water environments, food prep, and sweat-heavy carry."
+    },
+
     // --- VARIOUS ---
     {
         id: 'carbon-4', name: "1075", producer: "Various", C: 0.75, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 4, toughness: 9.5, corrosion: 1, sharpen: 9.5,
@@ -1012,27 +1034,5 @@ export const PREMIUM_STEELS = [
         pros: ["Excellent balance of toughness and wear resistance", "Better edge retention than Cru-Wear"],
         cons: ["Non-stainless", "Limited availability"],
         use_case: "Hard-use EDC and fixed blades where both toughness and edge life matter."
-    },
-
-    // --- YOSHIKIN ---
-    {
-        id: 'others-4', name: "CROMOVA 18", producer: "Yoshikin", C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
-        ht_curve: "150:58,200:57,300:55",
-        desc: "Proprietary steel used by Global Knives. Balanced for professional kitchen use.",
-        knives: ["Global G-2 Chef Knife"],
-        pros: ["Extreme rust resistance", "Very easy to hone", "Durable handle integration"],
-        cons: ["Relatively soft edge"],
-        use_case: "High-volume professional kitchens."
-    },
-
-    // --- ZAPP ---
-    {
-        id: 'zapp-1', name: "LC200N / Cronidur 30", producer: "Zapp", C: 0.3, Cr: 15.0, V: 0, Mo: 0.95, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 10, sharpen: 7,
-        ht_curve: "150:58,200:57,250:56",
-        desc: "A nitrogen-based alloy that is virtually rust-proof. Used by NASA for ball bearings and by Spyderco for sea knives.",
-        knives: ["Spyderco SpydieChef", "Spyderco Salt 2 (LC200N)", "Quiet Carry Waypoint"],
-        pros: ["Total rust immunity", "Incredible toughness", "Takes a very fine edge"],
-        cons: ["Average edge retention", "Not as hard as high-carbon alloys"],
-        use_case: "Salt-water environments, food prep, and sweat-heavy carry."
     }
 ];
