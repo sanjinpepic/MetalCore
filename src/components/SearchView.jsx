@@ -75,9 +75,9 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                                                 </svg>
                                             </div>
                                         </div>
-                                        <div className="grid grid-cols-3 gap-2 md:gap-3">
+                                        <div className="grid grid-cols-3 gap-px bg-white/5 rounded-xl overflow-hidden group-hover:bg-accent/10 transition-colors">
                                             {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
-                                                <div key={el} className="bg-black/40 rounded-xl p-3 text-center border border-white/5 group-hover:border-accent/10 transition-colors">
+                                                <div key={el} className="bg-black/90 p-3 text-center">
                                                     <div className="text-[9px] text-slate-500 uppercase font-black mb-1.5">{el}</div>
                                                     <div className="text-xs md:text-sm font-mono font-bold text-slate-300">{s[el] || 0}</div>
                                                 </div>
