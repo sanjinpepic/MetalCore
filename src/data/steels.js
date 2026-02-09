@@ -819,7 +819,7 @@ export const PREMIUM_STEELS = [
         use_case: "Salt-water environments, food prep, and sweat-heavy carry."
     },
     {
-        id: 'zapp-2', name: "Z-Wear PM", producer: "Various",
+        id: 'zapp-2', name: "Z-Wear PM", producer: "Zapp",
         C: 1.10, Cr: 7.5, V: 5.0, Mo: 1.6, W: 1.15, Co: 0,
         edge: 8, toughness: 7.5, corrosion: 3, sharpen: 4,
         ht_curve: "200:61,500:63,600:60",
@@ -830,7 +830,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use EDC and fixed blades where both toughness and edge life matter."
     },
     {
-        id: 'zapp-3', name: "Z-Tuff PM", producer: "Various",
+        id: 'zapp-3', name: "Z-Tuff PM", producer: "Zapp",
         C: 0.55, Cr: 8.0, V: 1.0, Mo: 2.0, W: 0, Co: 0,
         edge: 4, toughness: 10, corrosion: 3, sharpen: 7,
         ht_curve: "200:56,500:58,600:55",
