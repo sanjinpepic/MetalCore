@@ -46,12 +46,15 @@ model Glossary {
   id          Int      @id @default(autoincrement())
   term        String
   def         String
+  category    String   @default("")
+  level       String   @default("")
 }
 
 model FAQ {
   id          Int      @id @default(autoincrement())
   q           String
   a           String
+  category    String   @default("")
 }
 
 model Producer {

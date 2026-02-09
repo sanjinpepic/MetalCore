@@ -117,12 +117,12 @@ async function main() {
 
     console.log('Seeding Glossary...');
     for (const g of GLOSSARY) {
-        await pool.query('INSERT INTO "Glossary" (term, def) VALUES ($1, $2)', [g.term, g.def]);
+        await pool.query('INSERT INTO "Glossary" (term, def, category, level) VALUES ($1, $2, $3, $4)', [g.term, g.def, g.category || '', g.level || '']);
     }
 
     console.log('Seeding FAQ...');
     for (const f of FAQ) {
-        await pool.query('INSERT INTO "FAQ" (q, a) VALUES ($1, $2)', [f.q, f.a]);
+        await pool.query('INSERT INTO "FAQ" (q, a, category) VALUES ($1, $2, $3)', [f.q, f.a, f.category || '']);
     }
 
     console.log('Seeding Producers...');
