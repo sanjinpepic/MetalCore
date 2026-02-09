@@ -2,11 +2,14 @@
 
 import React, { useState, useMemo } from 'react';
 import { useUser } from '../context/UserContext';
+import { useSettings } from '../context/SettingsContext';
+import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 import Footer from './Footer';
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip, LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, AreaChart, Area } from 'recharts';
 
 const ProLabView = ({ steels }) => {
     const { myKnives } = useUser();
+    const { unitSystem } = useSettings();
     const [simSteel, setSimSteel] = useState(steels[0]);
     const [temperTemp, setTemperTemp] = useState(200); // Standard tempering temp in Celsius
     const [showIndustryStandard, setShowIndustryStandard] = useState(false);
@@ -52,24 +55,30 @@ const ProLabView = ({ steels }) => {
     // 2. Heat Treat Simulator Logic
     const simData = useMemo(() => {
         if (!simSteel || !simSteel.ht_curve) {
-            // Fallback generated curve if data is missing
-            return [
-                { temp: 300, hrc: 62 },
-                { temp: 400, hrc: 61 },
-                { temp: 500, hrc: 59 },
-                { temp: 600, hrc: 56 },
-                { temp: 700, hrc: 52 },
-                { temp: 800, hrc: 45 },
+            // Fallback generated curve if data is missing (in Celsius)
+            const fallbackCelsius = [
+                { temp: 150, hrc: 62 },
+                { temp: 200, hrc: 61 },
+                { temp: 300, hrc: 59 },
+                { temp: 400, hrc: 56 },
+                { temp: 500, hrc: 52 },
+                { temp: 600, hrc: 45 },
             ];
+            return fallbackCelsius.map(point => ({
+                temp: convertTemperature(point.temp, unitSystem),
+                hrc: point.hrc
+            }));
         }
 
+        // ht_curve data is stored in Celsius, convert based on user preference
         return simSteel.ht_curve.split(',').map(pair => {
-            const [t, h] = pair.split(':');
-            const fTemp = parseInt(t);
-            const cTemp = Math.round((fTemp - 32) * 5 / 9);
-            return { temp: cTemp, hrc: parseFloat(h) };
+            const [tempCelsius, h] = pair.split(':');
+            return {
+                temp: convertTemperature(parseInt(tempCelsius), unitSystem),
+                hrc: parseFloat(h)
+            };
         }).sort((a, b) => a.temp - b.temp);
-    }, [simSteel]);
+    }, [simSteel, unitSystem]);
 
     // Derived simulation value based on slider
     const currentHrc = useMemo(() => {
@@ -110,7 +119,7 @@ const ProLabView = ({ steels }) => {
                     PRO LAB <span className="text-accent underline underline-offset-8 decoration-4">BETA</span>
                 </h1>
                 <p className="mt-6 text-slate-400 max-w-2xl text-sm md:text-base leading-relaxed">
-                    Welcome to the Pro Research Laboratory. Use these advanced simulators to analyze your collection's chemical DNA and predict heat-treat outcomes in Celsius.
+                    Welcome to the Pro Research Laboratory. Use these advanced simulators to analyze your collection's chemical DNA and predict heat-treat outcomes.
                 </p>
             </header>
 
@@ -212,7 +221,7 @@ const ProLabView = ({ steels }) => {
                                         type="number"
                                         domain={['auto', 'auto']}
                                         tick={{ fill: '#475569', fontSize: 10, fontWeight: 'bold' }}
-                                        label={{ value: 'Temper Temp (°C)', position: 'insideBottom', offset: -5, fill: '#475569', fontSize: 9, fontWeight: 'bold' }}
+                                        label={{ value: `Temper Temp (${getTemperatureUnit(unitSystem)})`, position: 'insideBottom', offset: -5, fill: '#475569', fontSize: 9, fontWeight: 'bold' }}
                                     />
                                     <YAxis
                                         domain={[40, 70]}
@@ -232,7 +241,7 @@ const ProLabView = ({ steels }) => {
                         <div className="mt-8 space-y-6">
                             <div className="flex justify-between items-center px-2">
                                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Adjust Tempering Temperature</span>
-                                <span className="text-sm font-black text-white italic">{temperTemp}°C</span>
+                                <span className="text-sm font-black text-white italic">{temperTemp}{getTemperatureUnit(unitSystem)}</span>
                             </div>
                             <input
                                 type="range"

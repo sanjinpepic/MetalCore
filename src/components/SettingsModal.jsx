@@ -1,5 +1,9 @@
 import React from 'react';
+import { useSettings } from '../context/SettingsContext';
+
 const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
+    const { unitSystem, setUnitSystem } = useSettings();
+
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={onClose}>
             <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
@@ -22,6 +26,35 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                 </div>
 
                 <div className="space-y-6">
+                    <div className="space-y-3">
+                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Unit System</label>
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                onClick={() => setUnitSystem('metric')}
+                                className={`p-4 rounded-xl text-xs md:text-sm font-black uppercase tracking-wider transition-all ${
+                                    unitSystem === 'metric'
+                                        ? 'bg-accent text-black shadow-lg shadow-accent/20 border border-accent'
+                                        : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
+                                }`}
+                            >
+                                Metric (°C)
+                            </button>
+                            <button
+                                onClick={() => setUnitSystem('imperial')}
+                                className={`p-4 rounded-xl text-xs md:text-sm font-black uppercase tracking-wider transition-all ${
+                                    unitSystem === 'imperial'
+                                        ? 'bg-accent text-black shadow-lg shadow-accent/20 border border-accent'
+                                        : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
+                                }`}
+                            >
+                                Imperial (°F)
+                            </button>
+                        </div>
+                        <p className="text-[9px] md:text-[10px] text-slate-500 leading-relaxed italic font-medium">
+                            Choose your preferred temperature unit for heat treatment data.
+                        </p>
+                    </div>
+
                     <div className="space-y-3">
                         <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">AI API Key</label>
                         <input

@@ -1,9 +1,13 @@
 import React, { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useSettings } from '../context/SettingsContext';
+import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 
 const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'], containerClass = "h-[300px] md:h-[400px]", compact = false, noContainer = false, noTitle = false }) => {
+    const { unitSystem } = useSettings();
+
     // Transform data for Heat Treatment Line Chart
-    // ht_curve format: "300:60,400:58,500:56" (Temp:HRC)
+    // ht_curve format: "300:60,400:58,500:56" (Temp in Celsius:HRC)
     const lineData = useMemo(() => {
         if (!items || items.length === 0) return [];
 
@@ -19,12 +23,13 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
 
         if (allTemps.size === 0) return [];
 
-        return Array.from(allTemps).sort((a, b) => a - b).map(t => {
-            const cTemp = Math.round((t - 32) * 5 / 9);
-            const entry = { temp: cTemp };
+        return Array.from(allTemps).sort((a, b) => a - b).map(tempCelsius => {
+            // Convert temperature based on user preference
+            const displayTemp = convertTemperature(tempCelsius, unitSystem);
+            const entry = { temp: displayTemp };
             items.forEach(s => {
                 if (s.ht_curve) {
-                    const point = s.ht_curve.split(',').find(p => parseFloat(p.split(':')[0]) === t);
+                    const point = s.ht_curve.split(',').find(p => parseFloat(p.split(':')[0]) === tempCelsius);
                     if (point) {
                         entry[s.id] = parseFloat(point.split(':')[1]);
                     }
@@ -32,7 +37,7 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
             });
             return entry;
         });
-    }, [items]);
+    }, [items, unitSystem]);
 
     if (lineData.length === 0) return null;
 
@@ -56,7 +61,7 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
                             fontSize={11}
                             fontWeight="bold"
                             tick={{ fill: '#94a3b8' }}
-                            label={{ value: 'Tempering Temp (°C)', position: 'bottom', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dy: 5 }}
+                            label={{ value: `Tempering Temp (${getTemperatureUnit(unitSystem)})`, position: 'bottom', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dy: 5 }}
                         />
                         <YAxis
                             domain={['auto', 'auto']}

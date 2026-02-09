@@ -21,6 +21,7 @@ import ImportModal from '../src/components/ImportModal.jsx';
 import SteelRecommender from '../src/components/SteelRecommender.jsx';
 import { UserProvider } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
+import { SettingsProvider } from '../src/context/SettingsContext.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 import CommandPalette from '../src/components/CommandPalette.jsx';
 import { hapticFeedback } from '../src/hooks/useMobile';
@@ -32,18 +33,20 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
     return (
-        <UserProvider>
-            <NavigationProvider>
-                <AppContent
-                    initialSteels={initialSteels}
-                    initialKnives={initialKnives}
-                    initialGlossary={initialGlossary}
-                    initialFaq={initialFaq}
-                    initialProducers={initialProducers}
-                    dbError={dbError}
-                />
-            </NavigationProvider>
-        </UserProvider>
+        <SettingsProvider>
+            <UserProvider>
+                <NavigationProvider>
+                    <AppContent
+                        initialSteels={initialSteels}
+                        initialKnives={initialKnives}
+                        initialGlossary={initialGlossary}
+                        initialFaq={initialFaq}
+                        initialProducers={initialProducers}
+                        dbError={dbError}
+                    />
+                </NavigationProvider>
+            </UserProvider>
+        </SettingsProvider>
     );
 }
 
