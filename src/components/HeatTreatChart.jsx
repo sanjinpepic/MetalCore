@@ -97,7 +97,7 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
     if (noContainer) return chartContent;
 
     return (
-        <div className={`glass-panel rounded-[2.5rem] border-white/10 bg-black/40 shadow-2xl ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
+        <div className={`glass-gradient rounded-[2.5rem] shadow-2xl ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
             {chartContent}
         </div>
     );

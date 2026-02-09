@@ -6,7 +6,7 @@ const SettingsModal = ({ onClose }) => {
 
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={onClose}>
-            <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
+            <div className="glass-strong w-full md:max-w-lg p-8 rounded-[2rem] shadow-2xl relative" onClick={e => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-8">
                     <div className="flex items-center gap-2.5">
                         <div className="p-1.5 bg-white/5 rounded-lg">
@@ -55,7 +55,7 @@ const SettingsModal = ({ onClose }) => {
                         </p>
                     </div>
 
-                    <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Save Settings</button>
+                    <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all duration-300 shadow-lg shadow-white/10 active:scale-[0.98]">Save Settings</button>
                 </div>
             </div>
         </div>

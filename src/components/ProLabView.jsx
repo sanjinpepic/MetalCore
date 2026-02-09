@@ -126,7 +126,7 @@ const ProLabView = ({ steels }) => {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 pb-32">
 
                     {/* 1. Collection Fingerprint Card */}
-                    <div className="glass-panel p-8 rounded-[2.5rem] border-white/10 bg-black/40 flex flex-col h-[550px]">
+                    <div className="glass-gradient p-8 rounded-[2.5rem] shadow-2xl flex flex-col h-[550px]">
                         <div className="flex justify-between items-start mb-8">
                             <div>
                                 <h3 className="text-xl font-black text-white italic uppercase tracking-tight text-glow">Collection Fingerprint</h3>
@@ -189,7 +189,7 @@ const ProLabView = ({ steels }) => {
                     </div>
 
                     {/* 2. Heat Treat Simulator Card */}
-                    <div className="glass-panel p-8 rounded-[2.5rem] border-white/10 bg-black/40 flex flex-col h-[550px]">
+                    <div className="glass-accent p-8 rounded-[2.5rem] shadow-2xl flex flex-col h-[550px]">
                         <div className="flex justify-between items-start mb-6">
                             <div>
                                 <h3 className="text-xl font-black text-white italic uppercase tracking-tight text-glow">Phase Simulation</h3>
@@ -265,7 +265,7 @@ const ProLabView = ({ steels }) => {
                     </div>
 
                     {/* 3. Recommendation Engine Card */}
-                    <div className="glass-panel p-10 rounded-[2.5rem] border-white/10 bg-gradient-to-br from-indigo-500/10 to-transparent border-indigo-500/20 col-span-1 xl:col-span-2 flex flex-col items-center text-center">
+                    <div className="glass-indigo p-10 rounded-[2.5rem] shadow-2xl col-span-1 xl:col-span-2 flex flex-col items-center text-center">
                         <div className="p-4 bg-indigo-500/20 rounded-full text-indigo-400 border border-indigo-500/30 mb-6">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />

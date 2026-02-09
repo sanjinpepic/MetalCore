@@ -76,7 +76,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                             ))}
                         </div>
 
-                        <div className="p-4 bg-white/5 border border-white/5 rounded-2xl">
+                        <div className="p-4 bg-white/5 border border-white/5 rounded-xl">
                             <div className="text-sm font-black text-white uppercase tracking-widest mb-4 flex items-center gap-3 italic">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -89,7 +89,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                         </div>
 
                         {steel.knives && steel.knives.length > 0 && (
-                            <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40">
+                            <div className="glass-panel p-5 rounded-2xl">
                                 <h4 className="text-sm font-black text-white uppercase tracking-widest mb-4 flex items-center gap-3 italic">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-blue-400">
                                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -115,7 +115,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                     </div>
 
                     {/* Column 2: Performance Profile */}
-                    <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40 h-full">
+                    <div className="glass-gradient p-5 rounded-2xl h-full">
                         <h4 className="text-sm font-black text-white uppercase tracking-widest mb-6 flex items-center gap-3 italic">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
@@ -156,7 +156,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
 
                     {/* Column 3: Technical Lab & Shop */}
                     <div className="space-y-6">
-                        <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40">
+                        <div className="glass-accent p-5 rounded-2xl">
                             <h4 className="text-sm font-black text-white uppercase tracking-widest mb-4 flex items-center gap-3 italic">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
@@ -166,7 +166,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                             <HeatTreatChart items={[steel]} containerClass="h-[220px]" compact={true} noContainer={true} noTitle={true} />
                         </div>
 
-                        <div className="glass-panel p-5 rounded-[1.5rem] border-white/10 bg-black/40">
+                        <div className="glass-gradient p-5 rounded-2xl">
                             <h4 className="text-sm font-black text-white uppercase tracking-widest mb-5 flex items-center gap-3 italic">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                                     <polygon points="12 2 2 7 12 12 22 7 12 2" />
