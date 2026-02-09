@@ -818,7 +818,6 @@ export const PREMIUM_STEELS = [
         cons: ["Average edge retention", "Not as hard as high-carbon alloys"],
         use_case: "Salt-water environments, food prep, and sweat-heavy carry."
     },
-    ,
     {
         id: 'zapp-2', name: "Z-Wear PM", producer: "Various",
         C: 1.10, Cr: 7.5, V: 5.0, Mo: 1.6, W: 1.15, Co: 0,
