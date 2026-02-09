@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSettings } from '../context/SettingsContext';
 
-const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
+const SettingsModal = ({ onClose }) => {
     const { unitSystem, setUnitSystem } = useSettings();
 
     return (
@@ -55,40 +55,7 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                         </p>
                     </div>
 
-                    <div className="space-y-3">
-                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">AI API Key</label>
-                        <input
-                            type="password"
-                            placeholder="Paste your API key here..."
-                            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs md:text-sm text-white outline-none focus:border-accent/50 transition-all font-mono shadow-xl"
-                            value={apiKey}
-                            onChange={e => {
-                                setApiKey(e.target.value);
-                                localStorage.setItem('metalcore_gemini_key', e.target.value);
-                            }}
-                        />
-                        <p className="text-[9px] md:text-[10px] text-slate-500 leading-relaxed italic font-medium">
-                            Paste your preferred API key here.
-                        </p>
-                    </div>
-
-                    <div className="space-y-3">
-                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Model Selection</label>
-                        <select
-                            value={aiModel}
-                            onChange={e => {
-                                setAiModel(e.target.value);
-                                localStorage.setItem('metalcore_gemini_model', e.target.value);
-                            }}
-                            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs md:text-sm text-white outline-none focus:border-accent/50 transition-all shadow-xl appearance-none"
-                        >
-                            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                            <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
-                            <option value="gemini-3-pro-preview">Gemini 3 Pro Preview</option>
-                        </select>
-                    </div>
-
-                    <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Save & Initialize</button>
+                    <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Save Settings</button>
                 </div>
             </div>
         </div>
