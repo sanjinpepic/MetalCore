@@ -7,15 +7,16 @@ import { hapticFeedback } from '../hooks/useMobile';
 const SIDEBAR_WIDTH = 288; // w-72 = 18rem = 288px
 
 // Gradient tint colors that match each view's theme
+// Opacity matches the views' /10 (10%), fades at ~40% to align with header gradient spread
 const VIEW_GRADIENTS = {
-    HOME:      { from: 'rgba(16,185,129,0.12)', to: 'transparent' },   // emerald
-    SEARCH:    { from: 'rgba(245,158,11,0.12)', to: 'transparent' },    // amber
-    MATRIX:    { from: 'rgba(244,63,94,0.12)', to: 'transparent' },     // rose
-    KNIVES:    { from: 'rgba(14,165,233,0.12)', to: 'transparent' },    // sky
-    EDUCATION: { from: 'rgba(99,102,241,0.12)', to: 'transparent' },    // indigo
-    PROFILE:   { from: 'rgba(139,92,246,0.12)', to: 'transparent' },    // violet
-    COMPARE:   { from: 'rgba(148,163,184,0.08)', to: 'transparent' },   // slate
-    PRO_LAB:   { from: 'rgba(245,158,11,0.10)', to: 'transparent' },    // accent
+    HOME:      'rgba(16,185,129,0.10)',    // emerald  – matches from-emerald-500/10
+    SEARCH:    'rgba(245,158,11,0.10)',     // amber    – matches from-amber-500/10
+    MATRIX:    'rgba(244,63,94,0.10)',      // rose     – matches from-rose-500/10
+    KNIVES:    'rgba(14,165,233,0.10)',     // sky      – matches from-sky-500/10
+    EDUCATION: 'rgba(99,102,241,0.10)',     // indigo   – matches from-indigo-500/10
+    PROFILE:   'rgba(139,92,246,0.10)',     // violet   – matches from-violet-500/10
+    COMPARE:   'rgba(148,163,184,0.06)',    // slate
+    PRO_LAB:   'rgba(245,158,11,0.08)',     // accent
 };
 
 const Sidebar = ({
@@ -94,6 +95,20 @@ const Sidebar = ({
             mass: 0.5,
         });
     }, [mobileMenuOpen, sidebarX]);
+
+    // Reset sidebar position when crossing mobile/desktop breakpoint
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                sidebarX.set(0);
+            } else if (!mobileMenuOpen) {
+                sidebarX.set(-SIDEBAR_WIDTH);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [sidebarX, mobileMenuOpen]);
 
     // Unified swipe gesture handler: sidebar (right swipe) + AI panel (left swipe)
     useEffect(() => {
@@ -323,13 +338,13 @@ const Sidebar = ({
                 <AnimatePresence>
                     <motion.div
                         key={view}
-                        className="absolute inset-0 pointer-events-none z-0"
+                        className="absolute inset-0 pointer-events-none z-0 hidden md:block"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
                         style={{
-                            background: `linear-gradient(to bottom, ${(VIEW_GRADIENTS[view] || VIEW_GRADIENTS.HOME).from}, ${(VIEW_GRADIENTS[view] || VIEW_GRADIENTS.HOME).to})`,
+                            background: `linear-gradient(to bottom, ${VIEW_GRADIENTS[view] || VIEW_GRADIENTS.HOME} 0%, transparent 500px)`,
                         }}
                     />
                 </AnimatePresence>

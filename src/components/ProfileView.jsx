@@ -35,8 +35,10 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
 
     return (
         <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar">
+            {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
+            <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-violet-500/10 to-transparent pointer-events-none" />
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-3 md:space-y-6 shrink-0 bg-gradient-to-b from-violet-500/10 to-transparent relative overflow-hidden">
+            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-3 md:space-y-6 shrink-0 bg-gradient-to-b from-violet-500/10 to-transparent md:bg-none relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none mix-blend-overlay"></div>
 
                 <div className="relative z-10">
