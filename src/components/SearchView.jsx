@@ -44,7 +44,11 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             </div>
 
             <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
-                {Object.entries(groupedSteels).map(([producer, steels]) => (
+                {Object.entries(groupedSteels).sort(([a], [b]) => {
+                    if (a === 'Various') return 1;
+                    if (b === 'Various') return -1;
+                    return a.localeCompare(b);
+                }).map(([producer, steels]) => (
                     <section key={producer}>
                         <div className="sticky top-[3.75rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-black/80 backdrop-blur-xl">
                             <div className="flex items-center gap-3">
