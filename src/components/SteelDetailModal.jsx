@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
 import EdgeRetentionPredictor from './EdgeRetentionPredictor';
@@ -8,6 +8,17 @@ import BottomSheet from './BottomSheet';
 const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
     const { favoriteSteels, toggleFavorite } = useUser();
     const isFavorite = favoriteSteels.includes(steel.id);
+    const [copied, setCopied] = useState(false);
+
+    const shareSteel = useCallback(() => {
+        const url = `${window.location.origin}${window.location.pathname}?steel=${encodeURIComponent(steel.name)}`;
+        navigator.clipboard.writeText(url).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }).catch(() => {
+            prompt('Copy this link:', url);
+        });
+    }, [steel.name]);
 
     return (
         <BottomSheet isOpen={!!steel} onClose={onClose}>
@@ -35,6 +46,22 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                         <path d="m12 17.75-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
                                     </svg>
+                                </button>
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); shareSteel(); }}
+                                    className="p-2 rounded-xl border border-white/10 transition-all flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-slate-500 hover:text-accent"
+                                >
+                                    {copied ? (
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-green-400 shrink-0">
+                                            <path d="M20 6 9 17l-5-5" />
+                                        </svg>
+                                    ) : (
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                                            <polyline points="16 6 12 2 8 6" />
+                                            <line x1="12" y1="2" x2="12" y2="15" />
+                                        </svg>
+                                    )}
                                 </button>
                             </div>
                             <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-medium italic mb-6">"{steel.desc}"</p>

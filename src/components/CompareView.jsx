@@ -67,26 +67,6 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
                 <div className="flex items-center gap-3">
                     <button
-                        onClick={generateReport}
-                        disabled={isAiLoading}
-                        className="group flex items-center gap-2.5 px-6 md:px-7 py-3 md:py-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 text-white rounded-xl md:rounded-2xl font-black transition-all shadow-lg text-xs md:text-sm relative overflow-hidden"
-                    >
-                        {isAiLoading ? (
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        ) : (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="hidden xs:block">
-                                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                            </svg>
-                        )}
-                        <span className="hidden sm:inline">Generate Analytical Report</span>
-                        <span className="sm:hidden uppercase tracking-widest text-[10px]">AI Report</span>
-
-                        <div className="absolute top-0 right-0 py-0.5 px-2 bg-accent text-black text-[8px] font-black uppercase tracking-tighter">
-                            PRO
-                        </div>
-                    </button>
-
-                    <button
                         onClick={shareComparison}
                         className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-slate-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all"
                         title="Share Comparison"
