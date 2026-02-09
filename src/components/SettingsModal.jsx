@@ -23,7 +23,7 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
 
                 <div className="space-y-6">
                     <div className="space-y-3">
-                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Gemini API Key</label>
+                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">AI API Key</label>
                         <input
                             type="password"
                             placeholder="Paste your API key here..."
@@ -35,7 +35,7 @@ const SettingsModal = ({ apiKey, setApiKey, aiModel, setAiModel, onClose }) => {
                             }}
                         />
                         <p className="text-[9px] md:text-[10px] text-slate-500 leading-relaxed italic font-medium">
-                            Get a free API key from the <a href="https://aistudio.google.com/app/apikey" target="_blank" className="text-accent underline hover:text-white transition-colors">Google AI Studio</a>. Keys are stored safely in local storage.
+                            Paste your preferred API key here.
                         </p>
                     </div>
 

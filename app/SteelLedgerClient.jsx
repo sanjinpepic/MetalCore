@@ -75,6 +75,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
     const [aiChat, setAiChat] = useState([]);
     const [aiModel, setAiModel] = useState("gemini-1.5-flash");
     const [showSettings, setShowSettings] = useState(false);
+    const [showAiComingSoon, setShowAiComingSoon] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
     const [showRecommender, setShowRecommender] = useState(false);
     const [trendingScores, setTrendingScores] = useState({});
@@ -207,7 +208,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
 
     const askAi = async (query = aiQuery) => {
         if (!apiKey) {
-            setShowSettings(true);
+            setShowAiComingSoon(true);
             return;
         }
         if (!query.trim()) return;
@@ -255,7 +256,7 @@ Be concise and premium.`;
     };
 
     const generateReport = async () => {
-        if (!apiKey) { setShowSettings(true); return; }
+        if (!apiKey) { setShowAiComingSoon(true); return; }
         if (compareList.length === 0) return;
 
         setIsAiLoading(true);
@@ -445,7 +446,7 @@ Be concise and premium.`;
 
     const handleCommandAction = useCallback((actionId) => {
         if (actionId === 'ai') setAiOpen(true);
-        else if (actionId === 'settings') setShowSettings(true);
+        else if (actionId === 'settings') setShowAiComingSoon(true);
     }, []);
 
     return (
@@ -653,15 +654,41 @@ Be concise and premium.`;
                 askAi={askAi}
             />
 
-            {/* Settings Modal */}
-            {showSettings && (
-                <SettingsModal
-                    apiKey={apiKey}
-                    setApiKey={setApiKey}
-                    aiModel={aiModel}
-                    setAiModel={setAiModel}
-                    onClose={() => setShowSettings(false)}
-                />
+            {/* AI Coming Soon Modal */}
+            {showAiComingSoon && (
+                <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={() => setShowAiComingSoon(false)}>
+                    <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
+                        <div className="flex justify-between items-center mb-8">
+                            <div className="flex items-center gap-2.5">
+                                <div className="p-1.5 bg-white/5 rounded-lg">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </div>
+                                <h3 className="font-display font-black text-white uppercase tracking-tighter italic text-sm md:text-base">AI Assistant</h3>
+                            </div>
+                            <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-slate-500 transition-all">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="flex flex-col items-center text-center py-4 space-y-4">
+                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                            <h4 className="font-display font-black text-white uppercase tracking-tighter italic text-base md:text-lg">AI Model Still Being Forged</h4>
+                            <p className="text-[10px] md:text-xs text-slate-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
+                        </div>
+
+                        <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Got It</button>
+                    </div>
+                </div>
             )}
 
             {/* Steel Recommender Wizard */}
