@@ -183,7 +183,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                         key={cat.id}
                                         onClick={() => setActiveCategory(cat.id)}
                                         className={`px-5 py-2.5 rounded-2xl text-xs font-black uppercase italic tracking-wider transition-all shrink-0 ${activeCategory === cat.id
-                                            ? 'bg-accent text-black scale-105 shadow-lg shadow-accent/20'
+                                            ? 'bg-indigo-500 text-black shadow-lg shadow-indigo-500/20'
                                             : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10 border border-white/5'
                                         }`}
                                     >
