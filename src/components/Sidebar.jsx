@@ -83,7 +83,7 @@ const Sidebar = ({
         });
     }, [mobileMenuOpen, sidebarX]);
 
-    // Edge swipe to open - listen for touches starting near left edge
+    // Unified swipe gesture handler: sidebar (right swipe) + AI panel (left swipe)
     useEffect(() => {
         if (typeof window === 'undefined' || window.innerWidth >= 768) return;
 
@@ -93,6 +93,20 @@ const Sidebar = ({
         let isVerticalScroll = false;
         let gestureDecided = false;
         let potentialSwipe = false;
+        let isAiSwipe = false; // true when handling an AI open or close swipe
+
+        // Check if touch target is inside a horizontally scrollable container
+        const isInHorizontalScroller = (target) => {
+            let el = target;
+            while (el && el !== document.body) {
+                const overflowX = window.getComputedStyle(el).overflowX;
+                if ((overflowX === 'auto' || overflowX === 'scroll') && el.scrollWidth > el.clientWidth) {
+                    return true;
+                }
+                el = el.parentElement;
+            }
+            return false;
+        };
 
         const handleTouchStart = (e) => {
             const touch = e.touches[0];
@@ -101,19 +115,32 @@ const Sidebar = ({
             isVerticalScroll = false;
             gestureDecided = false;
             isOpenSwipe = false;
+            isAiSwipe = false;
 
-            if (!mobileMenuOpen) {
-                // Track as potential open-swipe from anywhere
+            if (!mobileMenuOpen && !aiOpen) {
+                // Nothing open — could swipe right (sidebar) or left (AI)
+                if (isInHorizontalScroller(e.target)) {
+                    potentialSwipe = false;
+                    return;
+                }
                 potentialSwipe = true;
                 hasTriggeredHaptic.current = false;
-            }
-            // Swipe to close: touching the backdrop or within sidebar
-            else if (mobileMenuOpen) {
+            } else if (mobileMenuOpen) {
+                // Sidebar open — handle close gesture (finger-following)
                 isDragging.current = true;
                 dragStartX.current = touch.clientX;
                 dragStartSidebarX.current = sidebarX.get();
                 hasTriggeredHaptic.current = false;
                 gestureDecided = true;
+            } else if (aiOpen) {
+                // AI panel open — potential right swipe to close
+                const tag = e.target.tagName;
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || isInHorizontalScroller(e.target)) {
+                    potentialSwipe = false;
+                    return;
+                }
+                potentialSwipe = true;
+                hasTriggeredHaptic.current = false;
             }
         };
 
@@ -122,20 +149,32 @@ const Sidebar = ({
             const deltaX = touch.clientX - touchStartX;
             const deltaY = touch.clientY - touchStartY;
 
-            // Decide gesture direction for potential open-swipe
+            // Decide gesture direction
             if (potentialSwipe && !gestureDecided) {
                 if (Math.abs(deltaX) > 12 || Math.abs(deltaY) > 12) {
                     gestureDecided = true;
 
-                    // Right swipe and more horizontal than vertical → sidebar open
-                    if (deltaX > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
-                        isOpenSwipe = true;
-                        isDragging.current = true;
-                        dragStartX.current = touch.clientX;
-                        dragStartSidebarX.current = sidebarX.get();
-                    } else {
-                        potentialSwipe = false;
-                        return;
+                    if (!mobileMenuOpen && !aiOpen) {
+                        // Nothing open — decide direction
+                        if (deltaX > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+                            // Right swipe → open sidebar (finger-following)
+                            isOpenSwipe = true;
+                            isDragging.current = true;
+                            dragStartX.current = touch.clientX;
+                            dragStartSidebarX.current = sidebarX.get();
+                        } else if (deltaX < -12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+                            // Left swipe → open AI
+                            isAiSwipe = true;
+                        } else {
+                            potentialSwipe = false;
+                        }
+                    } else if (aiOpen) {
+                        // AI open — right swipe to close
+                        if (deltaX > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+                            isAiSwipe = true;
+                        } else {
+                            potentialSwipe = false;
+                        }
                     }
                 }
                 return;
@@ -143,7 +182,7 @@ const Sidebar = ({
 
             if (!isDragging.current) return;
 
-            // Vertical scroll detection for close gestures
+            // Vertical scroll detection for sidebar close gestures
             if (!isOpenSwipe && !isVerticalScroll && Math.abs(deltaY) > Math.abs(touch.clientX - dragStartX.current) && Math.abs(deltaY) > 10) {
                 isVerticalScroll = true;
                 isDragging.current = false;
@@ -152,7 +191,7 @@ const Sidebar = ({
 
             if (isVerticalScroll) return;
 
-            // Calculate new sidebar position
+            // Calculate new sidebar position (finger-following)
             const dragDelta = touch.clientX - dragStartX.current;
             let newX = dragStartSidebarX.current + dragDelta;
             newX = Math.max(-SIDEBAR_WIDTH, Math.min(0, newX));
@@ -177,6 +216,25 @@ const Sidebar = ({
         const handleTouchEnd = (e) => {
             potentialSwipe = false;
 
+            // Handle AI panel swipes (open or close)
+            if (isAiSwipe) {
+                const touch = e.changedTouches[0];
+                const deltaX = touch.clientX - touchStartX;
+
+                if (!aiOpen && deltaX < -50) {
+                    // Left swipe with enough distance → open AI
+                    setAiOpen(true);
+                    hapticFeedback('medium');
+                } else if (aiOpen && deltaX > 50) {
+                    // Right swipe with enough distance → close AI
+                    setAiOpen(false);
+                    hapticFeedback('light');
+                }
+                isAiSwipe = false;
+                return;
+            }
+
+            // Handle sidebar swipes (open or close)
             if (!isDragging.current) return;
             isDragging.current = false;
 
@@ -224,7 +282,7 @@ const Sidebar = ({
             document.removeEventListener('touchmove', handleTouchMove);
             document.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [mobileMenuOpen, sidebarX, setMobileMenuOpen]);
+    }, [mobileMenuOpen, aiOpen, sidebarX, setMobileMenuOpen, setAiOpen]);
 
     const handleNavClick = (viewId) => {
         hapticFeedback('medium');
