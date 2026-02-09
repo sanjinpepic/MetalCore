@@ -23,7 +23,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         Grade Library
                     </div>
                     <h1 className="text-2xl md:text-6xl font-display font-black text-white tracking-tighter italic uppercase leading-none md:leading-tight">Alloy <br className="hidden md:block" /><span className="text-accent">Database</span></h1>
-                    <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">Comprehensive database of premium knife steels. Filter by alloy content or search by grade.</p>
+                    <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">Comprehensive database of premium knife & tool steels. Filter by alloy content or search by grade.</p>
                 </div>
             </header>
 
