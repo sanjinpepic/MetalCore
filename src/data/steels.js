@@ -15,7 +15,7 @@ export const PREMIUM_STEELS = [
         use_case: "Budget production knives and utility cutlery."
     },
     {
-        id: 'others-3', name: "AUS10A", producer: "Aichi", C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'aichi-2', name: "AUS10A", producer: "Aichi", C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "150:60,200:59,300:57",
         desc: "A high-carbon Japanese stainless steel that is a direct competitor to 440C and VG-10.",
         knives: ["Cold Steel AD15", "Cold Steel Recon 1 (Older)", "Demko AD20.5 (AUS10)"],
@@ -177,7 +177,7 @@ export const PREMIUM_STEELS = [
 
     // --- CARPENTER ---
     {
-        id: 'others-10', name: "420HC", producer: "Carpenter", C: 0.42, Cr: 13.5, V: 0.02, Mo: 0.3, W: 0, Co: 0, edge: 4, toughness: 7, corrosion: 8, sharpen: 9,
+        id: 'carpenter-10', name: "420HC", producer: "Carpenter", C: 0.42, Cr: 13.5, V: 0.02, Mo: 0.3, W: 0, Co: 0, edge: 4, toughness: 7, corrosion: 8, sharpen: 9,
         ht_curve: "150:56,200:55,250:54",
         desc: "Buck Knives signature steel — a high-carbon 420 stainless with proprietary heat treatment. The workhorse of American production knives for decades.",
         knives: ["Buck 119", "Buck 110", "Buck Bantam", "Buck Lites"],
@@ -404,7 +404,7 @@ export const PREMIUM_STEELS = [
 
     // --- DAMASTEEL ---
     {
-        id: 'others-2', name: "DS93X", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
+        id: 'damasteel-2', name: "DS93X", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "200:59,400:57,510:59",
         desc: "A combination of RWL34 and PMC27, this is the premier stainless Damascus steel in the world.",
         knives: ["Grimsmo Norseman (Damascus)", "Custom Grail Knives"],
@@ -413,7 +413,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end luxury and gallery-grade knives."
     },
     {
-        id: 'others-1', name: "RWL34", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'damasteel-1', name: "RWL34", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "200:59,400:57,510:59",
         desc: "Representing 'Rickard W. Le收ff', this is the powder metallurgy version of ATS-34. Famous for its purity and finishability.",
         knives: ["Grimsmo Norseman", "Custom European Folders"],
@@ -637,7 +637,7 @@ export const PREMIUM_STEELS = [
 
     // --- TAKEFU ---
     {
-        id: 'others-5', name: "Lam. CoS", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0, Co: 2.5, edge: 8, toughness: 6, corrosion: 8, sharpen: 5,
+        id: 'takefu-6', name: "Lam. CoS", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0, Co: 2.5, edge: 8, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "150:60,200:59,300:57",
         desc: "Laminated Cobalt Steel. Used primarily by Fallkniven for their high-end survival knives.",
         knives: ["Fallkniven F1 Pro", "Fallkniven A1 Pro"],
@@ -799,7 +799,7 @@ export const PREMIUM_STEELS = [
 
     // --- YOSHIKIN ---
     {
-        id: 'others-4', name: "CROMOVA 18", producer: "Yoshikin", C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
+        id: 'yoshikin-1', name: "CROMOVA 18", producer: "Yoshikin", C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
         ht_curve: "150:58,200:57,300:55",
         desc: "Proprietary steel used by Global Knives. Balanced for professional kitchen use.",
         knives: ["Global G-2 Chef Knife"],
