@@ -116,13 +116,13 @@ const EducationView = ({ glossary, faq, producers }) => {
                 {/* Mobile glossary category chips — own row below tabs */}
                 {activeTab === 'GLOSSARY' && !searchTerm && (
                     <div className="md:hidden px-4 overflow-x-auto no-scrollbar">
-                        <div className="flex gap-2">
+                        <div className="flex gap-1.5 py-1">
                             {GLOSSARY_CATEGORIES.map(cat => (
                                 <button
                                     key={cat.id}
                                     onClick={() => setActiveCategory(cat.id)}
-                                    className={`px-3 py-1.5 rounded-2xl text-[10px] font-black uppercase italic tracking-wider transition-all whitespace-nowrap shrink-0 ${activeCategory === cat.id
-                                        ? 'bg-indigo-500 text-black scale-105 shadow-lg shadow-indigo-500/20'
+                                    className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wide transition-all whitespace-nowrap shrink-0 ${activeCategory === cat.id
+                                        ? 'bg-indigo-500 text-black shadow-md shadow-indigo-500/20'
                                         : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'
                                     }`}
                                 >
@@ -195,21 +195,21 @@ const EducationView = ({ glossary, faq, producers }) => {
 
                         {/* Grouped Sections (ALL mode, no search) */}
                         {groupedGlossary ? (
-                            <div className="space-y-12">
+                            <div className="space-y-8 md:space-y-12">
                                 {GLOSSARY_CATEGORIES.filter(c => c.id !== 'ALL').map(cat => {
                                     const items = groupedGlossary[cat.id];
                                     if (!items || items.length === 0) return null;
                                     return (
                                         <section key={cat.id}>
-                                            <div className="sticky top-[8.5rem] md:top-[4.5rem] z-20 -mx-4 px-4 md:-mx-12 md:px-12 py-3 mb-3 bg-black/80 backdrop-blur-xl">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                                                    <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{cat.id}</h2>
+                                            <div className="sticky top-[8.5rem] md:top-[4.5rem] z-20 -mx-4 px-4 md:-mx-12 md:px-12 py-2 md:py-3 mb-2 md:mb-3 bg-black/90 backdrop-blur-xl">
+                                                <div className="flex items-center gap-2 md:gap-3">
+                                                    <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-accent"></div>
+                                                    <h2 className="text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-wider md:tracking-[0.2em] italic">{cat.id}</h2>
                                                     <div className="flex-1 h-px bg-white/5"></div>
-                                                    <span className="text-[10px] font-bold text-slate-600">{items.length} terms</span>
+                                                    <span className="text-[9px] md:text-[10px] font-bold text-slate-600">{items.length}</span>
                                                 </div>
                                             </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
                                                 {items.map((item, idx) => (
                                                     <GlossaryCard key={idx} item={item} />
                                                 ))}
@@ -220,7 +220,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                             </div>
                         ) : (
                             /* Filtered or searched view */
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
                                 {filteredGlossary.map((item, idx) => (
                                     <GlossaryCard key={idx} item={item} />
                                 ))}
@@ -312,15 +312,18 @@ const EducationView = ({ glossary, faq, producers }) => {
 const GlossaryCard = ({ item }) => {
     const level = LEVEL_COLORS[item.level] || LEVEL_COLORS['Beginner'];
     return (
-        <div className="glass-panel p-5 md:p-7 rounded-2xl md:rounded-[2rem] border-white/5 bg-gradient-to-br from-white/5 to-transparent hover:border-white/20 transition-all group">
-            <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="text-accent text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] opacity-60">{item.category}</div>
-                <span className={`text-[8px] md:text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border ${level.bg} ${level.text} ${level.border}`}>
+        <div className="glass-gradient p-4 md:p-7 rounded-xl md:rounded-[2rem] border-white/5 hover:border-white/20 transition-all group">
+            {/* Compact inline header: Term + Badge */}
+            <div className="flex items-baseline justify-between gap-2 mb-2">
+                <h3 className="text-sm md:text-lg font-display font-black text-white italic uppercase tracking-tighter group-hover:text-accent transition-colors leading-none flex-1">
+                    {item.term}
+                </h3>
+                <span className={`text-[8px] md:text-[9px] font-black uppercase tracking-wider px-1.5 md:px-2 py-0.5 rounded-md md:rounded-full border shrink-0 ${level.bg} ${level.text} ${level.border}`}>
                     {item.level}
                 </span>
             </div>
-            <h3 className="text-base md:text-lg font-display font-black text-white italic uppercase tracking-tighter mb-3 group-hover:text-accent transition-colors leading-tight">{item.term}</h3>
-            <p className="text-slate-400 text-xs md:text-sm leading-relaxed font-medium italic">"{item.def}"</p>
+            {/* Definition only */}
+            <p className="text-slate-400 text-[11px] md:text-sm leading-relaxed font-medium">"{item.def}"</p>
         </div>
     );
 };
