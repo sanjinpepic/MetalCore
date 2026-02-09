@@ -829,7 +829,6 @@ export const PREMIUM_STEELS = [
         cons: ["Non-stainless", "Limited availability"],
         use_case: "Hard-use EDC and fixed blades where both toughness and edge life matter."
     },
-    ,
     {
         id: 'zapp-3', name: "Z-Tuff PM", producer: "Various",
         C: 0.55, Cr: 8.0, V: 1.0, Mo: 2.0, W: 0, Co: 0,
