@@ -50,7 +50,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             {/* Category Filters & Search */}
             <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl">
                 {/* Mobile categories — plain block, NOT inside flex */}
-                <div className="md:hidden px-4 pt-4 pb-2 overflow-x-auto no-scrollbar">
+                <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
                         {categories.map(cat => (
                             <button
@@ -68,7 +68,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 </div>
 
                 {/* Desktop: categories + search row. Mobile: just search */}
-                <div className="px-4 md:px-12 pb-4 pt-2 md:py-4 flex justify-between items-center gap-4">
+                <div className="px-4 md:px-12 pb-3 pt-2 md:py-4 flex justify-between items-center gap-4">
                     <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar">
                         {categories.map(cat => (
                             <button

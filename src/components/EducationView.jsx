@@ -91,7 +91,7 @@ const EducationView = ({ glossary, faq, producers }) => {
             {/* Navigation Tabs & Search */}
             <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl">
                 {/* Mobile tabs — own row */}
-                <div className="md:hidden px-4 pt-4 pb-2 overflow-x-auto no-scrollbar">
+                <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
                         {[
                             { id: 'GLOSSARY', label: 'Glossary', icon: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z' },
@@ -115,7 +115,7 @@ const EducationView = ({ glossary, faq, producers }) => {
 
                 {/* Mobile glossary category chips — own row below tabs */}
                 {activeTab === 'GLOSSARY' && !searchTerm && (
-                    <div className="md:hidden px-4 pb-2 overflow-x-auto no-scrollbar">
+                    <div className="md:hidden px-4 overflow-x-auto no-scrollbar">
                         <div className="flex gap-2">
                             {GLOSSARY_CATEGORIES.map(cat => (
                                 <button
@@ -134,7 +134,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                 )}
 
                 {/* Desktop: tabs + search row. Mobile: just search */}
-                <div className="px-4 md:px-12 pb-4 pt-2 md:py-4 flex justify-between items-center gap-4">
+                <div className="px-4 md:px-12 pb-3 pt-2 md:py-4 flex justify-between items-center gap-4">
                     <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar">
                         {[
                             { id: 'GLOSSARY', label: 'Glossary', icon: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z' },

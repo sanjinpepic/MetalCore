@@ -28,7 +28,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             </header>
 
             {/* Search Bar */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl px-4 md:px-12 py-4 flex justify-end items-center">
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl px-4 md:px-12 py-3 md:py-4 flex justify-end items-center">
                 <div className="relative w-full md:w-64">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
                         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
