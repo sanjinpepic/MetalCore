@@ -89,7 +89,7 @@ const EducationView = ({ glossary, faq, producers }) => {
             </header>
 
             {/* Navigation Tabs & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5">
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl">
                 {/* Mobile tabs — own row */}
                 <div className="md:hidden px-4 pt-4 pb-2 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">

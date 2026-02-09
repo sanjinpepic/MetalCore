@@ -48,7 +48,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </header>
 
             {/* Category Filters & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl border-y border-white/5">
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl">
                 {/* Mobile categories — plain block, NOT inside flex */}
                 <div className="md:hidden px-4 pt-4 pb-2 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
