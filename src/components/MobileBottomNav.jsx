@@ -99,27 +99,13 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                     }}
                     className="overflow-hidden"
                 >
-                    <div className="grid grid-cols-4 gap-2 pt-2 pb-4 border-t border-white/5">
+                    <div className="grid grid-cols-2 gap-2 pt-2 pb-4 border-t border-white/5">
                         <button
                             onClick={() => { handleNavClick('COMPARE'); }}
                             className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300"
                         >
                             <CompareIcon className="w-5 h-5" />
                             <span className="text-xs font-medium">Compare</span>
-                        </button>
-                        <button
-                            onClick={() => { handleNavClick('PROFILE'); }}
-                            className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300"
-                        >
-                            <UserIcon className="w-5 h-5" />
-                            <span className="text-xs font-medium">Profile</span>
-                        </button>
-                        <button
-                            onClick={() => { handleNavClick('PRO_LAB'); }}
-                            className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300"
-                        >
-                            <FlaskIcon className="w-5 h-5" />
-                            <span className="text-xs font-medium">Pro Lab</span>
                         </button>
                         <button
                             onClick={() => {
