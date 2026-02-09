@@ -15,8 +15,8 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                         </div>
                         <h3 className="font-display font-black text-white uppercase tracking-tighter italic text-sm md:text-base">Ferry - AI Analyst</h3>
                     </div>
-                    <button onClick={() => setAiOpen(false)} className="p-2 hover:bg-white/5 bg-white/5 rounded-full text-slate-500 hover:text-white transition-all border border-white/5">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <button onClick={() => setAiOpen(false)} className="w-9 h-9 flex items-center justify-center hover:bg-white/5 bg-white/5 rounded-full text-slate-500 hover:text-white transition-all border border-white/5">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>

@@ -449,7 +449,7 @@ Be concise and premium.`;
 
     const handleCommandAction = useCallback((actionId) => {
         if (actionId === 'ai') setAiOpen(true);
-        else if (actionId === 'settings') setShowAiComingSoon(true);
+        else if (actionId === 'settings') setShowSettings(true);
     }, []);
 
     return (
@@ -713,6 +713,13 @@ Be concise and premium.`;
                     onClose={() => setShowImportModal(false)}
                     onManualImport={handleManualImport}
                     onFileUpload={handleFileUpload}
+                />
+            )}
+
+            {/* Settings Modal */}
+            {showSettings && (
+                <SettingsModal
+                    onClose={() => setShowSettings(false)}
                 />
             )}
 
