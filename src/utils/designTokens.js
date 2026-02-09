@@ -39,6 +39,9 @@ export const GLASS = {
   // Stronger glass (modals, overlays)
   strong: 'glass-panel bg-black/60 border border-white/10 backdrop-blur-3xl',
 
+  // Premium sidebar glass (enhanced transparency, lets gradients shine through)
+  sidebar: 'glass-sidebar bg-gradient-to-br from-white/[0.03] via-black/[0.35] to-black/40 border border-white/10 backdrop-blur-3xl backdrop-saturate-150',
+
   // Subtle glass (nested elements)
   subtle: 'bg-white/5 border border-white/5 backdrop-blur-sm'
 };

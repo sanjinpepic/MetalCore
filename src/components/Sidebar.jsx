@@ -1,10 +1,22 @@
 'use client'
 
 import React, { useRef, useEffect, useCallback } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, AnimatePresence } from 'framer-motion';
 import { hapticFeedback } from '../hooks/useMobile';
 
 const SIDEBAR_WIDTH = 288; // w-72 = 18rem = 288px
+
+// Gradient tint colors that match each view's theme
+const VIEW_GRADIENTS = {
+    HOME:      { from: 'rgba(16,185,129,0.12)', to: 'transparent' },   // emerald
+    SEARCH:    { from: 'rgba(245,158,11,0.12)', to: 'transparent' },    // amber
+    MATRIX:    { from: 'rgba(244,63,94,0.12)', to: 'transparent' },     // rose
+    KNIVES:    { from: 'rgba(14,165,233,0.12)', to: 'transparent' },    // sky
+    EDUCATION: { from: 'rgba(99,102,241,0.12)', to: 'transparent' },    // indigo
+    PROFILE:   { from: 'rgba(139,92,246,0.12)', to: 'transparent' },    // violet
+    COMPARE:   { from: 'rgba(148,163,184,0.08)', to: 'transparent' },   // slate
+    PRO_LAB:   { from: 'rgba(245,158,11,0.10)', to: 'transparent' },    // accent
+};
 
 const Sidebar = ({
     view,
@@ -300,14 +312,29 @@ const Sidebar = ({
                 initial={false}
             />
 
-            {/* Sidebar - finger-following on mobile, static on desktop */}
+            {/* Sidebar - fixed on both mobile and desktop for glass backdrop-filter to work */}
             <motion.aside
                 style={{
                     x: typeof window !== 'undefined' && window.innerWidth < 768 ? sidebarX : 0,
                 }}
-                className="fixed md:relative w-72 md:w-80 glass-panel border-r border-white/5 flex flex-col z-[80] md:z-10 h-full will-change-transform md:!transform-none"
+                className="glass-sidebar fixed left-0 top-0 w-72 md:w-80 flex flex-col z-[80] md:z-20 h-full overflow-hidden"
             >
-                <div className="p-6 md:p-8 pb-4 flex items-center justify-between shrink-0">
+                {/* View-themed gradient tint — cross-fades in sync with main content */}
+                <AnimatePresence>
+                    <motion.div
+                        key={view}
+                        className="absolute inset-0 pointer-events-none z-0"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{
+                            background: `linear-gradient(to bottom, ${(VIEW_GRADIENTS[view] || VIEW_GRADIENTS.HOME).from}, ${(VIEW_GRADIENTS[view] || VIEW_GRADIENTS.HOME).to})`,
+                        }}
+                    />
+                </AnimatePresence>
+
+                <div className="p-6 md:p-8 pb-4 flex items-center justify-between shrink-0 relative">
                     <div className="flex items-center gap-2 md:gap-3 text-accent font-display font-black text-lg md:text-xl tracking-tighter italic">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -332,7 +359,7 @@ const Sidebar = ({
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 py-2 custom-scrollbar no-scrollbar scroll-smooth">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 py-2 custom-scrollbar no-scrollbar scroll-smooth relative">
                     {/* Desktop Navigation - Hidden on Mobile */}
                     <div className="hidden md:flex flex-col gap-1.5 mt-4 md:mt-8">
                         {navItems.map(nav => (

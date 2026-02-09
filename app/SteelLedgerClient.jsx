@@ -454,6 +454,17 @@ Be concise and premium.`;
 
     return (
         <div className="flex app-shell font-sans bg-black relative">
+            {/* Full-page Background Gradients - Behind Everything */}
+            <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
+                <div className="absolute top-0 right-0 w-[1200px] h-[1200px] bg-accent/8 rounded-full blur-[250px] -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-indigo-500/8 rounded-full blur-[200px] translate-y-1/2 -translate-x-1/2" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[180px]" />
+                {/* Sidebar-area gradient - gives the glass sidebar something vibrant to blur */}
+                <div className="hidden md:block absolute top-0 left-0 w-[500px] h-[600px] bg-accent/20 rounded-full blur-[150px] -translate-x-1/4 -translate-y-1/4" />
+                <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[500px] bg-indigo-500/15 rounded-full blur-[130px] -translate-x-1/4 translate-y-1/4" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/20 via-slate-950/20 to-black" />
+            </div>
+
             {/* Database Unavailable Banner */}
             {showDbBanner && (
                 <div className="fixed top-safe-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
@@ -526,7 +537,7 @@ Be concise and premium.`;
                 </button>
             )}
 
-            {/* Sidebar */}
+            {/* Sidebar - Above background layer */}
             <Sidebar
                 activeProducer={activeProducer}
                 setActiveProducer={setActiveProducer}
@@ -549,18 +560,19 @@ Be concise and premium.`;
                 resetFilters={resetFilters}
             />
 
-            {/* Main Content with View Transitions */}
-            <AnimatePresence mode="wait" initial={false}>
+            {/* Main Content with View Transitions - Above background layer */}
+            <div className="w-full md:ml-80 md:w-[calc(100%-20rem)] md:h-full relative z-10 grid [&>*]:[grid-area:1/1]">
+            <AnimatePresence initial={false}>
                 <motion.div
                     key={view}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{
-                        duration: 0.15,
+                        duration: 1.3,
                         ease: [0.22, 1, 0.36, 1]
                     }}
-                    className="flex-1 md:overflow-hidden"
+                    className="w-full md:h-full md:overflow-hidden"
                 >
                     {view === 'HOME' && (
                         <HomeView
@@ -645,6 +657,7 @@ Be concise and premium.`;
                     )}
                 </motion.div>
             </AnimatePresence>
+            </div>
 
             {/* AI Analyst Panel */}
             <AIAnalystPanel

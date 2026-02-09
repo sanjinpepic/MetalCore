@@ -94,14 +94,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
     };
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black relative isolate">
-            {/* Background Decorations */}
-            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-accent/5 rounded-full blur-[200px] -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[150px] translate-y-1/2 -translate-x-1/2" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/20 via-slate-950/20 to-black" />
-            </div>
-
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar relative">
             {/* Content Layer */}
             <div className="relative z-10 flex flex-col min-h-full">
 
