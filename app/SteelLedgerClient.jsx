@@ -18,6 +18,7 @@ import ProLabView from '../src/components/ProLabView.jsx';
 import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
 import SettingsModal from '../src/components/SettingsModal.jsx';
 import ImportModal from '../src/components/ImportModal.jsx';
+import SteelRecommender from '../src/components/SteelRecommender.jsx';
 import { UserProvider } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
@@ -75,6 +76,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
     const [aiModel, setAiModel] = useState("gemini-1.5-flash");
     const [showSettings, setShowSettings] = useState(false);
     const [showImportModal, setShowImportModal] = useState(false);
+    const [showRecommender, setShowRecommender] = useState(false);
     const [trendingScores, setTrendingScores] = useState({});
 
     const fileInputRef = useRef(null);
@@ -530,6 +532,7 @@ Be concise and premium.`;
                             producers={producers}
                             incrementTrending={incrementTrending}
                             resetFilters={resetFilters}
+                            setShowRecommender={setShowRecommender}
                         />
                     )}
 
@@ -620,6 +623,19 @@ Be concise and premium.`;
                     aiModel={aiModel}
                     setAiModel={setAiModel}
                     onClose={() => setShowSettings(false)}
+                />
+            )}
+
+            {/* Steel Recommender Wizard */}
+            {showRecommender && (
+                <SteelRecommender
+                    steels={steels}
+                    onClose={() => setShowRecommender(false)}
+                    onSelectSteel={(steel) => {
+                        setShowRecommender(false);
+                        setDetailSteel(steel);
+                        incrementTrending(steel.id);
+                    }}
                 />
             )}
 

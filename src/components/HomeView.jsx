@@ -3,7 +3,7 @@ import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer
 import Footer from './Footer';
 import { hapticFeedback } from '../hooks/useMobile';
 
-const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters }) => {
+const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters, setShowRecommender }) => {
     const searchContainerRef = useRef(null);
 
     // Axis configuration for mini-matrix
@@ -437,6 +437,32 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-accent/40 transition-colors" />
                             </section>
                         )}
+
+                        {/* Find Your Steel CTA */}
+                        <section
+                            onClick={() => setShowRecommender(true)}
+                            className="glass-panel p-8 rounded-[3rem] border-white/5 bg-gradient-to-br from-accent/10 to-transparent relative overflow-hidden group cursor-pointer hover:border-accent/30 transition-all"
+                        >
+                            <div className="relative z-10">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="text-[11px] font-black text-accent uppercase tracking-[0.3em]">Interactive Guide</div>
+                                    <div className="p-2 bg-black/40 rounded-xl border border-white/10 text-accent group-hover:bg-accent/10 transition-colors">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                                    </div>
+                                </div>
+                                <h3 className="text-2xl md:text-3xl font-display font-black text-white italic uppercase tracking-tighter mb-2 group-hover:text-accent transition-colors leading-tight">
+                                    Find Your<br />Steel
+                                </h3>
+                                <p className="text-slate-500 text-xs leading-relaxed mb-5 font-medium">
+                                    Answer 4 quick questions and get personalized steel recommendations.
+                                </p>
+                                <div className="flex items-center gap-2 text-accent font-black text-xs uppercase tracking-widest group-hover:gap-3 transition-all">
+                                    Start Wizard
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                                </div>
+                            </div>
+                            <div className="absolute bottom-0 right-0 w-40 h-40 bg-accent/15 rounded-full blur-3xl pointer-events-none group-hover:bg-accent/25 transition-colors" />
+                        </section>
 
                         {/* Active Workbench */}
                         <section className={`glass-panel p-8 rounded-[3rem] border transition-all duration-500 ${compareList.length > 0 ? 'border-indigo-500/20 bg-indigo-500/5' : 'border-white/5 bg-white/[0.02]'}`}>
