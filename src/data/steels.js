@@ -818,6 +818,30 @@ export const PREMIUM_STEELS = [
         cons: ["Average edge retention", "Not as hard as high-carbon alloys"],
         use_case: "Salt-water environments, food prep, and sweat-heavy carry."
     },
+    ,
+    {
+        id: 'zapp-2', name: "Z-Wear PM", producer: "Various",
+        C: 1.10, Cr: 7.5, V: 5.0, Mo: 1.6, W: 1.15, Co: 0,
+        edge: 8, toughness: 7.5, corrosion: 3, sharpen: 4,
+        ht_curve: "200:61,500:63,600:60",
+        desc: "A PM tool steel developed for knife applications. Combines the toughness profile of Cru-Wear with additional vanadium for significantly better edge retention.",
+        knives: ["Custom high-performance fixed blades", "Spyderco sprint runs"],
+        pros: ["Excellent balance of toughness and wear resistance", "Better edge retention than Cru-Wear"],
+        cons: ["Non-stainless", "Limited availability"],
+        use_case: "Hard-use EDC and fixed blades where both toughness and edge life matter."
+    },
+    ,
+    {
+        id: 'zapp-3', name: "Z-Tuff PM", producer: "Various",
+        C: 0.55, Cr: 8.0, V: 1.0, Mo: 2.0, W: 0, Co: 0,
+        edge: 4, toughness: 10, corrosion: 3, sharpen: 7,
+        ht_curve: "200:56,500:58,600:55",
+        desc: "A PM tool steel designed for maximum toughness. A cleaner, tougher version of S7 with better wear resistance due to powder metallurgy processing.",
+        knives: ["Custom choppers", "Extreme-use fixed blades"],
+        pros: ["Extreme toughness", "Better than S7 in nearly every metric", "PM consistency"],
+        cons: ["Low edge retention", "Non-stainless"],
+        use_case: "The toughest fixed blades and impact tools."
+    },
 
     // --- VARIOUS ---
     {
@@ -1012,27 +1036,5 @@ export const PREMIUM_STEELS = [
         pros: ["Good toughness", "Easy maintenance"],
         cons: ["Still soft vs Japanese steels"],
         use_case: "Commercial kitchen chef knives."
-    },
-    {
-        id: 'others-14', name: "Z-Tuff PM", producer: "Various",
-        C: 0.55, Cr: 8.0, V: 1.0, Mo: 2.0, W: 0, Co: 0,
-        edge: 4, toughness: 10, corrosion: 3, sharpen: 7,
-        ht_curve: "200:56,500:58,600:55",
-        desc: "A PM tool steel designed for maximum toughness. A cleaner, tougher version of S7 with better wear resistance due to powder metallurgy processing.",
-        knives: ["Custom choppers", "Extreme-use fixed blades"],
-        pros: ["Extreme toughness", "Better than S7 in nearly every metric", "PM consistency"],
-        cons: ["Low edge retention", "Non-stainless"],
-        use_case: "The toughest fixed blades and impact tools."
-    },
-    {
-        id: 'others-13', name: "Z-Wear PM", producer: "Various",
-        C: 1.10, Cr: 7.5, V: 5.0, Mo: 1.6, W: 1.15, Co: 0,
-        edge: 8, toughness: 7.5, corrosion: 3, sharpen: 4,
-        ht_curve: "200:61,500:63,600:60",
-        desc: "A PM tool steel developed for knife applications. Combines the toughness profile of Cru-Wear with additional vanadium for significantly better edge retention.",
-        knives: ["Custom high-performance fixed blades", "Spyderco sprint runs"],
-        pros: ["Excellent balance of toughness and wear resistance", "Better edge retention than Cru-Wear"],
-        cons: ["Non-stainless", "Limited availability"],
-        use_case: "Hard-use EDC and fixed blades where both toughness and edge life matter."
     }
 ];
