@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Footer from './Footer';
 import { hapticFeedback } from '../hooks/useMobile';
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters }) => {
+    const groupedSteels = useMemo(() => {
+        const groups = {};
+        for (const s of filteredSteels) {
+            const producer = s.producer || 'Other';
+            if (!groups[producer]) groups[producer] = [];
+            groups[producer].push(s);
+        }
+        return groups;
+    }, [filteredSteels]);
+
     return (
         <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar">
             {/* Header */}
@@ -33,46 +43,59 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 </div>
             </div>
 
-            <div className="p-6 md:p-12 pb-32 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 items-start">
-                {filteredSteels.map(s => {
-                    const isSelected = compareList.find(i => i.id === s.id);
-                    return (
-                        <div key={s.id} onClick={() => { hapticFeedback('light'); setDetailSteel(s); }} className={`glass-panel rounded-2xl md:rounded-3xl p-6 md:p-8 cursor-pointer border transition-all hover:border-white/20 active:scale-[0.98] relative group ${isSelected ? 'border-accent bg-accent/5' : 'border-white/5'}`}>
-                            <div className="flex justify-between items-start mb-4 md:mb-6">
-                                <div className="min-w-0">
-                                    <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">{s.producer}</div>
-                                    <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-accent transition-colors leading-tight truncate uppercase tracking-tight italic">{s.name}</h3>
-                                    <p className="text-xs md:text-sm text-slate-400 line-clamp-1 mt-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity italic">{s.desc}</p>
-                                </div>
-                                <div className={`p-2.5 rounded-full transition-all shrink-0 ${isSelected ? 'bg-accent text-black scale-110 shadow-lg shadow-accent/40' : 'bg-white/5 text-slate-500 hover:text-white hover:bg-white/10'}`}
-                                    onClick={(e) => { e.stopPropagation(); hapticFeedback('medium'); toggleCompare(s); }}>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                        <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-                                        <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-                                        <path d="M7 21h10" />
-                                        <path d="M12 3v18" />
-                                        <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-3 gap-2 md:gap-3">
-                                {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
-                                    <div key={el} className="bg-black/40 rounded-xl p-3 text-center border border-white/5 group-hover:border-accent/10 transition-colors">
-                                        <div className="text-[9px] text-slate-500 uppercase font-black mb-1.5">{el}</div>
-                                        <div className="text-xs md:text-sm font-mono font-bold text-slate-300">{s[el] || 0}</div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between">
-                                <span className="text-xs text-slate-600 font-bold uppercase tracking-widest">View Details</span>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-700 group-hover:text-accent group-hover:translate-x-1 transition-all">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                    <polyline points="12 5 19 12 12 19" />
-                                </svg>
+            <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
+                {Object.entries(groupedSteels).map(([producer, steels]) => (
+                    <section key={producer}>
+                        <div className="sticky top-[4.25rem] md:top-[4.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-black/90 backdrop-blur-md">
+                            <div className="flex items-center gap-3">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                                <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{producer}</h2>
+                                <div className="flex-1 h-px bg-white/5"></div>
+                                <span className="text-[10px] font-bold text-slate-600">{steels.length} {steels.length === 1 ? 'grade' : 'grades'}</span>
                             </div>
                         </div>
-                    );
-                })}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 items-start">
+                            {steels.map(s => {
+                                const isSelected = compareList.find(i => i.id === s.id);
+                                return (
+                                    <div key={s.id} onClick={() => { hapticFeedback('light'); setDetailSteel(s); }} className={`glass-panel rounded-2xl md:rounded-3xl p-6 md:p-8 cursor-pointer border transition-all hover:border-white/20 active:scale-[0.98] relative group ${isSelected ? 'border-accent bg-accent/5' : 'border-white/5'}`}>
+                                        <div className="flex justify-between items-start mb-4 md:mb-6">
+                                            <div className="min-w-0">
+                                                <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-accent transition-colors leading-tight truncate uppercase tracking-tight italic">{s.name}</h3>
+                                                <p className="text-xs md:text-sm text-slate-400 line-clamp-1 mt-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity italic">{s.desc}</p>
+                                            </div>
+                                            <div className={`p-2.5 rounded-full transition-all shrink-0 ${isSelected ? 'bg-accent text-black scale-110 shadow-lg shadow-accent/40' : 'bg-white/5 text-slate-500 hover:text-white hover:bg-white/10'}`}
+                                                onClick={(e) => { e.stopPropagation(); hapticFeedback('medium'); toggleCompare(s); }}>
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                                    <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                                                    <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                                                    <path d="M7 21h10" />
+                                                    <path d="M12 3v18" />
+                                                    <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-3 gap-2 md:gap-3">
+                                            {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
+                                                <div key={el} className="bg-black/40 rounded-xl p-3 text-center border border-white/5 group-hover:border-accent/10 transition-colors">
+                                                    <div className="text-[9px] text-slate-500 uppercase font-black mb-1.5">{el}</div>
+                                                    <div className="text-xs md:text-sm font-mono font-bold text-slate-300">{s[el] || 0}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between">
+                                            <span className="text-xs text-slate-600 font-bold uppercase tracking-widest">View Details</span>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-700 group-hover:text-accent group-hover:translate-x-1 transition-all">
+                                                <line x1="5" y1="12" x2="19" y2="12" />
+                                                <polyline points="12 5 19 12 12 19" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </section>
+                ))}
             </div>
 
             {/* Comparison Tray (Bottom Overlay) */}
