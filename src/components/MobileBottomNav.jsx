@@ -44,7 +44,7 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
 
     return (
         <motion.div
-            className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10 will-change-transform"
+            className="fixed bottom-0 left-0 right-0 z-30 md:hidden glass-sidebar border-t border-white/10 will-change-transform"
             drag="y"
             dragControls={dragControls}
             dragListener={false}

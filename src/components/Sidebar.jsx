@@ -9,14 +9,14 @@ const SIDEBAR_WIDTH = 288; // w-72 = 18rem = 288px
 // Gradient tint colors that match each view's theme
 // Opacity matches the views' /10 (10%), fades at ~40% to align with header gradient spread
 const VIEW_GRADIENTS = {
-    HOME:      'rgba(16,185,129,0.10)',    // emerald  – matches from-emerald-500/10
-    SEARCH:    'rgba(245,158,11,0.10)',     // amber    – matches from-amber-500/10
-    MATRIX:    'rgba(244,63,94,0.10)',      // rose     – matches from-rose-500/10
-    KNIVES:    'rgba(14,165,233,0.10)',     // sky      – matches from-sky-500/10
+    HOME: 'rgba(16,185,129,0.10)',    // emerald  – matches from-emerald-500/10
+    SEARCH: 'rgba(245,158,11,0.10)',     // amber    – matches from-amber-500/10
+    MATRIX: 'rgba(244,63,94,0.10)',      // rose     – matches from-rose-500/10
+    KNIVES: 'rgba(14,165,233,0.10)',     // sky      – matches from-sky-500/10
     EDUCATION: 'rgba(99,102,241,0.10)',     // indigo   – matches from-indigo-500/10
-    PROFILE:   'rgba(139,92,246,0.10)',     // violet   – matches from-violet-500/10
-    COMPARE:   'rgba(148,163,184,0.06)',    // slate
-    PRO_LAB:   'rgba(245,158,11,0.08)',     // accent
+    PROFILE: 'rgba(139,92,246,0.10)',     // violet   – matches from-violet-500/10
+    COMPARE: 'rgba(148,163,184,0.06)',    // slate
+    PRO_LAB: 'rgba(245,158,11,0.08)',     // accent
 };
 
 const Sidebar = ({
@@ -364,7 +364,7 @@ const Sidebar = ({
                             setShowSettings(true);
                             setMobileMenuOpen(false);
                         }}
-                        className="p-2 hover:bg-white/5 rounded-lg text-slate-400 hover:text-accent transition-all"
+                        className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg text-slate-400 hover:text-accent transition-all"
                         aria-label="Settings"
                     >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
