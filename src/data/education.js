@@ -275,7 +275,7 @@ export const PRODUCERS = [
     },
     {
         name: "Erasteel",
-        location: "Stockholm, Sweden",
+        location: "S\u00f6derfors, Sweden",
         coords: [59.3293, 18.0686],
         region: "Europe",
         desc: "Swedish powder metallurgy specialist producing the ASP series (ASP 2030, 2060, 2003). These high-alloy tool steels push the limits of edge retention and wear resistance. Acquired Crucible Industries & the CPM brand in 2025, expanding their presence in the knife steel market."
