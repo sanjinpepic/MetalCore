@@ -218,7 +218,7 @@ export const FAQ = [
 
 export const PRODUCERS = [
     {
-        name: "Crucible Industries 𓉸",
+        name: "Crucible Industries  𓉸",
         location: "Syracuse, NY, USA",
         coords: [43.0481, -76.1474],
         region: "North America",
