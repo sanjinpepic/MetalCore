@@ -222,7 +222,7 @@ export const PRODUCERS = [
         location: "Syracuse, NY, USA",
         coords: [43.0481, -76.1474],
         region: "North America",
-        desc: "Pioneers of the CPM (Crucible Particle Metallurgy) process. Known for legendary grades like MagnaCut, S30V, and 3V."
+        desc: "Pioneers of the CPM (Crucible Particle Metallurgy) process. Known for legendary grades like MagnaCut, S30V, and 3V. Acquired by Erasteel during 2025."
     },
     {
         name: "B\u00f6hler-Uddeholm",
@@ -250,7 +250,7 @@ export const PRODUCERS = [
         location: "Tokyo, Japan",
         coords: [35.6895, 139.6917],
         region: "Asia",
-        desc: "Producers of ZDP-189 and Blue/White paper steels, highly prized by traditional blacksmiths and enthusiasts."
+        desc: "Producers of ZDP-189 and Blue/White paper steels, highly prized by traditional blacksmiths and enthusiasts. Acquired by Proterial during 2023."
     },
     {
         name: "Carpenter Technology",
@@ -271,7 +271,7 @@ export const PRODUCERS = [
         location: "Krefeld, Germany",
         coords: [51.2277, 6.7735],
         region: "Europe",
-        desc: "German tool steel manufacturer behind LC200N (Cronidur 30), one of the most corrosion-resistant steels available. Popular in bearing and surgical applications."
+        desc: "German tool steel distributor behind LC200N (Cronidur 30), one of the most corrosion-resistant steels available. Popular in bearing and surgical applications."
     },
     {
         name: "Erasteel",
