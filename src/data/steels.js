@@ -223,19 +223,19 @@ export const PREMIUM_STEELS = [
         cons: ["Extremely brittle (will snap if flexed)", "Very prone to rust", "Nearly impossible to sharpen without diamonds"],
         use_case: "Abrasive cutting specialists and enthusiasts who want the absolute peak of edge holding."
     },
-    {
-        id: 'carpenter-3', name: "Rex 45", producer: "Carpenter", C: 1.3, Cr: 4.0, V: 3.05, Mo: 5.0, W: 6.25, Co: 8.0, edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
-        ht_curve: "500:64,540:66,600:62",
-        desc: "A high-cobalt version of M4. Rex 45 maintains higher hardness at higher temperatures and offers slightly better wear resistance.",
-        knives: ["Spyderco Shaman (Rex 45)", "Spyderco Native 5 (Rex 45)", "Custom Sprints"],
-        pros: ["Superior edge retention to M4", "Stable at high hardness", "Good toughness for its alloy"],
-        cons: ["Rusts very easily", "Difficult to sharpen"],
-        use_case: "Hard-use cutting tasks where edge longevity is paramount."
-    },
 
     // --- CRUCIBLE ---
     {
-        id: 'crucible-14', name: "CPM 10V", producer: "Crucible",
+        id: 'crucible-1', name: "MagnaCut", producer: "Crucible", C: 1.15, Cr: 10.7, V: 4.0, Mo: 2.0, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 9.5, sharpen: 6,
+        ht_curve: "175:61,225:62,300:60,400:58",
+        desc: "Revolutionary stainless steel designed specifically for knives. Offers unrivaled balance of toughness and corrosion resistance.",
+        knives: ["Chris Reeve Sebenza 31", "Tactile Rockwall", "Hogue Deka"],
+        pros: ["Stainless perfection", "High toughness (replaces 4V/3V)", "Great edge retention"],
+        cons: ["Still relatively new (premium price)", "Requires precise salt-bath HT"],
+        use_case: "The ultimate choice for salt-water folders, high-end EDC, and kitchen knives."
+    },
+    {
+        id: 'crucible-2', name: "CPM 10V", producer: "Crucible",
         C: 2.45, Cr: 5.25, V: 9.75, Mo: 1.30, W: 0, Co: 0,
         edge: 10, toughness: 4, corrosion: 2, sharpen: 1,
         ht_curve: "200:61,500:63,600:60",
@@ -246,7 +246,7 @@ export const PREMIUM_STEELS = [
         use_case: "Abrasive cutting tasks like cardboard, rope, and industrial materials."
     },
     {
-        id: 'crucible-11', name: "CPM 154", producer: "Crucible", C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'crucible-3', name: "CPM 154", producer: "Crucible", C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "200:59,400:57,500:58",
         desc: "A powder metallurgy version of 154CM. Favored by custom makers for its mirror-polish ability.",
         knives: ["Grimsmo Norseman (Older)", "Custom Traditional Folders"],
@@ -255,7 +255,7 @@ export const PREMIUM_STEELS = [
         use_case: "Custom knives and premium production folders where aesthetics matter."
     },
     {
-        id: 'crucible-12', name: "CPM 15V", producer: "Crucible", C: 1.45, Cr: 5.0, V: 15.0, Mo: 4.0, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 3,
+        id: 'crucible-4', name: "CPM 15V", producer: "Crucible", C: 1.45, Cr: 5.0, V: 15.0, Mo: 4.0, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 3,
         ht_curve: "200:65,400:60,600:62",
         desc: "An extremely wear-resistant high-vanadium powder steel designed for maximum edge retention. Popular for heavy-duty and slicer blades where long lasting sharpness matters.",
         knives: ["Chris Reeve Sebenza (special runs)", "Busse Combat Razel", "Custom Hard-Use Folders"],
@@ -264,7 +264,7 @@ export const PREMIUM_STEELS = [
         use_case: "Heavy-duty fixed blades and folders where extreme edge durability is the priority; less ideal if polish and ease of sharpening are key."
     },
     {
-        id: 'crucible-9', name: "CPM 20CV", producer: "Crucible", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        id: 'crucible-5', name: "CPM 20CV", producer: "Crucible", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
         ht_curve: "200:60,400:58,500:59",
         desc: "Crucible's version of M390. Highly popular in premium American production folders.",
         knives: ["Benchmade Bugout (20CV)", "Hinderer XM-18", "McNees PM Mac 2"],
@@ -273,7 +273,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium folding knives and high-end EDC."
     },
     {
-        id: 'crucible-3', name: "CPM 3V", producer: "Crucible", C: 0.8, Cr: 7.5, V: 2.75, Mo: 1.3, W: 0, Co: 0, edge: 4, toughness: 10, corrosion: 3, sharpen: 6,
+        id: 'crucible-6', name: "CPM 3V", producer: "Crucible", C: 0.8, Cr: 7.5, V: 2.75, Mo: 1.3, W: 0, Co: 0, edge: 4, toughness: 10, corrosion: 3, sharpen: 6,
         ht_curve: "200:58,400:60,500:62",
         desc: "The gold standard for extreme-toughness outdoor knives. Virtually unbreakable with reasonable wear resistance.",
         knives: ["Bark River Bravo 1", "Cold Steel SRK (3V)", "Demko AD20.5 (3V Variant)"],
@@ -282,7 +282,7 @@ export const PREMIUM_STEELS = [
         use_case: "Bushcraft knives, choppers, and hard-use survival tools."
     },
     {
-        id: 'crucible-13', name: "CPM 4V", producer: "Crucible",
+        id: 'crucible-7', name: "CPM 4V", producer: "Crucible",
         C: 1.35, Cr: 5.25, V: 3.75, Mo: 2.75, W: 0, Co: 0,
         edge: 6, toughness: 9.5, corrosion: 2, sharpen: 5,
         ht_curve: "200:58,400:60,500:62",
@@ -293,7 +293,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use bushcraft, camp knives, and heavy choppers."
     },
     {
-        id: 'crucible-4', name: "CPM Cru-Wear", producer: "Crucible", C: 1.1, Cr: 7.5, V: 2.4, Mo: 1.6, W: 1.15, Co: 0, edge: 7, toughness: 8.5, corrosion: 3, sharpen: 5,
+        id: 'crucible-8', name: "CPM Cru-Wear", producer: "Crucible", C: 1.1, Cr: 7.5, V: 2.4, Mo: 1.6, W: 1.15, Co: 0, edge: 7, toughness: 8.5, corrosion: 3, sharpen: 5,
         ht_curve: "200:61,500:63,600:60",
         desc: "An upgrade to classic D2, Cru-Wear is a high-alloy tool steel that balances extreme toughness with great edge retention.",
         knives: ["Spyderco Military 2", "Benchmade Adamas (CruWear)", "Spyderco Manix 2"],
@@ -302,7 +302,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use EDC and tactical folders that need to survive prying or impact."
     },
     {
-        id: 'crucible-6', name: "CPM M4", producer: "Crucible", C: 1.42, Cr: 4.0, V: 4.0, Mo: 5.25, W: 5.5, Co: 0, edge: 8.5, toughness: 7, corrosion: 1, sharpen: 4,
+        id: 'crucible-9', name: "CPM M4", producer: "Crucible", C: 1.42, Cr: 4.0, V: 4.0, Mo: 5.25, W: 5.5, Co: 0, edge: 8.5, toughness: 7, corrosion: 1, sharpen: 4,
         ht_curve: "500:62,540:64,600:61",
         desc: "A legendary high-speed steel known for winning cutting competitions due to its incredible edge stability.",
         knives: ["Benchmade Bailout", "Spyderco Gayle Bradley 2", "Benchmade Freek"],
@@ -311,18 +311,16 @@ export const PREMIUM_STEELS = [
         use_case: "Performance-first cutting tools and heavy-duty folders."
     },
     {
-        id: 'crucible-16', name: "CPM Rex 121", producer: "Crucible",
-        C: 3.40, Cr: 4.0, V: 9.5, Mo: 5.0, W: 10.0, Co: 9.0,
-        edge: 10, toughness: 2, corrosion: 1, sharpen: 1,
-        ht_curve: "500:69,540:71,580:67",
-        desc: "The absolute king of wear resistance in the CPM Rex lineup. With 3.4% carbon and massive carbide formers, this steel has almost unfathomable edge-holding ability.",
-        knives: ["Spyderco Mule Team Rex 121", "Custom specialists"],
-        pros: ["Unmatched edge retention among all steels", "Can reach 71+ HRC", "Extreme abrasion resistance"],
-        cons: ["Incredibly brittle", "Cannot be sharpened without diamond", "Rusts immediately"],
-        use_case: "The ultimate steel for edge retention enthusiasts who want the most extreme alloy available."
+        id: 'crucible-10', name: "Rex 45", producer: "Crucible", C: 1.3, Cr: 4.0, V: 3.05, Mo: 5.0, W: 6.25, Co: 8.0, edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
+        ht_curve: "500:64,540:66,600:62",
+        desc: "A high-cobalt version of M4. Rex 45 maintains higher hardness at higher temperatures and offers slightly better wear resistance.",
+        knives: ["Spyderco Shaman (Rex 45)", "Spyderco Native 5 (Rex 45)", "Custom Sprints"],
+        pros: ["Superior edge retention to M4", "Stable at high hardness", "Good toughness for its alloy"],
+        cons: ["Rusts very easily", "Difficult to sharpen"],
+        use_case: "Hard-use cutting tasks where edge longevity is paramount."
     },
     {
-        id: 'crucible-15', name: "CPM Rex 76", producer: "Crucible",
+        id: 'crucible-11', name: "CPM Rex 76", producer: "Crucible",
         C: 1.50, Cr: 3.75, V: 3.1, Mo: 5.25, W: 10.0, Co: 9.0,
         edge: 9.5, toughness: 5, corrosion: 1, sharpen: 2,
         ht_curve: "500:66,540:68,580:64",
@@ -333,7 +331,18 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting and custom performance knives where hot-hardness matters."
     },
     {
-        id: 'crucible-8', name: "CPM S110V", producer: "Crucible",
+        id: 'crucible-12', name: "CPM Rex 121", producer: "Crucible",
+        C: 3.40, Cr: 4.0, V: 9.5, Mo: 5.0, W: 10.0, Co: 9.0,
+        edge: 10, toughness: 2, corrosion: 1, sharpen: 1,
+        ht_curve: "500:69,540:71,580:67",
+        desc: "The absolute king of wear resistance in the CPM Rex lineup. With 3.4% carbon and massive carbide formers, this steel has almost unfathomable edge-holding ability.",
+        knives: ["Spyderco Mule Team Rex 121", "Custom specialists"],
+        pros: ["Unmatched edge retention among all steels", "Can reach 71+ HRC", "Extreme abrasion resistance"],
+        cons: ["Incredibly brittle", "Cannot be sharpened without diamond", "Rusts immediately"],
+        use_case: "The ultimate steel for edge retention enthusiasts who want the most extreme alloy available."
+    },
+    {
+        id: 'crucible-13', name: "CPM S110V", producer: "Crucible",
         C: 2.8, Cr: 15.25, V: 9.0, Mo: 2.25, W: 0, Co: 0,
         edge: 10, toughness: 3, corrosion: 8, sharpen: 1,
         ht_curve: "200:61,400:59,500:58",
@@ -344,7 +353,7 @@ export const PREMIUM_STEELS = [
         use_case: "Light-duty slicing where sharpening frequency must be minimal."
     },
     {
-        id: 'crucible-7', name: "CPM S30V", producer: "Crucible",
+        id: 'crucible-14', name: "CPM S30V", producer: "Crucible",
         C: 1.45, Cr: 14.0, V: 4.0, Mo: 2.0, W: 0, Co: 0,
         edge: 7, toughness: 6, corrosion: 7.5, sharpen: 6,
         ht_curve: "200:59,400:58,500:56",
@@ -355,7 +364,7 @@ export const PREMIUM_STEELS = [
         use_case: "Reliable premium EDC and outdoor knives."
     },
     {
-        id: 'crucible-10', name: "CPM S35VN", producer: "Crucible", C: 1.45, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
+        id: 'crucible-15', name: "CPM S35VN", producer: "Crucible", C: 1.45, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "200:59,400:58,500:56",
         desc: "The industry standard for premium knives. An upgrade to S30V with added Niobium for better toughness.",
         knives: ["Chris Reeve Sebenza (S35VN)", "ESEE 6 S35VN", "White River Firecraft 4"],
@@ -364,7 +373,7 @@ export const PREMIUM_STEELS = [
         use_case: "The gold standard for high-end folders and fixed blades."
     },
     {
-        id: 'crucible-5', name: "CPM S45VN", producer: "Crucible", C: 1.48, Cr: 16.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
+        id: 'crucible-16', name: "CPM S45VN", producer: "Crucible", C: 1.48, Cr: 16.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "200:60,400:58,500:59",
         desc: "An improvement over S35VN, adding more Chromium and Niobium for better corrosion resistance and toughness.",
         knives: ["Chris Reeve Inkosi", "Spyderco Para 3", "Benchmade 940 (Modern)"],
@@ -384,22 +393,13 @@ export const PREMIUM_STEELS = [
         use_case: "Collectors and enthusiasts who appreciate the lineage of modern super-steels."
     },
     {
-        id: 'crucible-2', name: "CPM S90V", producer: "Crucible", C: 2.3, Cr: 14.0, V: 9.0, Mo: 1.0, W: 0, Co: 0, edge: 10, toughness: 3, corrosion: 7, sharpen: 2,
+        id: 'crucible-18', name: "CPM S90V", producer: "Crucible", C: 2.3, Cr: 14.0, V: 9.0, Mo: 1.0, W: 0, Co: 0, edge: 10, toughness: 3, corrosion: 7, sharpen: 2,
         ht_curve: "200:59,400:57,500:56",
         desc: "High-carbon, high-vanadium stainless steel. A leader in edge retention for premium production folders.",
         knives: ["Benchmade 940-1", "Spyderco Drunken", "Zero Tolerance 0452CF"],
         pros: ["Extreme edge longevity", "Low maintenance stainlessness"],
         cons: ["Low toughness (will chip)", "Very abrasive to sharpen"],
         use_case: "Light-duty slicing folders where you never want to sharpen."
-    },
-    {
-        id: 'crucible-1', name: "MagnaCut", producer: "Crucible", C: 1.15, Cr: 10.7, V: 4.0, Mo: 2.0, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 9.5, sharpen: 6,
-        ht_curve: "175:61,225:62,300:60,400:58",
-        desc: "Revolutionary stainless steel designed specifically for knives. Offers unrivaled balance of toughness and corrosion resistance.",
-        knives: ["Chris Reeve Sebenza 31", "Tactile Rockwall", "Hogue Deka"],
-        pros: ["Stainless perfection", "High toughness (replaces 4V/3V)", "Great edge retention"],
-        cons: ["Still relatively new (premium price)", "Requires precise salt-bath HT"],
-        use_case: "The ultimate choice for salt-water folders, high-end EDC, and kitchen knives."
     },
 
     // --- DAMASTEEL ---
@@ -474,7 +474,7 @@ export const PREMIUM_STEELS = [
     },
     {
         id: 'erasteel-4', name: "ASP 2080", producer: "Erasteel",
-        C: 2.30, Cr: 4.0, V: 6.5, Mo: 7.0, W: 6.5, Co: 10.5,
+        C: 2.45, Cr: 4.0, V: 6.3, Mo: 5.0, W: 11.0, Co: 16.0,
         edge: 10, toughness: 4, corrosion: 1, sharpen: 1,
         ht_curve: "500:68,540:70,580:66",
         desc: "One of the most heavily alloyed ASP grades. Ultra-high carbon with massive cobalt for extreme hot-hardness. A favorite among cutting competition enthusiasts and industrial toolmakers.",
@@ -820,7 +820,7 @@ export const PREMIUM_STEELS = [
     },
     {
         id: 'zapp-2', name: "Z-Wear PM", producer: "Zapp",
-        C: 1.10, Cr: 7.5, V: 5.0, Mo: 1.6, W: 1.15, Co: 0,
+        C: 1.10, Cr: 7.5, V: 2.4, Mo: 1.6, W: 1.15, Co: 0,
         edge: 8, toughness: 7.5, corrosion: 3, sharpen: 4,
         ht_curve: "200:61,500:63,600:60",
         desc: "A PM tool steel developed for knife applications. Combines the toughness profile of Cru-Wear with additional vanadium for significantly better edge retention.",
