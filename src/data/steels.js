@@ -54,15 +54,6 @@ export const PREMIUM_STEELS = [
         cons: ["Moderate edge retention", "Not a super-steel"],
         use_case: "Thin-grind kitchen knives and premium razor blades."
     },
-    {
-        id: 'alleima-3', name: "SPY27", producer: "Alleima", C: 0.22, Cr: 27, V: 0, Mo: 1.5, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 10, sharpen: 8,
-        ht_curve: "150:58,200:57,250:56",
-        desc: "Spyderco's proprietary super-stainless with 27% chromium. Built for absolute corrosion immunity in any environment.",
-        knives: ["Spyderco Salt", "Spyderco Salt 2", "Spyderco Yojana"],
-        pros: ["Virtually rust-proof in any conditions", "Very tough", "Easy to maintain"],
-        cons: ["Modest edge retention", "Not a performance steel for cutting"],
-        use_case: "Marine, food-service, and sweat-heavy environments where corrosion is non-negotiable."
-    },
 
     // --- BÖHLER ---
     {
@@ -400,6 +391,15 @@ export const PREMIUM_STEELS = [
         pros: ["Extreme edge longevity", "Low maintenance stainlessness"],
         cons: ["Low toughness (will chip)", "Very abrasive to sharpen"],
         use_case: "Light-duty slicing folders where you never want to sharpen."
+    },
+    {
+        id: 'crucible-19', name: "SPY27", producer: "Crucible", C: 1.25, Cr: 14.0, V: 2.0, Mo: 2.0, W: 0, Co: 1.5, edge: 5, toughness: 7, corrosion: 10, sharpen: 8,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "Spyderco's proprietary super-stainless with 14% chromium and 1.5% Cobalt. Built for absolute corrosion immunity in any environment.",
+        knives: ["Spyderco Salt", "Spyderco Salt 2", "Spyderco Yojana"],
+        pros: ["Virtually rust-proof in any conditions", "Very tough", "Easy to maintain"],
+        cons: ["Modest edge retention", "Not a performance steel for cutting"],
+        use_case: "Marine, food-service, and sweat-heavy environments where corrosion is non-negotiable."
     },
 
     // --- DAMASTEEL ---
