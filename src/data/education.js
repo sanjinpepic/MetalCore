@@ -218,7 +218,7 @@ export const FAQ = [
 
 export const PRODUCERS = [
     {
-        name: "Crucible Industries",
+        name: "Crucible Industries 𓉸",
         location: "Syracuse, NY, USA",
         coords: [43.0481, -76.1474],
         region: "North America",
@@ -278,7 +278,7 @@ export const PRODUCERS = [
         location: "Stockholm, Sweden",
         coords: [59.3293, 18.0686],
         region: "Europe",
-        desc: "Swedish powder metallurgy specialist producing the ASP series (ASP 2030, 2060, 2003). These high-alloy tool steels push the limits of edge retention and wear resistance."
+        desc: "Swedish powder metallurgy specialist producing the ASP series (ASP 2030, 2060, 2003). These high-alloy tool steels push the limits of edge retention and wear resistance. Acquired Crucible Industries & the CPM brand in 2025, expanding their presence in the knife steel market."
     },
     {
         name: "Aichi Steel",
