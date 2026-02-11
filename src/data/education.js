@@ -261,8 +261,8 @@ export const PRODUCERS = [
     },
     {
         name: "Damasteel",
-        location: "Tampere, Finland",
-        coords: [61.4987, 23.7867],
+        location: "S\u00f6derfors, Sweden",
+        coords: [59.3293, 19.0686],
         region: "Europe",
         desc: "Specialists in Damascus pattern steels and high-end stainless grades. Known for RWL34 and DS93X, both favorites in the knife-making community."
     },
