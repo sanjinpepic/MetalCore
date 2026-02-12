@@ -36,7 +36,7 @@ The platform is organized into several key sections accessible from the sidebar:
 - **Education Hub**: Comprehensive glossary and FAQ system
 - **Producer Map**: Interactive world map showing steel producer locations
 
-### Advanced Features
+### Advanced Features not yet released
 - **AI Analyst**: Integrated Google Gemini AI for expert metallurgical advice
 - **Pro Lab** (Beta):
   - Steel Recommender: AI-powered steel selection based on use case
