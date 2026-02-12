@@ -1,6 +1,18 @@
+'use client';
+
 import React from 'react';
+import Link from 'next/link';
+import { useConsent } from '@/lib/hooks/use-consent';
 
 const Footer = () => {
+    const { updateConsent } = useConsent();
+
+    const openCookieSettings = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('cookie-consent');
+        window.location.reload();
+    };
+
     return (
         <footer className="w-full py-12 px-6 md:px-12 border-t border-white/5 bg-black/50 backdrop-blur-3xl mt-auto">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
@@ -18,7 +30,23 @@ const Footer = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col items-center md:items-end space-y-4">
+                <div className="flex flex-col items-center md:items-end space-y-6 md:space-y-4 pb-20 md:pb-0">
+                    <div className="flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-6 text-[9px] md:text-[10px] font-bold uppercase tracking-normal md:tracking-widest text-slate-500 leading-none">
+                        <Link href="/legal/terms" className="whitespace-nowrap hover:text-accent transition-colors">
+                            Terms
+                        </Link>
+                        <Link href="/legal/privacy" className="whitespace-nowrap hover:text-accent transition-colors">
+                            Privacy
+                        </Link>
+                        <a
+                            href="#"
+                            onClick={openCookieSettings}
+                            className="whitespace-nowrap hover:text-accent transition-colors cursor-pointer"
+                        >
+                            Cookies
+                        </a>
+                    </div>
+
                     <a
                         href="https://www.buymeacoffee.com/"
                         target="_blank"

@@ -1,6 +1,8 @@
 import './globals.css'
 import { Inter, JetBrains_Mono, Outfit } from 'next/font/google'
 import PageLoader from './components/PageLoader'
+import CookieConsent from '@/components/CookieConsent'
+import { ConsentProvider } from '@/lib/hooks/use-consent'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -44,9 +46,14 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} font-sans`}>
-        <PageLoader />
-        {children}
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} font-sans min-h-screen flex flex-col`}>
+        <ConsentProvider>
+          <PageLoader />
+          <div className="flex-1">
+            {children}
+          </div>
+          <CookieConsent />
+        </ConsentProvider>
       </body>
     </html>
   )

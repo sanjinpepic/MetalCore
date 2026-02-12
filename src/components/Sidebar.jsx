@@ -45,6 +45,16 @@ const Sidebar = ({
     const dragStartX = useRef(0);
     const dragStartSidebarX = useRef(0);
     const hasTriggeredHaptic = useRef(false);
+    const [isMobile, setIsMobile] = React.useState(false);
+    const [mounted, setMounted] = React.useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const defaultTrending = [
         { name: "MagnaCut", id: "crucible-1" },
@@ -330,9 +340,11 @@ const Sidebar = ({
             {/* Sidebar - fixed on both mobile and desktop for glass backdrop-filter to work */}
             <motion.aside
                 style={{
-                    x: typeof window !== 'undefined' && window.innerWidth < 768 ? sidebarX : 0,
+                    // Default to hidden (sidebarX) until mounted and confirmed desktop
+                    // This prevents the "flash of open sidebar" on mobile
+                    x: !mounted || isMobile ? sidebarX : 0,
                 }}
-                className="glass-sidebar fixed left-0 top-0 w-72 md:w-80 flex flex-col z-[80] md:z-20 h-full overflow-hidden"
+                className="glass-sidebar fixed left-0 top-0 w-72 md:w-80 flex flex-col z-[80] md:z-20 h-full overflow-hidden -translate-x-full md:translate-x-0"
             >
                 {/* View-themed gradient tint — cross-fades in sync with main content */}
                 <AnimatePresence>

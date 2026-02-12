@@ -657,6 +657,8 @@ Be concise and premium.`;
                         {view === 'PRO_LAB' && (
                             <ProLabView steels={steels} />
                         )}
+
+                        {/* Page Footer removed - integrated into main Footer */}
                     </motion.div>
                 </AnimatePresence>
             </div>
