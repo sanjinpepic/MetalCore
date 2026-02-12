@@ -1,109 +1,106 @@
-# MetalCore AI - Next.js Edition
+# MetalCore
 
-A premium metallurgy database application for knife enthusiasts, built with Next.js and React.
+A premium metallurgy database and analysis platform for knife enthusiasts, built with Next.js, React, and PostgreSQL.
 
-## 🚀 Quick Start
+## 🌐 Live Application
 
-### Prerequisites
-- Node.js 18+ installed
+**Access the application at: [https://metalcre.vercel.app/](https://metalcre.vercel.app/)**
 
-### Installation
+No installation required - start exploring steel grades, comparing performance metrics, and analyzing knife materials instantly.
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+## 🎯 Application Structure
 
-2. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
+The platform is organized into several key sections accessible from the sidebar:
 
-3. **Open in browser**:
-   The app will be available at `http://localhost:3000`
-
-## 📁 Project Architecture
-
-Next.js App Router structure:
-
-```
-MetalCore-AI/
-├── app/
-│   ├── layout.jsx      # Root layout with fonts and metadata
-│   ├── page.jsx        # Main application page (client component)
-│   └── globals.css     # Global styles and Tailwind directives
-├── src/
-│   ├── components/     # React functional components
-│   │   ├── Sidebar.jsx
-│   │   ├── SearchView.jsx
-│   │   ├── PerformanceMatrix.jsx
-│   │   ├── KnifeLibrary.jsx
-│   │   ├── CompareView.jsx
-│   │   ├── HomeView.jsx
-│   │   ├── AIAnalystPanel.jsx
-│   │   └── ...
-│   └── data/           # Static data modules
-│       ├── steels.js
-│       └── knives.js
-├── Image/              # Static image assets
-├── next.config.js      # Next.js configuration
-├── tailwind.config.js  # Tailwind CSS configuration
-├── postcss.config.js   # PostCSS configuration
-└── package.json        # Dependencies & scripts
-```
+- **🏠 Home**: Hero landing page with quick search
+- **🔍 Search**: Browse and filter the complete steel database
+- **📊 Performance Matrix**: Interactive visualization of steel properties
+- **⚖️ Compare**: Side-by-side comparison of up to 4 steel grades
+- **🔪 Knife Library**: Explore iconic knives and their steel variants
+- **📚 Education**: Comprehensive glossary and FAQ
+- **🧪 Pro Lab**: Advanced AI-powered analysis tools (Beta)
+- **👤 Profile**: User preferences and saved data
+- **⚙️ Settings**: Configure AI features and preferences
 
 ## ✨ Features
 
-- **Grade Library**: Browse and search 20+ premium steel grades.
-- **Performance Matrix**: Interactive scatter plot visualizing Toughness vs Edge Retention.
+### Core Features
+- **Steel Grade Library**: Browse and search 20+ premium steel grades with detailed specifications
+- **Performance Matrix**: Interactive scatter plot visualizing Toughness vs Edge Retention
 - **Compare Analysis**:
-  - Compare up to 4 steels side-by-side.
-  - **Radar Chart**: Overall performance balance.
-  - **Composition Chart**: Elemental breakdown (C, Cr, V, etc.).
-  - **Heat Treatment Curves**: Interactive line charts showing Hardness vs. Tempering Temperature.
-- **AI Analyst**: Integrated Google Gemini AI for expert metallurgical advice.
-- **Knife Library**: Explore iconic knives and their steel variants.
-- **Excel Import**: Import custom steel data from Excel files.
+  - Compare up to 4 steels side-by-side
+  - **Radar Chart**: Overall performance balance
+  - **Composition Chart**: Elemental breakdown (C, Cr, V, etc.)
+  - **Heat Treatment Curves**: Interactive line charts showing Hardness vs. Tempering Temperature
+- **Knife Library**: Explore iconic knives and their steel variants
+- **Education Hub**: Comprehensive glossary and FAQ system
+- **Producer Map**: Interactive world map showing steel producer locations
+
+### Advanced Features
+- **AI Analyst**: Integrated Google Gemini AI for expert metallurgical advice
+- **Pro Lab** (Beta):
+  - Steel Recommender: AI-powered steel selection based on use case
+  - Edge Retention Predictor: Predict performance metrics
+- **Command Palette**: Quick navigation and search (⌘K / Ctrl+K)
+- **Excel Import**: Import custom steel data from Excel files
+- **Feature Flags**: Toggle experimental features in settings
+- **Mobile Optimized**: Responsive design with bottom navigation and swipe gestures
+
+### Admin Panel
+- **Database Management**: Switch between local Docker and Railway databases
+- **Data Editor**: CRUD operations for steels, knives, glossary, FAQ, and producers
+- **Real-time Updates**: Changes reflect immediately across the application
+- **Secure Authentication**: Protected admin routes
+
+## � Database
+
+The platform contains comprehensive data on:
+- **20+ Premium Steel Grades**: Detailed composition, performance metrics, and heat treatment data
+- **Iconic Knife Models**: Curated collection of legendary knives and their steel variants
+- **Metallurgy Glossary**: Expert definitions of technical terms
+- **FAQ Database**: Answers to common questions about knife steels
+- **Producer Information**: Global steel manufacturers with geographic data
+
+All data is stored in a PostgreSQL database and updated regularly to ensure accuracy.
 
 ## 🤖 AI Setup
 
-To use the AI Analyst features:
+Our AI is currently being trained on metallurgy and knife steels. It is not yet ready for use. In the meantime, we are evaluating usage of the mainstream models. Stay ready as we are soon launching!
 
-1. Click the **Gear Icon** in the sidebar.
-2. Enter your **Google Gemini API Key**.
-3. Select your preferred model (e.g., `gemini-2.5-flash`).
 
-Get your free API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+## �️ For Developers
 
-## 🛠️ Stack
-
-- **Framework**: Next.js 14 (App Router)
-- **Core**: React 18
-- **Styling**: Tailwind CSS
+### Tech Stack
+- **Framework**: Next.js 16 (App Router)
+- **Runtime**: React 19
+- **Database**: PostgreSQL + Prisma ORM
+- **Styling**: Tailwind CSS + Custom Design System
 - **Charts**: Recharts
-- **Icons**: Lucide React
 - **AI**: Google Generative AI SDK
-- **Data Handling**: XLSX (for Excel imports)
+- **Deployment**: Vercel
 
-## 📦 Build & Deploy
 
-### Development
-```bash
-npm run dev
-```
+## 🎨 Design System
 
-### Production Build
-```bash
-npm run build
-npm start
-```
+The application features a premium glass-morphism design with:
+- **Emerald Gradient Theme**: Vibrant color palette
+- **Glass Design Language**: Frosted glass effects with backdrop blur
+- **Dark Mode**: Optimized for low-light environments
+- **Smooth Animations**: Micro-interactions and transitions
+- **Responsive Layout**: Mobile-first design with adaptive UI
 
-### Build Output
-- Production build: `.next/` directory
-- Static export (if configured): `out/` directory
+## 🔐 Admin Panel
+
+The platform includes a secure admin panel for data management:
+- **Database Editor**: Add, edit, and remove steel grades, knives, and educational content
+- **Real-time Updates**: Changes sync immediately across the application
+- **Secure Access**: Protected authentication system
+
+*Admin access is restricted to authorized users only.*
 
 ## 💡 Credits
 
-Built for the knife community.
-- Data curated from industry standards.
-- Design inspired by premium utilitarian aesthetics.
+Built for the knife community by passionate metallurgy enthusiasts.
+- Data curated from industry standards and expert sources
+- Design inspired by premium utilitarian aesthetics
+- Open source contributions welcome
