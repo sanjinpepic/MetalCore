@@ -43,3 +43,11 @@ middleware.js
 /app/admin/
 /app/api/admin/
 /src/components/admin/
+
+# Local database configuration
+database-config.json
+
+# Database backups and diagnostic scripts
+backup.sql
+*-db.js
+diagnose-*.js
