@@ -46,7 +46,6 @@ middleware.js
 
 # Local database configuration
 database-config.json
-RAILWAY_MIGRATION_GUIDE.md
 
 # Database backups and diagnostic scripts
 backup.sql
