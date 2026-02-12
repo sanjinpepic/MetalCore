@@ -52,7 +52,7 @@ The platform is organized into several key sections accessible from the sidebar:
 - **Real-time Updates**: Changes reflect immediately across the application
 - **Secure Authentication**: Protected admin routes
 
-## � Database
+## 🗄️ Database
 
 The platform contains comprehensive data on:
 - **20+ Premium Steel Grades**: Detailed composition, performance metrics, and heat treatment data
@@ -68,7 +68,7 @@ All data is stored in a PostgreSQL database and updated regularly to ensure accu
 Our AI is currently being trained on metallurgy and knife steels. It is not yet ready for use. In the meantime, we are evaluating usage of the mainstream models. Stay ready as we are soon launching!
 
 
-## �️ For Developers
+## 🛠️ For Developers
 
 ### Tech Stack
 - **Framework**: Next.js 16 (App Router)
