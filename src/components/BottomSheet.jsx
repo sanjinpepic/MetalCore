@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform, animate } from '
 import { useEffect, useRef } from 'react';
 import { hapticFeedback } from '../hooks/useMobile';
 
-export default function BottomSheet({ isOpen, onClose, children }) {
+export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 100 }) {
     const contentRef = useRef(null);
     const isDragging = useRef(false);
     const dragStartY = useRef(0);
@@ -208,7 +208,8 @@ export default function BottomSheet({ isOpen, onClose, children }) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15 }}
-                        className="fixed inset-0 z-[90] md:hidden"
+                        className="fixed inset-0 md:hidden"
+                        style={{ zIndex: baseZIndex - 10 }}
                     >
                         <motion.div
                             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -220,11 +221,11 @@ export default function BottomSheet({ isOpen, onClose, children }) {
                     {/* Mobile Bottom Sheet - finger-following */}
                     <motion.div
                         key="mobile-sheet"
-                        style={{ y: sheetY }}
+                        style={{ y: sheetY, zIndex: baseZIndex }}
                         initial={false}
-                        className="fixed inset-x-0 bottom-0 z-[100] md:hidden will-change-transform"
-                        // Position: top of sheet at 5% from top (95vh height)
-                        // The sheetY motion value moves it: 0 = open, positive = down
+                        className="fixed inset-x-0 bottom-0 md:hidden will-change-transform"
+                    // Position: top of sheet at 5% from top (95vh height)
+                    // The sheetY motion value moves it: 0 = open, positive = down
                     >
                         <div
                             className="bg-[#0a0a0b] rounded-t-3xl shadow-2xl border-t border-white/10 overflow-hidden flex flex-col"
@@ -261,7 +262,8 @@ export default function BottomSheet({ isOpen, onClose, children }) {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-6 hidden md:flex"
+                        className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-6 hidden md:flex"
+                        style={{ zIndex: baseZIndex }}
                     >
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}

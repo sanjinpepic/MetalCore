@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import Footer from './Footer';
 
 const normalize = (val) => {
-    if (!val) return "";
+    if (typeof val !== 'string') return "";
     return val.toLowerCase()
         .replace(/cpm[- ]?/, "")
         .replace(/böhler |bohler /, "")
@@ -171,18 +171,18 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                             <div className="space-y-3">
                                                 <div className="text-[10px] md:text-xs font-bold text-slate-600 uppercase tracking-widest">Available Configurations</div>
                                                 <div className="flex flex-wrap gap-2 md:gap-3">
-                                                    {knife.steels.map(sName => {
-                                                        const steel = steels.find(s => normalize(s.name) === normalize(sName));
+                                                    {knife.steels.map(s => {
+                                                        const steel = steels.find(foundSteel => normalize(foundSteel.name) === normalize(s.name));
                                                         return (
                                                             <button
-                                                                key={sName}
+                                                                key={s.id}
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();
-                                                                    steel ? setDetailSteel(steel) : alert(`Data for ${sName} not found.`);
+                                                                    steel ? setDetailSteel(steel) : alert(`Data for ${s.name} not found.`);
                                                                 }}
                                                                 className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
                                                             >
-                                                                {sName}
+                                                                {s.name}
                                                             </button>
                                                         );
                                                     })}

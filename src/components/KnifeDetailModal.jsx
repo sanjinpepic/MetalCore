@@ -116,13 +116,13 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                 Available Steels
                             </h3>
                             <div className="flex flex-wrap gap-2 md:gap-3 pb-8 md:pb-0">
-                                {knife.steels.map(steelName => (
+                                {knife.steels.map(steel => (
                                     <button
-                                        key={steelName}
-                                        onClick={() => onOpenSteel(steelName)}
+                                        key={steel.id}
+                                        onClick={() => onOpenSteel(steel.name)}
                                         className="px-4 py-2.5 bg-white/5 hover:bg-accent hover:text-black border border-white/10 rounded-xl text-xs font-bold text-slate-300 transition-all group flex items-center gap-2.5 active:scale-95"
                                     >
-                                        {steelName}
+                                        {steel.name}
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all">
                                             <path d="M5 12h14" />
                                             <path d="m12 5 7 7-7 7" />

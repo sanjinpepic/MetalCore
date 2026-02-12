@@ -103,10 +103,10 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                                     {steel.knives.map((k, i) => (
                                         <button
                                             key={i}
-                                            onClick={() => onOpenKnife && onOpenKnife(k)}
+                                            onClick={() => onOpenKnife && onOpenKnife(k.name)}
                                             className="px-3 py-1.5 bg-white/3 border border-white/5 hover:border-accent/40 hover:bg-white/8 rounded-lg text-[10px] text-slate-200 transition-all font-bold"
                                         >
-                                            {k}
+                                            {k.name}
                                         </button>
                                     ))}
                                 </div>

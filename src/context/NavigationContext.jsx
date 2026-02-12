@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { hapticFeedback } from '../hooks/useMobile';
 
 const NavigationContext = createContext();
@@ -47,47 +47,57 @@ export function NavigationProvider({ children }) {
         return () => window.removeEventListener('popstate', handlePopState);
     }, []);
 
+    const lastProcessedRef = useRef(null);
+
+    // Sync URL with navigation state
+    useEffect(() => {
+        if (!isInitialized || navigationStack.length === 0) return;
+
+        const latestState = navigationStack[navigationStack.length - 1];
+        if (lastProcessedRef.current === latestState) return;
+
+        // Build URL for the latest state
+        const params = new URLSearchParams();
+        if (latestState.view && latestState.view !== 'HOME') {
+            params.set('view', latestState.view);
+        }
+        if (latestState.detailSteel) {
+            params.set('steel', latestState.detailSteel);
+        }
+        if (latestState.detailKnife) {
+            params.set('knife', latestState.detailKnife);
+        }
+        if (latestState.compareSteels && latestState.view === 'COMPARE') {
+            params.set('steels', latestState.compareSteels);
+        }
+
+        const url = params.toString() ? `?${params.toString()}` : '/';
+        const isPopState = window.history.state?.navigationState === latestState;
+
+        if (!isPopState) {
+            // Only update history if this wasn't triggered by a popstate event
+            // Note: We don't have an easy way to distinguish between push and replace here
+            // without extra state, so we'll use a heuristic or just push.
+            // Actually, keep it simple for now and just push if it's new.
+            window.history.pushState(
+                { navigationState: latestState, navigationStack: navigationStack },
+                '',
+                url
+            );
+        }
+
+        lastProcessedRef.current = latestState;
+    }, [isInitialized, navigationStack]);
+
     const navigate = useCallback((newState, replace = false) => {
         if (!isInitialized) return;
 
         setNavigationStack(prev => {
             const current = prev[prev.length - 1] || { view: 'HOME', detailSteel: null, detailKnife: null, compareSteels: null };
             const mergedState = { ...current, ...newState };
-
-            // Build URL
-            const params = new URLSearchParams();
-            if (mergedState.view && mergedState.view !== 'HOME') {
-                params.set('view', mergedState.view);
-            }
-            if (mergedState.detailSteel) {
-                params.set('steel', mergedState.detailSteel);
-            }
-            if (mergedState.detailKnife) {
-                params.set('knife', mergedState.detailKnife);
-            }
-            if (mergedState.compareSteels && mergedState.view === 'COMPARE') {
-                params.set('steels', mergedState.compareSteels);
-            }
-
-            const url = params.toString() ? `?${params.toString()}` : '/';
-
-            if (replace && prev.length > 0) {
-                // Replace current state
-                window.history.replaceState(
-                    { navigationState: mergedState, navigationStack: [...prev.slice(0, -1), mergedState] },
-                    '',
-                    url
-                );
-                return [...prev.slice(0, -1), mergedState];
-            } else {
-                // Push new state
-                window.history.pushState(
-                    { navigationState: mergedState, navigationStack: [...prev, mergedState] },
-                    '',
-                    url
-                );
-                return [...prev, mergedState];
-            }
+            return replace && prev.length > 0
+                ? [...prev.slice(0, -1), mergedState]
+                : [...prev, mergedState];
         });
     }, [isInitialized]);
 

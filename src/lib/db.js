@@ -1,20 +1,48 @@
 import { Pool } from 'pg';
+import fs from 'fs';
+import path from 'path';
 
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL?.includes('sslmode')
-        ? { rejectUnauthorized: false }
-        : false,
-});
+let pools = {
+    local: null,
+    railway: null
+};
+
+function getPool() {
+    let source = 'local';
+    try {
+        const configPath = path.resolve(process.cwd(), 'database-config.json');
+        if (fs.existsSync(configPath)) {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+            source = config.source || 'local';
+        }
+    } catch (e) {
+        // Fallback
+    }
+
+    if (!pools[source]) {
+        const connectionString = source === 'railway'
+            ? process.env.RAILWAY_DATABASE_URL
+            : process.env.DATABASE_URL;
+
+        pools[source] = new Pool({
+            connectionString: connectionString,
+            ssl: connectionString?.includes('sslmode') || source === 'railway'
+                ? { rejectUnauthorized: false }
+                : false,
+        });
+    }
+
+    return pools[source];
+}
 
 export async function fetchAllData() {
     const [steelsRes, knivesRes, glossaryRes, faqRes, producersRes, joinRes] = await Promise.all([
-        pool.query('SELECT * FROM "Steel"'),
-        pool.query('SELECT * FROM "Knife"'),
-        pool.query('SELECT * FROM "Glossary"'),
-        pool.query('SELECT * FROM "FAQ"'),
-        pool.query('SELECT * FROM "Producer"'),
-        pool.query('SELECT * FROM "_SteelToKnife"'),
+        getPool().query('SELECT * FROM "Steel"'),
+        getPool().query('SELECT * FROM "Knife"'),
+        getPool().query('SELECT * FROM "Glossary"'),
+        getPool().query('SELECT * FROM "FAQ"'),
+        getPool().query('SELECT * FROM "Producer"'),
+        getPool().query('SELECT * FROM "_SteelToKnife"'),
     ]);
 
     // Build steel id -> name map
@@ -33,10 +61,16 @@ export async function fetchAllData() {
     for (const row of joinRes.rows) {
         const kId = row[knifeCol];
         const sId = row[steelCol];
-        if (!knifeToSteels.has(kId)) knifeToSteels.set(kId, []);
-        knifeToSteels.get(kId).push(steelNameMap.get(sId));
-        if (!steelToKnives.has(sId)) steelToKnives.set(sId, []);
-        steelToKnives.get(sId).push(knifeNameMap.get(kId));
+        const steelName = steelNameMap.get(sId);
+        const knifeName = knifeNameMap.get(kId);
+
+        if (kId && sId) {
+            if (!knifeToSteels.has(kId)) knifeToSteels.set(kId, []);
+            knifeToSteels.get(kId).push({ id: sId, name: steelName });
+
+            if (!steelToKnives.has(sId)) steelToKnives.set(sId, []);
+            steelToKnives.get(sId).push({ id: kId, name: knifeName });
+        }
     }
 
     const formattedKnives = knivesRes.rows.map(k => ({
@@ -90,7 +124,7 @@ export async function createSteel(steelData) {
         steelFields.cons || []
     ];
 
-    const result = await pool.query(query, values);
+    const result = await getPool().query(query, values);
 
     // Handle knife relationships if provided
     if (knives && knives.length > 0) {
@@ -134,7 +168,7 @@ export async function updateSteel(id, steelData) {
         id
     ];
 
-    const result = await pool.query(query, values);
+    const result = await getPool().query(query, values);
 
     if (knives !== undefined) {
         await updateSteelKnifeRelations(id, knives);
@@ -144,19 +178,22 @@ export async function updateSteel(id, steelData) {
 }
 
 export async function deleteSteel(id) {
-    // Cascade delete handled by DB constraint
-    await pool.query('DELETE FROM "Steel" WHERE id = $1', [id]);
-    return { success: true, id };
+    console.log(`DB: Deleting steel ${id}...`);
+    // Explicitly delete relationships just in case CASCADE isn't enabled
+    const relResult = await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [id]);
+    const steelResult = await getPool().query('DELETE FROM "Steel" WHERE id = $1', [id]);
+    console.log(`DB: Deleted ${steelResult.rowCount} steel(s) and ${relResult.rowCount} relationship(s)`);
+    return { success: true, id, rowCount: steelResult.rowCount };
 }
 
 async function updateSteelKnifeRelations(steelId, knifeIds) {
     // Delete existing relations for this steel
-    await pool.query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [steelId]);
+    await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [steelId]);
 
     // Insert new relations
     if (knifeIds && knifeIds.length > 0) {
         // Determine column structure (steel could be in A or B)
-        const sampleQuery = await pool.query('SELECT "A", "B" FROM "_SteelToKnife" LIMIT 1');
+        const sampleQuery = await getPool().query('SELECT "A", "B" FROM "_SteelToKnife" LIMIT 1');
         const steelCol = 'A'; // Based on schema, steel is in column A
         const knifeCol = 'B'; // Based on schema, knife is in column B
 
@@ -167,7 +204,7 @@ async function updateSteelKnifeRelations(steelId, knifeIds) {
         const query = `INSERT INTO "_SteelToKnife" ("${steelCol}", "${knifeCol}") VALUES ${values}`;
         const params = knifeIds.flatMap(knifeId => [steelId, knifeId]);
 
-        await pool.query(query, params);
+        await getPool().query(query, params);
     }
 }
 
@@ -193,7 +230,7 @@ export async function createKnife(knifeData) {
         knifeFields.link || ''
     ];
 
-    const result = await pool.query(query, values);
+    const result = await getPool().query(query, values);
 
     // Handle steel relationships if provided
     if (steels && steels.length > 0) {
@@ -225,7 +262,7 @@ export async function updateKnife(id, knifeData) {
         id
     ];
 
-    const result = await pool.query(query, values);
+    const result = await getPool().query(query, values);
 
     if (steels !== undefined) {
         await updateKnifeSteelRelations(id, steels);
@@ -235,14 +272,17 @@ export async function updateKnife(id, knifeData) {
 }
 
 export async function deleteKnife(id) {
-    // Cascade delete handled by DB constraint
-    await pool.query('DELETE FROM "Knife" WHERE id = $1', [id]);
-    return { success: true, id };
+    console.log(`DB: Deleting knife ${id}...`);
+    // Explicitly delete relationships just in case CASCADE isn't enabled
+    const relResult = await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [id]);
+    const knifeResult = await getPool().query('DELETE FROM "Knife" WHERE id = $1', [id]);
+    console.log(`DB: Deleted ${knifeResult.rowCount} knife/knives and ${relResult.rowCount} relationship(s)`);
+    return { success: true, id, rowCount: knifeResult.rowCount };
 }
 
 async function updateKnifeSteelRelations(knifeId, steelIds) {
     // Delete existing relations for this knife
-    await pool.query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [knifeId]);
+    await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [knifeId]);
 
     // Insert new relations
     if (steelIds && steelIds.length > 0) {
@@ -256,6 +296,102 @@ async function updateKnifeSteelRelations(knifeId, steelIds) {
         const query = `INSERT INTO "_SteelToKnife" ("${steelCol}", "${knifeCol}") VALUES ${values}`;
         const params = steelIds.flatMap(steelId => [steelId, knifeId]);
 
-        await pool.query(query, params);
+        await getPool().query(query, params);
     }
+}
+
+// ========== GLOSSARY CRUD OPERATIONS ==========
+
+export async function createGlossary(data) {
+    const query = `
+        INSERT INTO "Glossary" (term, def, category, level)
+        VALUES ($1, $2, $3, $4)
+        RETURNING *
+    `;
+    const values = [data.term, data.def, data.category || '', data.level || ''];
+    const result = await getPool().query(query, values);
+    return result.rows[0];
+}
+
+export async function updateGlossary(id, data) {
+    const query = `
+        UPDATE "Glossary"
+        SET term = $1, def = $2, category = $3, level = $4
+        WHERE id = $5
+        RETURNING *
+    `;
+    const values = [data.term, data.def, data.category || '', data.level || '', id];
+    const result = await getPool().query(query, values);
+    return result.rows[0];
+}
+
+export async function deleteGlossary(id) {
+    console.log(`DB: Deleting glossary ${id}...`);
+    const result = await getPool().query('DELETE FROM "Glossary" WHERE id = $1', [id]);
+    console.log(`DB: Deleted ${result.rowCount} glossary entry/entries`);
+    return { success: true, id, rowCount: result.rowCount };
+}
+
+// ========== FAQ CRUD OPERATIONS ==========
+
+export async function createFAQ(data) {
+    const query = `
+        INSERT INTO "FAQ" (q, a, category)
+        VALUES ($1, $2, $3)
+        RETURNING *
+    `;
+    const values = [data.q, data.a, data.category || ''];
+    const result = await getPool().query(query, values);
+    return result.rows[0];
+}
+
+export async function updateFAQ(id, data) {
+    const query = `
+        UPDATE "FAQ"
+        SET q = $1, a = $2, category = $3
+        WHERE id = $4
+        RETURNING *
+    `;
+    const values = [data.q, data.a, data.category || '', id];
+    const result = await getPool().query(query, values);
+    return result.rows[0];
+}
+
+export async function deleteFAQ(id) {
+    console.log(`DB: Deleting FAQ ${id}...`);
+    const result = await getPool().query('DELETE FROM "FAQ" WHERE id = $1', [id]);
+    console.log(`DB: Deleted ${result.rowCount} FAQ entry/entries`);
+    return { success: true, id, rowCount: result.rowCount };
+}
+
+// ========== PRODUCER CRUD OPERATIONS ==========
+
+export async function createProducer(data) {
+    const query = `
+        INSERT INTO "Producer" (name, location, coords, region, "desc")
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *
+    `;
+    const values = [data.name, data.location, data.coords || [], data.region, data.desc];
+    const result = await getPool().query(query, values);
+    return result.rows[0];
+}
+
+export async function updateProducer(id, data) {
+    const query = `
+        UPDATE "Producer"
+        SET name = $1, location = $2, coords = $3, region = $4, "desc" = $5
+        WHERE id = $6
+        RETURNING *
+    `;
+    const values = [data.name, data.location, data.coords || [], data.region, data.desc, id];
+    const result = await getPool().query(query, values);
+    return result.rows[0];
+}
+
+export async function deleteProducer(id) {
+    console.log(`DB: Deleting producer ${id}...`);
+    const result = await getPool().query('DELETE FROM "Producer" WHERE id = $1', [id]);
+    console.log(`DB: Deleted ${result.rowCount} producer(s)`);
+    return { success: true, id, rowCount: result.rowCount };
 }

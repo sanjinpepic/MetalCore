@@ -227,7 +227,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
 
             const systemPrompt = `You are the MetalCore AI Analyst. Expert in metallurgy and iconic knives. Your name is Ferry.
 Database: ${steels.map(s => `${s.name} (${s.producer}): C:${s.C}, Cr:${s.Cr}, V:${s.V}, Edge:${s.edge}, Toughness:${s.toughness}`).join(' | ')}
-Knives: ${initialKnives.map(k => `${k.name} by ${k.maker}: Steels: ${k.steels.join(', ')}`).join(' | ')}
+Knives: ${initialKnives.map(k => `${k.name} by ${k.maker}: Steels: ${k.steels.map(s => s.name).join(', ')}`).join(' | ')}
 If recommending steels, trigger comparison with this exact JSON on a new line:
 COMMAND: {"action": "compare", "steels": ["ExactName1", "ExactName2"]}
 Be concise and premium.`;
@@ -357,7 +357,7 @@ Be concise and premium.`;
     // Filter knives based on search query AND grade library filters (producer, alloy content)
     const filteredKnives = useMemo(() => {
         const normalize = (val) => {
-            if (!val) return "";
+            if (typeof val !== 'string') return "";
             return val.toLowerCase()
                 .replace(/cpm[- ]?/, "")
                 .replace(/böhler |bohler /, "")
@@ -377,7 +377,8 @@ Be concise and premium.`;
                 else if (k.category.toLowerCase().includes(searchLower)) matchesSearch = true;
                 else if (k.description.toLowerCase().includes(searchLower)) matchesSearch = true;
                 else if (k.whySpecial.toLowerCase().includes(searchLower)) matchesSearch = true;
-                else if (k.steels.some(steelName => {
+                else if (k.steels.some(sObj => {
+                    const steelName = sObj.name;
                     const normalizedSteel = normalize(steelName);
                     const normalizedSearch = normalize(searchLower);
                     return steelName.toLowerCase().includes(searchLower) ||
@@ -390,7 +391,8 @@ Be concise and premium.`;
 
             // Now apply grade library filters (producer and alloy content)
             // A knife passes if ANY of its steel variants match the filters
-            const hasMatchingSteel = k.steels.some(steelName => {
+            const hasMatchingSteel = k.steels.some(sObj => {
+                const steelName = sObj.name;
                 const steel = steels.find(s =>
                     normalize(s.name) === normalize(steelName) ||
                     s.name.toLowerCase() === steelName.toLowerCase()
@@ -562,101 +564,101 @@ Be concise and premium.`;
 
             {/* Main Content with View Transitions - Above background layer */}
             <div className="w-full md:ml-80 md:w-[calc(100%-20rem)] md:h-full relative z-10 grid [&>*]:[grid-area:1/1]">
-            <AnimatePresence initial={false}>
-                <motion.div
-                    key={view}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                        duration: 1.3,
-                        ease: [0.22, 1, 0.36, 1]
-                    }}
-                    className="w-full md:h-full md:overflow-hidden"
-                >
-                    {view === 'HOME' && (
-                        <HomeView
-                            setView={setView}
-                            steels={steels}
-                            setDetailSteel={setDetailSteel}
-                            search={search}
-                            setSearch={setSearch}
-                            compareList={compareList}
-                            toggleCompare={toggleCompare}
-                            producers={producers}
-                            incrementTrending={incrementTrending}
-                            resetFilters={resetFilters}
-                            setShowRecommender={setShowRecommender}
-                        />
-                    )}
+                <AnimatePresence initial={false}>
+                    <motion.div
+                        key={view}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 1.3,
+                            ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="w-full md:h-full md:overflow-hidden"
+                    >
+                        {view === 'HOME' && (
+                            <HomeView
+                                setView={setView}
+                                steels={steels}
+                                setDetailSteel={setDetailSteel}
+                                search={search}
+                                setSearch={setSearch}
+                                compareList={compareList}
+                                toggleCompare={toggleCompare}
+                                producers={producers}
+                                incrementTrending={incrementTrending}
+                                resetFilters={resetFilters}
+                                setShowRecommender={setShowRecommender}
+                            />
+                        )}
 
-                    {view === 'SEARCH' && (
-                        <SearchView
-                            search={search}
-                            setSearch={setSearch}
-                            filteredSteels={filteredSteels}
-                            compareList={compareList}
-                            toggleCompare={toggleCompare}
-                            clearCompare={clearCompare}
-                            setDetailSteel={setDetailSteel}
-                            setView={setView}
-                            resetFilters={resetFilters}
-                        />
-                    )}
+                        {view === 'SEARCH' && (
+                            <SearchView
+                                search={search}
+                                setSearch={setSearch}
+                                filteredSteels={filteredSteels}
+                                compareList={compareList}
+                                toggleCompare={toggleCompare}
+                                clearCompare={clearCompare}
+                                setDetailSteel={setDetailSteel}
+                                setView={setView}
+                                resetFilters={resetFilters}
+                            />
+                        )}
 
-                    {view === 'MATRIX' && (
-                        <PerformanceMatrix
-                            steels={filteredSteels}
-                            setDetailSteel={setDetailSteel}
-                            activeProducer={activeProducer}
-                            setActiveProducer={setActiveProducer}
-                            producers={producers}
-                        />
-                    )}
+                        {view === 'MATRIX' && (
+                            <PerformanceMatrix
+                                steels={filteredSteels}
+                                setDetailSteel={setDetailSteel}
+                                activeProducer={activeProducer}
+                                setActiveProducer={setActiveProducer}
+                                producers={producers}
+                            />
+                        )}
 
-                    {view === 'KNIVES' && (
-                        <KnifeLibrary
-                            knives={filteredKnives}
-                            steels={steels}
-                            setDetailSteel={setDetailSteel}
-                            setDetailKnife={setDetailKnife}
-                            knifeSearch={knifeSearch}
-                            setKnifeSearch={setKnifeSearch}
-                        />
-                    )}
+                        {view === 'KNIVES' && (
+                            <KnifeLibrary
+                                knives={filteredKnives}
+                                steels={steels}
+                                setDetailSteel={setDetailSteel}
+                                setDetailKnife={setDetailKnife}
+                                knifeSearch={knifeSearch}
+                                setKnifeSearch={setKnifeSearch}
+                            />
+                        )}
 
-                    {view === 'COMPARE' && (
-                        <CompareView
-                            items={compareList}
-                            setView={setView}
-                            toggleCompare={toggleCompare}
-                            clearCompare={clearCompare}
-                            generateReport={generateReport}
-                            isAiLoading={isAiLoading}
-                        />
-                    )}
+                        {view === 'COMPARE' && (
+                            <CompareView
+                                items={compareList}
+                                setView={setView}
+                                toggleCompare={toggleCompare}
+                                clearCompare={clearCompare}
+                                generateReport={generateReport}
+                                isAiLoading={isAiLoading}
+                            />
+                        )}
 
-                    {view === 'PROFILE' && (
-                        <ProfileView
-                            steels={steels}
-                            setDetailSteel={setDetailSteel}
-                            setView={setView}
-                        />
-                    )}
+                        {view === 'PROFILE' && (
+                            <ProfileView
+                                steels={steels}
+                                setDetailSteel={setDetailSteel}
+                                setView={setView}
+                            />
+                        )}
 
-                    {view === 'EDUCATION' && (
-                        <EducationView
-                            glossary={initialGlossary}
-                            faq={initialFaq}
-                            producers={initialProducers}
-                        />
-                    )}
+                        {view === 'EDUCATION' && (
+                            <EducationView
+                                glossary={initialGlossary}
+                                faq={initialFaq}
+                                producers={initialProducers}
+                            />
+                        )}
 
-                    {view === 'PRO_LAB' && (
-                        <ProLabView steels={steels} />
-                    )}
-                </motion.div>
-            </AnimatePresence>
+                        {view === 'PRO_LAB' && (
+                            <ProLabView steels={steels} />
+                        )}
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
             {/* AI Analyst Panel */}
