@@ -76,7 +76,6 @@ Our AI is currently being trained on metallurgy and knife steels. It is not yet 
 - **Database**: PostgreSQL + Prisma ORM
 - **Styling**: Tailwind CSS + Custom Design System
 - **Charts**: Recharts
-- **AI**: Google Generative AI SDK
 - **Deployment**: Vercel
 
 
