@@ -55,7 +55,7 @@ The platform is organized into several key sections accessible from the sidebar:
 ## 🗄️ Database
 
 The platform contains comprehensive data on:
-- **20+ Premium Steel Grades**: Detailed composition, performance metrics, and heat treatment data
+- **100+ Premium Steel Grades**: Detailed composition, performance metrics, and heat treatment data
 - **Iconic Knife Models**: Curated collection of legendary knives and their steel variants
 - **Metallurgy Glossary**: Expert definitions of technical terms
 - **FAQ Database**: Answers to common questions about knife steels
