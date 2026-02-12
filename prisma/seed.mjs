@@ -7,7 +7,13 @@ import vm from 'vm';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const connectionString = String(process.env.RAILWAY_DATABASE_URL || process.env.DATABASE_URL || '');
+const pool = new Pool({
+    connectionString,
+    ssl: connectionString.includes('sslmode') || connectionString.includes('rlwy.net')
+        ? { rejectUnauthorized: false }
+        : false
+});
 
 function loadData(filePath) {
     const code = fs.readFileSync(path.resolve(__dirname, filePath), 'utf8');
@@ -67,26 +73,26 @@ async function main() {
     }
     // Aliases: knives.js uses different name variants than steels.js
     const aliases = {
-        'cpm-s30v':           'crucible-7',
-        'cpm-s35vn':          'crucible-10',
-        'cpm-s45vn':          'crucible-5',
-        'cpm-s90v':           'crucible-2',
-        'cpm-s110v':          'crucible-8',
-        'cpm-20cv':           'crucible-9',
-        'cpm-3v':             'crucible-3',
-        'cpm-154':            'crucible-11',
-        'cpm-m4':             'crucible-6',
-        'cpm-cruwear':        'crucible-4',
-        'cpm-magnacut':       'crucible-1',
-        'm390 microclean':    'bohler-1',
-        'elmax superclean':   'uddeholm-1',
-        'k390 microclean':    'bohler-2',
-        'vanax superclean':   'uddeholm-6',
-        's35vn':              'crucible-10',
-        '15v':                'crucible-12',
-        'mc63 (sg2)':         'takefu-1',
-        'm4':                 'crucible-6',
-        'carbon steel':       'carbon-4',   // generic "Carbon Steel" -> 1075
+        'cpm-s30v': 'crucible-7',
+        'cpm-s35vn': 'crucible-10',
+        'cpm-s45vn': 'crucible-5',
+        'cpm-s90v': 'crucible-2',
+        'cpm-s110v': 'crucible-8',
+        'cpm-20cv': 'crucible-9',
+        'cpm-3v': 'crucible-3',
+        'cpm-154': 'crucible-11',
+        'cpm-m4': 'crucible-6',
+        'cpm-cruwear': 'crucible-4',
+        'cpm-magnacut': 'crucible-1',
+        'm390 microclean': 'bohler-1',
+        'elmax superclean': 'uddeholm-1',
+        'k390 microclean': 'bohler-2',
+        'vanax superclean': 'uddeholm-6',
+        's35vn': 'crucible-10',
+        '15v': 'crucible-12',
+        'mc63 (sg2)': 'takefu-1',
+        'm4': 'crucible-6',
+        'carbon steel': 'carbon-4',   // generic "Carbon Steel" -> 1075
     };
     for (const [alias, id] of Object.entries(aliases)) {
         steelLookup.set(alias, id);
