@@ -13,7 +13,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
     const isVerticalScroll = useRef(false);
     const hasTriggeredHaptic = useRef(false);
 
-    // Single snap point - fully expanded (95vh)
+    // Single snap point - fully expanded (85dvh)
     const SNAP_HEIGHT = 0.95;
 
     // Motion values for finger-following
@@ -229,7 +229,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                     >
                         <div
                             className="bg-[#0a0a0b] rounded-t-3xl shadow-2xl border-t border-white/10 overflow-hidden flex flex-col"
-                            style={{ height: `${SNAP_HEIGHT * 100}vh` }}
+                            style={{ height: `${SNAP_HEIGHT * 100}dvh` }}
                         >
                             {/* Drag Handle - always initiates drag */}
                             <div
@@ -271,7 +271,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                             exit={{ scale: 0.95, opacity: 0 }}
                             transition={springConfig}
                             onClick={(e) => e.stopPropagation()}
-                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar will-change-transform"
+                            className="glass-panel w-full max-h-[85vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar will-change-transform"
                         >
                             {children}
                         </motion.div>
