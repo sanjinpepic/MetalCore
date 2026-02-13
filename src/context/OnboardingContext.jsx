@@ -1,0 +1,147 @@
+'use client'
+
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+
+const OnboardingContext = createContext();
+
+export const useOnboarding = () => {
+    const context = useContext(OnboardingContext);
+    if (!context) {
+        throw new Error('useOnboarding must be used within an OnboardingProvider');
+    }
+    return context;
+};
+
+// Tour Steps Definitions
+const TOUR_STEPS = {
+    newbie: [
+        {
+            target: 'global-search',
+            title: 'Global Search',
+            content: 'Start here! Search for any steel grade (e.g., "MagnaCut") or producer to instantly see its composition and properties.',
+            position: 'bottom'
+        },
+        {
+            target: 'nav-search',
+            title: 'Grade Library',
+            content: 'Browse our extensive database of over 500+ steel grades with detailed charts and datasheets.',
+            position: 'right'
+        },
+        {
+            target: 'nav-education',
+            title: 'Academy',
+            content: 'New to metallurgy? The Academy is packed with articles and guides to help you understand the science behind the steel.',
+            position: 'right'
+        }
+    ],
+    enthusiast: [
+        {
+            target: 'nav-matrix',
+            title: 'Performance Matrix',
+            content: 'Visualise the trade-offs. The Graph View lets you compare Edge Retention vs Toughness vs Corrosion Resistance in real-time.',
+            position: 'right'
+        },
+        {
+            target: 'nav-knives',
+            title: 'Knife Library',
+            content: 'See how different steels are used in actual production knives. Filter by brand, blade shape, and lock type.',
+            position: 'right'
+        },
+        {
+            target: 'nav-compare',
+            title: 'Compare Tool',
+            content: 'Diff tool for alloys. Select multiple steels to overlay their composition graphs and spot the differences.',
+            position: 'right'
+        }
+    ],
+    expert: [
+        {
+            target: 'import-dataset',
+            title: 'Import Data',
+            content: 'Bring your own data. Import .csv or .xlsx files to analyze your custom alloys against our standard library.',
+            position: 'right'
+        },
+        {
+            target: 'nav-profile',
+            title: 'Pro Profile',
+            content: 'Manage your saved alloys, custom comparisons, and export your research data.',
+            position: 'right'
+        }
+    ]
+};
+
+export const OnboardingProvider = ({ children }) => {
+    // State
+    const [isActive, setIsActive] = useState(false);
+    const [knowledgeLevel, setKnowledgeLevel] = useState(null); // 'newbie' | 'enthusiast' | 'expert' | null
+    const [currentStepIndex, setCurrentStepIndex] = useState(0);
+    const [showWelcome, setShowWelcome] = useState(false);
+
+    // Persist completion state
+    useEffect(() => {
+        const hasCompletedParams = localStorage.getItem('metalcore_onboarding_completed');
+        if (!hasCompletedParams) {
+            // Delay slightly to let the app load
+            const timer = setTimeout(() => setShowWelcome(true), 1500);
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
+    const startTour = (level) => {
+        setKnowledgeLevel(level);
+        setShowWelcome(false);
+        setIsActive(true);
+        setCurrentStepIndex(0);
+    };
+
+    const nextStep = useCallback(() => {
+        if (!knowledgeLevel) return;
+
+        const currentSteps = TOUR_STEPS[knowledgeLevel];
+        if (currentStepIndex < currentSteps.length - 1) {
+            setCurrentStepIndex(prev => prev + 1);
+        } else {
+            completeTour();
+        }
+    }, [knowledgeLevel, currentStepIndex]);
+
+    const prevStep = useCallback(() => {
+        if (currentStepIndex > 0) {
+            setCurrentStepIndex(prev => prev - 1);
+        }
+    }, [currentStepIndex]);
+
+    const completeTour = () => {
+        setIsActive(false);
+        setShowWelcome(false);
+        localStorage.setItem('metalcore_onboarding_completed', 'true');
+    };
+
+    const skipTour = () => {
+        completeTour();
+    };
+
+    // Derived state for the active step
+    const currentStepData = (isActive && knowledgeLevel)
+        ? TOUR_STEPS[knowledgeLevel][currentStepIndex]
+        : null;
+
+    return (
+        <OnboardingContext.Provider value={{
+            isActive,
+            showWelcome,
+            setShowWelcome,
+            knowledgeLevel,
+            currentStepIndex,
+            currentStepData,
+            totalSteps: (knowledgeLevel ? TOUR_STEPS[knowledgeLevel].length : 0),
+            startTour,
+            nextStep,
+            prevStep,
+            skipTour,
+            completeTour
+        }}>
+            {children}
+        </OnboardingContext.Provider>
+    );
+};

@@ -5,13 +5,13 @@ import { hapticFeedback } from '../hooks/useMobile';
 
 const NavigationContext = createContext();
 
-export function NavigationProvider({ children }) {
-    const [navigationStack, setNavigationStack] = useState([]);
-    const [isInitialized, setIsInitialized] = useState(false);
+export function NavigationProvider({ children, initialRouteState }) {
+    const [navigationStack, setNavigationStack] = useState(initialRouteState ? [initialRouteState] : []);
+    const [isInitialized, setIsInitialized] = useState(!!initialRouteState);
 
     // Initialize from URL on mount
     useEffect(() => {
-        if (typeof window === 'undefined') return;
+        if (typeof window === 'undefined' || isInitialized) return;
 
         const initFromUrl = () => {
             const params = new URLSearchParams(window.location.search);

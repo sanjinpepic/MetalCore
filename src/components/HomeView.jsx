@@ -135,6 +135,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     onChange={(e) => setSearch(e.target.value)}
                                     onKeyDown={handleSearchKeyDown}
                                     onFocus={handleSearchFocus}
+                                    data-tour="global-search"
                                 />
                                 {search && (
                                     <button
@@ -215,6 +216,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         if (stat.target === 'SEARCH' && resetFilters) resetFilters();
                                     }}
                                     className="flex flex-col items-center group transition-all"
+                                    data-tour={`nav-${stat.target.toLowerCase()}`}
                                 >
                                     <div className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1 group-hover:text-slate-400 transition-colors">{stat.label}</div>
                                     <div className="text-4xl md:text-5xl font-black text-white font-display group-hover:text-accent transition-all group-hover:scale-110">{stat.value}</div>

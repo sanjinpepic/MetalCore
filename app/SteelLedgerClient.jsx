@@ -31,11 +31,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
+export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError, initialRouteState }) {
     return (
         <SettingsProvider>
             <UserProvider>
-                <NavigationProvider>
+                <NavigationProvider initialRouteState={initialRouteState}>
                     <AppContent
                         initialSteels={initialSteels}
                         initialKnives={initialKnives}

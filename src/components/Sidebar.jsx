@@ -378,6 +378,7 @@ const Sidebar = ({
                         }}
                         className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg text-slate-400 hover:text-accent transition-all"
                         aria-label="Settings"
+                        data-tour="nav-profile"
                     >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
@@ -393,6 +394,12 @@ const Sidebar = ({
                             <button
                                 key={nav.id}
                                 onClick={() => handleNavClick(nav.id)}
+                                data-tour={
+                                    nav.id === 'SEARCH' ? 'nav-search' :
+                                        nav.id === 'EDUCATION' ? 'nav-education' :
+                                            nav.id === 'MATRIX' ? 'nav-matrix' :
+                                                nav.id === 'KNIVES' ? 'nav-knives' : undefined
+                                }
                                 className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${view === nav.id ? 'bg-accent text-black shadow-lg shadow-accent/10 scale-[1.02]' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
@@ -527,7 +534,7 @@ const Sidebar = ({
 
                     {(view === 'SEARCH' || view === 'KNIVES') && (
                         <section className="mt-10 pt-6 border-t border-white/5">
-                            <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
+                            <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                     <polyline points="14 2 14 8 20 8" />

@@ -271,7 +271,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                             exit={{ scale: 0.95, opacity: 0 }}
                             transition={springConfig}
                             onClick={(e) => e.stopPropagation()}
-                            className="glass-panel w-full max-h-[85vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar will-change-transform"
+                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar will-change-transform"
                         >
                             {children}
                         </motion.div>
