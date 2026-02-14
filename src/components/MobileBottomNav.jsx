@@ -74,6 +74,7 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                         <button
                             key={item.id}
                             onClick={() => handleNavClick(item.id)}
+                            data-tour={`mobile-nav-${item.id.toLowerCase()}`}
                             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${
                                 view === item.id
                                     ? 'text-accent bg-accent/10'
