@@ -46,7 +46,7 @@ const OnboardingOverlay = () => {
                 const isMobileView = window.innerWidth < 768;
                 // Match the Tailwind widths: w-64 (256px) on mobile, w-72 (288px) on sm+, w-80 (320px) on md+
                 const effectiveTooltipWidth = window.innerWidth < 640 ? 256 : (window.innerWidth < 768 ? 288 : 320);
-                const tooltipHeight = isMobileView ? 180 : 260; // Shorter on mobile, with extra margin
+                const tooltipHeight = isMobileView ? 140 : 260; // Estimated height on mobile, more conservative now
                 const screenPadding = 16; // padding from screen edge
 
                 let style = {};
@@ -82,43 +82,77 @@ const OnboardingOverlay = () => {
                     // On mobile with bottom nav, check if target is in the bottom nav
                     const isInBottomNav = isMobileView && rect.bottom > window.innerHeight - 100;
                     
+                    // On mobile, prefer top/bottom positioning over left/right
+                    const preferVertical = isMobileView;
+                    
                     // Determine best vertical position: prefer the side with more space
                     const shouldPositionBelow = spaceBottom > spaceTop;
 
                     // Calculate positions based on space availability
                     let leftPosition, topPosition;
 
-                    // Horizontal positioning - PREFER LEFT side, only use RIGHT as fallback
-                    if (spaceLeft > effectiveTooltipWidth + gap) {
+                    // For mobile, prefer vertical (top/bottom) positioning
+                    const hasLeftSpace = spaceLeft > effectiveTooltipWidth + gap;
+                    const hasRightSpace = spaceRight > effectiveTooltipWidth + gap;
+                    const hasTopSpace = spaceTop > tooltipHeight + gap;
+                    const hasBottomSpace = spaceBottom > tooltipHeight + gap;
+
+                    // Horizontal positioning
+                    if (!preferVertical && hasLeftSpace) {
                         // Position on the LEFT
                         leftPosition = rect.left - effectiveTooltipWidth - gap;
-                    } else if (spaceRight > effectiveTooltipWidth + gap) {
-                        // Position on the RIGHT only if left doesn't have space
+                    } else if (!preferVertical && hasRightSpace) {
+                        // Position on the RIGHT
                         leftPosition = rect.right + gap;
                     } else {
-                        // Not enough space on either side, constrain to center
-                        const minLeft = screenPadding + (effectiveTooltipWidth / 2);
-                        const maxLeft = window.innerWidth - screenPadding - (effectiveTooltipWidth / 2);
-                        leftPosition = Math.max(minLeft, Math.min(rect.left + (rect.width / 2), maxLeft));
+                        // Top/bottom positioning: fit tooltip within screen bounds
+                        if (isMobileView) {
+                            // On mobile, position with padding from edges, centered if possible
+                            const minLeft = screenPadding;
+                            const maxLeft = window.innerWidth - effectiveTooltipWidth - screenPadding;
+                            const targetCenterLeft = rect.left + (rect.width / 2) - (effectiveTooltipWidth / 2);
+                            leftPosition = Math.max(minLeft, Math.min(targetCenterLeft, maxLeft));
+                            
+                            // For search bar at top, prefer positioning below with extra gap
+                            const isSearchBar = currentStepData?.target === 'global-search' || currentStepData?.target === 'mobile-nav-search';
+                            const extraGapForSearch = isSearchBar ? 30 : gap; // Extra space for search bar
+                            
+                            if (isSearchBar) {
+                                // Always position below search bar on mobile with good spacing
+                                topPosition = rect.bottom + extraGapForSearch;
+                            } else if (hasTopSpace) {
+                                topPosition = rect.top - tooltipHeight - gap;
+                            } else {
+                                topPosition = rect.bottom + gap;
+                            }
+                        } else {
+                            // Desktop: try to center horizontally
+                            const minLeft = screenPadding + (effectiveTooltipWidth / 2);
+                            const maxLeft = window.innerWidth - screenPadding - (effectiveTooltipWidth / 2);
+                            leftPosition = Math.max(minLeft, Math.min(rect.left + (rect.width / 2), maxLeft));
+                            topPosition = shouldPositionBelow ? rect.bottom + gap : rect.top - tooltipHeight - gap;
+                        }
                     }
 
                     // Vertical positioning
-                    if (shouldPositionBelow && spaceBottom > tooltipHeight + gap) {
-                        topPosition = rect.bottom + gap;
-                    } else if (spaceTop > tooltipHeight + gap) {
-                        topPosition = rect.top - tooltipHeight - gap;
-                    } else {
-                        // Not enough space above or below, center vertically
-                        const minTop = screenPadding;
-                        const maxTop = window.innerHeight - tooltipHeight - screenPadding;
-                        topPosition = Math.max(minTop, Math.min(rect.top + (rect.height / 2), maxTop));
+                    if (!isMobileView) {
+                        if (shouldPositionBelow && hasBottomSpace) {
+                            topPosition = rect.bottom + gap;
+                        } else if (hasTopSpace) {
+                            topPosition = rect.top - tooltipHeight - gap;
+                        } else {
+                            // Not enough space above or below, center vertically
+                            const minTop = screenPadding;
+                            const maxTop = window.innerHeight - tooltipHeight - screenPadding;
+                            topPosition = Math.max(minTop, Math.min(rect.top + (rect.height / 2), maxTop));
+                        }
                     }
 
                     // Determine the correct transform based on positioning
                     let transform = 'translate(0, 0)';
                     
                     // Check if we're positioned on the side (left/right) - either left or right positioning
-                    const isPositionedOnSide = spaceLeft > effectiveTooltipWidth + gap || spaceRight > effectiveTooltipWidth + gap;
+                    const isPositionedOnSide = !isMobileView && (hasLeftSpace || hasRightSpace);
                     
                     if (isPositionedOnSide) {
                         // Side positioning: center vertically
@@ -132,20 +166,16 @@ const OnboardingOverlay = () => {
                         const minLeft = screenPadding;
                         const maxLeft = window.innerWidth - effectiveTooltipWidth - screenPadding;
                         leftPosition = Math.max(minLeft, Math.min(leftPosition, maxLeft));
+                    } else if (!isMobileView) {
+                        // Desktop top/bottom positioning with centered transform
+                        transform = 'translate(-50%, 0)';
                     } else {
-                        // Top/bottom positioning or center fallback
+                        // Mobile: no transform, use direct positioning
                         transform = 'translate(0, 0)';
-                        
-                        // For top/bottom positioning, center horizontally
-                        const minLeft = screenPadding + (effectiveTooltipWidth / 2);
-                        const maxLeft = window.innerWidth - screenPadding - (effectiveTooltipWidth / 2);
-                        leftPosition = Math.max(minLeft, Math.min(leftPosition, maxLeft));
-                        if (leftPosition === Math.max(minLeft, Math.min(rect.left + (rect.width / 2), maxLeft))) {
-                            // We're using center positioning
-                            leftPosition = rect.left + (rect.width / 2);
-                            transform = 'translate(-50%, 0)';
-                        }
                     }
+
+                    // Clamp vertical position for all cases
+                    topPosition = Math.max(screenPadding, Math.min(topPosition, window.innerHeight - tooltipHeight - screenPadding));
 
                     style = {
                         top: topPosition,
@@ -181,79 +211,6 @@ const OnboardingOverlay = () => {
                             left: navLeftPosition,
                             transform: 'translate(0, 0)'
                         };
-                    } else {
-                        // Fallback: Position tooltip with proper clamping
-                        let proposedStyle = {};
-                        
-                        switch (position) {
-                            case 'bottom':
-                                proposedStyle = {
-                                    top: Math.max(screenPadding, rect.bottom + gap),
-                                    left: rect.left + (rect.width / 2),
-                                    transform: 'translateX(-50%)'
-                                };
-                                break;
-                            case 'top':
-                                proposedStyle = {
-                                    top: Math.max(screenPadding, rect.top - tooltipHeight - gap),
-                                    left: rect.left + (rect.width / 2),
-                                    transform: 'translateX(-50%)'
-                                };
-                                break;
-                            case 'right':
-                                proposedStyle = {
-                                    top: rect.top + (rect.height / 2),
-                                    left: rect.right + gap,
-                                    transform: 'translateY(-50%)'
-                                };
-                                break;
-                            case 'left':
-                                proposedStyle = {
-                                    top: rect.top + (rect.height / 2),
-                                    left: rect.left - effectiveTooltipWidth - gap,
-                                    transform: 'translateY(-50%)'
-                                };
-                                break;
-                            default: // center or fallback
-                                proposedStyle = {
-                                    top: '50%',
-                                    left: '50%',
-                                    transform: 'translate(-50%, -50%)'
-                                };
-                        }
-
-                        // Clamp horizontal position - ensure tooltip stays fully visible
-                        if (proposedStyle.left !== undefined && proposedStyle.left !== '50%') {
-                            let leftPixel = proposedStyle.left;
-                            if (typeof leftPixel === 'number' && !proposedStyle.transform?.includes('translateX')) {
-                                // For left positioning that doesn't use translateX
-                                leftPixel = Math.max(screenPadding, Math.min(leftPixel, window.innerWidth - effectiveTooltipWidth - screenPadding));
-                                proposedStyle.left = leftPixel;
-                            } else if (proposedStyle.transform?.includes('translateX')) {
-                                // For center-based positioning with translateX(-50%)
-                                const minLeft = screenPadding + (effectiveTooltipWidth / 2);
-                                const maxLeft = window.innerWidth - screenPadding - (effectiveTooltipWidth / 2);
-                                proposedStyle.left = Math.max(minLeft, Math.min(proposedStyle.left, maxLeft));
-                            }
-                        }
-
-                        // Clamp vertical position
-                        if (proposedStyle.top !== undefined && proposedStyle.top !== '50%') {
-                            let topPixel = proposedStyle.top;
-                            if (proposedStyle.transform?.includes('translateY')) {
-                                // For center-based positioning with translateY(-50%)
-                                // Ensure tooltip doesn't go beyond bottom: topPixel + (tooltipHeight/2) <= window.innerHeight - screenPadding
-                                const minTop = (tooltipHeight / 2) + screenPadding;
-                                const maxTop = window.innerHeight - (tooltipHeight / 2) - screenPadding;
-                                topPixel = Math.max(minTop, Math.min(topPixel, maxTop));
-                            } else {
-                                // For top positioning - ensure bottom edge is within bounds
-                                topPixel = Math.max(screenPadding, Math.min(topPixel, window.innerHeight - tooltipHeight - screenPadding));
-                            }
-                            proposedStyle.top = topPixel;
-                        }
-
-                        style = proposedStyle;
                     }
                 }
 
@@ -386,14 +343,14 @@ const OnboardingOverlay = () => {
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.4 }}
                         style={{ position: 'fixed', ...tooltipStyle }}
-                        className="z-[9999] w-64 sm:w-72 md:w-80 mx-auto pointer-events-auto"
+                        className="z-[9999] w-64 sm:w-72 md:w-80 pointer-events-auto"
                         ref={tooltipRef}
                     >
-                        <div className="glass-panel p-3 sm:p-4 md:p-6 rounded-2xl border border-white/10 bg-[#0a0a0c]/90 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                        <div className="glass-panel p-2 sm:p-4 md:p-6 rounded-2xl border border-white/10 bg-[#0a0a0c]/90 shadow-2xl relative max-h-[90vh] overflow-y-auto">
                             {/* Arrow/Tail (Simplified, could add real SVG arrow later) */}
 
-                            <div className="flex justify-between items-start mb-2 sm:mb-3">
-                                <span className="text-[7px] sm:text-[8px] md:text-[10px] font-black text-accent uppercase tracking-widest">
+                            <div className="flex justify-between items-start mb-1 sm:mb-3">
+                                <span className="text-[6px] sm:text-[8px] md:text-[10px] font-black text-accent uppercase tracking-widest">
                                     Step {currentStepIndex + 1} of {totalSteps}
                                 </span>
                                 <button onClick={skipTour} className="text-slate-500 hover:text-white">
@@ -401,37 +358,37 @@ const OnboardingOverlay = () => {
                                 </button>
                             </div>
 
-                            <h3 className="text-sm sm:text-lg md:text-xl font-display font-black text-white italic mb-1 sm:mb-2">
+                            <h3 className="text-xs sm:text-lg md:text-xl font-display font-black text-white italic mb-1 sm:mb-2">
                                 {currentStepData.title}
                             </h3>
-                            <p className="text-[11px] sm:text-xs md:text-sm text-slate-400 leading-relaxed mb-4 sm:mb-6">
+                            <p className="text-[10px] sm:text-xs md:text-sm text-slate-400 leading-relaxed mb-3 sm:mb-6">
                                 {currentStepData.content}
                             </p>
 
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between gap-1">
                                 <div className="flex gap-1">
                                     {Array.from({ length: totalSteps }).map((_, idx) => (
                                         <div
                                             key={idx}
-                                            className={`h-1 rounded-full transition-all duration-300 ${idx === currentStepIndex ? 'w-6 bg-accent' : 'w-2 bg-white/10'}`}
+                                            className={`h-0.5 sm:h-1 rounded-full transition-all duration-300 ${idx === currentStepIndex ? 'w-4 sm:w-6 bg-accent' : 'w-1 sm:w-2 bg-white/10'}`}
                                         />
                                     ))}
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-1">
                                     {currentStepIndex > 0 && (
                                         <button
                                             onClick={prevStep}
-                                            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors"
+                                            className="p-1 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors"
                                         >
-                                            <ChevronLeft size={16} />
+                                            <ChevronLeft size={14} />
                                         </button>
                                     )}
                                     <button
                                         onClick={nextStep}
-                                        className="px-4 py-2 rounded-lg bg-accent hover:bg-accent/90 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-colors"
+                                        className="px-3 sm:px-4 py-1 sm:py-2 rounded-lg bg-accent hover:bg-accent/90 text-black text-[10px] sm:text-xs font-black uppercase tracking-wider flex items-center gap-1 sm:gap-2 transition-colors"
                                     >
                                         {currentStepIndex === totalSteps - 1 ? 'Finish' : 'Next'}
-                                        {currentStepIndex === totalSteps - 1 ? <CheckCircle2 size={14} /> : <ChevronRight size={14} />}
+                                        {currentStepIndex === totalSteps - 1 ? <CheckCircle2 size={12} /> : <ChevronRight size={12} />}
                                     </button>
                                 </div>
                             </div>

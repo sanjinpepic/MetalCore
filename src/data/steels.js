@@ -302,7 +302,7 @@ export const PREMIUM_STEELS = [
         use_case: "Performance-first cutting tools and heavy-duty folders."
     },
     {
-        id: 'crucible-10', name: "Rex 45", producer: "Crucible", C: 1.3, Cr: 4.0, V: 3.05, Mo: 5.0, W: 6.25, Co: 8.0, edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
+        id: 'crucible-10', name: "CPM Rex 45", producer: "Crucible", C: 1.3, Cr: 4.0, V: 3.05, Mo: 5.0, W: 6.25, Co: 8.0, edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
         ht_curve: "500:64,540:66,600:62",
         desc: "A high-cobalt version of M4. Rex 45 maintains higher hardness at higher temperatures and offers slightly better wear resistance.",
         knives: ["Spyderco Shaman (Rex 45)", "Spyderco Native 5 (Rex 45)", "Custom Sprints"],
