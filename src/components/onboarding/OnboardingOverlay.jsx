@@ -260,7 +260,7 @@ const OnboardingOverlay = () => {
                                 {/* Newbie Card */}
                                 <button
                                     onClick={() => startTour('newbie')}
-                                    className="group relative p-4 md:p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-accent/40 hover:bg-white/10 transition-all text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-emerald-500/5 to-black/40 border border-white/10 hover:border-emerald-500/40 hover:bg-emerald-500/10 backdrop-blur-xl transition-all text-left flex flex-col h-full"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                         <Map size={24} strokeWidth={2.5} />
@@ -277,9 +277,8 @@ const OnboardingOverlay = () => {
                                 {/* Enthusiast Card */}
                                 <button
                                     onClick={() => startTour('enthusiast')}
-                                    className="group relative p-4 md:p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-accent/40 hover:bg-white/10 transition-all text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-amber-500/5 to-black/40 border border-white/10 hover:border-amber-500/40 hover:bg-amber-500/10 backdrop-blur-xl transition-all text-left flex flex-col h-full"
                                 >
-                                    <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
                                     <div className="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform relative z-10">
                                         <Flame size={24} strokeWidth={2.5} />
                                     </div>
@@ -295,7 +294,7 @@ const OnboardingOverlay = () => {
                                 {/* Expert Card */}
                                 <button
                                     onClick={() => startTour('expert')}
-                                    className="group relative p-4 md:p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-accent/40 hover:bg-white/10 transition-all text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-indigo-500/5 to-black/40 border border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/10 backdrop-blur-xl transition-all text-left flex flex-col h-full"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                         <FlaskConical size={24} strokeWidth={2.5} />
