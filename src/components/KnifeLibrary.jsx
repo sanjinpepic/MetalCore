@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import Image from 'next/image';
 import Footer from './Footer';
 
 const normalize = (val) => {
@@ -121,7 +122,13 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 >
                                     <div className="xl:w-2/5 h-72 xl:h-auto bg-white/5 relative overflow-hidden shrink-0">
                                         {knife.image ? (
-                                            <img src={knife.image.replace('file:///', '')} alt={knife.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                            <Image
+                                                src={knife.image.replace('file:///', '')}
+                                                alt={knife.name}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                            />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-white/10">
                                                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

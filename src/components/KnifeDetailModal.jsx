@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import BottomSheet from './BottomSheet';
 
 const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
@@ -14,10 +15,12 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white/5 relative group shrink-0 overflow-hidden">
                     {cleanImage ? (
-                        <img
+                        <Image
                             src={cleanImage}
                             alt={knife.name}
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-cover"
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-white/10">

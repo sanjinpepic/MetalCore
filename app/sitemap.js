@@ -1,7 +1,7 @@
 import { fetchAllData } from '../src/lib/db';
 
 export default async function sitemap() {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalcre.vercel.app'; // Replace with actual domain
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalcore.io'; // Replace with actual domain
 
     let steels = [];
     let knives = [];
@@ -17,12 +17,22 @@ export default async function sitemap() {
     const steelUrls = steels.map((steel) => {
         // Slugify the name: "M390 Microclean" -> "m390-microclean"
         const slug = steel.name.toLowerCase().trim().replace(/\s+/g, '-');
-        return {
+        const entry = {
             url: `${baseUrl}/steel/${slug}`,
-            lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.8,
         };
+
+        // Use a real lastModified timestamp if available on the steel record
+        if (steel.updatedAt) {
+            try {
+                entry.lastModified = new Date(steel.updatedAt);
+            } catch (err) {
+                // fallback: omit lastModified if parsing fails
+            }
+        }
+
+        return entry;
     });
 
     // We can also add knife URLs if we create a route for them later (e.g. /knife/[id])

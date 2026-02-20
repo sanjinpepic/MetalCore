@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useUser } from '../context/UserContext';
 import PerformanceRadar from './PerformanceRadar';
 import Footer from './Footer';
@@ -50,7 +51,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                     <div className="flex flex-col md:flex-row items-start md:items-end gap-8" ref={editRef}>
                         <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-black/50 border-4 border-white/5 shadow-2xl flex items-center justify-center overflow-hidden shrink-0 backdrop-blur-md">
                             {user.avatar ? (
-                                <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                                <Image src={user.avatar} alt="Avatar" width={128} height={128} className="w-full h-full object-cover" unoptimized />
                             ) : (
                                 <div className="text-4xl md:text-5xl font-display font-black text-violet-500 italic uppercase">
                                     {user.name.charAt(0)}

@@ -43,10 +43,11 @@ export const metadata = {
     description: 'Premium metallurgy and knife analysis platform.',
     images: [
       {
-        url: '/og-image.jpg', // Placeholder
-        width: 1200,
-        height: 630,
-        alt: 'MetalCore Interface',
+        // Use existing app icon as fallback until a dedicated OG image is added
+        url: '/icons/icon-512x512.png',
+        width: 512,
+        height: 512,
+        alt: 'MetalCore logo',
       },
     ],
   },
