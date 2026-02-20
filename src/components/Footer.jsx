@@ -48,7 +48,7 @@ const Footer = () => {
                     </div>
 
                     <a
-                        href="https://www.buymeacoffee.com/"
+                        href="https://buymeacoffee.com/metal.core"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group relative flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-2xl transition-all duration-300"
