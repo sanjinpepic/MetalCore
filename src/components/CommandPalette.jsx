@@ -60,6 +60,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
             ...steels.filter(s =>
                 normalize(s.name).includes(queryNorm) ||
                 normalize(s.producer).includes(queryNorm) ||
+                (s.parent && normalize(s.parent).includes(queryNorm)) ||
                 (queryNorm === 'pm' && s.pm) ||
                 (queryNorm === 'conventional' || queryNorm === 'conv' && !s.pm)
             )

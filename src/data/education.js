@@ -213,16 +213,21 @@ export const FAQ = [
         q: "What is cladding and why does it matter?",
         a: "Cladding wraps a hard, high-performance core steel (like White 2 or SG2) in softer, tougher layers of stainless or carbon steel. The core provides the edge, while the cladding protects it and resists chipping. It's common in Japanese kitchen knives and gives them both excellent cutting ability and durability.",
         category: "Technology"
+    },
+    {
+        q: "Who actually makes my steel? (The Industry Map)",
+        a: "The metallurgy industry has seen major consolidations. Key facts: 1) **Crucible CPM** is now owned by **Erasteel**. 2) **Hitachi Metals** (makers of ZDP-189 and Blue/White paper steels) rebranded to **Proterial**. 3) **Sandvik** rebranded its steel division to **Alleima**. 4) **Böhler** and **Uddeholm** merged into a single parent group back in 1991.",
+        category: "Knowledge"
     }
 ];
 
 export const PRODUCERS = [
     {
-        name: "Crucible Industries  𓉸",
+        name: "CPM (Crucible Industries) \uD83C\uDDFA\uD83C\uDDF8",
         location: "Syracuse, NY, USA",
         coords: [43.0481, -76.1474],
         region: "North America",
-        desc: "Pioneers of the CPM (Crucible Particle Metallurgy) process. Known for legendary grades like MagnaCut, S30V, and 3V. Acquired by Erasteel during 2025."
+        desc: "The American pioneer of Powder Metallurgy. Known for MagnaCut and S30V. Now part of the **Erasteel** group."
     },
     {
         name: "B\u00f6hler-Uddeholm",
@@ -232,11 +237,11 @@ export const PRODUCERS = [
         desc: "A global leader in high-performance tool steels. Famous for M390, Elmax, and Vanax SuperClean."
     },
     {
-        name: "Alleima",
+        name: "Alleima (Sandvik) \uD83C\uDDF8\uD83C\uDDEA",
         location: "Sandviken, Sweden",
         coords: [60.6208, 16.7735],
         region: "Europe",
-        desc: "Specialists in high-purity stainless steels. Their 14C28N is considered one of the best budget stainless steels in the world."
+        desc: "Formerly Sandvik Materials Technology. Their 14C28N remains the benchmark for performance stainless in budget folders."
     },
     {
         name: "Takefu Special Steel",
@@ -246,11 +251,11 @@ export const PRODUCERS = [
         desc: "Famous for 'Clad' steels and VG10, the gold standard for many Japanese kitchen and pocket knives."
     },
     {
-        name: "Hitachi Metals",
+        name: "Hitachi (Proterial) \uD83C\uDDEF\uD83C\uDDF5",
         location: "Tokyo, Japan",
         coords: [35.6895, 139.6917],
         region: "Asia",
-        desc: "Producers of ZDP-189 and Blue/White paper steels, highly prized by traditional blacksmiths and enthusiasts. Acquired by Proterial during 2023."
+        desc: "The masters of traditional Japanese paper steels. Hitachi Metals rebranded to **Proterial** in 2023 but continues the Blue/White paper legacy."
     },
     {
         name: "Carpenter Technology",

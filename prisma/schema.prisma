@@ -27,6 +27,7 @@ model Steel {
   pros        String[]
   cons        String[]
   pm          Boolean  @default(false)
+  parent      String[]
   knives      Knife[]  @relation("SteelToKnife")
 }
 
