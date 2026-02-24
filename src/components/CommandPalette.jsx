@@ -12,8 +12,6 @@ const VIEWS = [
     { id: 'KNIVES', label: 'Knife Library', type: 'nav', icon: 'M14.5 17.5 3 6 3 3 6 3 17.5 14.5' },
     { id: 'EDUCATION', label: 'Academy', type: 'nav', icon: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z' },
     { id: 'COMPARE', label: 'Compare Steels', type: 'nav', icon: 'M12 2v20M2 12h20' },
-    { id: 'PROFILE', label: 'Profile', type: 'nav', icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2' },
-    { id: 'PRO_LAB', label: 'Pro Lab', type: 'nav', icon: 'M9 3h6v7.5L21 21H3L9 10.5V3z' },
 ];
 
 const ACTIONS = [
