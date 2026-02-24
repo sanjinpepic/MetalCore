@@ -37,7 +37,10 @@ const Sidebar = ({
     setAiOpen,
     setSearch,
     trending,
-    resetFilters
+    setSearch,
+    trending,
+    resetFilters,
+    openCommandPalette
 }) => {
     const sidebarX = useMotionValue(-SIDEBAR_WIDTH);
     const backdropOpacity = useTransform(sidebarX, [-SIDEBAR_WIDTH, 0], [0, 1]);
@@ -388,6 +391,25 @@ const Sidebar = ({
                 </div>
 
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 py-2 custom-scrollbar no-scrollbar scroll-smooth relative">
+                    {/* Command Palette Trigger - Visual Hint */}
+                    <div className="mt-4 px-1">
+                        <button
+                            onClick={() => { hapticFeedback('light'); openCommandPalette(); }}
+                            className="w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-white/10 transition-all group"
+                        >
+                            <div className="flex items-center gap-3">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 group-hover:text-accent transition-colors">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.35-4.35" />
+                                </svg>
+                                <span className="text-sm font-bold text-slate-500 group-hover:text-slate-300 transition-colors">Search Grade...</span>
+                            </div>
+                            <kbd className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-600">
+                                ⌘K
+                            </kbd>
+                        </button>
+                    </div>
+
                     {/* Desktop Navigation - Hidden on Mobile */}
                     <div className="hidden md:flex flex-col gap-1.5 mt-4 md:mt-8">
                         {navItems.map(nav => (

@@ -26,7 +26,14 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     const inputRef = useRef(null);
     const listRef = useRef(null);
 
-    const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
+    const normalize = (str) => {
+        if (!str) return '';
+        return str.toLowerCase()
+            .replace(/cpm[- ]?/, "")
+            .replace(/böhler |bohler /, "")
+            .replace(/sandvik |alleima |alleima-/, "")
+            .replace(/[\s-]/g, "");
+    };
 
     const results = useMemo(() => {
         if (!query.trim()) {
@@ -234,11 +241,10 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                 key={`${item.type}-${item.id}`}
                                                 onClick={() => handleSelect(item)}
                                                 onMouseEnter={() => setActiveIndex(item.globalIndex)}
-                                                className={`w-full flex items-center gap-3 px-5 py-2.5 text-left transition-colors ${
-                                                    item.globalIndex === activeIndex
+                                                className={`w-full flex items-center gap-3 px-5 py-2.5 text-left transition-colors ${item.globalIndex === activeIndex
                                                         ? 'bg-white/5 text-white'
                                                         : 'text-slate-400 hover:bg-white/[0.03]'
-                                                }`}
+                                                    }`}
                                             >
                                                 {getIcon(item)}
                                                 <div className="flex-1 min-w-0">

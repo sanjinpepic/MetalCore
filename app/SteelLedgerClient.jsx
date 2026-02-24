@@ -560,6 +560,7 @@ Be concise and premium.`;
                 setSearch={setSearch}
                 trending={trendingList}
                 resetFilters={resetFilters}
+                openCommandPalette={() => setCommandPaletteOpen(true)}
             />
 
             {/* Main Content with View Transitions - Above background layer */}
