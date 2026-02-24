@@ -4,7 +4,7 @@
 export const PREMIUM_STEELS = [
     // --- AICHI ---
     {
-        id: 'aichi-1', name: "AUS-8", producer: "Aichi",
+        id: 'aichi-1', name: "AUS-8", producer: "Aichi", pm: false,
         C: 0.75, Cr: 14.5, V: 0.2, Mo: 0.2, W: 0, Co: 0,
         edge: 4.5, toughness: 6, corrosion: 7, sharpen: 8,
         ht_curve: "150:58,200:57,300:55",
@@ -15,7 +15,7 @@ export const PREMIUM_STEELS = [
         use_case: "Budget production knives and utility cutlery."
     },
     {
-        id: 'aichi-2', name: "AUS10A", producer: "Aichi", C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'aichi-2', name: "AUS10A", producer: "Aichi", pm: false, C: 1.05, Cr: 14.0, V: 0.2, Mo: 0.3, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "150:60,200:59,300:57",
         desc: "A high-carbon Japanese stainless steel that is a direct competitor to 440C and VG-10.",
         knives: ["Cold Steel AD15", "Cold Steel Recon 1 (Older)", "Demko AD20.5 (AUS10)"],
@@ -26,7 +26,7 @@ export const PREMIUM_STEELS = [
 
     // --- ALLEIMA ---
     {
-        id: 'alleima-2', name: "12C27", producer: "Alleima", C: 0.6, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0, edge: 3, toughness: 8, corrosion: 8, sharpen: 9,
+        id: 'alleima-2', name: "12C27", producer: "Alleima", pm: false, C: 0.6, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0, edge: 3, toughness: 8, corrosion: 8, sharpen: 9,
         ht_curve: "150:56,200:55,250:54",
         desc: "The classic Swedish stainless steel. Pure and consistent, it has been used for decades in millions of knives.",
         knives: ["Morakniv Companion", "Opinel No. 8 (Stainless)", "Victorinox (similar)"],
@@ -35,7 +35,7 @@ export const PREMIUM_STEELS = [
         use_case: "Standard utility knives, kitchen tools, and outdoor beaters."
     },
     {
-        id: 'alleima-1', name: "14C28N", producer: "Alleima", C: 0.62, Cr: 14.0, V: 0, Mo: 0, W: 0, Co: 0, edge: 4.5, toughness: 8.5, corrosion: 9, sharpen: 8.5,
+        id: 'alleima-1', name: "14C28N", producer: "Alleima", pm: false, C: 0.62, Cr: 14.0, V: 0, Mo: 0, W: 0, Co: 0, edge: 4.5, toughness: 8.5, corrosion: 9, sharpen: 8.5,
         ht_curve: "150:58,200:57,250:56",
         desc: "Developed specifically for professional knife applications. Alleima used Nitrogen to boost corrosion resistance.",
         knives: ["Kershaw Leek", "CIVIVI Elementum", "Ruike P801"],
@@ -44,7 +44,7 @@ export const PREMIUM_STEELS = [
         use_case: "Budget-friendly production folders and tactical knives."
     },
     {
-        id: 'alleima-4', name: "19C27", producer: "Alleima",
+        id: 'alleima-4', name: "19C27", producer: "Alleima", pm: false,
         C: 0.95, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 5, toughness: 7, corrosion: 7.5, sharpen: 8,
         ht_curve: "150:59,200:58,250:57",
@@ -57,7 +57,7 @@ export const PREMIUM_STEELS = [
 
     // --- BÖHLER ---
     {
-        id: 'bohler-8', name: "K110", producer: "Böhler",
+        id: 'bohler-8', name: "K110", producer: "Böhler", pm: false,
         C: 1.55, Cr: 11.3, V: 0.75, Mo: 0.75, W: 0, Co: 0,
         edge: 7, toughness: 5, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,500:62,600:59",
@@ -68,7 +68,7 @@ export const PREMIUM_STEELS = [
         use_case: "Production and custom knives where reliable D2-class performance is needed."
     },
     {
-        id: 'bohler-7', name: "K340 Isodur", producer: "Böhler",
+        id: 'bohler-7', name: "K340 Isodur", producer: "Böhler", pm: true,
         C: 1.1, Cr: 8.3, V: 0.5, Mo: 2.1, W: 0, Co: 0,
         edge: 7.5, toughness: 8, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,500:62,600:59",
@@ -79,7 +79,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use fixed blades where D2-class performance with better toughness is desired."
     },
     {
-        id: 'bohler-2', name: "K390", producer: "Böhler", C: 2.47, Cr: 4.2, V: 9.0, Mo: 3.8, W: 1.0, Co: 2.0, edge: 10, toughness: 6, corrosion: 2, sharpen: 2,
+        id: 'bohler-2', name: "K390", producer: "Böhler", pm: true, C: 2.47, Cr: 4.2, V: 9.0, Mo: 3.8, W: 1.0, Co: 2.0, edge: 10, toughness: 6, corrosion: 2, sharpen: 2,
         ht_curve: "500:62,540:64,600:61",
         desc: "High-alloy cold work tool steel with extreme wear resistance and high compressive strength.",
         knives: ["Spyderco Police 4 Lightweight", "Spyderco Endela K390", "Spyderco Delica 4"],
@@ -88,7 +88,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use daily carries and workspace knives that trade stainlessness for raw performance."
     },
     {
-        id: 'bohler-6', name: "M340", producer: "Böhler", C: 0.54, Cr: 17.3, V: 0.1, Mo: 1.1, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
+        id: 'bohler-6', name: "M340", producer: "Böhler", pm: true, C: 0.54, Cr: 17.3, V: 0.1, Mo: 1.1, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "200:60,400:58,500:59",
         desc: "A popular mid-range powder stainless from Böhler. Balances edge retention and corrosion resistance well for production knives.",
         knives: ["Spyderco (older models)", "European production folders"],
@@ -97,7 +97,7 @@ export const PREMIUM_STEELS = [
         use_case: "Mid-range production folders and everyday carry."
     },
     {
-        id: 'bohler-1', name: "M390", producer: "Böhler", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        id: 'bohler-1', name: "M390", producer: "Böhler", pm: true, C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
         ht_curve: "200:60,400:58,500:59,600:56",
         desc: "Third-generation powder metallurgy stainless steel. Widely considered the gold standard for high-end folders.",
         knives: ["Benchmade Bugout (Limited)", "Microtech Ultratech", "GiantMouse ACE Riv"],
@@ -106,7 +106,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium EDC folders and gentleman's knives where edge retention is prioritized."
     },
     {
-        id: 'bohler-4', name: "M398", producer: "Böhler", C: 2.7, Cr: 20.0, V: 7.2, Mo: 1.0, W: 0.7, Co: 0, edge: 10, toughness: 3, corrosion: 9, sharpen: 1,
+        id: 'bohler-4', name: "M398", producer: "Böhler", pm: true, C: 2.7, Cr: 20.0, V: 7.2, Mo: 1.0, W: 0.7, Co: 0, edge: 10, toughness: 3, corrosion: 9, sharpen: 1,
         ht_curve: "200:61,400:59,500:60",
         desc: "An evolution of M390 with significantly higher carbon and vanadium for extreme edge retention.",
         knives: ["Shirogorov F3NS (M398)", "Custom configurations"],
@@ -115,7 +115,7 @@ export const PREMIUM_STEELS = [
         use_case: "Luxury 'safe queen' folders or high-performance enthusiasts who enjoy technical sharpening."
     },
     {
-        id: 'bohler-9', name: "N680", producer: "Böhler",
+        id: 'bohler-9', name: "N680", producer: "Böhler", pm: false,
         C: 0.54, Cr: 17.3, V: 0.1, Mo: 1.1, W: 0, Co: 0,
         edge: 4, toughness: 7, corrosion: 9, sharpen: 8,
         ht_curve: "150:57,200:56,250:55",
@@ -126,7 +126,7 @@ export const PREMIUM_STEELS = [
         use_case: "Diving knives, marine environments, and food-service where rust immunity is critical."
     },
     {
-        id: 'bohler-3', name: "N690", producer: "Böhler", C: 1.08, Cr: 17.3, V: 0.1, Mo: 1.1, W: 0, Co: 1.5, edge: 5, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'bohler-3', name: "N690", producer: "Böhler", pm: false, C: 1.08, Cr: 17.3, V: 0.1, Mo: 1.1, W: 0, Co: 1.5, edge: 5, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "200:58,400:56,500:57",
         desc: "Cobalt-enriched stainless steel. Famous for being easy to sharpen while maintaining good corrosion resistance.",
         knives: ["Extrema Ratio Fulcrum", "Boker Plus Kwaiken", "Viper Dan 2"],
@@ -135,7 +135,7 @@ export const PREMIUM_STEELS = [
         use_case: "Tactical folders, diving knives, and kitchen cutlery where maintenance is key."
     },
     {
-        id: 'bohler-5', name: "N360", producer: "Böhler", C: 0.3, Cr: 15.0, V: 0.1, Mo: 1.0, W: 0, Co: 0, edge: 5, toughness: 6, corrosion: 8, sharpen: 7,
+        id: 'bohler-5', name: "N360", producer: "Böhler", pm: false, C: 0.3, Cr: 15.0, V: 0.1, Mo: 1.0, W: 0, Co: 0, edge: 5, toughness: 6, corrosion: 8, sharpen: 7,
         ht_curve: "150:58,200:57,250:56",
         desc: "A mid-tier nitrogen-alloyed stainless from Böhler (replaced N95). A step up from budget steels with solid corrosion resistance and easy maintenance.",
         knives: ["Budget European folders", "Entry-level production knives"],
@@ -144,7 +144,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry to mid-range production knives where reliability matters more than peak performance."
     },
     {
-        id: 'bohler-11', name: "S390", producer: "Böhler",
+        id: 'bohler-11', name: "S390", producer: "Böhler", pm: true,
         C: 1.64, Cr: 4.8, V: 5.0, Mo: 2.0, W: 10.5, Co: 8.0,
         edge: 10, toughness: 5, corrosion: 1, sharpen: 2,
         ht_curve: "500:66,540:68,580:64",
@@ -155,7 +155,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium custom knives and high-performance cutting tools."
     },
     {
-        id: 'bohler-10', name: "W360", producer: "Böhler",
+        id: 'bohler-10', name: "W360", producer: "Böhler", pm: false,
         C: 0.50, Cr: 4.5, V: 0.55, Mo: 3.0, W: 0, Co: 0,
         edge: 4, toughness: 10, corrosion: 2, sharpen: 7,
         ht_curve: "200:54,400:52,500:56",
@@ -168,7 +168,7 @@ export const PREMIUM_STEELS = [
 
     // --- CARPENTER ---
     {
-        id: 'carpenter-10', name: "420HC", producer: "Carpenter", C: 0.46, Cr: 13.0, V: 0.12, Mo: 0.6, W: 0.1, Co: 0, edge: 4, toughness: 7, corrosion: 8, sharpen: 9,
+        id: 'carpenter-10', name: "420HC", producer: "Carpenter", pm: false, C: 0.46, Cr: 13.0, V: 0.12, Mo: 0.6, W: 0.1, Co: 0, edge: 4, toughness: 7, corrosion: 8, sharpen: 9,
         ht_curve: "150:56,200:55,250:54",
         desc: "Buck Knives signature steel — a high-carbon 420 stainless with proprietary heat treatment. The workhorse of American production knives for decades.",
         knives: ["Buck 119", "Buck 110", "Buck Bantam", "Buck Lites"],
@@ -177,7 +177,7 @@ export const PREMIUM_STEELS = [
         use_case: "Reliable everyday production knives and rugged outdoor tools."
     },
     {
-        id: 'carpenter-5', name: "BD1N", producer: "Carpenter",
+        id: 'carpenter-5', name: "BD1N", producer: "Carpenter", pm: false,
         C: 0.9, Cr: 16.0, V: 0.1, Mo: 0.6, W: 0, Co: 0,
         edge: 5, toughness: 7, corrosion: 9, sharpen: 8,
         ht_curve: "150:59,200:58,250:57",
@@ -188,7 +188,7 @@ export const PREMIUM_STEELS = [
         use_case: "Budget to mid-range production knives."
     },
     {
-        id: 'carpenter-4', name: "CTS-204P", producer: "Carpenter", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        id: 'carpenter-4', name: "CTS-204P", producer: "Carpenter", pm: true, C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
         ht_curve: "200:60,400:58,500:59",
         desc: "Carpenter's equivalent to M390 and 20CV. Used in many high-end production knives.",
         knives: ["Microtech Ultratech (204P)", "Zero Tolerance 0562CF"],
@@ -197,7 +197,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium EDC and gentleman's folders."
     },
     {
-        id: 'carpenter-1', name: "CTS-XHP", producer: "Carpenter", C: 1.6, Cr: 16.0, V: 0.45, Mo: 0.8, W: 0, Co: 0, edge: 7.5, toughness: 5, corrosion: 8, sharpen: 6,
+        id: 'carpenter-1', name: "CTS-XHP", producer: "Carpenter", pm: true, C: 1.6, Cr: 16.0, V: 0.45, Mo: 0.8, W: 0, Co: 0, edge: 7.5, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "200:60,400:58,500:60",
         desc: "Often described as a stainless version of D2. Carpenter created a high-hardness stainless with a very fine edge.",
         knives: ["Cold Steel Recon 1", "Spyderco Techno 2", "McNees PM Mac 2"],
@@ -206,7 +206,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium EDC folders where a fine edge and easy maintenance are desired."
     },
     {
-        id: 'carpenter-2', name: "Maxamet", producer: "Carpenter", C: 2.15, Cr: 4.75, V: 6.0, Mo: 0, W: 13.0, Co: 10.0, edge: 10, toughness: 2, corrosion: 1, sharpen: 1,
+        id: 'carpenter-2', name: "Maxamet", producer: "Carpenter", pm: true, C: 2.15, Cr: 4.75, V: 6.0, Mo: 0, W: 13.0, Co: 10.0, edge: 10, toughness: 2, corrosion: 1, sharpen: 1,
         ht_curve: "500:68,540:70,600:65",
         desc: "An ultra-hard powder metallurgy tool steel designed for extreme wear resistance, capable of reaching 70 HRC.",
         knives: ["Spyderco Paramilitary 2 (Maxamet)", "Spyderco Manix 2 (Maxamet)", "Spyderco Sage 5"],
@@ -217,7 +217,7 @@ export const PREMIUM_STEELS = [
 
     // --- CRUCIBLE ---
     {
-        id: 'crucible-1', name: "MagnaCut", producer: "Crucible", C: 1.15, Cr: 10.7, V: 4.0, Mo: 2.0, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 9.5, sharpen: 6,
+        id: 'crucible-1', name: "MagnaCut", producer: "Crucible", pm: true, C: 1.15, Cr: 10.7, V: 4.0, Mo: 2.0, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 9.5, sharpen: 6,
         ht_curve: "175:61,225:62,300:60,400:58",
         desc: "Revolutionary stainless steel designed specifically for knives. Offers unrivaled balance of toughness and corrosion resistance.",
         knives: ["Chris Reeve Sebenza 31", "Tactile Rockwall", "Hogue Deka"],
@@ -226,7 +226,7 @@ export const PREMIUM_STEELS = [
         use_case: "The ultimate choice for salt-water folders, high-end EDC, and kitchen knives."
     },
     {
-        id: 'crucible-2', name: "CPM 10V", producer: "Crucible",
+        id: 'crucible-2', name: "CPM 10V", producer: "Crucible", pm: true,
         C: 2.45, Cr: 5.25, V: 9.75, Mo: 1.30, W: 0, Co: 0,
         edge: 10, toughness: 4, corrosion: 2, sharpen: 1,
         ht_curve: "200:61,500:63,600:60",
@@ -237,7 +237,7 @@ export const PREMIUM_STEELS = [
         use_case: "Abrasive cutting tasks like cardboard, rope, and industrial materials."
     },
     {
-        id: 'crucible-3', name: "CPM 154", producer: "Crucible", C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'crucible-3', name: "CPM 154", producer: "Crucible", pm: true, C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "200:59,400:57,500:58",
         desc: "A powder metallurgy version of 154CM. Favored by custom makers for its mirror-polish ability.",
         knives: ["Grimsmo Norseman (Older)", "Custom Traditional Folders"],
@@ -246,7 +246,7 @@ export const PREMIUM_STEELS = [
         use_case: "Custom knives and premium production folders where aesthetics matter."
     },
     {
-        id: 'crucible-4', name: "CPM 15V", producer: "Crucible", C: 3.4, Cr: 5.25, V: 14.5, Mo: 1.3, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 3,
+        id: 'crucible-4', name: "CPM 15V", producer: "Crucible", pm: true, C: 3.4, Cr: 5.25, V: 14.5, Mo: 1.3, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 3,
         ht_curve: "200:65,400:60,600:62",
         desc: "An extremely wear-resistant high-vanadium powder steel designed for maximum edge retention. Popular for heavy-duty and slicer blades where long lasting sharpness matters.",
         knives: ["Chris Reeve Sebenza (special runs)", "Busse Combat Razel", "Custom Hard-Use Folders"],
@@ -255,7 +255,7 @@ export const PREMIUM_STEELS = [
         use_case: "Heavy-duty fixed blades and folders where extreme edge durability is the priority; less ideal if polish and ease of sharpening are key."
     },
     {
-        id: 'crucible-5', name: "CPM 20CV", producer: "Crucible", C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
+        id: 'crucible-5', name: "CPM 20CV", producer: "Crucible", pm: true, C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
         ht_curve: "200:60,400:58,500:59",
         desc: "Crucible's version of M390. Highly popular in premium American production folders.",
         knives: ["Benchmade Bugout (20CV)", "Hinderer XM-18", "McNees PM Mac 2"],
@@ -264,7 +264,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium folding knives and high-end EDC."
     },
     {
-        id: 'crucible-6', name: "CPM 3V", producer: "Crucible", C: 0.8, Cr: 7.5, V: 2.75, Mo: 1.3, W: 0, Co: 0, edge: 4, toughness: 10, corrosion: 3, sharpen: 6,
+        id: 'crucible-6', name: "CPM 3V", producer: "Crucible", pm: true, C: 0.8, Cr: 7.5, V: 2.75, Mo: 1.3, W: 0, Co: 0, edge: 4, toughness: 10, corrosion: 3, sharpen: 6,
         ht_curve: "200:58,400:60,500:62",
         desc: "The gold standard for extreme-toughness outdoor knives. Virtually unbreakable with reasonable wear resistance.",
         knives: ["Bark River Bravo 1", "Cold Steel SRK (3V)", "Demko AD20.5 (3V Variant)"],
@@ -273,7 +273,7 @@ export const PREMIUM_STEELS = [
         use_case: "Bushcraft knives, choppers, and hard-use survival tools."
     },
     {
-        id: 'crucible-7', name: "CPM 4V", producer: "Crucible",
+        id: 'crucible-7', name: "CPM 4V", producer: "Crucible", pm: true,
         C: 1.35, Cr: 5.0, V: 3.85, Mo: 2.95, W: 0, Co: 0,
         edge: 6, toughness: 9.5, corrosion: 2, sharpen: 5,
         ht_curve: "200:58,400:60,500:62",
@@ -284,7 +284,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use bushcraft, camp knives, and heavy choppers."
     },
     {
-        id: 'crucible-8', name: "CPM Cru-Wear", producer: "Crucible", C: 1.1, Cr: 7.5, V: 2.4, Mo: 1.6, W: 1.15, Co: 0, edge: 7, toughness: 8.5, corrosion: 3, sharpen: 5,
+        id: 'crucible-8', name: "CPM Cru-Wear", producer: "Crucible", pm: true, C: 1.1, Cr: 7.5, V: 2.4, Mo: 1.6, W: 1.15, Co: 0, edge: 7, toughness: 8.5, corrosion: 3, sharpen: 5,
         ht_curve: "200:61,500:63,600:60",
         desc: "An upgrade to classic D2, Cru-Wear is a high-alloy tool steel that balances extreme toughness with great edge retention.",
         knives: ["Spyderco Military 2", "Benchmade Adamas (CruWear)", "Spyderco Manix 2"],
@@ -293,7 +293,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use EDC and tactical folders that need to survive prying or impact."
     },
     {
-        id: 'crucible-9', name: "CPM M4", producer: "Crucible", C: 1.42, Cr: 4.0, V: 4.0, Mo: 5.25, W: 5.5, Co: 0, edge: 8.5, toughness: 7, corrosion: 1, sharpen: 4,
+        id: 'crucible-9', name: "CPM M4", producer: "Crucible", pm: true, C: 1.42, Cr: 4.0, V: 4.0, Mo: 5.25, W: 5.5, Co: 0, edge: 8.5, toughness: 7, corrosion: 1, sharpen: 4,
         ht_curve: "500:62,540:64,600:61",
         desc: "A legendary high-speed steel known for winning cutting competitions due to its incredible edge stability.",
         knives: ["Benchmade Bailout", "Spyderco Gayle Bradley 2", "Benchmade Freek"],
@@ -302,7 +302,7 @@ export const PREMIUM_STEELS = [
         use_case: "Performance-first cutting tools and heavy-duty folders."
     },
     {
-        id: 'crucible-10', name: "CPM Rex 45", producer: "Crucible", C: 1.3, Cr: 4.0, V: 3.05, Mo: 5.0, W: 6.25, Co: 8.0, edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
+        id: 'crucible-10', name: "CPM Rex 45", producer: "Crucible", pm: true, C: 1.3, Cr: 4.0, V: 3.05, Mo: 5.0, W: 6.25, Co: 8.0, edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
         ht_curve: "500:64,540:66,600:62",
         desc: "A high-cobalt version of M4. Rex 45 maintains higher hardness at higher temperatures and offers slightly better wear resistance.",
         knives: ["Spyderco Shaman (Rex 45)", "Spyderco Native 5 (Rex 45)", "Custom Sprints"],
@@ -311,7 +311,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use cutting tasks where edge longevity is paramount."
     },
     {
-        id: 'crucible-11', name: "CPM Rex 76", producer: "Crucible",
+        id: 'crucible-11', name: "CPM Rex 76", producer: "Crucible", pm: true,
         C: 1.50, Cr: 3.75, V: 3.1, Mo: 5.25, W: 10.0, Co: 9.0,
         edge: 9.5, toughness: 5, corrosion: 1, sharpen: 2,
         ht_curve: "500:66,540:68,580:64",
@@ -322,7 +322,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting and custom performance knives where hot-hardness matters."
     },
     {
-        id: 'crucible-12', name: "CPM Rex 121", producer: "Crucible",
+        id: 'crucible-12', name: "CPM Rex 121", producer: "Crucible", pm: true,
         C: 3.40, Cr: 4.0, V: 9.5, Mo: 5.0, W: 10.0, Co: 9.0,
         edge: 10, toughness: 2, corrosion: 1, sharpen: 1,
         ht_curve: "500:69,540:71,580:67",
@@ -333,7 +333,7 @@ export const PREMIUM_STEELS = [
         use_case: "The ultimate steel for edge retention enthusiasts who want the most extreme alloy available."
     },
     {
-        id: 'crucible-13', name: "CPM S110V", producer: "Crucible",
+        id: 'crucible-13', name: "CPM S110V", producer: "Crucible", pm: true,
         C: 2.8, Cr: 15.25, V: 9.0, Mo: 2.25, W: 0, Co: 2.5,
         edge: 10, toughness: 3, corrosion: 8, sharpen: 1,
         ht_curve: "200:61,400:59,500:58",
@@ -344,7 +344,7 @@ export const PREMIUM_STEELS = [
         use_case: "Light-duty slicing where sharpening frequency must be minimal."
     },
     {
-        id: 'crucible-14', name: "CPM S30V", producer: "Crucible",
+        id: 'crucible-14', name: "CPM S30V", producer: "Crucible", pm: true,
         C: 1.45, Cr: 14.0, V: 4.0, Mo: 2.0, W: 0, Co: 0,
         edge: 7, toughness: 6, corrosion: 7.5, sharpen: 6,
         ht_curve: "200:59,400:58,500:56",
@@ -355,7 +355,7 @@ export const PREMIUM_STEELS = [
         use_case: "Reliable premium EDC and outdoor knives."
     },
     {
-        id: 'crucible-15', name: "CPM S35VN", producer: "Crucible", C: 1.4, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
+        id: 'crucible-15', name: "CPM S35VN", producer: "Crucible", pm: true, C: 1.4, Cr: 14.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "200:59,400:58,500:56",
         desc: "The industry standard for premium knives. An upgrade to S30V with added Niobium for better toughness.",
         knives: ["Chris Reeve Sebenza (S35VN)", "ESEE 6 S35VN", "White River Firecraft 4"],
@@ -364,7 +364,7 @@ export const PREMIUM_STEELS = [
         use_case: "The gold standard for high-end folders and fixed blades."
     },
     {
-        id: 'crucible-16', name: "CPM S45VN", producer: "Crucible", C: 1.48, Cr: 16.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
+        id: 'crucible-16', name: "CPM S45VN", producer: "Crucible", pm: true, C: 1.48, Cr: 16.0, V: 3.0, Mo: 2.0, W: 0, Co: 0, edge: 7.5, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "200:60,400:58,500:59",
         desc: "An improvement over S35VN, adding more Chromium and Niobium for better corrosion resistance and toughness.",
         knives: ["Chris Reeve Inkosi", "Spyderco Para 3", "Benchmade 940 (Modern)"],
@@ -373,7 +373,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end production folders and daily carry knives."
     },
     {
-        id: 'crucible-17', name: "CPM S60V", producer: "Crucible",
+        id: 'crucible-17', name: "CPM S60V", producer: "Crucible", pm: true,
         C: 2.15, Cr: 17.0, V: 5.75, Mo: 0.40, W: 0.40, Co: 0,
         edge: 9, toughness: 3, corrosion: 8, sharpen: 2,
         ht_curve: "200:59,400:57,500:56",
@@ -384,7 +384,7 @@ export const PREMIUM_STEELS = [
         use_case: "Collectors and enthusiasts who appreciate the lineage of modern super-steels."
     },
     {
-        id: 'crucible-18', name: "CPM S90V", producer: "Crucible", C: 2.3, Cr: 14.0, V: 9.0, Mo: 1.0, W: 0, Co: 0, edge: 10, toughness: 3, corrosion: 7, sharpen: 2,
+        id: 'crucible-18', name: "CPM S90V", producer: "Crucible", pm: true, C: 2.3, Cr: 14.0, V: 9.0, Mo: 1.0, W: 0, Co: 0, edge: 10, toughness: 3, corrosion: 7, sharpen: 2,
         ht_curve: "200:59,400:57,500:56",
         desc: "High-carbon, high-vanadium stainless steel. A leader in edge retention for premium production folders.",
         knives: ["Benchmade 940-1", "Spyderco Drunken", "Zero Tolerance 0452CF"],
@@ -393,7 +393,7 @@ export const PREMIUM_STEELS = [
         use_case: "Light-duty slicing folders where you never want to sharpen."
     },
     {
-        id: 'crucible-19', name: "SPY27", producer: "Crucible", C: 1.25, Cr: 14.0, V: 2.0, Mo: 2.0, W: 0, Co: 1.5, edge: 5, toughness: 7, corrosion: 10, sharpen: 8,
+        id: 'crucible-19', name: "SPY27", producer: "Crucible", pm: true, C: 1.25, Cr: 14.0, V: 2.0, Mo: 2.0, W: 0, Co: 1.5, edge: 5, toughness: 7, corrosion: 10, sharpen: 8,
         ht_curve: "150:58,200:57,250:56",
         desc: "Spyderco's proprietary super-stainless with 14% chromium and 1.5% Cobalt. Built for absolute corrosion immunity in any environment.",
         knives: ["Spyderco Salt", "Spyderco Salt 2", "Spyderco Yojana"],
@@ -404,7 +404,7 @@ export const PREMIUM_STEELS = [
 
     // --- DAMASTEEL ---
     {
-        id: 'damasteel-2', name: "DS93X", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
+        id: 'damasteel-2', name: "DS93X", producer: "Damasteel", pm: true, C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "200:59,400:57,510:59",
         desc: "A combination of RWL34 and PMC27, this is the premier stainless Damascus steel in the world.",
         knives: ["Grimsmo Norseman (Damascus)", "Custom Grail Knives"],
@@ -413,7 +413,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end luxury and gallery-grade knives."
     },
     {
-        id: 'damasteel-1', name: "RWL34", producer: "Damasteel", C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'damasteel-1', name: "RWL34", producer: "Damasteel", pm: true, C: 1.05, Cr: 14.0, V: 0.2, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "200:59,400:57,510:59",
         desc: "Representing 'Rickard W. Le收ff', this is the powder metallurgy version of ATS-34. Famous for its purity and finishability.",
         knives: ["Grimsmo Norseman", "Custom European Folders"],
@@ -424,7 +424,7 @@ export const PREMIUM_STEELS = [
 
     // --- ERASTEEL ---
     {
-        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0, edge: 8.5, toughness: 8, corrosion: 1, sharpen: 3,
+        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", pm: true, C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0, edge: 8.5, toughness: 8, corrosion: 1, sharpen: 3,
         ht_curve: "500:64,540:66,580:63",
         desc: "A high-performance powder metallurgy high-speed steel optimized for extreme toughness and wear resistance.",
         knives: ["Custom Industrial Knives", "High-Performance Work Tools"],
@@ -433,7 +433,7 @@ export const PREMIUM_STEELS = [
         use_case: "Heavy-duty work tools where impact resistance and edge life are critical."
     },
     {
-        id: 'erasteel-5', name: "ASP 2015", producer: "Erasteel",
+        id: 'erasteel-5', name: "ASP 2015", producer: "Erasteel", pm: true,
         C: 1.6, Cr: 4.0, V: 5.0, Mo: 0, W: 12.0, Co: 5.0,
         edge: 9, toughness: 7, corrosion: 1, sharpen: 3,
         ht_curve: "500:65,540:67,580:63",
@@ -444,7 +444,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-performance tools and custom knives where balanced HSS performance is desired."
     },
     {
-        id: 'erasteel-1', name: "ASP 2030", producer: "Erasteel", C: 1.28, Cr: 4.2, V: 3.1, Mo: 5.0, W: 6.4, Co: 8.5, edge: 8.5, toughness: 7.5, corrosion: 1, sharpen: 3,
+        id: 'erasteel-1', name: "ASP 2030", producer: "Erasteel", pm: true, C: 1.28, Cr: 4.2, V: 3.1, Mo: 5.0, W: 6.4, Co: 8.5, edge: 8.5, toughness: 7.5, corrosion: 1, sharpen: 3,
         ht_curve: "500:64,540:66,580:63",
         desc: "A cobalt-grade powder metallurgy high-speed steel. Offers a unique combination of toughness and wear resistance.",
         knives: ["Custom Tool Knives", "Industrial Cutting Specialists"],
@@ -453,7 +453,7 @@ export const PREMIUM_STEELS = [
         use_case: "Heavy-duty industrial cutting and specialized heavy-use tools."
     },
     {
-        id: 'erasteel-6', name: "ASP 2052", producer: "Erasteel",
+        id: 'erasteel-6', name: "ASP 2052", producer: "Erasteel", pm: true,
         C: 1.60, Cr: 4.8, V: 5.0, Mo: 2.0, W: 0, Co: 8.0,
         edge: 9.5, toughness: 5, corrosion: 1, sharpen: 2,
         ht_curve: "500:66,540:68,580:64",
@@ -464,7 +464,7 @@ export const PREMIUM_STEELS = [
         use_case: "Specialty industrial cutting tools and custom knives."
     },
     {
-        id: 'erasteel-2', name: "ASP 2060", producer: "Erasteel", C: 2.3, Cr: 4.2, V: 6.5, Mo: 7.0, W: 6.5, Co: 10.5, edge: 10, toughness: 5, corrosion: 1, sharpen: 1,
+        id: 'erasteel-2', name: "ASP 2060", producer: "Erasteel", pm: true, C: 2.3, Cr: 4.2, V: 6.5, Mo: 7.0, W: 6.5, Co: 10.5, edge: 10, toughness: 5, corrosion: 1, sharpen: 1,
         ht_curve: "500:67,540:69,580:65",
         desc: "One of the highest-alloyed powder steels in existence. Designed for ultimate hot hardness and wear resistance.",
         knives: ["Extreme High-Performance Customs"],
@@ -473,7 +473,7 @@ export const PREMIUM_STEELS = [
         use_case: "The ultimate abrasive cutting tool."
     },
     {
-        id: 'erasteel-4', name: "ASP 2080", producer: "Erasteel",
+        id: 'erasteel-4', name: "ASP 2080", producer: "Erasteel", pm: true,
         C: 2.45, Cr: 4.0, V: 6.3, Mo: 5.0, W: 11.0, Co: 16.0,
         edge: 10, toughness: 4, corrosion: 1, sharpen: 1,
         ht_curve: "500:68,540:70,580:66",
@@ -486,7 +486,7 @@ export const PREMIUM_STEELS = [
 
     // --- HITACHI ---
     {
-        id: 'hitachi-6', name: "Aogami #1 (Blue 1)", producer: "Hitachi", C: 1.3, Cr: 0.5, V: 0.25, Mo: 0, W: 2, Co: 0, edge: 9, toughness: 5.5, corrosion: 0, sharpen: 8.5,
+        id: 'hitachi-6', name: "Aogami #1 (Blue 1)", producer: "Hitachi", pm: false, C: 1.3, Cr: 0.5, V: 0.25, Mo: 0, W: 2, Co: 0, edge: 9, toughness: 5.5, corrosion: 0, sharpen: 8.5,
         ht_curve: "150:65,200:63,250:62",
         desc: "The hardest and most wear-resistant of Hitachi's traditional carbon steels. Higher carbon and tungsten than Blue 2 make it the performance king of Japanese carbons.",
         knives: ["Tanaka", "Misono UX10", "Premium Japanese Gyuto"],
@@ -495,7 +495,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end Japanese chef knives where edge retention and sharpness are the priority."
     },
     {
-        id: 'hitachi-5', name: "Aogami #2 (Blue 2)", producer: "Hitachi",
+        id: 'hitachi-5', name: "Aogami #2 (Blue 2)", producer: "Hitachi", pm: false,
         C: 1.1, Cr: 0.5, V: 0.25, Mo: 0, W: 1.5, Co: 0,
         edge: 7, toughness: 6.5, corrosion: 0,
         sharpen: 9,
@@ -507,7 +507,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end Japanese chef knives."
     },
     {
-        id: 'hitachi-2', name: "Aogami Super", producer: "Hitachi", C: 1.45, Cr: 0.4, V: 0.4, Mo: 0, W: 2.25, Co: 0, edge: 8, toughness: 6, corrosion: 0, sharpen: 9,
+        id: 'hitachi-2', name: "Aogami Super", producer: "Hitachi", pm: false, C: 1.45, Cr: 0.4, V: 0.4, Mo: 0, W: 2.25, Co: 0, edge: 8, toughness: 6, corrosion: 0, sharpen: 9,
         ht_curve: "150:64,200:62,250:61",
         desc: "The pinnacle of traditional Japanese high-carbon steels. Cobalt-free but tungsten-enriched for incredible sharpness.",
         knives: ["Takeda Hamono", "Moritaka Hamono", "Custom Kitchen Knives"],
@@ -516,7 +516,7 @@ export const PREMIUM_STEELS = [
         use_case: "World-class kitchen knives and traditional Japanese blades."
     },
     {
-        id: 'hitachi-11', name: "ATS-34", producer: "Hitachi",
+        id: 'hitachi-11', name: "ATS-34", producer: "Hitachi", pm: true,
         C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0,
         edge: 6, toughness: 5, corrosion: 7, sharpen: 7,
         ht_curve: "200:60,400:58,500:59",
@@ -527,7 +527,7 @@ export const PREMIUM_STEELS = [
         use_case: "Legacy knife applications. Still solid for custom makers on a budget."
     },
     {
-        id: 'hitachi-8', name: "HAP40", producer: "Hitachi",
+        id: 'hitachi-8', name: "HAP40", producer: "Hitachi", pm: true,
         C: 1.3, Cr: 4.0, V: 3.0, Mo: 5.0, W: 6.1, Co: 8.0,
         edge: 9, toughness: 6, corrosion: 1, sharpen: 3,
         ht_curve: "500:65,540:67,580:63",
@@ -538,7 +538,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium Japanese kitchen knives where HSS-level edge life is desired."
     },
     {
-        id: 'hitachi-9', name: "HAP72", producer: "Hitachi",
+        id: 'hitachi-9', name: "HAP72", producer: "Hitachi", pm: true,
         C: 2.1, Cr: 4.0, V: 5.0, Mo: 8.0, W: 9.5, Co: 10.0,
         edge: 10, toughness: 4, corrosion: 1, sharpen: 1,
         ht_curve: "500:68,540:70,580:66",
@@ -549,7 +549,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial applications and extreme-performance custom knives."
     },
     {
-        id: 'hitachi-3', name: "Shirogami #1 (White 1)", producer: "Hitachi",
+        id: 'hitachi-3', name: "Shirogami #1 (White 1)", producer: "Hitachi", pm: false,
         C: 1.35, Cr: 0.0, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
         edge: 6, toughness: 5, corrosion: 0, sharpen: 10,
         ht_curve: "150:65,200:64,250:62",
@@ -560,7 +560,7 @@ export const PREMIUM_STEELS = [
         use_case: "Traditional Japanese chef knives and sushi blades."
     },
     {
-        id: 'hitachi-4', name: "Shirogami #2 (White 2)", producer: "Hitachi",
+        id: 'hitachi-4', name: "Shirogami #2 (White 2)", producer: "Hitachi", pm: false,
         C: 1.05, Cr: 0.0, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
         edge: 5, toughness: 6, corrosion: 0, sharpen: 10,
         ht_curve: "150:63,200:61,250:60",
@@ -571,7 +571,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry to high-end Japanese carbon knives."
     },
     {
-        id: 'hitachi-7', name: "Shirogami #3 (White 3)", producer: "Hitachi", C: 0.85, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 0, sharpen: 10,
+        id: 'hitachi-7', name: "Shirogami #3 (White 3)", producer: "Hitachi", pm: false, C: 0.85, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 0, sharpen: 10,
         ht_curve: "150:62,200:60,250:58",
         desc: "The softest and most forgiving of Hitachi's white steels. Easiest to heat treat and sharpen, making it the ideal entry point into Japanese carbon.",
         knives: ["Budget Japanese carbon knives", "Tojiro Carbon", "Entry-level santoku"],
@@ -580,7 +580,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry-level Japanese carbon knives and budget kitchen blades."
     },
     {
-        id: 'hitachi-10', name: "SLD", producer: "Hitachi",
+        id: 'hitachi-10', name: "SLD", producer: "Hitachi", pm: false,
         C: 1.50, Cr: 12.0, V: 0.35, Mo: 1.0, W: 0.3, Co: 0,
         edge: 7, toughness: 5, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,500:62,600:59",
@@ -591,7 +591,7 @@ export const PREMIUM_STEELS = [
         use_case: "Japanese production knives and industrial cutting where D2-class performance is needed."
     },
     {
-        id: 'others-7', name: "YXR7", producer: "Hitachi", C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 9, toughness: 8, corrosion: 1, sharpen: 2,
+        id: 'others-7', name: "YXR7", producer: "Hitachi", pm: false, C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 9, toughness: 8, corrosion: 1, sharpen: 2,
         ht_curve: "500:65,540:67,600:63",
         desc: "A high-performance Matrix High Speed Steel used by Rockstead for its extreme hardness and toughness.",
         knives: ["Rockstead Higo II", "Rockstead Shin"],
@@ -600,7 +600,7 @@ export const PREMIUM_STEELS = [
         use_case: "Luxury high-performance folders."
     },
     {
-        id: 'hitachi-1', name: "ZDP-189", producer: "Hitachi", C: 3.0, Cr: 20.0, V: 0.1, Mo: 1.4, W: 0.6, Co: 0, edge: 10, toughness: 3, corrosion: 6, sharpen: 2,
+        id: 'hitachi-1', name: "ZDP-189", producer: "Hitachi", pm: true, C: 3.0, Cr: 20.0, V: 0.1, Mo: 1.4, W: 0.6, Co: 0, edge: 10, toughness: 3, corrosion: 6, sharpen: 2,
         ht_curve: "150:66,200:65,300:64",
         desc: "A legendary Japanese super-steel with 3% carbon. It achieved fame for holding a terrifyingly sharp edge longer than almost anything else.",
         knives: ["Spyderco Delica (ZDP-189)", "Rockstead Knives", "Spyderco Endura 4"],
@@ -611,7 +611,7 @@ export const PREMIUM_STEELS = [
 
     // --- LOHMANN ---
     {
-        id: 'lohmann-1', name: "Niolox", producer: "Lohmann",
+        id: 'lohmann-1', name: "Niolox", producer: "Lohmann", pm: false,
         C: 0.80, Cr: 12.7, V: 0.9, Mo: 1.1, W: 0, Co: 0,
         edge: 6, toughness: 7, corrosion: 7, sharpen: 7,
         ht_curve: "150:60,200:59,300:58",
@@ -624,7 +624,7 @@ export const PREMIUM_STEELS = [
 
     // --- NEW JERSEY STEEL BARON ---
     {
-        id: 'budget-1', name: "Nitro-V", producer: "New Jersey Steel Baron",
+        id: 'budget-1', name: "Nitro-V", producer: "New Jersey Steel Baron", pm: false,
         C: 0.68, Cr: 13.0, V: 0.1, Mo: 0.1, W: 0, Co: 0,
         edge: 5, toughness: 8, corrosion: 9, sharpen: 8,
         ht_curve: "150:60,200:59,250:58",
@@ -637,7 +637,7 @@ export const PREMIUM_STEELS = [
 
     // --- TAKEFU ---
     {
-        id: 'takefu-6', name: "Lam. CoS", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0, Co: 2.5, edge: 8, toughness: 6, corrosion: 8, sharpen: 5,
+        id: 'takefu-6', name: "Lam. CoS", producer: "Takefu", pm: false, C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0, Co: 2.5, edge: 8, toughness: 6, corrosion: 8, sharpen: 5,
         ht_curve: "150:60,200:59,300:57",
         desc: "Laminated Cobalt Steel. Used primarily by Fallkniven for their high-end survival knives.",
         knives: ["Fallkniven F1 Pro", "Fallkniven A1 Pro"],
@@ -646,7 +646,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium survival and hunting knives."
     },
     {
-        id: 'takefu-1', name: "SG2 / R2", producer: "Takefu", C: 1.35, Cr: 15.0, V: 2.0, Mo: 2.8, W: 0, Co: 0, edge: 9, toughness: 5, corrosion: 7, sharpen: 4,
+        id: 'takefu-1', name: "SG2 / R2", producer: "Takefu", pm: true, C: 1.35, Cr: 15.0, V: 2.0, Mo: 2.8, W: 0, Co: 0, edge: 9, toughness: 5, corrosion: 7, sharpen: 4,
         ht_curve: "150:62,200:61,300:59",
         desc: "A high-performance powder metallurgy stainless steel favored by Japanese kitchen knife makers for its edge holding.",
         knives: ["Shun Premier", "Miyabi Birchwood", "Kramer by Zwilling"],
@@ -655,7 +655,7 @@ export const PREMIUM_STEELS = [
         use_case: "Premium kitchen cutlery and high-end production Japanese knives."
     },
     {
-        id: 'takefu-4', name: "SRS13", producer: "Takefu",
+        id: 'takefu-4', name: "SRS13", producer: "Takefu", pm: true,
         C: 1.30, Cr: 13.0, V: 1.2, Mo: 1.1, W: 1.3, Co: 0,
         edge: 8, toughness: 5, corrosion: 6, sharpen: 5,
         ht_curve: "150:63,200:62,300:60",
@@ -666,7 +666,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end Japanese kitchen knives where hardness and stainlessness are both important."
     },
     {
-        id: 'takefu-5', name: "SRS15", producer: "Takefu",
+        id: 'takefu-5', name: "SRS15", producer: "Takefu", pm: true,
         C: 1.50, Cr: 14.0, V: 2.0, Mo: 2.6, W: 1.2, Co: 0,
         edge: 9, toughness: 4, corrosion: 6, sharpen: 4,
         ht_curve: "150:64,200:63,300:61",
@@ -677,7 +677,7 @@ export const PREMIUM_STEELS = [
         use_case: "Ultra-premium Japanese kitchen knives for professional chefs."
     },
     {
-        id: 'takefu-2', name: "VG-10", producer: "Takefu", C: 1.0, Cr: 15.0, V: 0.2, Mo: 1.0, W: 0, Co: 1.5, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
+        id: 'takefu-2', name: "VG-10", producer: "Takefu", pm: false, C: 1.0, Cr: 15.0, V: 0.2, Mo: 1.0, W: 0, Co: 1.5, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "150:60,200:59,300:57",
         desc: "The workforce of Japanese stainless steel. Cobalt-enriched to maintain hardness and offer a good balance of properties.",
         knives: ["Spyderco Delica 4 (Standard)", "Tojiro DP", "Shun Classic"],
@@ -686,7 +686,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry to mid-range premium kitchen and folding knives."
     },
     {
-        id: 'takefu-3', name: "VG-MAX", producer: "Takefu", C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0.5, Co: 1.5, edge: 8, toughness: 5, corrosion: 8, sharpen: 6,
+        id: 'takefu-3', name: "VG-MAX", producer: "Takefu", pm: false, C: 1.1, Cr: 16.0, V: 0.3, Mo: 1.5, W: 0.5, Co: 1.5, edge: 8, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "150:61,200:60,300:58",
         desc: "An upgraded version of VG-10 developed exclusively for Shun Knives. Increased Chromium and Vanadium for better performance.",
         knives: ["Shun Classic Series", "Shun Premier Series"],
@@ -697,7 +697,7 @@ export const PREMIUM_STEELS = [
 
     // --- UDDEHOLM ---
     {
-        id: 'uddeholm-5', name: "AEB-L", producer: "Uddeholm",
+        id: 'uddeholm-5', name: "AEB-L", producer: "Uddeholm", pm: false,
         C: 0.67, Cr: 13.0, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
         edge: 5, toughness: 9, corrosion: 8.5, sharpen: 9,
         ht_curve: "150:60,200:59,250:58",
@@ -708,7 +708,7 @@ export const PREMIUM_STEELS = [
         use_case: "Thin-ground chef knives and slicers."
     },
     {
-        id: 'uddeholm-8', name: "Caldie", producer: "Uddeholm",
+        id: 'uddeholm-8', name: "Caldie", producer: "Uddeholm", pm: true,
         C: 0.70, Cr: 5.0, V: 0.5, Mo: 2.3, W: 0, Co: 0,
         edge: 5, toughness: 9.5, corrosion: 2, sharpen: 7,
         ht_curve: "200:56,400:54,500:58",
@@ -719,7 +719,7 @@ export const PREMIUM_STEELS = [
         use_case: "Extreme-toughness fixed blades, pry bars, and impact tools."
     },
     {
-        id: 'uddeholm-1', name: "Elmax", producer: "Uddeholm", C: 1.7, Cr: 18.0, V: 3.0, Mo: 1.0, W: 0, Co: 0, edge: 8, toughness: 5, corrosion: 8, sharpen: 5,
+        id: 'uddeholm-1', name: "Elmax", producer: "Uddeholm", pm: true, C: 1.7, Cr: 18.0, V: 3.0, Mo: 1.0, W: 0, Co: 0, edge: 8, toughness: 5, corrosion: 8, sharpen: 5,
         ht_curve: "200:60,400:58,500:59",
         desc: "A versatile powder stainless steel balancing high wear resistance with ease of maintenance.",
         knives: ["Zero Tolerance 0562", "Microtech Socom Elite", "TRC Knives South Pole"],
@@ -728,7 +728,7 @@ export const PREMIUM_STEELS = [
         use_case: "High-end outdoor fixed blades and rugged folding knives."
     },
     {
-        id: 'uddeholm-4', name: "Sleipner", producer: "Uddeholm", C: 0.9, Cr: 7.8, V: 0.5, Mo: 2.5, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 4, sharpen: 6,
+        id: 'uddeholm-4', name: "Sleipner", producer: "Uddeholm", pm: false, C: 0.9, Cr: 7.8, V: 0.5, Mo: 2.5, W: 0, Co: 0, edge: 5, toughness: 7, corrosion: 4, sharpen: 6,
         ht_curve: "200:58,400:56,500:59",
         desc: "A multi-purpose tool steel with a high degree of versatility and better toughness than D2.",
         knives: ["Lionsteel M4", "GiantMouse ACE GMF1", "Custom Hunters"],
@@ -737,7 +737,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hunting knives and compact fixed blades for camping."
     },
     {
-        id: 'uddeholm-9', name: "Sverker 21", producer: "Uddeholm",
+        id: 'uddeholm-9', name: "Sverker 21", producer: "Uddeholm", pm: false,
         C: 1.55, Cr: 11.8, V: 0.8, Mo: 0.8, W: 0, Co: 0,
         edge: 7, toughness: 5, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,500:62,600:59",
@@ -748,7 +748,7 @@ export const PREMIUM_STEELS = [
         use_case: "Nordic and Scandinavian knives where D2-class performance is desired."
     },
     {
-        id: 'uddeholm-10', name: "Unimax", producer: "Uddeholm",
+        id: 'uddeholm-10', name: "Unimax", producer: "Uddeholm", pm: false,
         C: 0.50, Cr: 5.0, V: 0.5, Mo: 2.3, W: 0, Co: 0,
         edge: 4, toughness: 10, corrosion: 2, sharpen: 7,
         ht_curve: "200:54,400:56,500:58",
@@ -759,7 +759,7 @@ export const PREMIUM_STEELS = [
         use_case: "Extreme-toughness applications, large choppers, and tools that must survive severe abuse."
     },
     {
-        id: 'uddeholm-7', name: "Vanadis 10", producer: "Uddeholm",
+        id: 'uddeholm-7', name: "Vanadis 10", producer: "Uddeholm", pm: true,
         C: 2.9, Cr: 8.0, V: 9.8, Mo: 1.5, W: 0, Co: 0,
         edge: 10, toughness: 3, corrosion: 2, sharpen: 1,
         ht_curve: "200:62,500:64,600:60",
@@ -770,7 +770,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting and custom knives optimized purely for edge retention."
     },
     {
-        id: 'uddeholm-2', name: "Vanadis 4E", producer: "Uddeholm", C: 1.4, Cr: 4.7, V: 3.7, Mo: 3.5, W: 0, Co: 0, edge: 8, toughness: 9, corrosion: 1, sharpen: 4,
+        id: 'uddeholm-2', name: "Vanadis 4E", producer: "Uddeholm", pm: true, C: 1.4, Cr: 4.7, V: 3.7, Mo: 3.5, W: 0, Co: 0, edge: 8, toughness: 9, corrosion: 1, sharpen: 4,
         ht_curve: "500:60,540:62,600:58",
         desc: "A chromium-molybdenum-vanadium alloyed steel characterized by high wear resistance and very good toughness.",
         knives: ["Custom Bushcraft Knives", "Heavy Duty Choppers"],
@@ -779,7 +779,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hardcore bushcraft, camp knives, and competition choppers."
     },
     {
-        id: 'uddeholm-3', name: "Vanadis 8", producer: "Uddeholm", C: 2.3, Cr: 4.8, V: 8.0, Mo: 3.6, W: 0, Co: 0, edge: 10, toughness: 4, corrosion: 1, sharpen: 2,
+        id: 'uddeholm-3', name: "Vanadis 8", producer: "Uddeholm", pm: true, C: 2.3, Cr: 4.8, V: 8.0, Mo: 3.6, W: 0, Co: 0, edge: 10, toughness: 4, corrosion: 1, sharpen: 2,
         ht_curve: "500:62,540:64,600:60",
         desc: "Extremely high wear resistance tool steel. Used for industrial applications and performance-first heavy-duty knives.",
         knives: ["Custom Fixed Blades", "Performance Choppers"],
@@ -788,7 +788,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting applications and extreme performance fixed blades."
     },
     {
-        id: 'uddeholm-6', name: "Vanax", producer: "Uddeholm", C: 0.36, Cr: 18.2, V: 3.5, Mo: 1.1, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 10, sharpen: 6,
+        id: 'uddeholm-6', name: "Vanax", producer: "Uddeholm", pm: true, C: 0.36, Cr: 18.2, V: 3.5, Mo: 1.1, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 10, sharpen: 6,
         ht_curve: "150:60,200:59,250:57",
         desc: "A nitrogen-alloyed stainless steel with exceptional corrosion resistance and good wear resistance.",
         knives: ["Quiet Carry Waypoint", "Quiet Carry Drift", "Custom Saltwater Knives"],
@@ -799,7 +799,7 @@ export const PREMIUM_STEELS = [
 
     // --- YOSHIKIN ---
     {
-        id: 'yoshikin-1', name: "CROMOVA 18", producer: "Yoshikin", C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
+        id: 'yoshikin-1', name: "CROMOVA 18", producer: "Yoshikin", pm: false, C: 0.8, Cr: 18.0, V: 0.1, Mo: 0.6, W: 0, Co: 0, edge: 4.5, toughness: 6, corrosion: 9, sharpen: 8.5,
         ht_curve: "150:58,200:57,300:55",
         desc: "Proprietary steel used by Global Knives. Balanced for professional kitchen use.",
         knives: ["Global G-2 Chef Knife"],
@@ -810,7 +810,7 @@ export const PREMIUM_STEELS = [
 
     // --- ZAPP ---
     {
-        id: 'zapp-1', name: "LC200N / Cronidur 30", producer: "Zapp", C: 0.3, Cr: 15.0, V: 0, Mo: 0.95, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 10, sharpen: 7,
+        id: 'zapp-1', name: "LC200N / Cronidur 30", producer: "Zapp", pm: false, C: 0.3, Cr: 15.0, V: 0, Mo: 0.95, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 10, sharpen: 7,
         ht_curve: "150:58,200:57,250:56",
         desc: "A nitrogen-based alloy that is virtually rust-proof. Used by NASA for ball bearings and by Spyderco for sea knives.",
         knives: ["Spyderco SpydieChef", "Spyderco Salt 2 (LC200N)", "Quiet Carry Waypoint"],
@@ -819,7 +819,7 @@ export const PREMIUM_STEELS = [
         use_case: "Salt-water environments, food prep, and sweat-heavy carry."
     },
     {
-        id: 'zapp-2', name: "Z-Wear PM", producer: "Zapp",
+        id: 'zapp-2', name: "Z-Wear PM", producer: "Zapp", pm: true,
         C: 1.10, Cr: 7.5, V: 2.4, Mo: 1.6, W: 1.15, Co: 0,
         edge: 8, toughness: 7.5, corrosion: 3, sharpen: 4,
         ht_curve: "200:61,500:63,600:60",
@@ -830,7 +830,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use EDC and fixed blades where both toughness and edge life matter."
     },
     {
-        id: 'zapp-3', name: "Z-Tuff PM", producer: "Zapp",
+        id: 'zapp-3', name: "Z-Tuff PM", producer: "Zapp", pm: true,
         C: 0.55, Cr: 8.0, V: 1.0, Mo: 2.0, W: 0, Co: 0,
         edge: 4, toughness: 10, corrosion: 3, sharpen: 7,
         ht_curve: "200:56,500:58,600:55",
@@ -843,7 +843,7 @@ export const PREMIUM_STEELS = [
 
     // --- VARIOUS ---
     {
-        id: 'carbon-4', name: "1075", producer: "Various", C: 0.75, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 4, toughness: 9.5, corrosion: 1, sharpen: 9.5,
+        id: 'carbon-4', name: "1075", producer: "Various", pm: false, C: 0.75, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 4, toughness: 9.5, corrosion: 1, sharpen: 9.5,
         ht_curve: "150:57,200:56,250:55",
         desc: "The softest and toughest of the common 10XX carbon steels. Nearly impossible to break and the easiest steel to sharpen.",
         knives: ["Budget machetes", "Condor knives", "Entry-level fixed blades"],
@@ -852,7 +852,7 @@ export const PREMIUM_STEELS = [
         use_case: "Choppers, machetes, and tools where surviving abuse matters more than holding an edge."
     },
     {
-        id: 'carbon-3', name: "1080", producer: "Various", C: 0.8, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 1, sharpen: 9,
+        id: 'carbon-3', name: "1080", producer: "Various", pm: false, C: 0.8, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 1, sharpen: 9,
         ht_curve: "150:58,200:57,250:56",
         desc: "The workhorse of bushcraft and survival knives. Exceptional toughness and trivially easy to sharpen with any abrasive.",
         knives: ["Mora 2000", "Condor Hamador", "Many custom bushcraft knives"],
@@ -863,7 +863,7 @@ export const PREMIUM_STEELS = [
 
 
     {
-        id: 'carbon-1', name: "52100", producer: "Various",
+        id: 'carbon-1', name: "52100", producer: "Various", pm: false,
         C: 1.0, Cr: 1.5, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
         edge: 6, toughness: 8, corrosion: 1, sharpen: 9,
         ht_curve: "150:62,200:61,250:60",
@@ -875,7 +875,7 @@ export const PREMIUM_STEELS = [
     },
 
     {
-        id: 'others-15', name: "9Cr18MoV", producer: "Various",
+        id: 'others-15', name: "9Cr18MoV", producer: "Various", pm: false,
         C: 0.95, Cr: 18.0, V: 0.12, Mo: 1.2, W: 0, Co: 0,
         edge: 6, toughness: 4, corrosion: 8, sharpen: 6,
         ht_curve: "150:59,200:58,300:56",
@@ -886,7 +886,7 @@ export const PREMIUM_STEELS = [
         use_case: "Mid-range Chinese production knives."
     },
     {
-        id: 'others-6', name: "A2", producer: "Various", C: 1.0, Cr: 5.0, V: 0.5, Mo: 1.1, W: 0, Co: 0, edge: 5, toughness: 8, corrosion: 2, sharpen: 8,
+        id: 'others-6', name: "A2", producer: "Various", pm: false, C: 1.0, Cr: 5.0, V: 0.5, Mo: 1.1, W: 0, Co: 0, edge: 5, toughness: 8, corrosion: 2, sharpen: 8,
         ht_curve: "200:58,400:56,500:60",
         desc: "A classic air-hardening tool steel known for its incredible toughness and ease of sharpening.",
         knives: ["Bark River Bravo 1 (A2)", "Chris Reeve (Vintage)"],
@@ -896,7 +896,7 @@ export const PREMIUM_STEELS = [
     },
 
     {
-        id: 'toolsteel-6', name: "H13", producer: "Various",
+        id: 'toolsteel-6', name: "H13", producer: "Various", pm: false,
         C: 0.40, Cr: 5.25, V: 1.0, Mo: 1.35, W: 0, Co: 0,
         edge: 3, toughness: 10, corrosion: 3, sharpen: 8,
         ht_curve: "200:48,400:50,600:52",
@@ -907,7 +907,7 @@ export const PREMIUM_STEELS = [
         use_case: "Extreme-abuse large blades and experimental knife designs."
     },
     {
-        id: 'toolsteel-1', name: "M2", producer: "Various",
+        id: 'toolsteel-1', name: "M2", producer: "Various", pm: false,
         C: 0.85, Cr: 4.15, V: 1.85, Mo: 5.0, W: 6.35, Co: 0,
         edge: 8, toughness: 6, corrosion: 1, sharpen: 3,
         ht_curve: "500:63,540:65,580:62",
@@ -918,7 +918,7 @@ export const PREMIUM_STEELS = [
         use_case: "General-purpose high-speed cutting tools and custom knives."
     },
     {
-        id: 'toolsteel-2', name: "M42", producer: "Various",
+        id: 'toolsteel-2', name: "M42", producer: "Various", pm: false,
         C: 1.10, Cr: 3.75, V: 1.15, Mo: 9.5, W: 1.5, Co: 8.0,
         edge: 9, toughness: 5, corrosion: 1, sharpen: 2,
         ht_curve: "500:67,540:69,580:65",
@@ -930,7 +930,7 @@ export const PREMIUM_STEELS = [
     },
 
     {
-        id: 'toolsteel-3', name: "S7", producer: "Various",
+        id: 'toolsteel-3', name: "S7", producer: "Various", pm: false,
         C: 0.50, Cr: 3.25, V: 0.25, Mo: 1.4, W: 0, Co: 0,
         edge: 3, toughness: 10, corrosion: 2, sharpen: 8,
         ht_curve: "200:54,400:52,500:56",
@@ -941,7 +941,7 @@ export const PREMIUM_STEELS = [
         use_case: "Impact tools, large choppers, pry-bar knives, and breaching tools."
     },
     {
-        id: 'carbon-5', name: "SK-5", producer: "Various",
+        id: 'carbon-5', name: "SK-5", producer: "Various", pm: false,
         C: 0.86, Cr: 0.3, V: 0.1, Mo: 0.05, W: 0, Co: 0,
         edge: 6, toughness: 8, corrosion: 1, sharpen: 8,
         ht_curve: "150:58,200:57,250:56",
@@ -952,7 +952,7 @@ export const PREMIUM_STEELS = [
         use_case: "Fixed blades, survival knives, and outdoor cutting tasks."
     },
     {
-        id: 'toolsteel-4', name: "T15", producer: "Various",
+        id: 'toolsteel-4', name: "T15", producer: "Various", pm: false,
         C: 1.55, Cr: 4.75, V: 5.0, Mo: 0.5, W: 12.5, Co: 5.0,
         edge: 9.5, toughness: 4, corrosion: 1, sharpen: 1,
         ht_curve: "500:66,540:68,580:64",
@@ -963,7 +963,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting and custom knives where tungsten HSS properties are desired."
     },
     {
-        id: 'toolsteel-5', name: "W2", producer: "Various",
+        id: 'toolsteel-5', name: "W2", producer: "Various", pm: false,
         C: 1.10, Cr: 0.15, V: 0.25, Mo: 0, W: 0, Co: 0,
         edge: 6, toughness: 7, corrosion: 0, sharpen: 9,
         ht_curve: "150:64,200:62,250:60",
@@ -974,7 +974,7 @@ export const PREMIUM_STEELS = [
         use_case: "Traditional bladesmithing and art knives where aesthetics and tradition matter."
     },
     {
-        id: 'german-1', name: "X50CrMoV15", producer: "Various",
+        id: 'german-1', name: "X50CrMoV15", producer: "Various", pm: false,
         C: 0.5, Cr: 15.0, V: 0.1, Mo: 0.8, W: 0, Co: 0,
         edge: 3.5, toughness: 9, corrosion: 9, sharpen: 10,
         ht_curve: "150:56,200:55,250:54",
@@ -985,7 +985,7 @@ export const PREMIUM_STEELS = [
         use_case: "Professional kitchens, high-impact food prep, Western chef knives."
     },
     {
-        id: 'german-2', name: "X55CrMoV14", producer: "Various",
+        id: 'german-2', name: "X55CrMoV14", producer: "Various", pm: false,
         C: 0.55, Cr: 14.5, V: 0.1, Mo: 0.7, W: 0, Co: 0,
         edge: 4, toughness: 8.5, corrosion: 8.5, sharpen: 9,
         ht_curve: "150:57,200:56,250:55",

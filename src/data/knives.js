@@ -460,7 +460,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A robust workhorse featuring Spyderco's Ball Bearing Lock. Known for its incredible ergonomics and strength.",
         whySpecial: "The Ball Bearing Lock is completely ambidextrous and self-adjusting, providing one of the most consistent actions in the industry.",
-        steels: ["CPM-S30V", "Maxamet", "CPM-CruWear", "CPM-S110V", "Rex 45"],
+        steels: ["CPM-S30V", "Maxamet", "CPM-CruWear", "CPM-S110V", "CPM Rex 45"],
         image: "https://www.spyderco.com/products/Manix-2-Black-G-10-PlainEdge/165",
         link: "https://www.spyderco.com/catalog/details/C101G2/Manix-reg-2-Black-G-10/418"
     },
@@ -471,7 +471,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A compact refinement of the legendary Para Military 2. Famous for its Compression Lock, extreme ergonomics, and incredible variety of 'Sprint Run' steels. It is the ultimate platform for steel enthusiasts.",
         whySpecial: "The Para 3 is loved for its 'big knife' ergonomics in a compact package. Its flat grand blade and thin profile make it one of the best slicers ever produced.",
-        steels: ["CPM-S45VN", "CPM-S30V", "CPM-MagnaCut", "CPM-CruWear", "Maxamet", "CPM-S110V", "Rex 45"],
+        steels: ["CPM-S45VN", "CPM-S30V", "CPM-MagnaCut", "CPM-CruWear", "Maxamet", "CPM-S110V", "CPM Rex 45"],
         image: "src/image/spyderco_para_3_mockup_1768568793673.png",
         link: "https://www.spyderco.com/para-3"
     },
@@ -482,7 +482,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A larger, more robust evolution of the Native 5, designed for hard use with a Compression Lock.",
         whySpecial: "The Shaman's handle ergonomics are legendary, filling the hand perfectly for heavy cutting tasks.",
-        steels: ["CPM-S30V", "Rex 45", "CPM-CruWear", "15V"],
+        steels: ["CPM-S30V", "CPM Rex 45", "CPM-CruWear", "15V"],
         image: "https://www.spyderco.com/products/Shaman/1057",
         link: "https://www.spyderco.com/catalog/details/C229G/Shaman-trade-/1057"
     },

@@ -59,9 +59,9 @@ async function main() {
     console.log('Seeding Steels...');
     for (const s of PREMIUM_STEELS) {
         await pool.query(
-            `INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co", edge, toughness, corrosion, sharpen, ht_curve, "desc", use_case, pros, cons)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)`,
-            [s.id, s.name, s.producer, s.C, s.Cr, s.V, s.Mo, s.W, s.Co, s.edge, s.toughness, s.corrosion, s.sharpen, s.ht_curve || '', s.desc, s.use_case, s.pros || [], s.cons || []]
+            `INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co", edge, toughness, corrosion, sharpen, ht_curve, "desc", use_case, pros, cons, pm)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)`,
+            [s.id, s.name, s.producer, s.C, s.Cr, s.V, s.Mo, s.W, s.Co, s.edge, s.toughness, s.corrosion, s.sharpen, s.ht_curve || '', s.desc, s.use_case, s.pros || [], s.cons || [], s.pm ?? false]
         );
     }
 
