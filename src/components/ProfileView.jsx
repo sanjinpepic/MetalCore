@@ -126,7 +126,15 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                         className="group p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-accent/30 transition-all cursor-pointer flex items-center justify-between"
                                     >
                                         <div>
-                                            <div className="text-[10px] font-black text-slate-500 uppercase mb-1">{steel.producer}</div>
+                                            <div className="text-[10px] font-black text-slate-500 uppercase mb-1 flex items-center gap-1.5">
+                                                {steel.producer}
+                                                {steel.pm !== undefined && (
+                                                    <>
+                                                        <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
+                                                        <span className={steel.pm ? "text-accent" : ""}>{steel.pm ? 'PM' : 'CONV'}</span>
+                                                    </>
+                                                )}
+                                            </div>
                                             <div className="text-sm font-display font-black text-white italic group-hover:text-accent transition-colors">{steel.name}</div>
                                         </div>
                                         <button

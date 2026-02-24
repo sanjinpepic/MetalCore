@@ -288,7 +288,15 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         <div className="space-y-6 pt-6 border-t border-white/5 animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <div className="text-[10px] font-black text-slate-500 uppercase mb-1">{displaySteel.producer}</div>
+                                    <div className="text-[10px] font-black text-slate-500 uppercase mb-1 flex items-center gap-2">
+                                        {displaySteel.producer}
+                                        {displaySteel.pm !== undefined && (
+                                            <>
+                                                <span className="w-1 h-1 rounded-full bg-slate-600" />
+                                                <span className={displaySteel.pm ? "text-accent" : ""}>{displaySteel.pm ? 'PM' : 'CONVENTIONAL'}</span>
+                                            </>
+                                        )}
+                                    </div>
                                     <h3 className="text-2xl font-display font-black text-white italic uppercase tracking-tight">{displaySteel.name}</h3>
                                 </div>
                                 <button
@@ -339,13 +347,12 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         key={`y-${key}`}
                                         onClick={() => setYAxis(key)}
                                         disabled={key === xAxis}
-                                        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${
-                                            yAxis === key
+                                        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${yAxis === key
                                                 ? 'bg-rose-500 text-white'
                                                 : key === xAxis
                                                     ? 'bg-white/5 text-slate-600 opacity-30'
                                                     : 'bg-white/5 text-slate-400 active:scale-95'
-                                        }`}
+                                            }`}
                                     >
                                         {axisOptions[key].shortLabel}
                                     </button>
@@ -361,13 +368,12 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         key={`x-${key}`}
                                         onClick={() => setXAxis(key)}
                                         disabled={key === yAxis}
-                                        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${
-                                            xAxis === key
+                                        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${xAxis === key
                                                 ? 'bg-rose-500 text-white'
                                                 : key === yAxis
                                                     ? 'bg-white/5 text-slate-600 opacity-30'
                                                     : 'bg-white/5 text-slate-400 active:scale-95'
-                                        }`}
+                                            }`}
                                     >
                                         {axisOptions[key].shortLabel}
                                     </button>
@@ -434,7 +440,15 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                         <div className="flex items-center justify-between mb-4">
                                                             <div className="flex items-center gap-2">
                                                                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-                                                                <div className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: color }}>{data.producer}</div>
+                                                                <div className="text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5" style={{ color: color }}>
+                                                                    {data.producer}
+                                                                    {data.pm !== undefined && (
+                                                                        <>
+                                                                            <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
+                                                                            <span className={data.pm ? "text-accent" : "text-white/50"}>{data.pm ? 'PM' : 'CONV'}</span>
+                                                                        </>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                             <div className="text-[9px] font-black text-accent/40 uppercase">Interactive</div>
                                                         </div>

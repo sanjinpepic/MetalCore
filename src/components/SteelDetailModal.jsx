@@ -36,7 +36,15 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-4 items-start">
                     <div className="space-y-6">
                         <div>
-                            <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2">{steel.producer}</div>
+                            <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                                {steel.producer}
+                                {steel.pm !== undefined && (
+                                    <>
+                                        <span className="w-1 h-1 rounded-full bg-accent/50" />
+                                        <span className={steel.pm ? "text-white" : ""}>{steel.pm ? 'PM' : 'CONVENTIONAL'}</span>
+                                    </>
+                                )}
+                            </div>
                             <div className="flex items-center gap-4 mb-3">
                                 <h2 className="text-2xl md:text-3xl font-display font-black text-white leading-none italic uppercase tracking-tighter">{steel.name}</h2>
                                 <button

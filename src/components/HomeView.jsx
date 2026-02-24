@@ -171,7 +171,15 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-2 h-10 rounded-full" style={{ backgroundColor: getProducerColor(result.producer) }} />
                                                     <div className="text-left">
-                                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">{result.producer}</div>
+                                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1 flex items-center gap-2">
+                                                            {result.producer}
+                                                            {result.pm !== undefined && (
+                                                                <>
+                                                                    <span className="w-1 h-1 rounded-full bg-slate-600" />
+                                                                    <span className={result.pm ? "text-accent" : ""}>{result.pm ? 'PM' : 'CONVENTIONAL'}</span>
+                                                                </>
+                                                            )}
+                                                        </div>
                                                         <div className="text-lg font-black text-white italic leading-none group-hover/item:text-accent transition-colors">{result.name}</div>
                                                     </div>
                                                 </div>
@@ -393,7 +401,15 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     </div>
 
                                     <div>
-                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5">{featuredSteel.producer}</div>
+                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                            {featuredSteel.producer}
+                                            {featuredSteel.pm !== undefined && (
+                                                <>
+                                                    <span className="w-1 h-1 rounded-full bg-slate-600" />
+                                                    <span className={featuredSteel.pm ? "text-accent" : ""}>{featuredSteel.pm ? 'PM' : 'CONVENTIONAL'}</span>
+                                                </>
+                                            )}
+                                        </div>
                                         <h2 className="text-4xl font-display font-black text-white italic leading-none truncate group-hover:text-accent transition-colors cursor-pointer" onClick={() => {
                                             setDetailSteel(featuredSteel);
                                             incrementTrending(featuredSteel.id);
@@ -479,7 +495,15 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         {compareList.map(s => (
                                             <div key={s.id} className="flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5 group">
                                                 <div className="flex flex-col">
-                                                    <span className="text-[8px] font-black text-slate-600 uppercase tracking-widest">{s.producer}</span>
+                                                    <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
+                                                        {s.producer}
+                                                        {s.pm !== undefined && (
+                                                            <>
+                                                                <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
+                                                                <span className={s.pm ? "text-accent" : ""}>{s.pm ? 'PM' : 'CONV'}</span>
+                                                            </>
+                                                        )}
+                                                    </div>
                                                     <span className="text-xs font-black text-white italic">{s.name}</span>
                                                 </div>
                                                 <button
