@@ -189,25 +189,25 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
         }
     };
 
-    const setView = (newView) => {
+    const setView = useCallback((newView) => {
         navigate({ view: newView, detailSteel: null, detailKnife: null });
-    };
+    }, [navigate]);
 
-    const setDetailSteel = (steel) => {
+    const setDetailSteel = useCallback((steel) => {
         if (steel) {
             navigate({ detailSteel: steel.id || steel.name });
         } else {
             navigate({ detailSteel: null });
         }
-    };
+    }, [navigate]);
 
-    const setDetailKnife = (knife) => {
+    const setDetailKnife = useCallback((knife) => {
         if (knife) {
             navigate({ detailKnife: knife.id || knife.name });
         } else {
             navigate({ detailKnife: null });
         }
-    };
+    }, [navigate]);
 
     const askAi = async (query = aiQuery) => {
         if (!apiKey) {
@@ -438,7 +438,7 @@ Be concise and premium.`;
     const handleCommandNavigate = useCallback((viewId) => {
         hapticFeedback('medium');
         setView(viewId);
-    }, []);
+    }, [setView]);
 
     const handleCommandOpenSteel = useCallback((steel) => {
         navigate({ detailSteel: steel.id || steel.name, detailKnife: null });
@@ -452,7 +452,7 @@ Be concise and premium.`;
     const handleCommandAction = useCallback((actionId) => {
         if (actionId === 'ai') setAiOpen(true);
         else if (actionId === 'settings') setShowSettings(true);
-    }, []);
+    }, [setAiOpen, setShowSettings]);
 
     return (
         <div className="flex app-shell font-sans bg-black relative">

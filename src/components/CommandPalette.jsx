@@ -111,8 +111,8 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
 
     const handleSelect = useCallback((item) => {
         hapticFeedback('medium');
-        onClose();
 
+        // Call the action first, then close
         if (item.type === 'nav') {
             onNavigate(item.id);
         } else if (item.type === 'steel') {
@@ -122,6 +122,8 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
         } else if (item.type === 'action') {
             onAction(item.id);
         }
+
+        onClose();
     }, [onClose, onNavigate, onOpenSteel, onOpenKnife, onAction]);
 
     const handleKeyDown = useCallback((e) => {
@@ -192,95 +194,97 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200]"
                     />
 
-                    {/* Palette */}
-                    <motion.div
-                        key="cmd-palette"
-                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                        transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                        className="fixed top-[15%] left-1/2 -translate-x-1/2 w-[90vw] max-w-xl z-[201] rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0b] shadow-2xl shadow-black/50"
-                    >
-                        {/* Search Input */}
-                        <div className="flex items-center gap-3 px-5 py-4 border-b border-white/5">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 shrink-0">
-                                <circle cx="11" cy="11" r="8" />
-                                <path d="m21 21-4.35-4.35" />
-                            </svg>
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                onKeyDown={handleKeyDown}
-                                placeholder="Search steels, knives, or jump to..."
-                                className="flex-1 bg-transparent text-white text-sm font-medium placeholder:text-slate-500 outline-none"
-                                autoComplete="off"
-                                autoCorrect="off"
-                                spellCheck={false}
-                            />
-                            <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
-                                ESC
-                            </kbd>
-                        </div>
+                    {/* Palette Container - Ensures absolute viewport centering */}
+                    <div className="fixed inset-0 z-[201] flex justify-center items-start pt-[12vh] pointer-events-none">
+                        <motion.div
+                            key="cmd-palette"
+                            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                            className="pointer-events-auto w-[95vw] max-w-xl rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0b]/95 backdrop-blur-xl shadow-2xl shadow-black/50"
+                        >
+                            {/* Search Input */}
+                            <div className="flex items-center gap-3 px-5 py-4 border-b border-white/5">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 shrink-0">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.35-4.35" />
+                                </svg>
+                                <input
+                                    ref={inputRef}
+                                    type="text"
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder="Search grades, knives, or jump to..."
+                                    className="flex-1 bg-transparent text-white text-sm font-medium placeholder:text-slate-500 outline-none"
+                                    autoComplete="off"
+                                    autoCorrect="off"
+                                    spellCheck={false}
+                                />
+                                <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
+                                    ESC
+                                </kbd>
+                            </div>
 
-                        {/* Results */}
-                        <div ref={listRef} className="max-h-[50vh] overflow-y-auto overscroll-contain py-2" style={{ scrollbarWidth: 'none' }}>
-                            {results.length === 0 ? (
-                                <div className="px-5 py-8 text-center">
-                                    <p className="text-sm text-slate-500 italic">No results for "{query}"</p>
-                                </div>
-                            ) : (
-                                Object.entries(groupedResults).map(([category, items]) => (
-                                    <div key={category}>
-                                        <div className="px-5 pt-3 pb-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
-                                            {category}
-                                        </div>
-                                        {items.map((item) => (
-                                            <button
-                                                key={`${item.type}-${item.id}`}
-                                                onClick={() => handleSelect(item)}
-                                                onMouseEnter={() => setActiveIndex(item.globalIndex)}
-                                                className={`w-full flex items-center gap-3 px-5 py-2.5 text-left transition-colors ${item.globalIndex === activeIndex
-                                                        ? 'bg-white/5 text-white'
-                                                        : 'text-slate-400 hover:bg-white/[0.03]'
-                                                    }`}
-                                            >
-                                                {getIcon(item)}
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="text-sm font-bold truncate">{item.label}</div>
-                                                    {item.sublabel && (
-                                                        <div className="text-[11px] text-slate-500 truncate">{item.sublabel}</div>
-                                                    )}
-                                                </div>
-                                                {item.globalIndex === activeIndex && (
-                                                    <kbd className="hidden sm:flex items-center px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
-                                                        ↵
-                                                    </kbd>
-                                                )}
-                                            </button>
-                                        ))}
+                            {/* Results */}
+                            <div ref={listRef} className="max-h-[50vh] overflow-y-auto overscroll-contain py-2 custom-scrollbar" style={{ scrollbarWidth: 'none' }}>
+                                {results.length === 0 ? (
+                                    <div className="px-5 py-8 text-center">
+                                        <p className="text-sm text-slate-500 italic">No results for "{query}"</p>
                                     </div>
-                                ))
-                            )}
-                        </div>
+                                ) : (
+                                    Object.entries(groupedResults).map(([category, items]) => (
+                                        <div key={category}>
+                                            <div className="px-5 pt-3 pb-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
+                                                {category}
+                                            </div>
+                                            {items.map((item) => (
+                                                <button
+                                                    key={`${item.type}-${item.id}`}
+                                                    onClick={() => handleSelect(item)}
+                                                    onMouseEnter={() => setActiveIndex(item.globalIndex)}
+                                                    className={`w-full flex items-center gap-3 px-5 py-2.5 text-left transition-all ${item.globalIndex === activeIndex
+                                                            ? 'bg-white/5 text-white'
+                                                            : 'text-slate-400 hover:bg-white/[0.03]'
+                                                        }`}
+                                                >
+                                                    {getIcon(item)}
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="text-sm font-bold truncate">{item.label}</div>
+                                                        {item.sublabel && (
+                                                            <div className="text-[11px] text-slate-500 truncate">{item.sublabel}</div>
+                                                        )}
+                                                    </div>
+                                                    {item.globalIndex === activeIndex && (
+                                                        <kbd className="hidden sm:flex items-center px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
+                                                            ↵
+                                                        </kbd>
+                                                    )}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    ))
+                                )}
+                            </div>
 
-                        {/* Footer */}
-                        <div className="flex items-center gap-4 px-5 py-2.5 border-t border-white/5 text-[10px] text-slate-600">
-                            <span className="flex items-center gap-1.5">
-                                <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↑↓</kbd>
-                                navigate
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↵</kbd>
-                                select
-                            </span>
-                            <span className="flex items-center gap-1.5">
-                                <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">esc</kbd>
-                                close
-                            </span>
-                        </div>
-                    </motion.div>
+                            {/* Footer */}
+                            <div className="flex items-center gap-4 px-5 py-2.5 border-t border-white/5 text-[10px] text-slate-600 bg-black/20">
+                                <span className="flex items-center gap-1.5">
+                                    <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↑↓</kbd>
+                                    navigate
+                                </span>
+                                <span className="flex items-center gap-1.5">
+                                    <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↵</kbd>
+                                    select
+                                </span>
+                                <span className="flex items-center gap-1.5">
+                                    <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">esc</kbd>
+                                    close
+                                </span>
+                            </div>
+                        </motion.div>
+                    </div>
                 </>
             )}
         </AnimatePresence>
