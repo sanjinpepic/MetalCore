@@ -123,7 +123,13 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                     <div className="xl:w-2/5 h-72 xl:h-auto bg-white/5 relative overflow-hidden shrink-0">
                                         {knife.image ? (
                                             <Image
-                                                src={knife.image.replace('file:///', '')}
+                                                src={(() => {
+                                                    let url = knife.image.replace('file:///', '').replace(/\\/g, '/');
+                                                    if (!url.startsWith('http') && !url.startsWith('/')) {
+                                                        url = '/' + url;
+                                                    }
+                                                    return url;
+                                                })()}
                                                 alt={knife.name}
                                                 fill
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

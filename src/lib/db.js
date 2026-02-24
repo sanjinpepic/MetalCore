@@ -98,8 +98,8 @@ export async function createSteel(steelData) {
     const query = `
         INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co",
                              edge, toughness, corrosion, sharpen, ht_curve, "desc",
-                             use_case, pros, cons)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)
+                             use_case, pros, cons, pm)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
         RETURNING *
     `;
 
@@ -121,7 +121,8 @@ export async function createSteel(steelData) {
         steelFields.desc || '',
         steelFields.use_case || '',
         steelFields.pros || [],
-        steelFields.cons || []
+        steelFields.cons || [],
+        steelFields.pm || false
     ];
 
     const result = await getPool().query(query, values);
@@ -142,8 +143,8 @@ export async function updateSteel(id, steelData) {
         SET name = $1, producer = $2, "C" = $3, "Cr" = $4, "V" = $5,
             "Mo" = $6, "W" = $7, "Co" = $8, edge = $9, toughness = $10,
             corrosion = $11, sharpen = $12, ht_curve = $13, "desc" = $14,
-            use_case = $15, pros = $16, cons = $17
-        WHERE id = $18
+            use_case = $15, pros = $16, cons = $17, pm = $18
+        WHERE id = $19
         RETURNING *
     `;
 
@@ -165,6 +166,7 @@ export async function updateSteel(id, steelData) {
         steelFields.use_case || '',
         steelFields.pros || [],
         steelFields.cons || [],
+        steelFields.pm || false,
         id
     ];
 

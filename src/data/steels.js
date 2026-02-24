@@ -860,24 +860,8 @@ export const PREMIUM_STEELS = [
         cons: ["Low corrosion resistance", "Modest edge retention"],
         use_case: "Bushcraft, batoning, and hard-use outdoor blades where toughness is king."
     },
-    {
-        id: 'carbon-2', name: "1095", producer: "Various", C: 0.95, Cr: 0.03, V: 0, Mo: 0, W: 0, Co: 0, edge: 6, toughness: 8, corrosion: 1, sharpen: 8,
-        ht_curve: "150:60,200:59,250:58",
-        desc: "The most common high-carbon survival steel. Simple composition, predictable heat treatment, and trivially easy to field-sharpen.",
-        knives: ["Ka-Bar", "ESEE 4", "Gerber Bear Grylls", "Morakniv Carbon"],
-        pros: ["Extremely easy to sharpen", "Good toughness", "Forgiving heat treatment"],
-        cons: ["Rusts quickly without maintenance", "Moderate edge retention"],
-        use_case: "Survival knives, camp knives, and anything where field sharpening is part of the routine."
-    },
-    {
-        id: 'others-9', name: "440C", producer: "Various", C: 1, Cr: 16.75, V: 0.07, Mo: 0.75, W: 0, Co: 0, edge: 6, toughness: 4, corrosion: 7, sharpen: 7,
-        ht_curve: "200:58,400:56,500:58",
-        desc: "A classic high-chromium stainless that dominated the production knife market for decades before super-steels arrived.",
-        knives: ["Buck Classic (vintage)", "Gerber (vintage)", "Budget hunting knives"],
-        pros: ["Good corrosion resistance", "Decent hardness at 58-60 HRC", "Historically widely available"],
-        cons: ["Outperformed by every modern super-steel", "Soft by current standards"],
-        use_case: "Legacy knives, vintage collections, and budget production models."
-    },
+
+
     {
         id: 'carbon-1', name: "52100", producer: "Various",
         C: 1.0, Cr: 1.5, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
@@ -889,15 +873,7 @@ export const PREMIUM_STEELS = [
         cons: ["Rust-prone"],
         use_case: "Custom chef knives and outdoor blades."
     },
-    {
-        id: 'others-12', name: "8Cr13MoV", producer: "Various", C: 0.8, Cr: 13, V: 0.2, Mo: 1, W: 0, Co: 0, edge: 5, toughness: 5, corrosion: 7, sharpen: 7,
-        ht_curve: "150:58,200:57,300:56",
-        desc: "China's most common knife steel. A direct competitor to AUS-8 that has become the foundation of the budget knife market. Performance varies by the manufacturer's heat treatment.",
-        knives: ["CIVIVI (budget lines)", "Ganzo", "Budget kitchen knives"],
-        pros: ["Decent performance at the price", "Good corrosion resistance", "Widely available"],
-        cons: ["Inconsistent heat treatment across brands", "Not a performance steel"],
-        use_case: "Budget EDC knives and affordable kitchen cutlery."
-    },
+
     {
         id: 'others-15', name: "9Cr18MoV", producer: "Various",
         C: 0.95, Cr: 18.0, V: 0.12, Mo: 1.2, W: 0, Co: 0,
@@ -918,15 +894,7 @@ export const PREMIUM_STEELS = [
         cons: ["Low corrosion resistance"],
         use_case: "Outdoor knives and heavy-duty survival tools."
     },
-    {
-        id: 'others-8', name: "D2", producer: "Various", C: 1.55, Cr: 11.38, V: 0.9, Mo: 0.78, W: 0.27, Co: 0, edge: 7, toughness: 5, corrosion: 3, sharpen: 5,
-        ht_curve: "200:60,500:62,600:59",
-        desc: "One of the most iconic tool steels in the knife world. Semi-stainless with excellent hardness and strong edge retention. The steel that defined a generation of production knives.",
-        knives: ["Buck 119 (D2)", "Benchmade Anthem", "Spyderco Smock", "Zero Tolerance 0747"],
-        pros: ["Excellent edge retention", "High hardness capability (60-62 HRC)", "Massive knife selection"],
-        cons: ["Not truly stainless — will spot rust", "Can chip at high hardness"],
-        use_case: "Hard-use EDC, hunting, and any knife where edge retention outweighs corrosion immunity."
-    },
+
     {
         id: 'toolsteel-6', name: "H13", producer: "Various",
         C: 0.40, Cr: 5.25, V: 1.0, Mo: 1.35, W: 0, Co: 0,
@@ -960,15 +928,7 @@ export const PREMIUM_STEELS = [
         cons: ["Very brittle at max hardness", "Rusts easily", "Diamond stones required"],
         use_case: "High-performance cutting where extreme hardness is beneficial."
     },
-    {
-        id: 'others-11', name: "O1", producer: "Various", C: 0.9, Cr: 0.5, V: 0.1, Mo: 0, W: 1.25, Co: 0, edge: 6, toughness: 7, corrosion: 1, sharpen: 7,
-        ht_curve: "200:60,400:62,500:59",
-        desc: "A classic oil-hardening tool steel with a long history in cutlery. Prized for fine grain, a keen edge, and predictable heat treatment.",
-        knives: ["Ontario Rat 1 (O1)", "Queen knives", "Custom bushcraft knives"],
-        pros: ["Takes an extremely keen edge", "Good toughness", "Relatively easy to sharpen"],
-        cons: ["Rusts quickly without care", "Moderate edge retention"],
-        use_case: "Outdoor fixed blades and custom knives prioritizing sharpness and character over corrosion immunity."
-    },
+
     {
         id: 'toolsteel-3', name: "S7", producer: "Various",
         C: 0.50, Cr: 3.25, V: 0.25, Mo: 1.4, W: 0, Co: 0,
@@ -1034,11 +994,11 @@ export const PREMIUM_STEELS = [
         pros: ["Good toughness", "Easy maintenance"],
         cons: ["Still soft vs Japanese steels"],
         use_case: "Commercial kitchen chef knives."
-    }
+    },
 
     // --- FOUNDATIONAL / CLASSIC ---
     {
-        id: 'classic-1', name: "1095 High Carbon", producer: "Generic", pm: false,
+        id: 'classic-1', name: "1095 High Carbon", producer: "Various", pm: false,
         C: 0.95, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 3, toughness: 7, corrosion: 1, sharpen: 10,
         ht_curve: "150:58,200:57,250:55",
@@ -1049,7 +1009,7 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use survival knives, bushcraft, and traditional folders."
     },
     {
-        id: 'classic-2', name: "O1 Tool Steel", producer: "Generic", pm: false,
+        id: 'classic-2', name: "O1 Tool Steel", producer: "Various", pm: false,
         C: 0.90, Cr: 0.50, V: 0.20, Mo: 0, W: 0.50, Co: 0,
         edge: 4, toughness: 6, corrosion: 1, sharpen: 9,
         ht_curve: "150:60,200:59,250:58",
@@ -1060,7 +1020,7 @@ export const PREMIUM_STEELS = [
         use_case: "Custom bushcraft knives and woodworking tools."
     },
     {
-        id: 'classic-3', name: "D2", producer: "Generic", pm: false,
+        id: 'classic-3', name: "D2", producer: "Various", pm: false,
         C: 1.50, Cr: 12.0, V: 0.90, Mo: 0.80, W: 0, Co: 0,
         edge: 6, toughness: 5, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,400:58,500:60",
@@ -1071,7 +1031,7 @@ export const PREMIUM_STEELS = [
         use_case: "Budget-friendly everyday carry and hard-working tools."
     },
     {
-        id: 'classic-4', name: "440C", producer: "Latrobe", pm: false,
+        id: 'classic-4', name: "440C", producer: "Various", pm: false,
         C: 1.10, Cr: 17.0, V: 0, Mo: 0.75, W: 0, Co: 0,
         edge: 5, toughness: 5, corrosion: 8.5, sharpen: 7,
         ht_curve: "150:59,200:58,300:56",
@@ -1093,7 +1053,7 @@ export const PREMIUM_STEELS = [
         use_case: "Solid mid-range EDC folders and tactical knives."
     },
     {
-        id: 'classic-6', name: "8Cr13MoV", producer: "Ahonest", pm: false,
+        id: 'classic-6', name: "8Cr13MoV", producer: "Various", pm: false,
         C: 0.80, Cr: 13.0, V: 0.10, Mo: 0.15, W: 0, Co: 0,
         edge: 3, toughness: 6, corrosion: 6, sharpen: 9,
         ht_curve: "150:57,200:56,250:55",
@@ -1104,7 +1064,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry-level starter knives and budget friendly utility tools."
     },
     {
-        id: 'classic-7', name: "5160 Spring Steel", producer: "Generic", pm: false,
+        id: 'classic-7', name: "5160 Spring Steel", producer: "Various", pm: false,
         C: 0.60, Cr: 0.80, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 3, toughness: 10, corrosion: 1, sharpen: 8,
         ht_curve: "150:58,200:57,300:55",
@@ -1114,5 +1074,5 @@ export const PREMIUM_STEELS = [
         cons: ["No abrasion resistance", "Will rust quickly without oil"],
         use_case: "Swords, machetes, and extreme-abuse chopping tools."
     }
-];
+
 ];

@@ -26,6 +26,7 @@ model Steel {
   use_case    String
   pros        String[]
   cons        String[]
+  pm          Boolean  @default(false)
   knives      Knife[]  @relation("SteelToKnife")
 }
 
