@@ -36,54 +36,36 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     };
 
     const results = useMemo(() => {
-        if (!query.trim()) {
-            // Show views + actions when empty
+        const queryNorm = normalize(query);
+
+        // Base results when no query
+        if (!queryNorm) {
             return [
-                ...VIEWS.map(v => ({ ...v, category: 'Navigate' })),
-                ...ACTIONS.map(a => ({ ...a, category: 'Actions' })),
-            ];
+                { type: 'header', label: 'Navigation' },
+                ...VIEWS.map(v => ({ ...v, type: 'nav', globalIndex: 0 })),
+                { type: 'header', label: 'Quick Actions' },
+                ...ACTIONS.map(a => ({ ...a, type: 'action', globalIndex: 0 })),
+                { type: 'header', label: 'Featured Steels' },
+                ...steels.slice(0, 5).map(s => ({ type: 'steel', label: s.name, description: s.producer, data: s, globalIndex: 0 }))
+            ].map((item, i) => ({ ...item, globalIndex: i }));
         }
 
-        const q = normalize(query);
-        const items = [];
+        // Search results
+        const searchResults = [
+            // Include nav items in search too for easier navigation
+            ...VIEWS.filter(v => normalize(v.label).includes(queryNorm))
+                .map(v => ({ ...v, type: 'nav' })),
+            ...ACTIONS.filter(a => normalize(a.label).includes(queryNorm))
+                .map(a => ({ ...a, type: 'action' })),
+            ...steels.filter(s => normalize(s.name).includes(queryNorm) || normalize(s.producer).includes(queryNorm))
+                .slice(0, 8)
+                .map(s => ({ type: 'steel', label: s.name, description: s.producer, data: s })),
+            ...knives.filter(k => normalize(k.name).includes(queryNorm))
+                .slice(0, 5)
+                .map(k => ({ type: 'knife', label: k.name, description: k.brand, data: k }))
+        ];
 
-        // Search steels
-        const matchedSteels = steels
-            .filter(s => normalize(s.name).includes(q) || normalize(s.producer).includes(q))
-            .slice(0, 6)
-            .map(s => ({
-                id: s.id,
-                label: s.name,
-                sublabel: s.producer,
-                type: 'steel',
-                category: 'Steels',
-                data: s,
-            }));
-        items.push(...matchedSteels);
-
-        // Search knives
-        const matchedKnives = knives
-            .filter(k => normalize(k.name).includes(q) || normalize(k.maker).includes(q))
-            .slice(0, 4)
-            .map(k => ({
-                id: k.id,
-                label: k.name,
-                sublabel: k.maker,
-                type: 'knife',
-                category: 'Knives',
-                data: k,
-            }));
-        items.push(...matchedKnives);
-
-        // Search views
-        const matchedViews = VIEWS.filter(v => normalize(v.label).includes(q));
-        items.push(...matchedViews.map(v => ({ ...v, category: 'Navigate' })));
-
-        // Search actions
-        const matchedActions = ACTIONS.filter(a => normalize(a.label).includes(q));
-        items.push(...matchedActions.map(a => ({ ...a, category: 'Actions' })));
-
-        return items;
+        return searchResults.map((item, i) => ({ ...item, globalIndex: i }));
     }, [query, steels, knives]);
 
     // Reset active index when results change
@@ -94,18 +76,22 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     // Focus input when opened
     useEffect(() => {
         if (isOpen) {
-            setQuery('');
+            setQuery("");
             setActiveIndex(0);
-            setTimeout(() => inputRef.current?.focus(), 50);
+            setIsKeyboard(false);
+            setTimeout(() => inputRef.current?.focus(), 100);
         }
     }, [isOpen]);
 
-    // Scroll active item into view
+    // Scroll active item into view - Only for keyboard navigation
+    const [isKeyboard, setIsKeyboard] = useState(false);
+
     useEffect(() => {
-        if (!listRef.current) return;
-        const activeItem = listRef.current.children[activeIndex];
-        if (activeItem) {
-            activeItem.scrollIntoView({ block: 'nearest' });
+        if (listRef.current && activeIndex >= 0) {
+            const activeItem = listRef.current.querySelector(`[data-index="${activeIndex}"]`);
+            if (activeItem) {
+                activeItem.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+            }
         }
     }, [activeIndex]);
 
@@ -127,6 +113,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     }, [onClose, onNavigate, onOpenSteel, onOpenKnife, onAction]);
 
     const handleKeyDown = useCallback((e) => {
+        setIsKeyboard(true);
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             setActiveIndex(i => Math.min(i + 1, results.length - 1));
@@ -195,14 +182,14 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                     />
 
                     {/* Palette Container - Ensures absolute viewport centering */}
-                    <div className="fixed inset-0 z-[201] flex justify-center items-start pt-[12vh] pointer-events-none">
+                    {/* Center-aligned container logic */}
+                    <div className="fixed inset-0 z-[201] flex justify-center items-start pointer-events-none p-4 pt-[15vh] w-screen left-0">
                         <motion.div
-                            key="cmd-palette"
                             initial={{ opacity: 0, scale: 0.95, y: -20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                            className="pointer-events-auto w-[95vw] max-w-xl rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0b]/95 backdrop-blur-xl shadow-2xl shadow-black/50"
+                            transition={{ duration: 0.15, ease: "easeOut" }}
+                            className="pointer-events-auto w-full max-w-xl glass-panel !bg-black/80 rounded-[2rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col max-h-[70vh]"
                         >
                             {/* Search Input */}
                             <div className="flex items-center gap-3 px-5 py-4 border-b border-white/5">
@@ -242,11 +229,15 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                             {items.map((item) => (
                                                 <button
                                                     key={`${item.type}-${item.id}`}
+                                                    data-index={item.globalIndex}
                                                     onClick={() => handleSelect(item)}
-                                                    onMouseEnter={() => setActiveIndex(item.globalIndex)}
+                                                    onMouseMove={() => setIsKeyboard(false)}
+                                                    onMouseEnter={() => {
+                                                        if (!isKeyboard) setActiveIndex(item.globalIndex);
+                                                    }}
                                                     className={`w-full flex items-center gap-3 px-5 py-2.5 text-left transition-all ${item.globalIndex === activeIndex
-                                                            ? 'bg-white/5 text-white'
-                                                            : 'text-slate-400 hover:bg-white/[0.03]'
+                                                        ? 'bg-white/5 text-white'
+                                                        : 'text-slate-400 hover:bg-white/[0.03]'
                                                         }`}
                                                 >
                                                     {getIcon(item)}

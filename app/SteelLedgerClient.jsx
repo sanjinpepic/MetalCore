@@ -455,42 +455,286 @@ Be concise and premium.`;
     }, [setAiOpen, setShowSettings]);
 
     return (
-        <div className="flex app-shell font-sans bg-black relative">
-            {/* Full-page Background Gradients - Behind Everything */}
-            <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
-                <div className="absolute top-0 right-0 w-[1200px] h-[1200px] bg-accent/8 rounded-full blur-[250px] -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-indigo-500/8 rounded-full blur-[200px] translate-y-1/2 -translate-x-1/2" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[180px]" />
-                {/* Sidebar-area gradient - gives the glass sidebar something vibrant to blur */}
-                <div className="hidden md:block absolute top-0 left-0 w-[500px] h-[600px] bg-accent/20 rounded-full blur-[150px] -translate-x-1/4 -translate-y-1/4" />
-                <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[500px] bg-indigo-500/15 rounded-full blur-[130px] -translate-x-1/4 translate-y-1/4" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/20 via-slate-950/20 to-black" />
+        <>
+            <div className="flex app-shell font-sans bg-black relative">
+                {/* Full-page Background Gradients - Behind Everything */}
+                <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
+                    <div className="absolute top-0 right-0 w-[1200px] h-[1200px] bg-accent/8 rounded-full blur-[250px] -translate-y-1/2 translate-x-1/2" />
+                    <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-indigo-500/8 rounded-full blur-[200px] translate-y-1/2 -translate-x-1/2" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[180px]" />
+                    {/* Sidebar-area gradient - gives the glass sidebar something vibrant to blur */}
+                    <div className="hidden md:block absolute top-0 left-0 w-[500px] h-[600px] bg-accent/20 rounded-full blur-[150px] -translate-x-1/4 -translate-y-1/4" />
+                    <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[500px] bg-indigo-500/15 rounded-full blur-[130px] -translate-x-1/4 translate-y-1/4" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/20 via-slate-950/20 to-black" />
+                </div>
+
+                {/* Database Unavailable Banner */}
+                {showDbBanner && (
+                    <div className="fixed top-safe-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
+                        <div className="flex items-center gap-2.5 text-amber-400 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                                <path d="M12 9v4m0 4h.01" />
+                                <circle cx="12" cy="12" r="10" />
+                            </svg>
+                            <span>Database is currently unavailable — data will appear once the connection is restored.</span>
+                        </div>
+                        <button
+                            onClick={() => setShowDbBanner(false)}
+                            className="text-amber-500 hover:text-amber-300 shrink-0"
+                            aria-label="Dismiss"
+                        >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
+
+                {/* Detail Modal */}
+                {detailSteel && (
+                    <SteelDetailModal
+                        steel={detailSteel}
+                        onClose={() => navigate({ detailSteel: null })}
+                        onOpenKnife={openKnifeModal}
+                    />
+                )}
+
+                {detailKnife && (
+                    <KnifeDetailModal
+                        knife={detailKnife}
+                        onClose={() => navigate({ detailKnife: null })}
+                        onOpenSteel={openSteelModal}
+                    />
+                )}
+
+                {/* Mobile Filters Button - Only show on views with filters */}
+                {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
+                    <button
+                        onClick={() => { hapticFeedback('medium'); setMobileMenuOpen(!mobileMenuOpen); }}
+                        className="fixed top-safe-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
+                        aria-label={mobileMenuOpen ? "Close filters" : "Open filters"}
+                    >
+                        {mobileMenuOpen ? (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        ) : (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                            </svg>
+                        )}
+                    </button>
+                )}
+
+                {/* Sidebar - Above background layer */}
+                <Sidebar
+                    activeProducer={activeProducer}
+                    setActiveProducer={setActiveProducer}
+                    filters={filters}
+                    setFilters={setFilters}
+                    steels={steels}
+                    view={view}
+                    setView={setView}
+                    mobileMenuOpen={mobileMenuOpen}
+                    setMobileMenuOpen={setMobileMenuOpen}
+                    producers={producers}
+                    handleImportClick={handleImportClick}
+                    fileInputRef={fileInputRef}
+                    handleFileUpload={handleFileUpload}
+                    setShowSettings={setShowSettings}
+                    aiOpen={aiOpen}
+                    setAiOpen={setAiOpen}
+                    setSearch={setSearch}
+                    trending={trendingList}
+                    resetFilters={resetFilters}
+                    openCommandPalette={() => setCommandPaletteOpen(true)}
+                />
+
+                {/* Main Content with View Transitions - Above background layer */}
+                <div className="w-full md:ml-80 md:w-[calc(100%-20rem)] md:h-full relative z-10 grid [&>*]:[grid-area:1/1]">
+                    <AnimatePresence initial={false}>
+                        <motion.div
+                            key={view}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{
+                                duration: 1.3,
+                                ease: [0.22, 1, 0.36, 1]
+                            }}
+                            className="w-full md:h-full md:overflow-hidden"
+                        >
+                            {view === 'HOME' && (
+                                <HomeView
+                                    setView={setView}
+                                    steels={steels}
+                                    setDetailSteel={setDetailSteel}
+                                    search={search}
+                                    setSearch={setSearch}
+                                    compareList={compareList}
+                                    toggleCompare={toggleCompare}
+                                    producers={producers}
+                                    incrementTrending={incrementTrending}
+                                    resetFilters={resetFilters}
+                                    setShowRecommender={setShowRecommender}
+                                />
+                            )}
+
+                            {view === 'SEARCH' && (
+                                <SearchView
+                                    search={search}
+                                    setSearch={setSearch}
+                                    filteredSteels={filteredSteels}
+                                    compareList={compareList}
+                                    toggleCompare={toggleCompare}
+                                    clearCompare={clearCompare}
+                                    setDetailSteel={setDetailSteel}
+                                    setView={setView}
+                                    resetFilters={resetFilters}
+                                />
+                            )}
+
+                            {view === 'MATRIX' && (
+                                <PerformanceMatrix
+                                    steels={filteredSteels}
+                                    setDetailSteel={setDetailSteel}
+                                    activeProducer={activeProducer}
+                                    setActiveProducer={setActiveProducer}
+                                    producers={producers}
+                                />
+                            )}
+
+                            {view === 'KNIVES' && (
+                                <KnifeLibrary
+                                    knives={filteredKnives}
+                                    steels={steels}
+                                    setDetailSteel={setDetailSteel}
+                                    setDetailKnife={setDetailKnife}
+                                    knifeSearch={knifeSearch}
+                                    setKnifeSearch={setKnifeSearch}
+                                />
+                            )}
+
+                            {view === 'COMPARE' && (
+                                <CompareView
+                                    items={compareList}
+                                    setView={setView}
+                                    toggleCompare={toggleCompare}
+                                    clearCompare={clearCompare}
+                                    generateReport={generateReport}
+                                    isAiLoading={isAiLoading}
+                                />
+                            )}
+
+                            {view === 'PROFILE' && (
+                                <ProfileView
+                                    steels={steels}
+                                    setDetailSteel={setDetailSteel}
+                                    setView={setView}
+                                />
+                            )}
+
+                            {view === 'EDUCATION' && (
+                                <EducationView
+                                    glossary={initialGlossary}
+                                    faq={initialFaq}
+                                    producers={initialProducers}
+                                />
+                            )}
+
+                            {view === 'PRO_LAB' && (
+                                <ProLabView steels={steels} />
+                            )}
+
+                            {/* Page Footer removed - integrated into main Footer */}
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+
+                {/* AI Analyst Panel */}
+                <AIAnalystPanel
+                    aiOpen={aiOpen}
+                    setAiOpen={setAiOpen}
+                    aiChat={aiChat}
+                    isAiLoading={isAiLoading}
+                    aiQuery={aiQuery}
+                    setAiQuery={setAiQuery}
+                    askAi={askAi}
+                />
+
+                {/* AI Coming Soon Modal */}
+                {showAiComingSoon && (
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={() => setShowAiComingSoon(false)}>
+                        <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
+                            <div className="flex justify-between items-center mb-8">
+                                <div className="flex items-center gap-2.5">
+                                    <div className="p-1.5 bg-white/5 rounded-lg">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </div>
+                                    <h3 className="font-display font-black text-white uppercase tracking-tighter italic text-sm md:text-base">AI Assistant</h3>
+                                </div>
+                                <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-slate-500 transition-all">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div className="flex flex-col items-center text-center py-4 space-y-4">
+                                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                                        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                    </svg>
+                                </div>
+                                <h4 className="font-display font-black text-white uppercase tracking-tighter italic text-base md:text-lg">AI Model Still Being Forged</h4>
+                                <p className="text-[10px] md:text-xs text-slate-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
+                            </div>
+
+                            <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Got It</button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Steel Recommender Wizard */}
+                {showRecommender && (
+                    <SteelRecommender
+                        steels={steels}
+                        onClose={() => setShowRecommender(false)}
+                        onSelectSteel={(steel) => {
+                            setShowRecommender(false);
+                            setDetailSteel(steel);
+                            incrementTrending(steel.id);
+                        }}
+                    />
+                )}
+
+                {/* Import Modal */}
+                {showImportModal && (
+                    <ImportModal
+                        onClose={() => setShowImportModal(false)}
+                        onManualImport={handleManualImport}
+                        onFileUpload={handleFileUpload}
+                    />
+                )}
+
+                {/* Settings Modal */}
+                {showSettings && (
+                    <SettingsModal
+                        onClose={() => setShowSettings(false)}
+                    />
+                )}
+
+                {/* Mobile Bottom Navigation */}
+                <MobileBottomNav view={view} setView={setView} setAiOpen={setAiOpen} />
             </div>
 
-            {/* Database Unavailable Banner */}
-            {showDbBanner && (
-                <div className="fixed top-safe-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
-                    <div className="flex items-center gap-2.5 text-amber-400 text-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                            <path d="M12 9v4m0 4h.01" />
-                            <circle cx="12" cy="12" r="10" />
-                        </svg>
-                        <span>Database is currently unavailable — data will appear once the connection is restored.</span>
-                    </div>
-                    <button
-                        onClick={() => setShowDbBanner(false)}
-                        className="text-amber-500 hover:text-amber-300 shrink-0"
-                        aria-label="Dismiss"
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
-                </div>
-            )}
-
-            {/* Command Palette */}
+            {/* Command Palette - Moved outside absolute shell for consistent centering */}
             <CommandPalette
                 isOpen={commandPaletteOpen}
                 onClose={() => setCommandPaletteOpen(false)}
@@ -501,248 +745,6 @@ Be concise and premium.`;
                 onOpenKnife={handleCommandOpenKnife}
                 onAction={handleCommandAction}
             />
-
-            {/* Detail Modal */}
-            {detailSteel && (
-                <SteelDetailModal
-                    steel={detailSteel}
-                    onClose={() => navigate({ detailSteel: null })}
-                    onOpenKnife={openKnifeModal}
-                />
-            )}
-
-            {detailKnife && (
-                <KnifeDetailModal
-                    knife={detailKnife}
-                    onClose={() => navigate({ detailKnife: null })}
-                    onOpenSteel={openSteelModal}
-                />
-            )}
-
-            {/* Mobile Filters Button - Only show on views with filters */}
-            {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
-                <button
-                    onClick={() => { hapticFeedback('medium'); setMobileMenuOpen(!mobileMenuOpen); }}
-                    className="fixed top-safe-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
-                    aria-label={mobileMenuOpen ? "Close filters" : "Open filters"}
-                >
-                    {mobileMenuOpen ? (
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    ) : (
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                        </svg>
-                    )}
-                </button>
-            )}
-
-            {/* Sidebar - Above background layer */}
-            <Sidebar
-                activeProducer={activeProducer}
-                setActiveProducer={setActiveProducer}
-                filters={filters}
-                setFilters={setFilters}
-                steels={steels}
-                view={view}
-                setView={setView}
-                mobileMenuOpen={mobileMenuOpen}
-                setMobileMenuOpen={setMobileMenuOpen}
-                producers={producers}
-                handleImportClick={handleImportClick}
-                fileInputRef={fileInputRef}
-                handleFileUpload={handleFileUpload}
-                setShowSettings={setShowSettings}
-                aiOpen={aiOpen}
-                setAiOpen={setAiOpen}
-                setSearch={setSearch}
-                trending={trendingList}
-                resetFilters={resetFilters}
-                openCommandPalette={() => setCommandPaletteOpen(true)}
-            />
-
-            {/* Main Content with View Transitions - Above background layer */}
-            <div className="w-full md:ml-80 md:w-[calc(100%-20rem)] md:h-full relative z-10 grid [&>*]:[grid-area:1/1]">
-                <AnimatePresence initial={false}>
-                    <motion.div
-                        key={view}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{
-                            duration: 1.3,
-                            ease: [0.22, 1, 0.36, 1]
-                        }}
-                        className="w-full md:h-full md:overflow-hidden"
-                    >
-                        {view === 'HOME' && (
-                            <HomeView
-                                setView={setView}
-                                steels={steels}
-                                setDetailSteel={setDetailSteel}
-                                search={search}
-                                setSearch={setSearch}
-                                compareList={compareList}
-                                toggleCompare={toggleCompare}
-                                producers={producers}
-                                incrementTrending={incrementTrending}
-                                resetFilters={resetFilters}
-                                setShowRecommender={setShowRecommender}
-                            />
-                        )}
-
-                        {view === 'SEARCH' && (
-                            <SearchView
-                                search={search}
-                                setSearch={setSearch}
-                                filteredSteels={filteredSteels}
-                                compareList={compareList}
-                                toggleCompare={toggleCompare}
-                                clearCompare={clearCompare}
-                                setDetailSteel={setDetailSteel}
-                                setView={setView}
-                                resetFilters={resetFilters}
-                            />
-                        )}
-
-                        {view === 'MATRIX' && (
-                            <PerformanceMatrix
-                                steels={filteredSteels}
-                                setDetailSteel={setDetailSteel}
-                                activeProducer={activeProducer}
-                                setActiveProducer={setActiveProducer}
-                                producers={producers}
-                            />
-                        )}
-
-                        {view === 'KNIVES' && (
-                            <KnifeLibrary
-                                knives={filteredKnives}
-                                steels={steels}
-                                setDetailSteel={setDetailSteel}
-                                setDetailKnife={setDetailKnife}
-                                knifeSearch={knifeSearch}
-                                setKnifeSearch={setKnifeSearch}
-                            />
-                        )}
-
-                        {view === 'COMPARE' && (
-                            <CompareView
-                                items={compareList}
-                                setView={setView}
-                                toggleCompare={toggleCompare}
-                                clearCompare={clearCompare}
-                                generateReport={generateReport}
-                                isAiLoading={isAiLoading}
-                            />
-                        )}
-
-                        {view === 'PROFILE' && (
-                            <ProfileView
-                                steels={steels}
-                                setDetailSteel={setDetailSteel}
-                                setView={setView}
-                            />
-                        )}
-
-                        {view === 'EDUCATION' && (
-                            <EducationView
-                                glossary={initialGlossary}
-                                faq={initialFaq}
-                                producers={initialProducers}
-                            />
-                        )}
-
-                        {view === 'PRO_LAB' && (
-                            <ProLabView steels={steels} />
-                        )}
-
-                        {/* Page Footer removed - integrated into main Footer */}
-                    </motion.div>
-                </AnimatePresence>
-            </div>
-
-            {/* AI Analyst Panel */}
-            <AIAnalystPanel
-                aiOpen={aiOpen}
-                setAiOpen={setAiOpen}
-                aiChat={aiChat}
-                isAiLoading={isAiLoading}
-                aiQuery={aiQuery}
-                setAiQuery={setAiQuery}
-                askAi={askAi}
-            />
-
-            {/* AI Coming Soon Modal */}
-            {showAiComingSoon && (
-                <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={() => setShowAiComingSoon(false)}>
-                    <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
-                        <div className="flex justify-between items-center mb-8">
-                            <div className="flex items-center gap-2.5">
-                                <div className="p-1.5 bg-white/5 rounded-lg">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                </div>
-                                <h3 className="font-display font-black text-white uppercase tracking-tighter italic text-sm md:text-base">AI Assistant</h3>
-                            </div>
-                            <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-slate-500 transition-all">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <line x1="18" y1="6" x2="6" y2="18" />
-                                    <line x1="6" y1="6" x2="18" y2="18" />
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div className="flex flex-col items-center text-center py-4 space-y-4">
-                            <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
-                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                </svg>
-                            </div>
-                            <h4 className="font-display font-black text-white uppercase tracking-tighter italic text-base md:text-lg">AI Model Still Being Forged</h4>
-                            <p className="text-[10px] md:text-xs text-slate-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
-                        </div>
-
-                        <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Got It</button>
-                    </div>
-                </div>
-            )}
-
-            {/* Steel Recommender Wizard */}
-            {showRecommender && (
-                <SteelRecommender
-                    steels={steels}
-                    onClose={() => setShowRecommender(false)}
-                    onSelectSteel={(steel) => {
-                        setShowRecommender(false);
-                        setDetailSteel(steel);
-                        incrementTrending(steel.id);
-                    }}
-                />
-            )}
-
-            {/* Import Modal */}
-            {showImportModal && (
-                <ImportModal
-                    onClose={() => setShowImportModal(false)}
-                    onManualImport={handleManualImport}
-                    onFileUpload={handleFileUpload}
-                />
-            )}
-
-            {/* Settings Modal */}
-            {showSettings && (
-                <SettingsModal
-                    onClose={() => setShowSettings(false)}
-                />
-            )}
-
-            {/* Mobile Bottom Navigation */}
-            <MobileBottomNav view={view} setView={setView} setAiOpen={setAiOpen} />
-        </div>
+        </>
     );
 }
