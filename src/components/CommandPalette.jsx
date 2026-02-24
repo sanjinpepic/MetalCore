@@ -41,7 +41,14 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
             return [
                 ...VIEWS.map(v => ({ ...v, type: 'nav', category: 'Navigation' })),
                 ...ACTIONS.map(a => ({ ...a, type: 'action', category: 'Quick Actions' })),
-                ...steels.slice(0, 5).map(s => ({ type: 'steel', label: s.name, sublabel: s.producer, data: s, category: 'Featured Steels' }))
+                ...steels.slice(0, 5).map(s => ({
+                    type: 'steel',
+                    label: s.name,
+                    sublabel: s.producer,
+                    data: s,
+                    category: 'Featured Steels',
+                    metalType: s.pm ? 'PM' : 'CONV'
+                }))
             ].map((item, i) => ({ ...item, globalIndex: i }));
         }
 
@@ -50,9 +57,22 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                 .map(v => ({ ...v, type: 'nav', category: 'Navigation' })),
             ...ACTIONS.filter(a => normalize(a.label).includes(queryNorm))
                 .map(a => ({ ...a, type: 'action', category: 'Quick Actions' })),
-            ...steels.filter(s => normalize(s.name).includes(queryNorm) || normalize(s.producer).includes(queryNorm))
+            ...steels.filter(s =>
+                normalize(s.name).includes(queryNorm) ||
+                normalize(s.producer).includes(queryNorm) ||
+                (queryNorm === 'pm' && s.pm) ||
+                (queryNorm === 'conventional' || queryNorm === 'conv' && !s.pm)
+            )
                 .slice(0, 8)
-                .map(s => ({ type: 'steel', id: s.id, label: s.name, sublabel: s.producer, data: s, category: 'Steels' })),
+                .map(s => ({
+                    type: 'steel',
+                    id: s.id,
+                    label: s.name,
+                    sublabel: s.producer,
+                    data: s,
+                    category: 'Steels',
+                    metalType: s.pm ? 'PM' : 'CONV'
+                })),
             ...knives.filter(k => normalize(k.name).includes(queryNorm))
                 .slice(0, 5)
                 .map(k => ({ type: 'knife', id: k.id, label: k.name, sublabel: k.brand, data: k, category: 'Knives' }))
@@ -249,7 +269,17 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                     >
                                                         {getIcon(item)}
                                                         <div className="flex-1 min-w-0">
-                                                            <div className={`text-sm font-bold truncate ${item.globalIndex === activeIndex ? 'text-accent' : ''}`}>{item.label}</div>
+                                                            <div className="flex items-center gap-2">
+                                                                <div className={`text-sm font-bold truncate ${item.globalIndex === activeIndex ? 'text-accent' : ''}`}>{item.label}</div>
+                                                                {item.type === 'steel' && (
+                                                                    <span className={`text-[8px] px-1.5 py-0.5 rounded font-black tracking-widest border ${item.metalType === 'PM'
+                                                                        ? 'bg-accent/10 border-accent/20 text-accent'
+                                                                        : 'bg-white/5 border-white/10 text-slate-500'
+                                                                        }`}>
+                                                                        {item.metalType}
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                             {item.sublabel && (
                                                                 <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">{item.sublabel}</div>
                                                             )}
