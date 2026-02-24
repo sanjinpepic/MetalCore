@@ -37,8 +37,6 @@ const Sidebar = ({
     setAiOpen,
     setSearch,
     trending,
-    setSearch,
-    trending,
     resetFilters,
     openCommandPalette
 }) => {

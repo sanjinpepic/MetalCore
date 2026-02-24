@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { hapticFeedback } from '../hooks/useMobile';
 
@@ -38,31 +39,25 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     const results = useMemo(() => {
         const queryNorm = normalize(query);
 
-        // Base results when no query
         if (!queryNorm) {
             return [
-                { type: 'header', label: 'Navigation' },
-                ...VIEWS.map(v => ({ ...v, type: 'nav', globalIndex: 0 })),
-                { type: 'header', label: 'Quick Actions' },
-                ...ACTIONS.map(a => ({ ...a, type: 'action', globalIndex: 0 })),
-                { type: 'header', label: 'Featured Steels' },
-                ...steels.slice(0, 5).map(s => ({ type: 'steel', label: s.name, description: s.producer, data: s, globalIndex: 0 }))
+                ...VIEWS.map(v => ({ ...v, type: 'nav', category: 'Navigation' })),
+                ...ACTIONS.map(a => ({ ...a, type: 'action', category: 'Quick Actions' })),
+                ...steels.slice(0, 5).map(s => ({ type: 'steel', label: s.name, sublabel: s.producer, data: s, category: 'Featured Steels' }))
             ].map((item, i) => ({ ...item, globalIndex: i }));
         }
 
-        // Search results
         const searchResults = [
-            // Include nav items in search too for easier navigation
             ...VIEWS.filter(v => normalize(v.label).includes(queryNorm))
-                .map(v => ({ ...v, type: 'nav' })),
+                .map(v => ({ ...v, type: 'nav', category: 'Navigation' })),
             ...ACTIONS.filter(a => normalize(a.label).includes(queryNorm))
-                .map(a => ({ ...a, type: 'action' })),
+                .map(a => ({ ...a, type: 'action', category: 'Quick Actions' })),
             ...steels.filter(s => normalize(s.name).includes(queryNorm) || normalize(s.producer).includes(queryNorm))
                 .slice(0, 8)
-                .map(s => ({ type: 'steel', label: s.name, description: s.producer, data: s })),
+                .map(s => ({ type: 'steel', id: s.id, label: s.name, sublabel: s.producer, data: s, category: 'Steels' })),
             ...knives.filter(k => normalize(k.name).includes(queryNorm))
                 .slice(0, 5)
-                .map(k => ({ type: 'knife', label: k.name, description: k.brand, data: k }))
+                .map(k => ({ type: 'knife', id: k.id, label: k.name, sublabel: k.brand, data: k, category: 'Knives' }))
         ];
 
         return searchResults.map((item, i) => ({ ...item, globalIndex: i }));
@@ -96,9 +91,12 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     }, [activeIndex]);
 
     const handleSelect = useCallback((item) => {
+        if (!item) return;
         hapticFeedback('medium');
 
-        // Call the action first, then close
+        // Log selection for debugging
+        console.log('Command Selection:', item.type, item.id || item.label);
+
         if (item.type === 'nav') {
             onNavigate(item.id);
         } else if (item.type === 'steel') {
@@ -166,11 +164,14 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
         );
     };
 
-    return (
+    // Portal logic for global centering
+    if (typeof window === 'undefined') return null;
+
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
                 <>
-                    {/* Backdrop */}
+                    {/* Backdrop - High z-index to stay above everything */}
                     <motion.div
                         key="cmd-backdrop"
                         initial={{ opacity: 0 }}
@@ -178,22 +179,22 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200]"
+                        className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9998]"
+                        style={{ pointerEvents: 'auto' }}
                     />
 
-                    {/* Palette Container - Ensures absolute viewport centering */}
-                    {/* Center-aligned container logic */}
-                    <div className="fixed inset-0 z-[201] flex justify-center items-start pointer-events-none p-4 pt-[15vh] w-screen left-0">
+                    {/* Palette Container - Viewport absolute centering */}
+                    <div className="fixed inset-0 z-[9999] flex justify-center items-start pointer-events-none p-4 pt-[15vh]">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                            initial={{ opacity: 0, scale: 0.98, y: -10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                            exit={{ opacity: 0, scale: 0.98, y: -10 }}
                             transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="pointer-events-auto w-full max-w-xl glass-panel !bg-black/80 rounded-[2rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col max-h-[70vh]"
+                            className="pointer-events-auto w-full max-w-xl glass-panel !bg-black/90 rounded-[2rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,1)] overflow-hidden flex flex-col max-h-[75vh]"
                         >
                             {/* Search Input */}
-                            <div className="flex items-center gap-3 px-5 py-4 border-b border-white/5">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 shrink-0">
+                            <div className="flex items-center gap-4 px-6 py-5 border-b border-white/5 bg-white/[0.02]">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent shrink-0">
                                     <circle cx="11" cy="11" r="8" />
                                     <path d="m21 21-4.35-4.35" />
                                 </svg>
@@ -203,81 +204,94 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
-                                    placeholder="Search grades, knives, or jump to..."
-                                    className="flex-1 bg-transparent text-white text-sm font-medium placeholder:text-slate-500 outline-none"
+                                    placeholder="Search steels, knives, or jump to view..."
+                                    className="flex-1 bg-transparent text-white text-base font-bold placeholder:text-slate-500 outline-none"
                                     autoComplete="off"
                                     autoCorrect="off"
                                     spellCheck={false}
                                 />
-                                <kbd className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
-                                    ESC
-                                </kbd>
+                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-black text-slate-500">
+                                    <span className="opacity-60">ESC</span>
+                                </div>
                             </div>
 
                             {/* Results */}
-                            <div ref={listRef} className="max-h-[50vh] overflow-y-auto overscroll-contain py-2 custom-scrollbar" style={{ scrollbarWidth: 'none' }}>
+                            <div ref={listRef} className="flex-1 overflow-y-auto overscroll-contain py-3 custom-scrollbar no-scrollbar" style={{ scrollbarWidth: 'none' }}>
                                 {results.length === 0 ? (
-                                    <div className="px-5 py-8 text-center">
-                                        <p className="text-sm text-slate-500 italic">No results for "{query}"</p>
+                                    <div className="px-6 py-12 text-center">
+                                        <div className="mb-4 inline-flex p-3 rounded-full bg-white/5 text-slate-600">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                                            </svg>
+                                        </div>
+                                        <p className="text-sm font-bold text-slate-400">No results found for "{query}"</p>
+                                        <p className="text-xs text-slate-600 mt-1">Try searching for Grade, Maker or View name</p>
                                     </div>
                                 ) : (
                                     Object.entries(groupedResults).map(([category, items]) => (
-                                        <div key={category}>
-                                            <div className="px-5 pt-3 pb-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
+                                        <div key={category} className="mb-2 last:mb-0">
+                                            <div className="px-6 pt-3 pb-2 text-[10px] font-black uppercase tracking-[0.25em] text-slate-600 flex items-center gap-3">
                                                 {category}
+                                                <div className="h-px flex-1 bg-white/5" />
                                             </div>
-                                            {items.map((item) => (
-                                                <button
-                                                    key={`${item.type}-${item.id}`}
-                                                    data-index={item.globalIndex}
-                                                    onClick={() => handleSelect(item)}
-                                                    onMouseMove={() => setIsKeyboard(false)}
-                                                    onMouseEnter={() => {
-                                                        if (!isKeyboard) setActiveIndex(item.globalIndex);
-                                                    }}
-                                                    className={`w-full flex items-center gap-3 px-5 py-2.5 text-left transition-all ${item.globalIndex === activeIndex
-                                                        ? 'bg-white/5 text-white'
-                                                        : 'text-slate-400 hover:bg-white/[0.03]'
-                                                        }`}
-                                                >
-                                                    {getIcon(item)}
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="text-sm font-bold truncate">{item.label}</div>
-                                                        {item.sublabel && (
-                                                            <div className="text-[11px] text-slate-500 truncate">{item.sublabel}</div>
+                                            <div className="px-2">
+                                                {items.map((item) => (
+                                                    <button
+                                                        key={`${item.type}-${item.id || item.label}`}
+                                                        data-index={item.globalIndex}
+                                                        onClick={() => handleSelect(item)}
+                                                        onMouseMove={() => setIsKeyboard(false)}
+                                                        onMouseEnter={() => {
+                                                            if (!isKeyboard) setActiveIndex(item.globalIndex);
+                                                        }}
+                                                        className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl text-left transition-all ${item.globalIndex === activeIndex
+                                                            ? 'bg-accent/10 text-white shadow-inner shadow-white/5'
+                                                            : 'text-slate-400 hover:bg-white/[0.03]'
+                                                            }`}
+                                                    >
+                                                        {getIcon(item)}
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className={`text-sm font-bold truncate ${item.globalIndex === activeIndex ? 'text-accent' : ''}`}>{item.label}</div>
+                                                            {item.sublabel && (
+                                                                <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">{item.sublabel}</div>
+                                                            )}
+                                                        </div>
+                                                        {item.globalIndex === activeIndex && (
+                                                            <div className="flex items-center gap-1.5 text-accent opacity-60">
+                                                                <span className="text-[10px] font-black">ENTER</span>
+                                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                                                    <polyline points="9 10 4 15 9 20" /><path d="M20 4v7a4 4 0 0 1-4 4H4" />
+                                                                </svg>
+                                                            </div>
                                                         )}
-                                                    </div>
-                                                    {item.globalIndex === activeIndex && (
-                                                        <kbd className="hidden sm:flex items-center px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-slate-500">
-                                                            ↵
-                                                        </kbd>
-                                                    )}
-                                                </button>
-                                            ))}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
                                     ))
                                 )}
                             </div>
 
-                            {/* Footer */}
-                            <div className="flex items-center gap-4 px-5 py-2.5 border-t border-white/5 text-[10px] text-slate-600 bg-black/20">
-                                <span className="flex items-center gap-1.5">
-                                    <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↑↓</kbd>
-                                    navigate
-                                </span>
-                                <span className="flex items-center gap-1.5">
-                                    <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">↵</kbd>
-                                    select
-                                </span>
-                                <span className="flex items-center gap-1.5">
-                                    <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/10 font-mono">esc</kbd>
-                                    close
-                                </span>
+                            {/* Footer Keys */}
+                            <div className="flex items-center gap-6 px-6 py-3.5 border-t border-white/5 text-[9px] font-black text-slate-600 uppercase tracking-widest bg-white/[0.01]">
+                                <div className="flex items-center gap-2">
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">↑↓</span>
+                                    <span>Navigate</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">↵</span>
+                                    <span>Select</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">ESC</span>
+                                    <span>Close</span>
+                                </div>
                             </div>
                         </motion.div>
                     </div>
                 </>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 }
