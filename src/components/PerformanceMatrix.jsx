@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { toPng } from 'html-to-image';
 import PerformanceRadar from './PerformanceRadar';
 
 // Helper for collision detection
@@ -32,53 +33,67 @@ const solveLabelCollisions = (steels, xAxisKey, yAxisKey, width, height, mobile 
     });
 
     // Simple relaxation to resolve overlaps
-    const iterations = 50;
+    const iterations = 80;
+    const padding = mobile ? 2 : 4;
+
     for (let k = 0; k < iterations; k++) {
         for (let i = 0; i < nodes.length; i++) {
             const nodeA = nodes[i];
 
-            // 1. Attraction to target (original position above dot)
+            // 1. Attraction to target (position above dot)
             const targetX = nodeA.cx;
             const targetY = nodeA.cy - 12;
 
-            // Stronger pull towards X center, weaker on Y to allow stacking
             nodeA.x += (targetX - nodeA.x) * 0.1;
-            nodeA.y += (targetY - nodeA.y) * 0.05;
+            nodeA.y += (targetY - nodeA.y) * 0.1;
 
-            // 2. Repulsion from other labels
+            // 2. Repulsion from the point itself (avoid covering the dot)
+            const pDx = nodeA.x - nodeA.cx;
+            const pDy = nodeA.y - nodeA.cy;
+            const pDist = Math.sqrt(pDx * pDx + pDy * pDy);
+            if (pDist < 10) {
+                const force = (10 - pDist) / 10;
+                nodeA.y -= force * 2; // Push up away from point
+            }
+
+            // 3. Repulsion from other labels
             for (let j = 0; j < nodes.length; j++) {
                 if (i === j) continue;
                 const nodeB = nodes[j];
 
-                // Check overlap
                 const dx = nodeA.x - nodeB.x;
                 const dy = nodeA.y - nodeB.y;
                 const distX = Math.abs(dx);
                 const distY = Math.abs(dy);
 
-                // Minimum distance required
-                const minW = (nodeA.width + nodeB.width) / 2 + 2; // + padding
-                const minH = (nodeA.height + nodeB.height) / 2 + 2;
+                const minW = (nodeA.width + nodeB.width) / 2 + padding;
+                const minH = (nodeA.height + nodeB.height) / 2 + padding;
 
                 if (distX < minW && distY < minH) {
-                    // Overlap detected
                     const overlapX = minW - distX;
                     const overlapY = minH - distY;
 
-                    // Resolve along the axis of least overlap
-                    if (overlapX < overlapY * 1.5) { // Prefer X shift slightly if comparable
-                        const shift = overlapX / 2;
-                        const sign = dx > 0 ? 1 : -1;
-                        nodeA.x += shift * sign * 0.5;
-                        nodeB.x -= shift * sign * 0.5;
+                    // Push away
+                    if (overlapX < overlapY * 1.2) {
+                        const shift = (overlapX / 2) * 0.5;
+                        const sign = dx >= 0 ? 1 : -1;
+                        nodeA.x += shift * sign;
+                        nodeB.x -= shift * sign;
                     } else {
-                        const shift = overlapY / 2;
-                        const sign = dy > 0 ? 1 : -1;
-                        nodeA.y += shift * sign * 0.5;
-                        nodeB.y -= shift * sign * 0.5;
+                        const shift = (overlapY / 2) * 0.5;
+                        const sign = dy >= 0 ? 1 : -1;
+                        nodeA.y += shift * sign;
+                        nodeB.y -= shift * sign;
                     }
                 }
             }
+
+            // 4. Boundary clamping (clamping the label within the chart area)
+            const halfW = nodeA.width / 2;
+            const halfH = nodeA.height / 2;
+
+            nodeA.x = Math.max(margin.left + halfW, Math.min(margin.left + innerW - halfW, nodeA.x));
+            nodeA.y = Math.max(margin.top + halfH, Math.min(margin.top + innerH - halfH, nodeA.y));
         }
     }
 
@@ -104,12 +119,56 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const [hoveredSteel, setHoveredSteel] = useState(null);
     const [selectedSteel, setSelectedSteel] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [labelDensity, setLabelDensity] = useState('high'); // 'all', 'high', 'none'
+    const [labelDensity, setLabelDensity] = useState('super'); // 'all', 'super', 'none'
     const [isMobile, setIsMobile] = useState(false);
 
     // Chart dimensions for label collision calculation
     const [chartDimensions, setChartDimensions] = useState({ width: 0, height: 0 });
+    const [isFullScreen, setIsFullScreen] = useState(false);
     const chartRef = useRef(null);
+    const containerRef = useRef(null);
+    const exportRef = useRef(null);
+
+    const toggleFullScreen = () => {
+        if (!containerRef.current) return;
+
+        if (!document.fullscreenElement) {
+            containerRef.current.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    };
+
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullScreen(!!document.fullscreenElement);
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, []);
+
+    const handleDownload = async () => {
+        if (!exportRef.current) return;
+
+        try {
+            const dataUrl = await toPng(exportRef.current, {
+                cacheBust: true,
+                backgroundColor: '#000000',
+                style: {
+                    borderRadius: '0'
+                }
+            });
+            const link = document.createElement('a');
+            link.download = `MetalCore-Matrix-${xAxis}-${yAxis}.png`;
+            link.href = dataUrl;
+            link.click();
+        } catch (err) {
+            console.error('oops, something went wrong!', err);
+        }
+    };
 
     useEffect(() => {
         if (!chartRef.current) return;
@@ -152,47 +211,58 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     }, [matrixSteels, xAxis, yAxis, chartDimensions, isMobile]);
 
     const producerColors = {
-        "Crucible": "#FF5733",
-        "Böhler": "#33FF57",
-        "Uddeholm": "#3357FF",
-        "Carpenter": "#F333FF",
-        "Hitachi": "#FF33A1",
-        "Takefu": "#33FFF5",
-        "Alleima": "#FFF533",
-        "Erasteel": "#FF8633",
-        "Zapp": "#A133FF",
-        "Various": "#94a3b8",
-        "Other": "#ffffff"
+        "Crucible": "#FF5733",    // Vibrant Orange
+        "Böhler": "#33FF57",      // Lime Green
+        "Uddeholm": "#3357FF",    // Royal Blue
+        "Carpenter": "#F333FF",   // Magenta
+        "Hitachi": "#FF33A1",     // Hot Pink
+        "Takefu": "#33FFF5",      // Cyan
+        "Alleima": "#FFF533",     // Bright Yellow
+        "Erasteel": "#FF8633",    // Deep Orange
+        "Zapp": "#A133FF",        // Purple
+        "Latrobe": "#E91E63",     // Pink
+        "Niagara": "#00BCD4",     // Teal
+        "Lohmann": "#8BC34A",     // Light Green
+        "Damasteel": "#795548",   // Brown
+        "Various": "#94a3b8",     // Slate
+        "Other": "#ffffff"        // White
     };
 
+    const getProducerColor = (producer) => {
+        if (!producer) return producerColors["Other"];
+        const found = Object.keys(producerColors).find(k => producer.includes(k));
+        if (found) return producerColors[found];
+
+        // Dynamic color generation for any other producer to ensure uniqueness
+        let hash = 0;
+        for (let i = 0; i < producer.length; i++) {
+            hash = producer.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+        return "#" + "00000".substring(0, 6 - c.length) + c;
+    };
     // Filter steels to show labels for: Top performers or hovered
     const labeledSteels = useMemo(() => {
         if (labelDensity === 'none' && !hoveredSteel) return [];
         if (labelDensity === 'all') return matrixSteels.map(s => s.name);
 
-        // 'high' density or default — show only top performers on mobile
-        if (!hoveredSteel && isMobile) {
+        // 'super' density: show top performers
+        if (!hoveredSteel) {
             const sorted = [...matrixSteels].sort((a, b) => {
                 const scoreA = (a[xAxis] || 0) + (a[yAxis] || 0);
                 const scoreB = (b[xAxis] || 0) + (b[yAxis] || 0);
                 return scoreB - scoreA;
             });
-            return sorted.slice(0, 5).map(s => s.name);
+
+            // Show top 8 on mobile, top 18 on desktop to highlight 'Supersteels'
+            return sorted.slice(0, isMobile ? 8 : 18).map(s => s.name);
         }
 
-        // On desktop with 'high', maybe label more but not all? 
-        // Let's stick to a subset unless hovered
-        if (!hoveredSteel) {
-            return matrixSteels.slice(0, 15).map(s => s.name);
-        }
-
+        // If hovered, show all labels so the hovered one is definitely there 
+        // (the Scatter component handles the actual hover state visibility)
         return matrixSteels.map(s => s.name);
-    }, [matrixSteels, hoveredSteel, isMobile, labelDensity]);
+    }, [matrixSteels, hoveredSteel, isMobile, labelDensity, xAxis, yAxis]);
 
-    const getProducerColor = (producer) => {
-        const found = Object.keys(producerColors).find(k => producer.includes(k));
-        return found ? producerColors[found] : producerColors["Other"];
-    };
 
     const displaySteel = selectedSteel || steels.find(s => s.name === hoveredSteel) || null;
 
@@ -229,7 +299,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
                             <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Labels</span>
                             <div className="flex gap-1">
-                                {['none', 'high', 'all'].map(d => (
+                                {['none', 'super', 'all'].map(d => (
                                     <button
                                         key={d}
                                         onClick={() => setLabelDensity(d)}
@@ -245,7 +315,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                     {/* Axis Controls */}
                     <div className="space-y-6">
                         <div className="space-y-3">
-                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Y-Axis Strategy</span>
+                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Y-Axis</span>
                             <div className="grid grid-cols-2 gap-2">
                                 {Object.keys(axisOptions).map(key => (
                                     <button
@@ -264,7 +334,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         </div>
 
                         <div className="space-y-3">
-                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">X-Axis Strategy</span>
+                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">X-Axis</span>
                             <div className="grid grid-cols-2 gap-2">
                                 {Object.keys(axisOptions).map(key => (
                                     <button
@@ -348,10 +418,10 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onClick={() => setYAxis(key)}
                                         disabled={key === xAxis}
                                         className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${yAxis === key
-                                                ? 'bg-rose-500 text-white'
-                                                : key === xAxis
-                                                    ? 'bg-white/5 text-slate-600 opacity-30'
-                                                    : 'bg-white/5 text-slate-400 active:scale-95'
+                                            ? 'bg-rose-500 text-white'
+                                            : key === xAxis
+                                                ? 'bg-white/5 text-slate-600 opacity-30'
+                                                : 'bg-white/5 text-slate-400 active:scale-95'
                                             }`}
                                     >
                                         {axisOptions[key].shortLabel}
@@ -369,10 +439,10 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onClick={() => setXAxis(key)}
                                         disabled={key === yAxis}
                                         className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tight transition-all ${xAxis === key
-                                                ? 'bg-rose-500 text-white'
-                                                : key === yAxis
-                                                    ? 'bg-white/5 text-slate-600 opacity-30'
-                                                    : 'bg-white/5 text-slate-400 active:scale-95'
+                                            ? 'bg-rose-500 text-white'
+                                            : key === yAxis
+                                                ? 'bg-white/5 text-slate-600 opacity-30'
+                                                : 'bg-white/5 text-slate-400 active:scale-95'
                                             }`}
                                     >
                                         {axisOptions[key].shortLabel}
@@ -384,11 +454,28 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                 </div>
 
                 {/* Chart Container */}
-                <div className="px-2 lg:px-12 py-2 lg:py-10 lg:flex-1 lg:flex lg:flex-col lg:min-h-0">
-                    <div className="h-[50vh] lg:h-auto lg:flex-1 lg:min-h-0 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors">
+                <div ref={isFullScreen ? exportRef : containerRef} className={`relative px-2 lg:px-12 py-2 lg:py-10 lg:flex-1 lg:flex lg:flex-col lg:min-h-0 ${isFullScreen ? 'bg-black !p-0' : ''}`}>
+                    <div ref={isFullScreen ? containerRef : exportRef} className={`h-[50vh] lg:h-auto lg:flex-1 lg:min-h-0 glass-panel rounded-2xl lg:rounded-[3rem] p-1.5 lg:p-12 relative overflow-hidden group/chart border-white/10 hover:border-white/20 transition-colors ${isFullScreen ? 'border-none rounded-none' : ''}`}>
                         {/* Background Gradients */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-[120px] pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/5 blur-[120px] pointer-events-none"></div>
+
+                        {/* Fullscreen Toggle */}
+                        <button
+                            onClick={toggleFullScreen}
+                            className="absolute top-4 right-4 z-50 p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-slate-400 hover:text-white transition-all backdrop-blur-md opacity-0 group-hover/chart:opacity-100 hidden lg:block"
+                            title={isFullScreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+                        >
+                            {isFullScreen ? (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                    <path d="M8 3v5H3M16 3v5h5M8 21v-5H3M16 21v-5h5" />
+                                </svg>
+                            ) : (
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                    <path d="M15 3h6v6M9 21H3v-6M21 15v6h-6M3 9V3h6" />
+                                </svg>
+                            )}
+                        </button>
 
                         {/* Quadrant Indicators - Desktop Only */}
                         <div className="hidden lg:flex absolute top-10 right-10 flex-col items-end opacity-20 pointer-events-none">
@@ -562,7 +649,127 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                 </ScatterChart>
                             </ResponsiveContainer>
                         </div>
+
                     </div>
+
+                    {/* Full-screen Control Bar (Wider & Thinner Dock) */}
+                    {isFullScreen && (
+                        <div className="absolute bottom-0 left-0 w-full bg-slate-950/80 backdrop-blur-3xl border-t border-white/10 p-3 flex flex-col gap-2 animate-in slide-in-from-bottom-full duration-700 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.5)] z-50">
+                            <div className="flex items-center gap-6 px-4">
+                                {/* Simple Search Module */}
+                                <div className="relative w-80">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+                                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                                    </svg>
+                                    <input
+                                        type="text"
+                                        placeholder="Search steels..."
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg py-1.5 pl-9 pr-3 text-white text-[10px] font-bold focus:outline-none focus:border-accent/40 transition-colors placeholder:text-slate-600"
+                                        value={searchTerm}
+                                        onChange={e => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+
+                                {/* Labels Toggle Module */}
+                                <div className="flex items-center gap-3 border-l border-white/5 pl-6 ml-2">
+                                    <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest">Labels</span>
+                                    <div className="flex gap-0.5 bg-black/40 p-0.5 rounded-lg border border-white/5">
+                                        {['none', 'super', 'all'].map(d => (
+                                            <button
+                                                key={`fs-label-${d}`}
+                                                onClick={() => setLabelDensity(d)}
+                                                className={`px-2 py-1 rounded-md text-[8px] font-black uppercase transition-all ${labelDensity === d
+                                                    ? 'bg-accent text-black shadow-sm'
+                                                    : 'text-slate-500 hover:text-white'}`}
+                                            >
+                                                {d}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Axis Selection Module */}
+                                <div className="flex items-center gap-8 flex-1 justify-center border-l border-white/5 ml-2 pl-6">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-[9px] font-black text-rose-400 uppercase tracking-widest shrink-0">Y-Axis</span>
+                                        <div className="flex gap-1">
+                                            {Object.keys(axisOptions).map(key => (
+                                                <button
+                                                    key={`fs-y-${key}`}
+                                                    onClick={() => setYAxis(key)}
+                                                    disabled={key === xAxis}
+                                                    className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase transition-all ${yAxis === key
+                                                        ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20'
+                                                        : 'bg-white/5 text-slate-500 hover:text-white'}`}
+                                                >
+                                                    {axisOptions[key].shortLabel}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-[9px] font-black text-accent uppercase tracking-widest shrink-0">X-Axis</span>
+                                        <div className="flex gap-1">
+                                            {Object.keys(axisOptions).map(key => (
+                                                <button
+                                                    key={`fs-x-${key}`}
+                                                    onClick={() => setXAxis(key)}
+                                                    disabled={key === yAxis}
+                                                    className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase transition-all ${xAxis === key
+                                                        ? 'bg-accent text-black shadow-lg shadow-accent/20'
+                                                        : 'bg-white/5 text-slate-500 hover:text-white'}`}
+                                                >
+                                                    {axisOptions[key].shortLabel}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Export Button Module */}
+                                <div className="border-l border-white/5 pl-6">
+                                    <button
+                                        onClick={handleDownload}
+                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-black rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-accent/20"
+                                    >
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+                                        </svg>
+                                        Export PNG
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Producer Legend Module */}
+                            <div className="flex flex-wrap items-center justify-center gap-1.5 px-4 pt-1.5 border-t border-white/5">
+                                {producers.map(prod => {
+                                    const isActive = activeProducer === prod;
+                                    const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
+                                    return (
+                                        <button
+                                            key={`fs-leg-${prod}`}
+                                            onClick={() => setActiveProducer(isActive && prod !== 'ALL' ? 'ALL' : prod)}
+                                            className={`flex items-center gap-1.5 px-2 py-1 rounded-md transition-all active:scale-95 ${isActive
+                                                ? 'bg-accent/10 shadow-sm'
+                                                : 'hover:bg-white/5'
+                                                }`}
+                                        >
+                                            <div
+                                                className="w-1.5 h-1.5 rounded-full shrink-0"
+                                                style={{
+                                                    backgroundColor: color,
+                                                    boxShadow: isActive ? `0 0 8px ${color}` : 'none'
+                                                }}
+                                            />
+                                            <span className={`text-[8px] font-black uppercase tracking-tight transition-colors ${isActive ? "text-white" : "text-slate-500"}`}>
+                                                {prod}
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Mobile Selected Steel Info Bar */}
@@ -634,7 +841,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
             {/* Background Texture Overlay */}
             <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
-        </div>
+        </div >
     );
 };
 
