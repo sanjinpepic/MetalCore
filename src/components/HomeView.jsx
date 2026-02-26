@@ -211,8 +211,94 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10H3 M21 6H3 M21 14H3 M21 18H3" /></svg>
                                     </button>
                                 </div>
-                                {/* Matrix placeholders... omitted for brevity or simplified */}
-                                <div className="flex-1 min-h-[400px] w-full bg-black/40 rounded-[2rem] border border-white/5" />
+                                <div className="flex flex-wrap items-center justify-between gap-4 mb-6 z-20 relative">
+                                    <div className="flex gap-2 p-1 bg-white/5 rounded-2xl w-fit border border-white/5 backdrop-blur-md">
+                                        {Object.entries(axisOptions).map(([key, { shortLabel }]) => (
+                                            <button
+                                                key={key}
+                                                onClick={() => setXAxis(key)}
+                                                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${xAxis === key ? 'bg-accent text-black shadow-lg shadow-accent/20 scale-105' : 'text-slate-500 hover:text-slate-300'}`}
+                                            >
+                                                {shortLabel}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    {/* Matrix Header Tags */}
+                                    <div className="flex gap-2">
+                                        <span className="px-3 py-1.5 bg-black/50 backdrop-blur-md border border-white/10 rounded-xl text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] shadow-xl">
+                                            Y: <span className="text-white">Toughness</span>
+                                        </span>
+                                        <span className="px-3 py-1.5 bg-accent/10 backdrop-blur-md border border-accent/20 rounded-xl text-[9px] font-black text-accent uppercase tracking-[0.2em] shadow-xl">
+                                            X: <span className="text-white">{axisOptions[xAxis].label}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="flex-1 w-full relative min-h-[400px]">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                            <XAxis
+                                                type="number"
+                                                dataKey={xAxis}
+                                                name={axisOptions[xAxis].label}
+                                                domain={[2, 10]}
+                                                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10, fontWeight: 900 }}
+                                                tickLine={false}
+                                                axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+                                            />
+                                            <YAxis
+                                                type="number"
+                                                dataKey={yAxis}
+                                                name="Toughness"
+                                                domain={[2, 10]}
+                                                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10, fontWeight: 900 }}
+                                                tickLine={false}
+                                                axisLine={false}
+                                                width={30}
+                                            />
+                                            <Tooltip
+                                                cursor={{ strokeDasharray: '3 3', stroke: 'rgba(20, 184, 166, 0.5)' }}
+                                                content={({ active, payload }) => {
+                                                    if (active && payload && payload.length) {
+                                                        const data = payload[0].payload;
+                                                        return (
+                                                            <div className="bg-black/90 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl">
+                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{data.producer}</div>
+                                                                <div className="text-lg font-black text-white italic uppercase">{data.name}</div>
+                                                                <div className="mt-3 flex gap-4">
+                                                                    <div>
+                                                                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{axisOptions[xAxis].shortLabel}</div>
+                                                                        <div className="text-accent font-black text-sm">{data[xAxis]}</div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Toughness</div>
+                                                                        <div className="text-white font-black text-sm">{data[yAxis]}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }}
+                                            />
+                                            <Scatter
+                                                data={eliteSteels}
+                                                onClick={(data) => setDetailSteel(data)}
+                                                className="cursor-pointer"
+                                                isAnimationActive={false}
+                                            >
+                                                {eliteSteels.map((entry, index) => (
+                                                    <Cell
+                                                        key={`cell-${index}`}
+                                                        fill={getProducerColor(entry.producer)}
+                                                        className="hover:brightness-150 transition-all duration-300 transform-origin-center filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                                                    />
+                                                ))}
+                                            </Scatter>
+                                        </ScatterChart>
+                                    </ResponsiveContainer>
+                                </div>
                             </section>
                         )}
                     </div>
@@ -221,10 +307,42 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     <div className="xl:col-span-4 space-y-8">
                         {featuredSteel && dashboardLayout.showSpotlight && (
                             <section className="glass-panel p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group h-full flex flex-col justify-between">
+                                {/* Decorative Background Elements */}
+                                <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-indigo-500/20 transition-colors duration-700" />
+                                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-accent/10 transition-colors duration-700" />
+
                                 <div className="relative z-10 space-y-6">
                                     <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Daily Spotlight</div>
                                     <h2 className="text-4xl font-display font-black text-white italic leading-none truncate group-hover:text-accent transition-colors cursor-pointer" onClick={() => setDetailSteel(featuredSteel)}>{featuredSteel.name}</h2>
                                     <p className="text-slate-400 text-sm leading-relaxed italic line-clamp-3">"{featuredSteel.desc}"</p>
+                                </div>
+
+                                <div className="relative z-10 mt-10">
+                                    {/* Stats Grid */}
+                                    <div className="grid grid-cols-2 gap-3 mb-8">
+                                        {[
+                                            { label: 'Edge', value: featuredSteel.edge, color: 'text-rose-400' },
+                                            { label: 'Tough', value: featuredSteel.toughness, color: 'text-emerald-400' },
+                                            { label: 'Rust', value: featuredSteel.corrosion, color: 'text-sky-400' },
+                                            { label: 'Sharp', value: featuredSteel.sharpen, color: 'text-amber-400' }
+                                        ].map((stat, i) => (
+                                            <div key={i} className="bg-black/40 border border-white/5 rounded-2xl p-4 backdrop-blur-md group-hover:border-white/10 transition-colors">
+                                                <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">{stat.label}</div>
+                                                <div className={`text-xl font-black italic ${stat.color}`}>{stat.value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* CTA */}
+                                    <button
+                                        onClick={() => setDetailSteel(featuredSteel)}
+                                        className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black uppercase text-xs tracking-[0.2em] rounded-2xl transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] active:scale-[0.98] flex items-center justify-center gap-3"
+                                    >
+                                        View Full Specs
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                            <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </section>
                         )}

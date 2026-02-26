@@ -25,9 +25,9 @@ const ViewHeader = ({
                             <span className={`text-[10px] font-black ${theme.text} uppercase tracking-[0.2em]`}>{subtitle}</span>
                         </div>
 
-                        <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8] uppercase">
+                        <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8] uppercase pr-2 md:pr-4">
                             {title}<br />
-                            <span className={`text-transparent bg-clip-text bg-gradient-to-r from-${theme.id}-400 via-white to-slate-500`}>{highlight}</span>
+                            <span className={`text-transparent bg-clip-text bg-gradient-to-r from-${theme.id}-400 via-white to-slate-500 pr-2 md:pr-6`}>{highlight}</span>
                         </h1>
 
                         {children}
