@@ -41,8 +41,8 @@ const ProLabView = ({ steels }) => {
             />
 
             {/* Navigation Tabs */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl mb-6 md:mb-12">
-                <div className="px-6 md:px-12 pb-3 pt-2 md:py-4 flex flex-wrap items-center gap-4 border-b border-white/5">
+            <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl mb-6 md:mb-12 transition-all">
+                <div className="px-6 md:px-12 pb-3 pt-2 md:py-4 flex flex-wrap items-center gap-4">
                     <div className="flex gap-2 overflow-x-auto no-scrollbar">
                         <button
                             onClick={() => setActiveTab('ANALYZE')}

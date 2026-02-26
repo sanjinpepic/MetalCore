@@ -95,7 +95,7 @@ const EducationView = ({ glossary, faq, producers }) => {
 
 
             {/* Navigation Tabs & Search */}
-            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl">
+            <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl transition-all w-full overflow-hidden">
                 {/* Mobile tabs — own row */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
@@ -121,7 +121,7 @@ const EducationView = ({ glossary, faq, producers }) => {
 
                 {/* Mobile glossary category chips — own row below tabs */}
                 {activeTab === 'GLOSSARY' && !searchTerm && (
-                    <div className="md:hidden px-4 overflow-x-auto no-scrollbar">
+                    <div className="md:hidden px-4 pb-2 overflow-x-auto no-scrollbar" style={{ maxWidth: '100vw' }}>
                         <div className="flex gap-1.5 py-1">
                             {GLOSSARY_CATEGORIES.map(cat => (
                                 <button
@@ -178,9 +178,9 @@ const EducationView = ({ glossary, faq, producers }) => {
                 </div>
             </div>
 
-            <div className="p-4 md:p-12 pb-32">
+            <div className="p-6 md:p-12 pb-32">
                 {activeTab === 'GLOSSARY' && (
-                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 w-full">
                         {/* Category Filter Chips — desktop only (mobile chips are in sticky header) */}
                         {!searchTerm && (
                             <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar mb-8 pb-1">
@@ -207,12 +207,12 @@ const EducationView = ({ glossary, faq, producers }) => {
                                     if (!items || items.length === 0) return null;
                                     return (
                                         <section key={cat.id}>
-                                            <div className="sticky top-[8.5rem] md:top-[4.5rem] z-20 -mx-4 px-4 md:-mx-12 md:px-12 py-2 md:py-3 mb-2 md:mb-3 bg-black/90 backdrop-blur-xl">
+                                            <div className="sticky top-[8.5rem] md:top-[4.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
                                                 <div className="flex items-center gap-2 md:gap-3">
                                                     <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-accent"></div>
-                                                    <h2 className="text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-wider md:tracking-[0.2em] italic">{cat.id}</h2>
+                                                    <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{cat.id}</h2>
                                                     <div className="flex-1 h-px bg-white/5"></div>
-                                                    <span className="text-[9px] md:text-[10px] font-bold text-slate-600">{items.length}</span>
+                                                    <span className="text-[10px] font-bold text-slate-600">{items.length} {items.length === 1 ? 'term' : 'terms'}</span>
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
@@ -241,13 +241,13 @@ const EducationView = ({ glossary, faq, producers }) => {
                 )}
 
                 {activeTab === 'PRODUCERS' && (
-                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 w-full">
                         <ProducerMap producers={producers} />
                     </div>
                 )}
 
                 {activeTab === 'FAQ' && (
-                    <div className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-10">
+                    <div className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-10 w-full">
                         {FAQ_CATEGORIES.map(cat => {
                             const items = groupedFaq[cat];
                             if (!items || items.length === 0) return null;
