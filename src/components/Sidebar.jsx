@@ -403,8 +403,9 @@ const Sidebar = ({
                                 <span className="text-sm font-bold text-slate-500 group-hover:text-slate-300 transition-colors">Search Grade...</span>
                             </div>
                             <kbd className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-600">
-                                ⌘K
+                                {typeof window !== 'undefined' && /Mac/.test(window.navigator.platform) ? '⌘K' : 'Ctrl+K'}
                             </kbd>
+
                         </button>
                     </div>
 

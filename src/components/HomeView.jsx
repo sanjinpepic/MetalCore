@@ -1,10 +1,16 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import { useSettings } from '../context/SettingsContext';
 import Footer from './Footer';
+
+
 import { hapticFeedback } from '../hooks/useMobile';
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters, setShowRecommender }) => {
+    const { dashboardLayout, setDashboardLayout } = useSettings();
+
     const searchContainerRef = useRef(null);
+
 
     // Axis configuration for mini-matrix
     const axisOptions = {
@@ -110,6 +116,9 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                 <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Command Center 2.0</span>
                             </div>
 
+
+
+
                             <h1 className="text-6xl md:text-8xl xl:text-9xl font-display font-black text-white tracking-tighter italic leading-[0.8]">
                                 FORGING<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-white to-slate-500">EXCELLENCE</span>
@@ -148,8 +157,11 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     </button>
                                 )}
                                 <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 ml-4 group-focus-within:border-accent/40 transition-colors">
-                                    <span className="text-[10px] font-black text-slate-500 group-focus-within:text-accent uppercase tracking-tighter">Enter</span>
+                                    <span className="text-[10px] font-black text-slate-500 group-focus-within:text-accent uppercase tracking-tighter">
+                                        {typeof window !== 'undefined' && /Mac/.test(window.navigator.platform) ? '⌘K' : 'Ctrl+K'}
+                                    </span>
                                 </div>
+
                             </div>
 
                             {/* Spotlight Dropdown */}
@@ -240,157 +252,160 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                     {/* Left/Main Column: Performance Matrix (8 cols) */}
                     <div className="xl:col-span-8 space-y-12">
-                        <section className="glass-panel p-6 md:p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent relative group">
-                            <div className="flex items-center justify-between mb-8 md:mb-12">
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter">Performance Frontier</h3>
-                                    <p className="text-[10px] md:text-xs text-slate-500 uppercase font-black tracking-widest mt-1">Real-time Visualization of the Elite Knife Alloys</p>
+                        {dashboardLayout.showMatrix && (
+                            <section className="glass-panel p-6 md:p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent relative group">
+                                <div className="flex items-center justify-between mb-8 md:mb-12">
+                                    <div>
+                                        <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter">Performance Frontier</h3>
+                                        <p className="text-[10px] md:text-xs text-slate-500 uppercase font-black tracking-widest mt-1">Real-time Visualization of the Elite Knife Alloys</p>
+                                    </div>
+                                    <button
+                                        onClick={() => setView('MATRIX')}
+                                        className="p-3 bg-white/5 rounded-2xl border border-white/10 text-slate-400 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all group"
+                                    >
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10H3 M21 6H3 M21 14H3 M21 18H3" /></svg>
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => setView('MATRIX')}
-                                    className="p-3 bg-white/5 rounded-2xl border border-white/10 text-slate-400 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all group"
-                                >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10H3 M21 6H3 M21 14H3 M21 18H3" /></svg>
-                                </button>
-                            </div>
 
-                            {/* Compact Axis Selectors */}
-                            <div className="flex flex-wrap gap-3 mb-6">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">X:</span>
-                                    <div className="flex gap-1.5">
-                                        {Object.keys(axisOptions).map(key => (
-                                            <button
-                                                key={`home-x-${key}`}
-                                                onClick={() => setXAxis(key)}
-                                                disabled={key === yAxis}
-                                                className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider transition-all ${xAxis === key
-                                                    ? 'bg-accent text-black'
-                                                    : key === yAxis
-                                                        ? 'bg-white/5 text-slate-700 cursor-not-allowed'
-                                                        : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'
-                                                    }`}
-                                            >
-                                                {axisOptions[key].shortLabel}
-                                            </button>
-                                        ))}
+                                {/* Compact Axis Selectors */}
+                                <div className="flex flex-wrap gap-3 mb-6">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">X:</span>
+                                        <div className="flex gap-1.5">
+                                            {Object.keys(axisOptions).map(key => (
+                                                <button
+                                                    key={`home-x-${key}`}
+                                                    onClick={() => setXAxis(key)}
+                                                    disabled={key === yAxis}
+                                                    className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider transition-all ${xAxis === key
+                                                        ? 'bg-accent text-black'
+                                                        : key === yAxis
+                                                            ? 'bg-white/5 text-slate-700 cursor-not-allowed'
+                                                            : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'
+                                                        }`}
+                                                >
+                                                    {axisOptions[key].shortLabel}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Y:</span>
+                                        <div className="flex gap-1.5">
+                                            {Object.keys(axisOptions).map(key => (
+                                                <button
+                                                    key={`home-y-${key}`}
+                                                    onClick={() => setYAxis(key)}
+                                                    disabled={key === xAxis}
+                                                    className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider transition-all ${yAxis === key
+                                                        ? 'bg-accent text-black'
+                                                        : key === xAxis
+                                                            ? 'bg-white/5 text-slate-700 cursor-not-allowed'
+                                                            : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'
+                                                        }`}
+                                                >
+                                                    {axisOptions[key].shortLabel}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Y:</span>
-                                    <div className="flex gap-1.5">
-                                        {Object.keys(axisOptions).map(key => (
-                                            <button
-                                                key={`home-y-${key}`}
-                                                onClick={() => setYAxis(key)}
-                                                disabled={key === xAxis}
-                                                className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-wider transition-all ${yAxis === key
-                                                    ? 'bg-accent text-black'
-                                                    : key === xAxis
-                                                        ? 'bg-white/5 text-slate-700 cursor-not-allowed'
-                                                        : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'
-                                                    }`}
-                                            >
-                                                {axisOptions[key].shortLabel}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className="h-[350px] md:h-[450px] w-full bg-black/40 rounded-[2rem] border border-white/5 overflow-hidden relative group-hover:border-white/10 transition-colors">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <ScatterChart margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
-                                        <XAxis
-                                            type="number"
-                                            dataKey={xAxis}
-                                            domain={[7, 10]}
-                                            tick={false}
-                                            axisLine={false}
-                                            label={{ value: `${axisOptions[xAxis].label} →`, position: 'bottom', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
-                                        />
-                                        <YAxis
-                                            type="number"
-                                            dataKey={yAxis}
-                                            domain={[6, 10]}
-                                            tick={false}
-                                            axisLine={false}
-                                            label={{ value: `${axisOptions[yAxis].label} →`, angle: -90, position: 'left', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
-                                        />
-                                        <Tooltip
-                                            cursor={{ strokeDasharray: '3 3' }}
-                                            content={({ active, payload }) => {
-                                                if (active && payload && payload.length) {
-                                                    const data = payload[0].payload;
-                                                    const color = getProducerColor(data.producer);
+                                <div className="h-[350px] md:h-[450px] w-full bg-black/40 rounded-[2rem] border border-white/5 overflow-hidden relative group-hover:border-white/10 transition-colors">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <ScatterChart margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
+                                            <XAxis
+                                                type="number"
+                                                dataKey={xAxis}
+                                                domain={[7, 10]}
+                                                tick={false}
+                                                axisLine={false}
+                                                label={{ value: `${axisOptions[xAxis].label} →`, position: 'bottom', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
+                                            />
+                                            <YAxis
+                                                type="number"
+                                                dataKey={yAxis}
+                                                domain={[6, 10]}
+                                                tick={false}
+                                                axisLine={false}
+                                                label={{ value: `${axisOptions[yAxis].label} →`, angle: -90, position: 'left', fill: '#64748b', fontSize: 12, fontWeight: 'bold' }}
+                                            />
+                                            <Tooltip
+                                                cursor={{ strokeDasharray: '3 3' }}
+                                                content={({ active, payload }) => {
+                                                    if (active && payload && payload.length) {
+                                                        const data = payload[0].payload;
+                                                        const color = getProducerColor(data.producer);
+                                                        return (
+                                                            <div className="glass-panel p-4 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-3xl min-w-[200px]">
+                                                                <div className="flex items-center gap-2 mb-2">
+                                                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                                                                    <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: color }}>{data.producer}</div>
+                                                                </div>
+                                                                <div className="text-lg font-black text-white mb-3 italic uppercase">{data.name}</div>
+                                                                <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-3">
+                                                                    <div className={xAxis === 'edge' || yAxis === 'edge' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                        <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'edge' || yAxis === 'edge' ? 'text-accent' : ''}`}>Edge</div>
+                                                                        <div className="text-sm font-mono font-bold text-white">{data.edge}</div>
+                                                                    </div>
+                                                                    <div className={xAxis === 'toughness' || yAxis === 'toughness' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                        <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'toughness' || yAxis === 'toughness' ? 'text-accent' : ''}`}>Tough</div>
+                                                                        <div className="text-sm font-mono font-bold text-white">{data.toughness}</div>
+                                                                    </div>
+                                                                    <div className={xAxis === 'corrosion' || yAxis === 'corrosion' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                        <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'corrosion' || yAxis === 'corrosion' ? 'text-accent' : ''}`}>Corr</div>
+                                                                        <div className="text-sm font-mono font-bold text-white">{data.corrosion}</div>
+                                                                    </div>
+                                                                    <div className={xAxis === 'sharpen' || yAxis === 'sharpen' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
+                                                                        <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'sharpen' || yAxis === 'sharpen' ? 'text-accent' : ''}`}>Sharp</div>
+                                                                        <div className="text-sm font-mono font-bold text-white">{data.sharpen}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }}
+                                            />
+                                            <Scatter
+                                                data={eliteSteels}
+                                                onClick={(data) => {
+                                                    setDetailSteel(data);
+                                                    incrementTrending(data.id);
+                                                }}
+                                                shape={(props) => {
+                                                    const { cx, cy, payload } = props;
+                                                    const color = getProducerColor(payload.producer);
                                                     return (
-                                                        <div className="glass-panel p-4 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-3xl min-w-[200px]">
-                                                            <div className="flex items-center gap-2 mb-2">
-                                                                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-                                                                <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: color }}>{data.producer}</div>
-                                                            </div>
-                                                            <div className="text-lg font-black text-white mb-3 italic uppercase">{data.name}</div>
-                                                            <div className="grid grid-cols-2 gap-3 border-t border-white/10 pt-3">
-                                                                <div className={xAxis === 'edge' || yAxis === 'edge' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
-                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'edge' || yAxis === 'edge' ? 'text-accent' : ''}`}>Edge</div>
-                                                                    <div className="text-sm font-mono font-bold text-white">{data.edge}</div>
-                                                                </div>
-                                                                <div className={xAxis === 'toughness' || yAxis === 'toughness' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
-                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'toughness' || yAxis === 'toughness' ? 'text-accent' : ''}`}>Tough</div>
-                                                                    <div className="text-sm font-mono font-bold text-white">{data.toughness}</div>
-                                                                </div>
-                                                                <div className={xAxis === 'corrosion' || yAxis === 'corrosion' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
-                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'corrosion' || yAxis === 'corrosion' ? 'text-accent' : ''}`}>Corr</div>
-                                                                    <div className="text-sm font-mono font-bold text-white">{data.corrosion}</div>
-                                                                </div>
-                                                                <div className={xAxis === 'sharpen' || yAxis === 'sharpen' ? 'bg-accent/10 p-2 rounded-lg border border-accent/20' : ''}>
-                                                                    <div className={`text-[9px] text-slate-500 uppercase font-black mb-1 tracking-widest ${xAxis === 'sharpen' || yAxis === 'sharpen' ? 'text-accent' : ''}`}>Sharp</div>
-                                                                    <div className="text-sm font-mono font-bold text-white">{data.sharpen}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <g className="cursor-pointer group/node">
+                                                            <circle cx={cx} cy={cy} r={7} fill={color} className="transition-all duration-300 group-hover/node:stroke-white group-hover/node:stroke-2" />
+                                                            <circle cx={cx} cy={cy} r={14} fill={color} fillOpacity={0.1} />
+                                                        </g>
                                                     );
-                                                }
-                                                return null;
-                                            }}
-                                        />
-                                        <Scatter
-                                            data={eliteSteels}
-                                            onClick={(data) => {
-                                                setDetailSteel(data);
-                                                incrementTrending(data.id);
-                                            }}
-                                            shape={(props) => {
-                                                const { cx, cy, payload } = props;
-                                                const color = getProducerColor(payload.producer);
-                                                return (
-                                                    <g className="cursor-pointer group/node">
-                                                        <circle cx={cx} cy={cy} r={7} fill={color} className="transition-all duration-300 group-hover/node:stroke-white group-hover/node:stroke-2" />
-                                                        <circle cx={cx} cy={cy} r={14} fill={color} fillOpacity={0.1} />
-                                                    </g>
-                                                );
-                                            }}
-                                        />
-                                    </ScatterChart>
-                                </ResponsiveContainer>
-                            </div>
+                                                }}
+                                            />
+                                        </ScatterChart>
+                                    </ResponsiveContainer>
+                                </div>
 
-                            {/* Producer Legend - Integrated Legend for the homepage */}
-                            <div className="mt-8 flex flex-wrap justify-center gap-3">
-                                {activeProducers.map(prod => (
-                                    <div key={prod} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5 hover:border-white/10 transition-colors">
-                                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: producerColors[prod] }} />
-                                        <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{prod}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
+                                {/* Producer Legend - Integrated Legend for the homepage */}
+                                <div className="mt-8 flex flex-wrap justify-center gap-3">
+                                    {activeProducers.map(prod => (
+                                        <div key={prod} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5 hover:border-white/10 transition-colors">
+                                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: producerColors[prod] }} />
+                                            <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{prod}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
                     </div>
+
 
                     {/* Right Column: Spotlight & Workbench (4 cols) */}
                     <div className="xl:col-span-4 space-y-8">
                         {/* Daily Spotlight - Elevated prominence */}
-                        {featuredSteel && (
+                        {featuredSteel && dashboardLayout.showSpotlight && (
                             <section className="glass-panel p-8 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group">
                                 <div className="relative z-10 space-y-8">
                                     <div className="flex items-center justify-between">
@@ -449,101 +464,107 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                             </section>
                         )}
 
+
                         {/* Find Your Steel CTA */}
-                        <section
-                            onClick={() => setShowRecommender(true)}
-                            className="glass-panel p-8 rounded-[3rem] border-white/5 bg-gradient-to-br from-accent/10 to-transparent relative overflow-hidden group cursor-pointer hover:border-accent/30 transition-all"
-                        >
-                            <div className="relative z-10">
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="text-[11px] font-black text-accent uppercase tracking-[0.3em]">Interactive Guide</div>
-                                    <div className="p-2 bg-black/40 rounded-xl border border-white/10 text-accent group-hover:bg-accent/10 transition-colors">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                        {dashboardLayout.showCategories && (
+                            <section
+                                onClick={() => setShowRecommender(true)}
+                                className="glass-panel p-8 rounded-[3rem] border-white/5 bg-gradient-to-br from-accent/10 to-transparent relative overflow-hidden group cursor-pointer hover:border-accent/30 transition-all"
+                            >
+                                <div className="relative z-10">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div className="text-[11px] font-black text-accent uppercase tracking-[0.3em]">Interactive Guide</div>
+                                        <div className="p-2 bg-black/40 rounded-xl border border-white/10 text-accent group-hover:bg-accent/10 transition-colors">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                                        </div>
+                                    </div>
+                                    <h3 className="text-2xl md:text-3xl font-display font-black text-white italic uppercase tracking-tighter mb-2 group-hover:text-accent transition-colors leading-tight">
+                                        Find Your<br />Steel
+                                    </h3>
+                                    <p className="text-slate-500 text-xs leading-relaxed mb-5 font-medium">
+                                        Answer 4 quick questions and get personalized steel recommendations.
+                                    </p>
+                                    <div className="flex items-center gap-2 text-accent font-black text-xs uppercase tracking-widest group-hover:gap-3 transition-all">
+                                        Start Wizard
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
                                     </div>
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-display font-black text-white italic uppercase tracking-tighter mb-2 group-hover:text-accent transition-colors leading-tight">
-                                    Find Your<br />Steel
-                                </h3>
-                                <p className="text-slate-500 text-xs leading-relaxed mb-5 font-medium">
-                                    Answer 4 quick questions and get personalized steel recommendations.
-                                </p>
-                                <div className="flex items-center gap-2 text-accent font-black text-xs uppercase tracking-widest group-hover:gap-3 transition-all">
-                                    Start Wizard
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-                                </div>
-                            </div>
-                            <div className="absolute bottom-0 right-0 w-40 h-40 bg-accent/15 rounded-full blur-3xl pointer-events-none group-hover:bg-accent/25 transition-colors" />
-                        </section>
+                                <div className="absolute bottom-0 right-0 w-40 h-40 bg-accent/15 rounded-full blur-3xl pointer-events-none group-hover:bg-accent/25 transition-colors" />
+                            </section>
+                        )}
 
                         {/* Active Workbench */}
-                        <section className={`glass-panel p-8 rounded-[3rem] border transition-all duration-500 ${compareList.length > 0 ? 'border-indigo-500/20 bg-indigo-500/5' : 'border-white/5 bg-white/[0.02]'}`}>
-                            <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Workbench</h3>
-                                {compareList.length > 0 && (
-                                    <button
-                                        onClick={() => setView('COMPARE')}
-                                        className="text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:text-white transition-colors"
-                                    >
-                                        Run analysis
-                                    </button>
-                                )}
-                            </div>
+                        {dashboardLayout.showTrending && (
+                            <section className={`glass-panel p-8 rounded-[3rem] border transition-all duration-500 ${compareList.length > 0 ? 'border-indigo-500/20 bg-indigo-500/5' : 'border-white/5 bg-white/[0.02]'}`}>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Workbench</h3>
+                                    {compareList.length > 0 && (
+                                        <button
+                                            onClick={() => setView('COMPARE')}
+                                            className="text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:text-white transition-colors"
+                                        >
+                                            Run analysis
+                                        </button>
+                                    )}
+                                </div>
 
-                            {compareList.length > 0 ? (
-                                <>
-                                    <div className="space-y-3 mb-4">
-                                        {compareList.map(s => (
-                                            <div key={s.id} className="flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5 group">
-                                                <div className="flex flex-col">
-                                                    <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
-                                                        {s.producer}
-                                                        {s.pm !== undefined && (
-                                                            <>
-                                                                <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
-                                                                <span className={s.pm ? "text-accent" : ""}>{s.pm ? 'PM' : 'CONV'}</span>
-                                                            </>
-                                                        )}
+                                {compareList.length > 0 ? (
+                                    <>
+                                        <div className="space-y-3 mb-4">
+                                            {compareList.map(s => (
+                                                <div key={s.id} className="flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5 group">
+                                                    <div className="flex flex-col">
+                                                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
+                                                            {s.producer}
+                                                            {s.pm !== undefined && (
+                                                                <>
+                                                                    <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
+                                                                    <span className={s.pm ? "text-accent" : ""}>{s.pm ? 'PM' : 'CONV'}</span>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                        <span className="text-xs font-black text-white italic">{s.name}</span>
                                                     </div>
-                                                    <span className="text-xs font-black text-white italic">{s.name}</span>
+                                                    <button
+                                                        onClick={(e) => toggleCompare(s, e)}
+                                                        className="p-1.5 text-slate-600 hover:text-red-400 transition-colors"
+                                                    >
+                                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                                    </button>
                                                 </div>
-                                                <button
-                                                    onClick={(e) => toggleCompare(s, e)}
-                                                    className="p-1.5 text-slate-600 hover:text-red-400 transition-colors"
-                                                >
-                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <button
-                                        onClick={() => setView('SEARCH')}
-                                        className="w-full py-2.5 text-[9px] font-black text-slate-500 hover:text-indigo-400 uppercase tracking-widest transition-colors border-t border-white/5 pt-4"
-                                    >
-                                        + Add more grades
-                                    </button>
-                                </>
-                            ) : (
-                                <div className="py-8 flex flex-col items-center justify-center text-center space-y-4">
-                                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 relative opacity-40">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500">
-                                            <path d="M21 7V3h-4M3 17v4h4M21 17v4h-4M3 7V3h4" />
-                                            <path d="M12 12h.01" />
-                                        </svg>
-                                        <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl animate-pulse" />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] font-black text-white uppercase tracking-widest mb-1 opacity-40">Select grades from the library to begin comparison</div>
-                                        <p className="text-[9px] text-slate-500 uppercase tracking-tighter leading-tight max-w-[150px] mb-4"></p>
+                                            ))}
+                                        </div>
                                         <button
                                             onClick={() => setView('SEARCH')}
-                                            className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/30 rounded-xl text-[9px] font-black text-slate-400 hover:text-white uppercase tracking-widest transition-all"
+                                            className="w-full py-2.5 text-[9px] font-black text-slate-500 hover:text-indigo-400 uppercase tracking-widest transition-colors border-t border-white/5 pt-4"
                                         >
-                                            Browse Grade Library
+                                            + Add more grades
                                         </button>
+                                    </>
+                                ) : (
+                                    <div className="py-8 flex flex-col items-center justify-center text-center space-y-4">
+                                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 relative opacity-40">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500">
+                                                <path d="M21 7V3h-4M3 17v4h4M21 17v4h-4M3 7V3h4" />
+                                                <path d="M12 12h.01" />
+                                            </svg>
+                                            <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl animate-pulse" />
+                                        </div>
+                                        <div>
+                                            <div className="text-[10px] font-black text-white uppercase tracking-widest mb-1 opacity-40">Select grades from the library to begin comparison</div>
+                                            <p className="text-[9px] text-slate-500 uppercase tracking-tighter leading-tight max-w-[150px] mb-4"></p>
+                                            <button
+                                                onClick={() => setView('SEARCH')}
+                                                className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/30 rounded-xl text-[9px] font-black text-slate-400 hover:text-white uppercase tracking-widest transition-all"
+                                            >
+                                                Browse Grade Library
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                        </section>
+                                )}
+                            </section>
+                        )}
+
 
                         {/* System Status Card */}
                         <div className="p-8 rounded-[3rem] border border-white/10 bg-black/40 flex items-center justify-between group hover:border-accent/20 transition-all">

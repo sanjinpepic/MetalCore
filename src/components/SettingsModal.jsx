@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSettings } from '../context/SettingsContext';
+import { hapticFeedback } from '../hooks/useMobile';
+
 
 const SettingsModal = ({ onClose }) => {
-    const { unitSystem, setUnitSystem } = useSettings();
+    const { unitSystem, setUnitSystem, dashboardLayout, setDashboardLayout } = useSettings();
 
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={onClose}>
@@ -30,30 +32,71 @@ const SettingsModal = ({ onClose }) => {
                         <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Unit System</label>
                         <div className="grid grid-cols-2 gap-3">
                             <button
-                                onClick={() => setUnitSystem('metric')}
-                                className={`p-4 rounded-xl text-xs md:text-sm font-black uppercase tracking-wider transition-all ${
-                                    unitSystem === 'metric'
-                                        ? 'bg-accent text-black shadow-lg shadow-accent/20 border border-accent'
-                                        : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
-                                }`}
+                                onClick={() => {
+                                    hapticFeedback('light');
+                                    setUnitSystem('metric');
+                                }}
+                                className={`p-4 rounded-xl text-xs md:text-sm font-black uppercase tracking-wider transition-all ${unitSystem === 'metric'
+                                    ? 'bg-accent text-black shadow-lg shadow-accent/20 border border-accent'
+                                    : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
+                                    }`}
                             >
                                 Metric (°C)
                             </button>
                             <button
-                                onClick={() => setUnitSystem('imperial')}
-                                className={`p-4 rounded-xl text-xs md:text-sm font-black uppercase tracking-wider transition-all ${
-                                    unitSystem === 'imperial'
-                                        ? 'bg-accent text-black shadow-lg shadow-accent/20 border border-accent'
-                                        : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
-                                }`}
+                                onClick={() => {
+                                    hapticFeedback('light');
+                                    setUnitSystem('imperial');
+                                }}
+                                className={`p-4 rounded-xl text-xs md:text-sm font-black uppercase tracking-wider transition-all ${unitSystem === 'imperial'
+                                    ? 'bg-accent text-black shadow-lg shadow-accent/20 border border-accent'
+                                    : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
+                                    }`}
                             >
                                 Imperial (°F)
                             </button>
                         </div>
-                        <p className="text-[9px] md:text-[10px] text-slate-500 leading-relaxed italic font-medium">
-                            Choose your preferred temperature unit for heat treatment data.
-                        </p>
                     </div>
+
+                    <div className="space-y-3 pt-6 border-t border-white/5">
+                        <label className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest block">Dashboard Layout</label>
+                        <div className="grid grid-cols-1 gap-2">
+                            {[
+                                { id: 'showMatrix', label: 'Performance Matrix', icon: <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18" /> },
+                                { id: 'showSpotlight', label: 'Daily Spotlight', icon: <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /> },
+                                { id: 'showCategories', label: 'Steel Categories', icon: <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /> },
+                                { id: 'showTrending', label: 'Active Workbench', icon: <path d="M14.5 17.5 3 6 3 3 6 3 17.5 14.5" /> }
+                            ].map(item => (
+                                <button
+                                    key={item.id}
+                                    onClick={() => {
+                                        hapticFeedback('light');
+                                        setDashboardLayout({ [item.id]: !dashboardLayout[item.id] });
+                                    }}
+                                    className={`w-full p-4 rounded-xl flex items-center justify-between group transition-all ${dashboardLayout[item.id]
+                                        ? 'bg-white/10 border-white/20'
+                                        : 'bg-white/5 border-white/5 opacity-60'
+                                        } border`}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={dashboardLayout[item.id] ? 'text-accent' : 'text-slate-500'}>
+                                            {item.icon}
+                                        </svg>
+                                        <span className={`text-[11px] font-bold uppercase tracking-wider ${dashboardLayout[item.id] ? 'text-white' : 'text-slate-500'}`}>{item.label}</span>
+                                    </div>
+                                    <div className={`w-10 h-6 rounded-full relative transition-all duration-300 ${dashboardLayout[item.id] ? 'bg-accent/90 shadow-[0_0_15px_-3px_#f59e0b]' : 'bg-white/10'
+                                        }`}>
+                                        <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300 shadow-xl ${dashboardLayout[item.id] ? 'left-5' : 'left-1'
+                                            }`} />
+                                    </div>
+
+
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+
 
                     <button onClick={onClose} className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all duration-300 shadow-lg shadow-white/10 active:scale-[0.98]">Save Settings</button>
                 </div>

@@ -14,13 +14,28 @@ export const useSettings = () => {
 
 export const SettingsProvider = ({ children }) => {
     const [unitSystem, setUnitSystem] = useState('metric'); // 'metric' or 'imperial'
+    const [dashboardLayout, setDashboardLayout] = useState({
+        showSpotlight: true,
+        showMatrix: true,
+        showTrending: true,
+        showCategories: true
+    });
 
     // Load from localStorage on mount
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('metalcore_unit_system');
-            if (saved && (saved === 'metric' || saved === 'imperial')) {
-                setUnitSystem(saved);
+            const savedUnit = localStorage.getItem('metalcore_unit_system');
+            if (savedUnit && (savedUnit === 'metric' || savedUnit === 'imperial')) {
+                setUnitSystem(savedUnit);
+            }
+
+            const savedLayout = localStorage.getItem('metalcore_dashboard_layout');
+            if (savedLayout) {
+                try {
+                    setDashboardLayout(JSON.parse(savedLayout));
+                } catch (e) {
+                    console.error("Failed to parse dashboard layout");
+                }
             }
         }
     }, []);
@@ -35,12 +50,23 @@ export const SettingsProvider = ({ children }) => {
         }
     };
 
+    const updateDashboardLayout = (newLayout) => {
+        const updated = { ...dashboardLayout, ...newLayout };
+        setDashboardLayout(updated);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('metalcore_dashboard_layout', JSON.stringify(updated));
+        }
+    };
+
     const value = {
         unitSystem,
         setUnitSystem: updateUnitSystem,
         isMetric: unitSystem === 'metric',
         isImperial: unitSystem === 'imperial',
+        dashboardLayout,
+        setDashboardLayout: updateDashboardLayout
     };
+
 
     return (
         <SettingsContext.Provider value={value}>
