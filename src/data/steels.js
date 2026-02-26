@@ -237,22 +237,22 @@ export const PREMIUM_STEELS = [
         use_case: "Abrasive cutting tasks like cardboard, rope, and industrial materials."
     },
     {
-        id: 'crucible-4', name: "CPM 15V", producer: "Crucible", parent: "Erasteel", pm: true, C: 3.4, Cr: 5.25, V: 14.5, Mo: 1.3, W: 0, Co: 0, edge: 9, toughness: 4, corrosion: 4, sharpen: 3,
+        id: 'crucible-4', name: "CPM 15V", producer: "Crucible", parent: "Erasteel", pm: true, C: 3.4, Cr: 5.25, V: 14.5, Mo: 1.3, W: 0, Co: 0, edge: 10, toughness: 4, corrosion: 4, sharpen: 3,
         ht_curve: "200:59,400:57,500:58",
-        desc: "A powder metallurgy version of 154CM. Favored by custom makers for its mirror-polish ability.",
-        knives: ["Grimsmo Norseman (Older)", "Custom Traditional Folders"],
-        pros: ["Takes an incredible finish", "Very easy to sharpen", "Consistent performance"],
-        cons: ["Lower edge retention than modern super-steels"],
-        use_case: "Custom knives and premium production folders where aesthetics matter."
+        desc: "An extreme wear-resistant high-vanadium powder steel designed for maximum edge retention. Popular for industrial and heavy-duty cutting tools.",
+        knives: ["Spyderco (sprint runs)", "Custom extreme-use blades"],
+        pros: ["Unrivaled edge retention", "Extreme vanadium carbide content"],
+        cons: ["Very difficult to sharpen", "Non-stainless"],
+        use_case: "Abrasive cutting specialists and industrial tools."
     },
     {
         id: 'crucible-3', name: "CPM 154", producer: "Crucible", parent: "Erasteel", pm: true, C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0, edge: 6, toughness: 5, corrosion: 8, sharpen: 7,
         ht_curve: "200:65,400:60,600:62",
-        desc: "An extremely wear-resistant high-vanadium powder steel designed for maximum edge retention. Popular for heavy-duty and slicer blades where long lasting sharpness matters.",
-        knives: ["Chris Reeve Sebenza (special runs)", "Busse Combat Razel", "Custom Hard-Use Folders"],
-        pros: ["Outstanding edge retention", "Great for demanding cutting tasks", "Excellent wear resistance"],
-        cons: ["Difficult to sharpen", "More challenging to polish than lower-V steels", "Lower corrosion resistance"],
-        use_case: "Heavy-duty fixed blades and folders where extreme edge durability is the priority; less ideal if polish and ease of sharpening are key."
+        desc: "A powder metallurgy version of 154CM. Favored by custom makers for its mirror-polish ability and fine grain structure.",
+        knives: ["Grimsmo Norseman", "Custom Traditional Folders", "Chris Reeve Sebenza (special runs)"],
+        pros: ["Takes an incredible mirror finish", "Very easy to sharpen", "Consistent PM performance"],
+        cons: ["Lower edge retention than modern super-steels"],
+        use_case: "Custom knives and premium production folders where aesthetics and finish matter."
     },
     {
         id: 'crucible-5', name: "CPM 20CV", producer: "Crucible", parent: "Erasteel", pm: true, C: 1.9, Cr: 20.0, V: 4.0, Mo: 1.0, W: 0.6, Co: 0, edge: 9.5, toughness: 4, corrosion: 9.5, sharpen: 3,
@@ -424,7 +424,7 @@ export const PREMIUM_STEELS = [
 
     // --- ERASTEEL ---
     {
-        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", pm: true, C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0, edge: 8.5, toughness: 8, corrosion: 1, sharpen: 3,
+        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", pm: true, C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0, edge: 8.0, toughness: 8.0, corrosion: 1, sharpen: 3,
         ht_curve: "500:64,540:66,580:63",
         desc: "A high-performance powder metallurgy high-speed steel optimized for extreme toughness and wear resistance.",
         knives: ["Custom Industrial Knives", "High-Performance Work Tools"],
@@ -435,7 +435,7 @@ export const PREMIUM_STEELS = [
     {
         id: 'erasteel-5', name: "ASP 2015", producer: "Erasteel", pm: true,
         C: 1.6, Cr: 4.0, V: 5.0, Mo: 0, W: 12.0, Co: 5.0,
-        edge: 9, toughness: 7, corrosion: 1, sharpen: 3,
+        edge: 8.5, toughness: 7.0, corrosion: 1, sharpen: 3,
         ht_curve: "500:65,540:67,580:63",
         desc: "A mid-cobalt PM high-speed steel bridging the gap between ASP 2003 and ASP 2030. Better hot-hardness than cobalt-free variants while maintaining reasonable toughness.",
         knives: ["Custom high-performance knives", "Precision cutting tools"],
@@ -591,7 +591,7 @@ export const PREMIUM_STEELS = [
         use_case: "Japanese production knives and industrial cutting where D2-class performance is needed."
     },
     {
-        id: 'others-7', name: "YXR7", producer: "Hitachi", pm: false, C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 9, toughness: 8, corrosion: 1, sharpen: 2,
+        id: 'others-7', name: "YXR7", producer: "Hitachi", pm: false, C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 8.2, toughness: 8.3, corrosion: 1, sharpen: 2,
         ht_curve: "500:65,540:67,600:63",
         desc: "A high-performance Matrix High Speed Steel used by Rockstead for its extreme hardness and toughness.",
         knives: ["Rockstead Higo II", "Rockstead Shin"],
@@ -770,7 +770,7 @@ export const PREMIUM_STEELS = [
         use_case: "Industrial cutting and custom knives optimized purely for edge retention."
     },
     {
-        id: 'uddeholm-2', name: "Vanadis 4E", producer: "Uddeholm", pm: true, C: 1.4, Cr: 4.7, V: 3.7, Mo: 3.5, W: 0, Co: 0, edge: 8, toughness: 9, corrosion: 1, sharpen: 4,
+        id: 'uddeholm-2', name: "Vanadis 4E", producer: "Uddeholm", pm: true, C: 1.4, Cr: 4.7, V: 3.7, Mo: 3.5, W: 0, Co: 0, edge: 6.5, toughness: 9.5, corrosion: 1, sharpen: 4,
         ht_curve: "500:60,540:62,600:58",
         desc: "A chromium-molybdenum-vanadium alloyed steel characterized by high wear resistance and very good toughness.",
         knives: ["Custom Bushcraft Knives", "Heavy Duty Choppers"],

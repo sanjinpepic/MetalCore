@@ -17,6 +17,7 @@ const PerformanceFrontier = ({ steel, steels }) => {
     // Simple Pareto Frontier estimation (highest of either)
     const frontierPoints = [
         { toughness: 10, edge: 4 },   // CPM 3V area
+        { toughness: 8, edge: 8.5 },  // YXR7/ASP area (New Peak)
         { toughness: 7, edge: 8 },    // MagnaCut area
         { toughness: 4, edge: 10 },   // Maxamet/S110V area
     ].sort((a, b) => a.toughness - b.toughness);
@@ -115,7 +116,7 @@ const PerformanceFrontier = ({ steel, steels }) => {
                 <div>
                     <h4 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Metallurgical Efficiency</h4>
                     <p className="text-[10px] text-slate-400 leading-relaxed italic">
-                        {steel.name} is positioned <b>{Math.max(15 - steel.toughness - steel.edge, 0).toFixed(1)} units</b> away from the theoretical performance limit.
+                        {steel.name} is positioned <b>{Math.max(18 - steel.toughness - steel.edge, 0).toFixed(1)} units</b> away from the theoretical performance limit.
                         Its specific gravity of {steel.C}% Carbon suggests a focus on <b>{steel.edge > steel.toughness ? 'Secondary Carbide Volume' : 'Impact Stability'}</b>.
                     </p>
                 </div>
