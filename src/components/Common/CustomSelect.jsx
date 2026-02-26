@@ -13,7 +13,11 @@ const CustomSelect = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
     const containerRef = useRef(null);
+    const inputRef = useRef(null);
+    const listRef = useRef(null);
 
     const selectedOption = useMemo(() =>
         options.find(opt => opt.id === value),
@@ -25,6 +29,12 @@ const CustomSelect = ({
         ),
         [options, searchTerm]);
 
+    // Reset highlight when filter changes
+    useEffect(() => {
+        setHighlightedIndex(filteredOptions.length > 0 ? 0 : -1);
+    }, [searchTerm, filteredOptions.length]);
+
+    // Handle clicks outside the component
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -35,20 +45,78 @@ const CustomSelect = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Ensure highlighted item is in view
+    useEffect(() => {
+        if (isOpen && highlightedIndex >= 0 && listRef.current) {
+            const listElement = listRef.current;
+            const highlightedEl = listElement.children[highlightedIndex];
+
+            if (highlightedEl) {
+                const listRect = listElement.getBoundingClientRect();
+                const elRect = highlightedEl.getBoundingClientRect();
+
+                if (elRect.bottom > listRect.bottom) {
+                    listElement.scrollTop += elRect.bottom - listRect.bottom;
+                } else if (elRect.top < listRect.top) {
+                    listElement.scrollTop -= listRect.top - elRect.top;
+                }
+            }
+        }
+    }, [highlightedIndex, isOpen]);
+
+    const handleMainButtonKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            setIsOpen(true);
+        }
+    };
+
+    const handleInputKeyDown = (e) => {
+        if (!isOpen) return;
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                setHighlightedIndex(prev =>
+                    prev < filteredOptions.length - 1 ? prev + 1 : prev
+                );
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                setHighlightedIndex(prev => prev > 0 ? prev - 1 : 0);
+                break;
+            case 'Enter':
+                e.preventDefault();
+                if (highlightedIndex >= 0 && highlightedIndex < filteredOptions.length) {
+                    onChange(filteredOptions[highlightedIndex]);
+                    setIsOpen(false);
+                }
+                break;
+            case 'Escape':
+                e.preventDefault();
+                setIsOpen(false);
+                break;
+            default:
+                break;
+        }
+    };
+
     const colors = {
         indigo: {
             border: 'border-indigo-500/30',
             bg: 'bg-indigo-500/5',
             text: 'text-indigo-400',
             glow: 'shadow-[0_0_15px_rgba(99,102,241,0.1)]',
-            accent: 'bg-indigo-500'
+            accent: 'bg-indigo-500',
+            highlight: 'bg-indigo-500/20'
         },
         emerald: {
             border: 'border-emerald-500/30',
             bg: 'bg-emerald-500/5',
             text: 'text-emerald-400',
             glow: 'shadow-[0_0_15px_rgba(16,185,129,0.1)]',
-            accent: 'bg-emerald-500'
+            accent: 'bg-emerald-500',
+            highlight: 'bg-emerald-500/20'
         }
     };
 
@@ -60,9 +128,18 @@ const CustomSelect = ({
                 type="button"
                 onClick={() => {
                     setIsOpen(!isOpen);
-                    if (!isOpen) setSearchTerm('');
+                    if (!isOpen) {
+                        setSearchTerm('');
+                        // Pre-highlight the currently selected option if it exists
+                        const idx = filteredOptions.findIndex(opt => opt.id === value);
+                        setHighlightedIndex(idx >= 0 ? idx : 0);
+                    }
                 }}
-                className={`w-full bg-white/5 border ${isOpen ? 'border-white/20' : 'border-white/10'} rounded-2xl px-5 py-4 flex items-center justify-between group transition-all hover:bg-white/[0.07] ${isOpen ? activeColor.glow : ''}`}
+                onKeyDown={handleMainButtonKeyDown}
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
+                aria-label={selectedOption ? `Selected: ${selectedOption.name}` : placeholder}
+                className={`w-full bg-white/5 border ${isOpen ? 'border-white/20' : 'border-white/10'} rounded-2xl px-5 py-4 flex items-center justify-between group transition-all hover:bg-white/[0.07] ${isOpen ? activeColor.glow : ''} focus:outline-none focus:ring-2 focus:ring-${accentColor}-500/50`}
             >
                 <div className="flex flex-col items-start">
                     <span className="text-sm font-black text-white uppercase tracking-tight italic">
@@ -90,11 +167,13 @@ const CustomSelect = ({
                         <div className="p-3 border-b border-white/5">
                             <div className="relative">
                                 <input
+                                    ref={inputRef}
                                     autoFocus
                                     type="text"
                                     placeholder="Search steels..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
+                                    onKeyDown={handleInputKeyDown}
                                     className="w-full bg-white/5 border border-white/5 rounded-xl px-10 py-3 text-xs font-black text-white uppercase tracking-widest outline-none focus:border-indigo-500/50 transition-all"
                                 />
                                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
@@ -105,36 +184,56 @@ const CustomSelect = ({
                             </div>
                         </div>
 
-                        <div className="max-h-[300px] overflow-y-auto custom-scrollbar p-2">
+                        <div
+                            ref={listRef}
+                            role="listbox"
+                            className="max-h-[300px] overflow-y-auto custom-scrollbar p-2 scroll-smooth"
+                        >
                             {filteredOptions.length > 0 ? (
-                                filteredOptions.map((opt) => (
-                                    <button
-                                        key={opt.id}
-                                        onClick={() => {
-                                            onChange(opt);
-                                            setIsOpen(false);
-                                        }}
-                                        className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all group ${opt.id === value ? 'bg-white/5' : 'hover:bg-white/5'}`}
-                                    >
-                                        <div className="flex flex-col items-start">
-                                            <span className={`text-sm font-black uppercase italic tracking-tight ${opt.id === value ? activeColor.text : 'text-slate-400 group-hover:text-white'}`}>
-                                                {opt.name}
-                                            </span>
-                                            {opt.producer && (
-                                                <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">
-                                                    {opt.producer}
+                                filteredOptions.map((opt, index) => {
+                                    const isHighlighted = index === highlightedIndex;
+                                    const isSelected = opt.id === value;
+
+                                    return (
+                                        <button
+                                            key={opt.id}
+                                            role="option"
+                                            aria-selected={isSelected}
+                                            onClick={() => {
+                                                onChange(opt);
+                                                setIsOpen(false);
+                                            }}
+                                            onMouseEnter={() => setHighlightedIndex(index)}
+                                            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all group outline-none
+                                                ${isSelected ? 'bg-white/5' : ''}
+                                                ${isHighlighted && !isSelected ? activeColor.highlight : ''}
+                                                ${!isSelected && !isHighlighted ? 'hover:bg-white/5' : ''}
+                                            `}
+                                        >
+                                            <div className="flex flex-col items-start">
+                                                <span className={`text-sm font-black uppercase italic tracking-tight 
+                                                    ${isSelected ? activeColor.text : ''} 
+                                                    ${isHighlighted && !isSelected ? 'text-white' : ''}
+                                                    ${!isSelected && !isHighlighted ? 'text-slate-400 group-hover:text-white' : ''}
+                                                `}>
+                                                    {opt.name}
                                                 </span>
+                                                {opt.producer && (
+                                                    <span className={`text-[9px] font-black uppercase tracking-widest ${isSelected ? activeColor.text + '/70' : 'text-slate-600'}`}>
+                                                        {opt.producer}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {isSelected && (
+                                                <motion.div layoutId="check" className={activeColor.text}>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                                        <polyline points="20 6 9 17 4 12" />
+                                                    </svg>
+                                                </motion.div>
                                             )}
-                                        </div>
-                                        {opt.id === value && (
-                                            <motion.div layoutId="check" className={activeColor.text}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                            </motion.div>
-                                        )}
-                                    </button>
-                                ))
+                                        </button>
+                                    );
+                                })
                             ) : (
                                 <div className="py-8 text-center">
                                     <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">No specimens matched</p>
@@ -144,7 +243,7 @@ const CustomSelect = ({
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 };
 
