@@ -3,6 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import ProducerMap from './ProducerMap';
 import Footer from './Footer';
+import ViewHeader from './Common/ViewHeader';
+
 
 const GLOSSARY_CATEGORIES = [
     { id: 'ALL', label: 'All' },
@@ -75,20 +77,22 @@ const EducationView = ({ glossary, faq, producers }) => {
     }, [faq]);
 
     return (
-        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar max-w-[100vw] [overflow-x:clip]">
-            {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
-            <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black relative">
+            {/* Desktop gradient overlay */}
+            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
+
             {/* Header */}
-            <header className="p-6 md:p-12 pb-4 md:pb-8 pt-20 md:pt-16 space-y-2 md:space-y-6 shrink-0 bg-gradient-to-b from-indigo-500/10 to-transparent md:bg-none">
-                <div>
-                    <div className="text-[10px] md:text-xs font-black text-indigo-400 mb-1 md:mb-3 uppercase tracking-widest flex items-center gap-2">
-                        <span className="w-6 h-px bg-indigo-500/30"></span>
-                        Knowledge Base
-                    </div>
-                    <h1 className="text-2xl md:text-6xl font-display font-black text-white tracking-tighter italic uppercase leading-none md:leading-tight">Metallurgy <br className="hidden md:block" /><span className="text-accent">Academy</span></h1>
-                    <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">Master the science of steel. Explore technical terms, frequently asked questions, and the global industry leaders.</p>
-                </div>
-            </header>
+            <ViewHeader
+                subtitle="Knowledge Base"
+                title="Metallurgy"
+                highlight="Academy"
+                color="indigo"
+            >
+                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">
+                    Master the science of steel. Explore technical terms, frequently asked questions, and the global industry leaders.
+                </p>
+            </ViewHeader>
+
 
             {/* Navigation Tabs & Search */}
             <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl">
@@ -126,7 +130,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                     className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wide transition-all whitespace-nowrap shrink-0 ${activeCategory === cat.id
                                         ? 'bg-indigo-500 text-black shadow-md shadow-indigo-500/20'
                                         : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'
-                                    }`}
+                                        }`}
                                 >
                                     {cat.label}
                                 </button>
@@ -187,7 +191,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                         className={`px-5 py-2.5 rounded-2xl text-xs font-black uppercase italic tracking-wider transition-all shrink-0 ${activeCategory === cat.id
                                             ? 'bg-indigo-500 text-black shadow-lg shadow-indigo-500/20'
                                             : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10 border border-white/5'
-                                        }`}
+                                            }`}
                                     >
                                         {cat.label}
                                     </button>

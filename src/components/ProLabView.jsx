@@ -4,6 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { useUser } from '../context/UserContext';
 import { useSettings } from '../context/SettingsContext';
 import Footer from './Footer';
+import ViewHeader from './Common/ViewHeader';
+
 import AlloyBreakdown, { ELEMENT_DATA } from './ProLab/AlloyBreakdown';
 import PerformanceFrontier from './ProLab/PerformanceFrontier';
 import HeatTreatMaster from './ProLab/HeatTreatMaster';
@@ -27,32 +29,38 @@ const ProLabView = ({ steels }) => {
     }, [simSteel, compareSteel]);
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-slate-950 p-6 md:p-12">
-            <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div>
-                    <div className="text-xs font-black text-indigo-500 uppercase tracking-[0.3em] mb-2 italic">Metallurgical Suite</div>
-                    <h1 className="text-4xl md:text-6xl font-display font-black text-white italic uppercase tracking-tighter leading-none">
-                        PRO LAB <span className="text-indigo-500 underline underline-offset-8 decoration-4">ANALYTICS</span>
-                    </h1>
-                </div>
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black relative">
+            {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
+            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-500/10 to-transparent pointer-events-none" />
 
-                <div className="flex gap-2 bg-white/5 p-1 rounded-2xl border border-white/5 w-fit">
-                    <button
-                        onClick={() => setActiveTab('ANALYZE')}
-                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'ANALYZE' ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-slate-300'}`}
-                    >
-                        Deep Analysis
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('DUEL')}
-                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'DUEL' ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-slate-300'}`}
-                    >
-                        Alloy Duel
-                    </button>
-                </div>
-            </header>
+            <ViewHeader
+                subtitle="Metallurgical Suite"
+                title="Pro Lab"
+                highlight="Analytics"
+                color="orange"
+            />
 
-            <div className="flex flex-col gap-8 pb-32">
+            {/* Navigation Tabs */}
+            <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl mb-6 md:mb-12">
+                <div className="px-6 md:px-12 pb-3 pt-2 md:py-4 flex flex-wrap items-center gap-4 border-b border-white/5">
+                    <div className="flex gap-2 overflow-x-auto no-scrollbar">
+                        <button
+                            onClick={() => setActiveTab('ANALYZE')}
+                            className={`px-6 py-3 rounded-2xl text-xs md:text-sm font-black whitespace-nowrap uppercase italic tracking-wider transition-all shrink-0 ${activeTab === 'ANALYZE' ? 'bg-orange-500 text-black scale-105 shadow-lg shadow-orange-500/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                        >
+                            Deep Analysis
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('DUEL')}
+                            className={`px-6 py-3 rounded-2xl text-xs md:text-sm font-black whitespace-nowrap uppercase italic tracking-wider transition-all shrink-0 ${activeTab === 'DUEL' ? 'bg-orange-500 text-black scale-105 shadow-lg shadow-orange-500/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                        >
+                            Alloy Duel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-8 pb-32 px-6 md:px-12">
                 {/* Global Selection Bar */}
                 <div className="glass-panel p-6 rounded-3xl flex flex-wrap items-center gap-6 border-white/5">
                     <div className="flex flex-col gap-2">

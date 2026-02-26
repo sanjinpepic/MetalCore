@@ -13,6 +13,74 @@ export const RADIUS = {
   full: 'rounded-full'    // Circles (buttons, avatars)
 };
 
+// View-Specific Color Themes
+export const THEMES = {
+  emerald: {
+    id: 'emerald',
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500',
+    border: 'border-emerald-500/20',
+    glow: 'from-emerald-500/20',
+    sidebar: 'rgba(16, 185, 129, 0.10)'
+  },
+  amber: {
+    id: 'amber',
+    text: 'text-amber-400',
+    bg: 'bg-amber-500',
+    border: 'border-amber-500/20',
+    glow: 'from-amber-500/20',
+    sidebar: 'rgba(245, 158, 11, 0.10)'
+  },
+  rose: {
+    id: 'rose',
+    text: 'text-rose-400',
+    bg: 'bg-rose-500',
+    border: 'border-rose-500/20',
+    glow: 'from-rose-500/20',
+    sidebar: 'rgba(244, 63, 94, 0.10)'
+  },
+  sky: {
+    id: 'sky',
+    text: 'text-sky-400',
+    bg: 'bg-sky-500',
+    border: 'border-sky-500/20',
+    glow: 'from-sky-500/20',
+    sidebar: 'rgba(14, 165, 233, 0.10)'
+  },
+  indigo: {
+    id: 'indigo',
+    text: 'text-indigo-400',
+    bg: 'bg-indigo-500',
+    border: 'border-indigo-500/20',
+    glow: 'from-indigo-500/20',
+    sidebar: 'rgba(99, 102, 241, 0.10)'
+  },
+  orange: {
+    id: 'orange',
+    text: 'text-orange-400',
+    bg: 'bg-orange-500',
+    border: 'border-orange-500/20',
+    glow: 'from-orange-500/20',
+    sidebar: 'rgba(249, 115, 22, 0.10)'
+  },
+  cyan: {
+    id: 'cyan',
+    text: 'text-cyan-400',
+    bg: 'bg-cyan-500',
+    border: 'border-cyan-500/20',
+    glow: 'from-cyan-500/20',
+    sidebar: 'rgba(6, 182, 212, 0.10)'
+  },
+  violet: {
+    id: 'violet',
+    text: 'text-violet-400',
+    bg: 'bg-violet-500',
+    border: 'border-violet-500/20',
+    glow: 'from-violet-500/20',
+    sidebar: 'rgba(139, 92, 246, 0.10)'
+  }
+};
+
 // Shadow Patterns
 export const SHADOW = {
   card: 'shadow-xl',                           // Default cards

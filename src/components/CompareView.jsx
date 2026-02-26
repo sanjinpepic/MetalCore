@@ -3,6 +3,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
 import Footer from './Footer';
+import ViewHeader from './Common/ViewHeader';
+
 
 const CompareView = ({ items, setView, toggleCompare, clearCompare, generateReport, isAiLoading }) => {
     const [copied, setCopied] = useState(false);
@@ -51,21 +53,26 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
     }
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-slate-950">
-            <header className="px-4 py-3 md:p-12 flex items-center justify-between sticky top-0 bg-slate-950/90 backdrop-blur-xl z-[90] border-b border-white/10 pt-12 md:pt-12">
-                <div className="flex items-center gap-3 md:gap-6 shrink-0">
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black relative">
+            {/* View-wide background glow */}
+            <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-500/10 to-transparent pointer-events-none" />
+
+            <ViewHeader
+                subtitle="Analysis"
+                title="Side-by-Side"
+                highlight="Comparison"
+                color="cyan"
+                className="sticky top-0 bg-slate-950/90 backdrop-blur-xl z-[90] border-b border-white/10"
+            >
+                <div className="absolute top-1/2 -translate-y-1/2 left-4 md:left-12 flex items-center gap-3">
                     <button onClick={() => setView('SEARCH')} className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-slate-400 hover:text-white transition-all border border-white/5 group">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:-translate-x-1 transition-transform">
                             <path d="m15 18-6-6 6-6" />
                         </svg>
                     </button>
-                    <div>
-                        <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-[0.2em] mb-1">Analysis</div>
-                        <h2 className="text-lg md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">SIDE-BY-SIDE</h2>
-                    </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="absolute top-1/2 -translate-y-1/2 right-4 md:right-12 flex items-center gap-3">
                     <button
                         onClick={shareComparison}
                         className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-slate-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all"
@@ -96,7 +103,8 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                         </svg>
                     </button>
                 </div>
-            </header>
+            </ViewHeader>
+
 
             <div className="p-6 md:p-12 space-y-12">
                 {/* Cards Row */}

@@ -7,16 +7,27 @@ import { hapticFeedback } from '../hooks/useMobile';
 const SIDEBAR_WIDTH = 288; // w-72 = 18rem = 288px
 
 // Gradient tint colors that match each view's theme
-// Opacity matches the views' /10 (10%), fades at ~40% to align with header gradient spread
 const VIEW_GRADIENTS = {
-    HOME: 'rgba(16,185,129,0.10)',    // emerald  – matches from-emerald-500/10
-    SEARCH: 'rgba(245,158,11,0.10)',     // amber    – matches from-amber-500/10
-    MATRIX: 'rgba(244,63,94,0.10)',      // rose     – matches from-rose-500/10
-    KNIVES: 'rgba(14,165,233,0.10)',     // sky      – matches from-sky-500/10
-    EDUCATION: 'rgba(99,102,241,0.10)',     // indigo   – matches from-indigo-500/10
-    PROFILE: 'rgba(139,92,246,0.10)',     // violet   – matches from-violet-500/10
-    COMPARE: 'rgba(148,163,184,0.06)',    // slate
-    PRO_LAB: 'rgba(245,158,11,0.08)',     // accent
+    HOME: 'rgba(16,185,129,0.10)',    // emerald
+    SEARCH: 'rgba(245,158,11,0.10)',   // amber
+    MATRIX: 'rgba(244,63,94,0.10)',    // rose
+    KNIVES: 'rgba(14,165,233,0.10)',   // sky
+    EDUCATION: 'rgba(99,102,241,0.10)', // indigo
+    PRO_LAB: 'rgba(249,115,22,0.10)',  // orange
+    COMPARE: 'rgba(6,182,212,0.10)',   // cyan
+    PROFILE: 'rgba(139,92,246,0.10)',  // violet
+};
+
+// Map view IDs to tailwind color names for active state
+const VIEW_COLORS = {
+    HOME: 'emerald',
+    SEARCH: 'amber',
+    MATRIX: 'rose',
+    KNIVES: 'sky',
+    EDUCATION: 'indigo',
+    PRO_LAB: 'orange',
+    COMPARE: 'cyan',
+    PROFILE: 'violet'
 };
 
 const Sidebar = ({
@@ -398,10 +409,10 @@ const Sidebar = ({
                     <div className="mt-4 px-1">
                         <button
                             onClick={() => { hapticFeedback('light'); openCommandPalette(); }}
-                            className="w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-white/10 transition-all group"
+                            className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-${VIEW_COLORS[view] || 'amber'}-500/30 transition-all group`}
                         >
                             <div className="flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 group-hover:text-accent transition-colors">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-slate-500 group-hover:text-${VIEW_COLORS[view] || 'amber'}-400 transition-colors`}>
                                     <circle cx="11" cy="11" r="8" />
                                     <path d="m21 21-4.35-4.35" />
                                 </svg>
@@ -416,24 +427,31 @@ const Sidebar = ({
 
                     {/* Desktop Navigation - Hidden on Mobile */}
                     <div className="hidden md:flex flex-col gap-1.5 mt-4 md:mt-8">
-                        {navItems.map(nav => (
-                            <button
-                                key={nav.id}
-                                onClick={() => handleNavClick(nav.id)}
-                                data-tour={
-                                    nav.id === 'SEARCH' ? 'nav-search' :
-                                        nav.id === 'EDUCATION' ? 'nav-education' :
-                                            nav.id === 'MATRIX' ? 'nav-matrix' :
-                                                nav.id === 'KNIVES' ? 'nav-knives' : undefined
-                                }
-                                className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${view === nav.id ? 'bg-accent text-black shadow-lg shadow-accent/10 scale-[1.02]' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
-                            >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
-                                    {nav.icon}
-                                </svg>
-                                {nav.label}
-                            </button>
-                        ))}
+                        {navItems.map(nav => {
+                            const isSelected = view === nav.id;
+                            const color = VIEW_COLORS[nav.id] || 'amber';
+                            return (
+                                <button
+                                    key={nav.id}
+                                    onClick={() => handleNavClick(nav.id)}
+                                    data-tour={
+                                        nav.id === 'SEARCH' ? 'nav-search' :
+                                            nav.id === 'EDUCATION' ? 'nav-education' :
+                                                nav.id === 'MATRIX' ? 'nav-matrix' :
+                                                    nav.id === 'KNIVES' ? 'nav-knives' : undefined
+                                    }
+                                    className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${isSelected
+                                        ? `bg-${color}-500 text-black shadow-lg shadow-${color}-500/20 scale-[1.02]`
+                                        : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'
+                                        }`}
+                                >
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                                        {nav.icon}
+                                    </svg>
+                                    {nav.label}
+                                </button>
+                            );
+                        })}
 
                         <button
                             onClick={() => { hapticFeedback('light'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
