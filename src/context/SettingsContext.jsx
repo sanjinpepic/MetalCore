@@ -18,7 +18,8 @@ export const SettingsProvider = ({ children }) => {
         showSpotlight: true,
         showMatrix: true,
         showTrending: true,
-        showCategories: true
+        showCategories: true,
+        showProLab: true
     });
 
     // Load from localStorage on mount

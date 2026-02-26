@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import { useSettings } from '../context/SettingsContext';
+import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 import Footer from './Footer';
 
 
@@ -247,13 +248,13 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     </div>
                 </div>
 
-                {/* Dashboard Main Grid - Immersive Layout */}
-                <div className="px-6 md:px-12 lg:px-20 pb-24 grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-16 max-w-[1800px] mx-auto w-full">
+                {/* Dashboard Main Grid - Optimized 2-Column Balance */}
+                <div className="px-6 md:px-12 lg:px-20 pb-24 grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-16 max-w-[1920px] mx-auto w-full">
 
                     {/* Left/Main Column: Performance Matrix (8 cols) */}
                     <div className="xl:col-span-8 space-y-12">
                         {dashboardLayout.showMatrix && (
-                            <section className="glass-panel p-6 md:p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent relative group">
+                            <section className="glass-panel p-6 md:p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent relative group h-full flex flex-col min-h-[500px]">
                                 <div className="flex items-center justify-between mb-8 md:mb-12">
                                     <div>
                                         <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter">Performance Frontier</h3>
@@ -311,7 +312,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     </div>
                                 </div>
 
-                                <div className="h-[350px] md:h-[450px] w-full bg-black/40 rounded-[2rem] border border-white/5 overflow-hidden relative group-hover:border-white/10 transition-colors">
+                                <div className="flex-1 min-h-[400px] w-full bg-black/40 rounded-[2rem] border border-white/5 overflow-hidden relative group-hover:border-white/10 transition-colors">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <ScatterChart margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
                                             <XAxis
@@ -388,7 +389,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     </ResponsiveContainer>
                                 </div>
 
-                                {/* Producer Legend - Integrated Legend for the homepage */}
+                                {/* Producer Legend */}
                                 <div className="mt-8 flex flex-wrap justify-center gap-3">
                                     {activeProducers.map(prod => (
                                         <div key={prod} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5 hover:border-white/10 transition-colors">
@@ -401,179 +402,178 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         )}
                     </div>
 
-
-                    {/* Right Column: Spotlight & Workbench (4 cols) */}
+                    {/* Right Column: Key Features (4 cols) */}
                     <div className="xl:col-span-4 space-y-8">
-                        {/* Daily Spotlight - Elevated prominence */}
+                        {/* Daily Spotlight - Larger scale */}
                         {featuredSteel && dashboardLayout.showSpotlight && (
-                            <section className="glass-panel p-8 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group">
-                                <div className="relative z-10 space-y-8">
+                            <section className="glass-panel p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group h-full flex flex-col justify-between">
+                                <div className="relative z-10 space-y-10">
                                     <div className="flex items-center justify-between">
                                         <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Daily Spotlight</div>
-                                        <div className="p-2 bg-black/40 rounded-xl border border-white/10 text-accent">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
+                                        <div className="p-3 bg-black/40 rounded-xl border border-white/10 text-accent">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
                                             {featuredSteel.producer}
                                             {featuredSteel.pm !== undefined && (
                                                 <>
-                                                    <span className="w-1 h-1 rounded-full bg-slate-600" />
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
                                                     <span className={featuredSteel.pm ? "text-accent" : ""}>{featuredSteel.pm ? 'PM' : 'CONVENTIONAL'}</span>
                                                 </>
                                             )}
                                         </div>
-                                        <h2 className="text-4xl font-display font-black text-white italic leading-none truncate group-hover:text-accent transition-colors cursor-pointer" onClick={() => {
+                                        <h2 className="text-5xl font-display font-black text-white italic leading-none truncate group-hover:text-accent transition-colors cursor-pointer" onClick={() => {
                                             setDetailSteel(featuredSteel);
                                             incrementTrending(featuredSteel.id);
                                         }}>{featuredSteel.name}</h2>
                                     </div>
 
-                                    <p className="text-slate-400 text-sm leading-relaxed italic line-clamp-3">"{featuredSteel.desc}"</p>
+                                    <p className="text-slate-400 text-lg leading-relaxed italic line-clamp-4">"{featuredSteel.desc}"</p>
 
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-2 gap-6">
                                         {[
                                             { label: 'Edge', val: featuredSteel.edge, col: 'bg-accent' },
                                             { label: 'Toughness', val: featuredSteel.toughness, col: 'bg-indigo-400' }
                                         ].map(m => (
-                                            <div key={m.label} className="bg-black/40 p-4 rounded-2xl border border-white/5">
-                                                <div className="flex justify-between items-end mb-2">
-                                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{m.label}</span>
-                                                    <span className="text-sm font-mono font-bold text-white">{m.val}</span>
+                                            <div key={m.label} className="bg-black/40 p-6 rounded-3xl border border-white/5">
+                                                <div className="flex justify-between items-end mb-3">
+                                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{m.label}</span>
+                                                    <span className="text-xl font-mono font-bold text-white">{m.val}</span>
                                                 </div>
-                                                <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                                                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                                                     <div className={`h-full ${m.col}`} style={{ width: `${m.val * 10}%` }} />
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-
-                                    <button
-                                        onClick={() => {
-                                            setDetailSteel(featuredSteel);
-                                            incrementTrending(featuredSteel.id);
-                                        }}
-                                        className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-[10px] font-black text-white uppercase tracking-[0.2em] transition-all group-hover:border-accent/30"
-                                    >
-                                        Inspect technical sheet
-                                    </button>
                                 </div>
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-accent/40 transition-colors" />
+
+                                <button
+                                    onClick={() => {
+                                        setDetailSteel(featuredSteel);
+                                        incrementTrending(featuredSteel.id);
+                                    }}
+                                    className="relative z-10 mt-10 w-full py-5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-[11px] font-black text-white uppercase tracking-[0.2em] transition-all group-hover:border-accent/30"
+                                >
+                                    Inspect technical sheet
+                                </button>
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-accent/40 transition-colors" />
                             </section>
                         )}
+                    </div>
 
-
-                        {/* Find Your Steel CTA */}
+                    {/* Secondary Row (Wide full width or split) */}
+                    <div className="xl:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {/* Interactive Guide CTA */}
                         {dashboardLayout.showCategories && (
                             <section
                                 onClick={() => setShowRecommender(true)}
-                                className="glass-panel p-8 rounded-[3rem] border-white/5 bg-gradient-to-br from-accent/10 to-transparent relative overflow-hidden group cursor-pointer hover:border-accent/30 transition-all"
+                                className="glass-panel p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-accent/10 to-transparent relative overflow-hidden group cursor-pointer hover:border-accent/30 transition-all flex flex-col justify-between"
                             >
                                 <div className="relative z-10">
-                                    <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center justify-between mb-6">
                                         <div className="text-[11px] font-black text-accent uppercase tracking-[0.3em]">Interactive Guide</div>
-                                        <div className="p-2 bg-black/40 rounded-xl border border-white/10 text-accent group-hover:bg-accent/10 transition-colors">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                                        <div className="p-3 bg-black/40 rounded-xl border border-white/10 text-accent group-hover:bg-accent/10 transition-colors">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
                                         </div>
                                     </div>
-                                    <h3 className="text-2xl md:text-3xl font-display font-black text-white italic uppercase tracking-tighter mb-2 group-hover:text-accent transition-colors leading-tight">
-                                        Find Your<br />Steel
+                                    <h3 className="text-3xl font-display font-black text-white italic uppercase tracking-tighter mb-3 group-hover:text-accent transition-colors leading-tight">
+                                        Find Your<br />Perfect Steel
                                     </h3>
-                                    <p className="text-slate-500 text-xs leading-relaxed mb-5 font-medium">
-                                        Answer 4 quick questions and get personalized steel recommendations.
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+                                        Answer expert-led questions to discover alloys tailored to your specific performance needs.
                                     </p>
-                                    <div className="flex items-center gap-2 text-accent font-black text-xs uppercase tracking-widest group-hover:gap-3 transition-all">
-                                        Start Wizard
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-                                    </div>
                                 </div>
-                                <div className="absolute bottom-0 right-0 w-40 h-40 bg-accent/15 rounded-full blur-3xl pointer-events-none group-hover:bg-accent/25 transition-colors" />
+                                <div className="flex items-center gap-2 text-accent font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all">
+                                    Launch Recommendation Wizard
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                                </div>
+                                <div className="absolute bottom-0 right-0 w-48 h-48 bg-accent/15 rounded-full blur-3xl pointer-events-none group-hover:bg-accent/25 transition-colors" />
                             </section>
                         )}
 
-                        {/* Active Workbench */}
-                        {dashboardLayout.showTrending && (
-                            <section className={`glass-panel p-8 rounded-[3rem] border transition-all duration-500 ${compareList.length > 0 ? 'border-indigo-500/20 bg-indigo-500/5' : 'border-white/5 bg-white/[0.02]'}`}>
-                                <div className="flex items-center justify-between mb-6">
-                                    <h3 className="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Workbench</h3>
-                                    {compareList.length > 0 && (
-                                        <button
-                                            onClick={() => setView('COMPARE')}
-                                            className="text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:text-white transition-colors"
-                                        >
-                                            Run analysis
-                                        </button>
-                                    )}
+                        {/* Pro Lab Teaser */}
+                        {dashboardLayout.showProLab && (
+                            <section
+                                onClick={() => setView('PRO_LAB')}
+                                className="glass-panel p-10 rounded-[3rem] border border-indigo-500/10 bg-gradient-to-br from-indigo-500/10 via-indigo-500/5 to-transparent relative overflow-hidden group cursor-pointer hover:border-indigo-500/30 transition-all flex flex-col justify-between"
+                            >
+                                <div className="relative z-10">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Advanced Analytics</div>
+                                        <div className="p-3 bg-black/40 rounded-xl border border-white/10 text-indigo-400 group-hover:bg-indigo-500/10 transition-colors">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M10 2v7.5M14 2v7.5M8.5 2h7M21 22H3l7-12.5M21 22l-7-12.5" /><path d="M11 12h2" /></svg>
+                                        </div>
+                                    </div>
+                                    <h3 className="text-3xl font-display font-black text-white italic uppercase tracking-tighter mb-4 group-hover:text-indigo-400 transition-colors leading-tight">
+                                        METALLURGICAL<br />LABORATORY
+                                    </h3>
+                                    <div className="grid grid-cols-1 gap-3 mb-8">
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 italic">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> DNA Chemical Sequencing
+                                        </span>
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 italic">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" /> Pareto Performance Frontier
+                                        </span>
+                                    </div>
                                 </div>
+                                <div className="flex items-center gap-2 text-indigo-400 font-black text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all">
+                                    Open Simulations
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                                </div>
+                                <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-indigo-500/15 rounded-full blur-[80px] pointer-events-none group-hover:bg-indigo-500/25 transition-colors" />
+                            </section>
+                        )}
 
-                                {compareList.length > 0 ? (
-                                    <>
-                                        <div className="space-y-3 mb-4">
+                        {/* Workbench & Status Combined */}
+                        <div className="space-y-8">
+                            {dashboardLayout.showTrending && (
+                                <section className={`glass-panel p-8 rounded-[3rem] border transition-all duration-500 h-2/3 ${compareList.length > 0 ? 'border-indigo-500/20 bg-indigo-500/5' : 'border-white/5 bg-white/[0.02]'}`}>
+                                    <div className="flex items-center justify-between mb-6">
+                                        <h3 className="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Workbench</h3>
+                                        {compareList.length > 0 && (
+                                            <button
+                                                onClick={() => setView('COMPARE')}
+                                                className="text-[10px] font-black text-indigo-400 uppercase tracking-widest hover:text-white transition-colors"
+                                            >
+                                                Run analysis
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    {compareList.length > 0 ? (
+                                        <div className="space-y-3 mb-4 max-h-[150px] overflow-y-auto custom-scrollbar pr-2">
                                             {compareList.map(s => (
                                                 <div key={s.id} className="flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5 group">
                                                     <div className="flex flex-col">
-                                                        <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
-                                                            {s.producer}
-                                                            {s.pm !== undefined && (
-                                                                <>
-                                                                    <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
-                                                                    <span className={s.pm ? "text-accent" : ""}>{s.pm ? 'PM' : 'CONV'}</span>
-                                                                </>
-                                                            )}
-                                                        </div>
                                                         <span className="text-xs font-black text-white italic">{s.name}</span>
                                                     </div>
-                                                    <button
-                                                        onClick={(e) => toggleCompare(s, e)}
-                                                        className="p-1.5 text-slate-600 hover:text-red-400 transition-colors"
-                                                    >
+                                                    <button onClick={(e) => toggleCompare(s, e)} className="p-1.5 text-slate-600 hover:text-red-400 transition-colors">
                                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                                                     </button>
                                                 </div>
                                             ))}
                                         </div>
-                                        <button
-                                            onClick={() => setView('SEARCH')}
-                                            className="w-full py-2.5 text-[9px] font-black text-slate-500 hover:text-indigo-400 uppercase tracking-widest transition-colors border-t border-white/5 pt-4"
-                                        >
-                                            + Add more grades
-                                        </button>
-                                    </>
-                                ) : (
-                                    <div className="py-8 flex flex-col items-center justify-center text-center space-y-4">
-                                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 relative opacity-40">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-500">
-                                                <path d="M21 7V3h-4M3 17v4h4M21 17v4h-4M3 7V3h4" />
-                                                <path d="M12 12h.01" />
-                                            </svg>
-                                            <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl animate-pulse" />
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center h-full opacity-40">
+                                            <span className="text-[10px] font-black text-white uppercase tracking-widest text-center">Library items will appear here for batch analysis</span>
                                         </div>
-                                        <div>
-                                            <div className="text-[10px] font-black text-white uppercase tracking-widest mb-1 opacity-40">Select grades from the library to begin comparison</div>
-                                            <p className="text-[9px] text-slate-500 uppercase tracking-tighter leading-tight max-w-[150px] mb-4"></p>
-                                            <button
-                                                onClick={() => setView('SEARCH')}
-                                                className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/30 rounded-xl text-[9px] font-black text-slate-400 hover:text-white uppercase tracking-widest transition-all"
-                                            >
-                                                Browse Grade Library
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-                            </section>
-                        )}
+                                    )}
+                                </section>
+                            )}
 
-
-                        {/* System Status Card */}
-                        <div className="p-8 rounded-[3rem] border border-white/10 bg-black/40 flex items-center justify-between group hover:border-accent/20 transition-all">
-                            <div>
-                                <div className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Platform Sync</div>
-                                <div className="text-2xl font-black text-white font-display uppercase italic">Stable <span className="text-accent underline decoration-accent/40 decoration-2 underline-offset-4 tracking-[0.1em] ml-1">ALPHA</span></div>
-                            </div>
-                            <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-600 group-hover:text-accent transition-colors">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg>
+                            {/* System Status Card */}
+                            <div className="p-8 rounded-[3rem] border border-white/10 bg-black/40 flex items-center justify-between group hover:border-accent/20 transition-all h-1/3">
+                                <div>
+                                    <div className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Platform Status</div>
+                                    <div className="text-2xl font-black text-white font-display uppercase italic">STABLE <span className="text-accent underline decoration-accent/40 decoration-2 underline-offset-4 tracking-[0.1em] ml-1">ALPHA</span></div>
+                                </div>
+                                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-600 group-hover:text-accent transition-colors">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg>
+                                </div>
                             </div>
                         </div>
                     </div>

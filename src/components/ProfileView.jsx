@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useUser } from '../context/UserContext';
 import PerformanceRadar from './PerformanceRadar';
 import Footer from './Footer';
+import CustomSelect from './Common/CustomSelect';
+
 
 const ProfileView = ({ steels, setDetailSteel, setView }) => {
     const { user, updateProfile, favoriteSteels, toggleFavorite, myKnives, addKnife, removeKnife, updateKnife } = useUser();
@@ -185,14 +187,14 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                     </div>
                                     <div className="space-y-1.5">
                                         <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Steel Grade</label>
-                                        <select
+                                        <CustomSelect
+                                            options={steels}
                                             value={newKnife.steelId}
-                                            onChange={e => setNewKnife({ ...newKnife, steelId: e.target.value })}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent appearance-none"
-                                        >
-                                            <option value="">Select Steel...</option>
-                                            {steels.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-                                        </select>
+                                            onChange={(opt) => setNewKnife({ ...newKnife, steelId: opt.id })}
+                                            placeholder="Select Steel..."
+                                            accentColor="emerald"
+                                        />
+
                                     </div>
                                 </div>
                                 <div className="space-y-1.5">

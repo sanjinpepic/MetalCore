@@ -92,6 +92,11 @@ const Sidebar = ({
                 <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z" /><path d="M12 2v20" /></>
             )
         },
+        {
+            label: 'Pro Lab', id: 'PRO_LAB', icon: (
+                <><path d="M10 2v7.5M14 2v7.5M8.5 2h7M21 22H3l7-12.5M21 22l-7-12.5" /><path d="M11 12h2" /></>
+            )
+        },
     ];
 
     // Animate sidebar when mobileMenuOpen changes (from button presses)
@@ -443,6 +448,15 @@ const Sidebar = ({
 
                     {/* Mobile Quick Actions */}
                     <div className="flex md:hidden flex-col gap-3 mt-4">
+                        <button
+                            onClick={() => handleNavClick('PRO_LAB')}
+                            className="w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all text-slate-500 hover:bg-white/5 hover:text-accent border border-white/5"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                                <path d="M10 2v7.5M14 2v7.5M8.5 2h7M21 22H3l7-12.5M21 22l-7-12.5" />
+                            </svg>
+                            Pro Lab
+                        </button>
                         <button
                             onClick={() => { hapticFeedback('medium'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
                             className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${aiOpen ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:bg-white/5 hover:text-indigo-400 border border-white/5'}`}

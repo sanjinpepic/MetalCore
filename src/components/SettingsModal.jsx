@@ -65,7 +65,8 @@ const SettingsModal = ({ onClose }) => {
                                 { id: 'showMatrix', label: 'Performance Matrix', icon: <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18" /> },
                                 { id: 'showSpotlight', label: 'Daily Spotlight', icon: <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /> },
                                 { id: 'showCategories', label: 'Steel Categories', icon: <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /> },
-                                { id: 'showTrending', label: 'Active Workbench', icon: <path d="M14.5 17.5 3 6 3 3 6 3 17.5 14.5" /> }
+                                { id: 'showTrending', label: 'Active Workbench', icon: <path d="M14.5 17.5 3 6 3 3 6 3 17.5 14.5" /> },
+                                { id: 'showProLab', label: 'Pro Lab Discovery', icon: <path d="M10 2v7.5M14 2v7.5M8.5 2h7M21 22H3l7-12.5M21 22l-7-12.5" /> }
                             ].map(item => (
                                 <button
                                     key={item.id}
