@@ -115,7 +115,7 @@ const PerformanceFrontier = ({ steel, steels }) => {
                 <div>
                     <h4 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1">Metallurgical Efficiency</h4>
                     <p className="text-[10px] text-slate-400 leading-relaxed italic">
-                        {steel.name} is positioned <b>{Math.max(10 - steel.toughness - steel.edge, 0).toFixed(1)} units</b> away from the theoretical performance limit.
+                        {steel.name} is positioned <b>{Math.max(15 - steel.toughness - steel.edge, 0).toFixed(1)} units</b> away from the theoretical performance limit.
                         Its specific gravity of {steel.C}% Carbon suggests a focus on <b>{steel.edge > steel.toughness ? 'Secondary Carbide Volume' : 'Impact Stability'}</b>.
                     </p>
                 </div>
