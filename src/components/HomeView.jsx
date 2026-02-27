@@ -98,7 +98,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
     };
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar relative">
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto overflow-x-hidden custom-scrollbar relative">
             <div className="relative z-10 flex flex-col min-h-full">
                 {/* Hero Section */}
                 <ViewHeader
@@ -211,13 +211,13 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10H3 M21 6H3 M21 14H3 M21 18H3" /></svg>
                                     </button>
                                 </div>
-                                <div className="flex flex-wrap items-center justify-between gap-4 mb-6 z-20 relative">
-                                    <div className="flex gap-2 p-1 bg-white/5 rounded-2xl w-fit border border-white/5 backdrop-blur-md">
+                                <div className="flex flex-wrap items-center justify-between gap-3 mb-6 z-20 relative">
+                                    <div className="flex gap-1 p-1 bg-white/5 rounded-2xl w-fit border border-white/5 backdrop-blur-md overflow-x-auto no-scrollbar">
                                         {Object.entries(axisOptions).map(([key, { shortLabel }]) => (
                                             <button
                                                 key={key}
                                                 onClick={() => setXAxis(key)}
-                                                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${xAxis === key ? 'bg-accent text-black shadow-lg shadow-accent/20 scale-105' : 'text-slate-500 hover:text-slate-300'}`}
+                                                className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${xAxis === key ? 'bg-accent text-black shadow-lg shadow-accent/20 scale-105' : 'text-slate-500 hover:text-slate-300'}`}
                                             >
                                                 {shortLabel}
                                             </button>
