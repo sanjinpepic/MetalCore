@@ -61,7 +61,8 @@ async function main() {
         const updates = [
             { producer: 'Crucible', parent: 'Erasteel' },
             { producer: 'Hitachi', parent: 'Proterial' },
-            { producer: 'Alleima', parent: 'Sandvik' }
+            { producer: 'Alleima', parent: 'Sandvik' },
+            { producer: 'Damasteel', parent: 'Erasteel' }
         ];
 
         for (const update of updates) {

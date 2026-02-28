@@ -100,7 +100,8 @@ const ProLabView = ({ steels }) => {
                             <div className="w-px h-8 bg-white/10" />
                             <div className="text-right">
                                 <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Producer</div>
-                                <div className="text-sm font-black text-indigo-400 italic uppercase">{simSteel.producer}</div>
+                                <div className="text-sm font-black text-indigo-400 italic uppercase">{simSteel.parent ?? simSteel.producer}</div>
+                                {simSteel.parent && <div className="text-[9px] text-slate-600 uppercase tracking-widest">inv. {simSteel.producer}</div>}
                             </div>
                         </div>
                     </div>
@@ -129,7 +130,10 @@ const ProLabView = ({ steels }) => {
                                 <div className="glass-panel p-8 rounded-[2.5rem] border-white/5 space-y-8">
                                     <div className="flex items-center justify-between border-b border-white/5 pb-4">
                                         <h2 className="text-3xl font-black text-white italic uppercase">{simSteel.name}</h2>
-                                        <span className="text-[10px] font-black text-slate-500 uppercase">{simSteel.producer}</span>
+                                        <div className="text-right">
+                                            <span className="text-[10px] font-black text-slate-500 uppercase">{simSteel.parent ?? simSteel.producer}</span>
+                                            {simSteel.parent && <div className="text-[9px] text-slate-600 uppercase tracking-widest">inv. {simSteel.producer}</div>}
+                                        </div>
                                     </div>
                                     <AlloyBreakdown steel={simSteel} customElements={duelElements} />
                                     <div className="pt-8 border-t border-white/5">
@@ -139,7 +143,10 @@ const ProLabView = ({ steels }) => {
                                 <div className="glass-panel p-8 rounded-[2.5rem] border-indigo-500/20 bg-indigo-500/5 space-y-8">
                                     <div className="flex items-center justify-between border-b border-white/5 pb-4">
                                         <h2 className="text-3xl font-black text-indigo-400 italic uppercase">{compareSteel.name}</h2>
-                                        <span className="text-[10px] font-black text-indigo-500/50 uppercase">{compareSteel.producer}</span>
+                                        <div className="text-right">
+                                            <span className="text-[10px] font-black text-indigo-500/50 uppercase">{compareSteel.parent ?? compareSteel.producer}</span>
+                                            {compareSteel.parent && <div className="text-[9px] text-indigo-900/80 uppercase tracking-widest">inv. {compareSteel.producer}</div>}
+                                        </div>
                                     </div>
                                     <AlloyBreakdown steel={compareSteel} customElements={duelElements} />
                                     <div className="pt-8 border-t border-white/5">

@@ -32,7 +32,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
         return steels
             .filter(s =>
                 normalize(s.name).includes(normalizedSearch) ||
-                normalize(s.producer).includes(normalizedSearch)
+                normalize(s.parent ?? s.producer).includes(normalizedSearch)
             )
             .slice(0, 5);
     }, [search, steels]);
@@ -164,7 +164,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                             <div className="w-2 h-10 rounded-full" style={{ backgroundColor: getProducerColor(result.producer) }} />
                                             <div className="text-left">
                                                 <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1 flex items-center gap-2">
-                                                    {result.producer}
+                                                    {result.parent ?? result.producer}
                                                     {result.pm !== undefined && (
                                                         <>
                                                             <span className="w-1 h-1 rounded-full bg-slate-600" />
@@ -264,7 +264,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                         const data = payload[0].payload;
                                                         return (
                                                             <div className="bg-black/90 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl">
-                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{data.producer}</div>
+                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{data.parent ?? data.producer}</div>
                                                                 <div className="text-lg font-black text-white italic uppercase">{data.name}</div>
                                                                 <div className="mt-3 flex gap-4">
                                                                     <div>

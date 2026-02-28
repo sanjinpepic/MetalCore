@@ -34,6 +34,36 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
             .replace(/[\s-]/g, "");
     };
 
+    // Chemical filter parser — matches "El:op value" e.g. "C:>3", "Cr:~15", "Mo:4%"
+    // Supported elements map to steel object keys
+    const CHEM_ELEMENTS = { c: 'C', cr: 'Cr', v: 'V', mo: 'Mo', w: 'W', co: 'Co' };
+    const parseChemFilter = (raw) => {
+        // Regex: element : optional-operator value optional-%
+        const m = raw.trim().match(/^([a-zA-Z]{1,2})\s*:\s*(>=|<=|[><=~]?)\s*(\d+(?:\.\d+)?)%?$/);
+        if (!m) return null;
+        const elKey = CHEM_ELEMENTS[m[1].toLowerCase()];
+        if (!elKey) return null;
+        const op = m[2] || '~';   // default to approximate
+        const val = parseFloat(m[3]);
+        return { elKey, op, val };
+    };
+
+    const matchChem = (steelVal, op, val) => {
+        if (steelVal == null) return false;
+        switch (op) {
+            case '>': return steelVal > val;
+            case '<': return steelVal < val;
+            case '>=': return steelVal >= val;
+            case '<=': return steelVal <= val;
+            case '=': return Math.abs(steelVal - val) < 0.01;
+            case '~':  // ±25% of value, min band ±0.1
+            default: {
+                const band = Math.max(val * 0.25, 0.1);
+                return Math.abs(steelVal - val) <= band;
+            }
+        }
+    };
+
     const results = useMemo(() => {
         const queryNorm = normalize(query);
 
@@ -52,6 +82,29 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
             ].map((item, i) => ({ ...item, globalIndex: i }));
         }
 
+        // --- Chemical composition filter ---
+        const chemFilter = parseChemFilter(query.trim());
+        if (chemFilter) {
+            const { elKey, op, val } = chemFilter;
+            const opLabel = op === '~' ? '≈' : op || '≈';
+            const matched = steels
+                .filter(s => matchChem(s[elKey], op, val))
+                .sort((a, b) => Math.abs(a[elKey] - val) - Math.abs(b[elKey] - val))
+                .slice(0, 12)
+                .map((s, i) => ({
+                    type: 'steel',
+                    id: s.id,
+                    label: s.name,
+                    sublabel: `${s.parent ?? s.producer}  ·  ${elKey}: ${s[elKey]}%`,
+                    data: s,
+                    category: `${elKey} ${opLabel} ${val}%`,
+                    metalType: s.pm ? 'PM' : 'CONV',
+                    globalIndex: i
+                }));
+            return matched;
+        }
+
+        // --- Normal text search ---
         const searchResults = [
             ...VIEWS.filter(v => normalize(v.label).includes(queryNorm))
                 .map(v => ({ ...v, type: 'nav', category: 'Navigation' })),
@@ -69,7 +122,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                     type: 'steel',
                     id: s.id,
                     label: s.name,
-                    sublabel: s.producer,
+                    sublabel: s.parent ?? s.producer,
                     data: s,
                     category: 'Steels',
                     metalType: s.pm ? 'PM' : 'CONV'
@@ -223,7 +276,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
-                                    placeholder="Search steels, knives, or jump to view..."
+                                    placeholder="Search steels, knives, views…  or try Cr:>15"
                                     className="flex-1 bg-transparent text-white text-base font-bold placeholder:text-slate-500 outline-none"
                                     autoComplete="off"
                                     autoCorrect="off"
@@ -243,8 +296,8 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                                             </svg>
                                         </div>
-                                        <p className="text-sm font-bold text-slate-400">No results found for "{query}"</p>
-                                        <p className="text-xs text-slate-600 mt-1">Try searching for Grade, Maker or View name</p>
+                                        <p className="text-sm font-bold text-slate-400">No results for &quot;{query}&quot;</p>
+                                        <p className="text-xs text-slate-600 mt-1">Search by name or maker — or filter by chemistry: <span className="text-slate-500">Cr:&gt;15 · C:~1 · Mo:&lt;2</span></p>
                                     </div>
                                 ) : (
                                     Object.entries(groupedResults).map(([category, items]) => (
@@ -302,7 +355,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                             </div>
 
                             {/* Footer Keys */}
-                            <div className="flex items-center gap-6 px-6 py-3.5 border-t border-white/5 text-[9px] font-black text-slate-600 uppercase tracking-widest bg-white/[0.01]">
+                            <div className="flex items-center gap-4 px-6 py-3 border-t border-white/5 text-[9px] font-black text-slate-600 uppercase tracking-widest bg-white/[0.01] flex-wrap">
                                 <div className="flex items-center gap-2">
                                     <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">↑↓</span>
                                     <span>Navigate</span>
@@ -314,6 +367,9 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                 <div className="flex items-center gap-2">
                                     <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">ESC</span>
                                     <span>Close</span>
+                                </div>
+                                <div className="ml-auto text-slate-700 normal-case tracking-normal font-medium">
+                                    Chemical filter: <span className="text-slate-500">El:value · El:&gt;val · El:~val</span>
                                 </div>
                             </div>
                         </motion.div>

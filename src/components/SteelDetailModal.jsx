@@ -37,7 +37,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                     <div className="space-y-6">
                         <div>
                             <div className="text-[10px] md:text-xs font-black text-accent uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-                                {steel.producer}
+                                {steel.parent ?? steel.producer}
                                 {steel.pm !== undefined && (
                                     <>
                                         <span className="w-1 h-1 rounded-full bg-accent/50" />

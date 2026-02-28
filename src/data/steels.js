@@ -591,7 +591,7 @@ export const PREMIUM_STEELS = [
         use_case: "Japanese production knives and industrial cutting where D2-class performance is needed."
     },
     {
-        id: 'others-7', name: "YXR7", producer: "Hitachi", pm: false, C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 8.2, toughness: 8.3, corrosion: 1, sharpen: 2,
+        id: 'others-7', name: "YXR7", producer: "Hitachi", parent: "Proterial", pm: false, C: 0.8, Cr: 5.0, V: 1.0, Mo: 3.0, W: 0, Co: 0, edge: 8.2, toughness: 8.3, corrosion: 1, sharpen: 2,
         ht_curve: "500:65,540:67,600:63",
         desc: "A high-performance Matrix High Speed Steel used by Rockstead for its extreme hardness and toughness.",
         knives: ["Rockstead Higo II", "Rockstead Shin"],

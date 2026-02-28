@@ -220,7 +220,7 @@ const CustomSelect = ({
                                                 </span>
                                                 {opt.producer && (
                                                     <span className={`text-[9px] font-black uppercase tracking-widest ${isSelected ? activeColor.text + '/70' : 'text-slate-600'}`}>
-                                                        {opt.producer}
+                                                        {opt.parent ?? opt.producer}
                                                     </span>
                                                 )}
                                             </div>

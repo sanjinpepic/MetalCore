@@ -8,7 +8,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
     const groupedSteels = useMemo(() => {
         const groups = {};
         for (const s of filteredSteels) {
-            const producer = s.producer || 'Other';
+            const producer = s.parent || s.producer || 'Other';
             if (!groups[producer]) groups[producer] = [];
             groups[producer].push(s);
         }
