@@ -120,7 +120,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                     onClick={() => setDetailKnife && setDetailKnife(knife)}
                                     className="glass-panel rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col xl:flex-row group border-white/5 hover:border-white/20 transition-all cursor-pointer hover:shadow-2xl hover:shadow-accent/5 active:scale-[0.99]"
                                 >
-                                    <div className="xl:w-2/5 h-72 xl:h-auto bg-white/5 relative overflow-hidden shrink-0">
+                                    {/* <div className="xl:w-2/5 h-72 xl:h-auto bg-white/5 relative overflow-hidden shrink-0">
                                         {knife.image ? (
                                             <Image
                                                 src={(() => {
@@ -150,8 +150,12 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                             <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-1.5">{knife.maker}</div>
                                             <h3 className="text-xl md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">{knife.name}</h3>
                                         </div>
-                                    </div>
-                                    <div className="xl:w-3/5 p-8 md:p-10 flex flex-col justify-between">
+                                    </div> */}
+                                    <div className="xl:w-full p-8 md:p-10 flex flex-col justify-between">
+                                        <div className="mb-6">
+                                            <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-1.5">{knife.maker}</div>
+                                            <h3 className="text-xl md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">{knife.name}</h3>
+                                        </div>
                                         <div className="space-y-6">
                                             <div className="flex gap-3 items-start">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent mt-1 shrink-0">

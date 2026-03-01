@@ -13,7 +13,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
             <div className="relative w-full flex flex-col md:flex-row md:items-stretch md:min-h-[750px]">
 
                 {/* Image Section */}
-                <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white/5 relative group shrink-0 overflow-hidden">
+                {/* <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white/5 relative group shrink-0 overflow-hidden">
                     {cleanImage ? (
                         <Image
                             src={cleanImage}
@@ -48,11 +48,11 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                         <div className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] mb-1.5">{knife.maker}</div>
                         <h2 className="text-2xl font-black font-display text-white italic tracking-tight leading-none uppercase">{knife.name}</h2>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Content Section */}
-                <div className="w-full md:w-1/2 p-6 md:p-10 relative md:overflow-y-auto md:custom-scrollbar md:h-full">
-                    <div className="hidden md:block absolute top-6 right-6 z-50">
+                <div className="w-full p-6 md:p-10 relative md:overflow-y-auto md:custom-scrollbar md:h-full">
+                    <div className="absolute top-6 right-6 z-50">
                         <button
                             onClick={onClose}
                             className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all border border-white/10 backdrop-blur-3xl group"
@@ -64,7 +64,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                         </button>
                     </div>
 
-                    <div className="mb-10 hidden md:block">
+                    <div className="mb-10">
                         <div className="text-xs font-bold text-accent uppercase tracking-widest mb-2">{knife.maker}</div>
                         <h2 className="text-3xl md:text-5xl font-black font-display text-white mb-4 italic tracking-tight uppercase leading-none">{knife.name}</h2>
                         <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">
