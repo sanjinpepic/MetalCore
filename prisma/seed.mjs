@@ -73,26 +73,29 @@ async function main() {
     }
     // Aliases: knives.js uses different name variants than steels.js
     const aliases = {
-        'cpm-s30v': 'crucible-7',
-        'cpm-s35vn': 'crucible-10',
-        'cpm-s45vn': 'crucible-5',
-        'cpm-s90v': 'crucible-2',
-        'cpm-s110v': 'crucible-8',
-        'cpm-20cv': 'crucible-9',
-        'cpm-3v': 'crucible-3',
-        'cpm-154': 'crucible-11',
-        'cpm-m4': 'crucible-6',
-        'cpm-cruwear': 'crucible-4',
+        'cpm-s30v': 'crucible-14',
+        'cpm-s35vn': 'crucible-15',
+        'cpm-s45vn': 'crucible-16',
+        'cpm-s90v': 'crucible-18',
+        'cpm-s110v': 'crucible-13',
+        'cpm-20cv': 'crucible-5',
+        'cpm-3v': 'crucible-6',
+        'cpm-154': 'crucible-3',
+        'cpm-m4': 'crucible-9',
+        'cpm-cruwear': 'crucible-8',
         'cpm-magnacut': 'crucible-1',
         'm390 microclean': 'bohler-1',
         'elmax superclean': 'uddeholm-1',
         'k390 microclean': 'bohler-2',
         'vanax superclean': 'uddeholm-6',
-        's35vn': 'crucible-10',
-        '15v': 'crucible-12',
+        's35vn': 'crucible-15',
+        '15v': 'crucible-4',
         'mc63 (sg2)': 'takefu-1',
-        'm4': 'crucible-6',
+        'm4': 'crucible-9',
         'carbon steel': 'carbon-4',   // generic "Carbon Steel" -> 1075
+        'magnacut': 'crucible-1',
+        'cpm rex 45': 'crucible-10',
+        '1095 high carbon': 'classic-1',
     };
     for (const [alias, id] of Object.entries(aliases)) {
         steelLookup.set(alias, id);

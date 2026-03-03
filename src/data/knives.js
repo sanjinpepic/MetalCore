@@ -23,7 +23,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A slim, iconic design by Warren Osborne that has remained a top-tier EDC choice for over two decades.",
         whySpecial: "The reverse tanto blade provides a reinforced tip for toughness, while the AXIS lock offers completely ambidextrous, fidget-friendly operation.",
-        steels: ["CPM-S30V", "CPM-S90V", "CPM-MagnaCut", "M4"],
+        steels: ["CPM-S30V", "CPM-S45VN", "CPM-S90V", "CPM-MagnaCut"],
         image: "https://www.benchmade.com/media/catalog/product/9/4/940_main_1.jpg",
         link: "https://www.benchmade.com/products/940"
     },
@@ -56,7 +56,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "The knife that redefined the 'ultralight' EDC category. Weighing less than 2 ounces, it vanished in the pocket while offering a full-sized Grip and a highly capable drop-point blade.",
         whySpecial: "Its versatility and weight-to-blade ratio are unmatched. With the AXIS lock, it provides a fully ambidextrous, safe, and fidget-friendly experience.",
-        steels: ["CPM-S30V", "CPM-S90V", "CPM-20CV", "M390 Microclean", "CPM-MagnaCut"],
+        steels: ["CPM-S30V", "CPM-S45VN", "CPM-20CV", "CPM-MagnaCut"],
         image: "src/image/benchmade_bugout_mockup_1768568808347.png",
         link: "https://www.benchmade.com/bugout"
     },
@@ -78,7 +78,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A classic design that has been a mainstay of the Benchmade lineup for years, known for its extreme versatility.",
         whySpecial: "The Griptilian offers multiple blade shapes and sizes, and the Valox handle provides a secure, lightweight grip.",
-        steels: ["CPM-S30V", "CPM-S90V", "CPM-20CV"],
+        steels: ["CPM-S30V", "CPM-S45VN", "CPM-20CV"],
         image: "https://www.benchmade.com/products/551-s30v",
         link: "https://www.benchmade.com/products/551-s30v"
     },
@@ -128,7 +128,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "Often cited as the 'Gold Standard' for high-end production knives. The Sebenza pioneered the titanium frame lock and is world-renowned for its 'bank vault' lockup and incredibly tight tolerances.",
         whySpecial: "The Sebenza is an heirloom tool. It's designed to be disassembled, cleaned, and passed down through generations. Its simplicity is its greatest strength.",
-        steels: ["CPM-S45VN", "CPM-MagnaCut"],
+        steels: ["CPM-S35VN", "CPM-S45VN", "CPM-MagnaCut"],
         image: "src/image/sebenza_31_mockup_1768568822948.png",
         link: "Image\sebenza_31_mockup_1768568822948.png"
     },
@@ -178,7 +178,7 @@ export const POPULAR_KNIVES = [
         category: "Survival",
         description: "Features the 'Shark Lock,' arguably the strongest and most intuitive locking mechanism ever designed.",
         whySpecial: "The Shark Lock allows the knife to handle spine-whacking forces that would fail almost any other folder, while being incredibly fast to deploy.",
-        steels: ["CPM-MagnaCut", "CPM-20CV", "AUS10A"],
+        steels: ["AUS10A", "CPM-20CV", "CPM-3V", "CPM-MagnaCut"],
         image: "https://demkoknives.com/cdn/shop/files/20.5-20CV-Blue-CP2.jpg?v=1698335368&width=600",
         link: "https://demkoknives.com/collections/ad20-5"
     },
@@ -191,7 +191,7 @@ export const POPULAR_KNIVES = [
         category: "Survival",
         description: "The classic survival slab, now upgraded from carbon steel to premium stainless.",
         whySpecial: "The gold standard for survival training. The S35VN version adds significant corrosion resistance and edge life to the legendary ESEE ergonomics.",
-        steels: ["CPM-S35VN"],
+        steels: ["1095 High Carbon", "CPM-S35VN"],
         image: "https://eseeknives.com/sites/default/files/styles/product_full/public/esee-63d.png?itok=g7FRLIla",
         link: "https://eseeknives.com/product/esee-6"
     },
@@ -217,7 +217,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A compact, stout folder that punches way above its weight class. Designed by Vox and Ansø.",
         whySpecial: "The Riv is a 'small knife for big tasks'. Its ergonomics allow for a full grip on a very short handle.",
-        steels: ["M390 Microclean", "Elmax SuperClean", "Magnacut"],
+        steels: ["M390", "Elmax", "CPM-MagnaCut"],
         image: "https://giantmouse.com/cdn/shop/files/riv-ti-main_900x.jpg",
         link: "https://giantmouse.com/products/ace-riv-titanium"
     },
@@ -282,7 +282,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "Designed by Ken Onion, the Leek is one of the most popular assisted-opening knives ever produced.",
         whySpecial: "Features the SpeedSafe assisted-opening system and a slim, needle-like tip perfect for detail work.",
-        steels: ["14C28N", "CPM-154", "CPM-MagnaCut", "D2"],
+        steels: ["14C28N", "CPM-154", "D2"],
         image: "https://kershaw.kaiusa.com/media/catalog/product/1/6/1660_1.jpg",
         link: "https://kershaw.kaiusa.com/leek.html"
     },
@@ -308,7 +308,7 @@ export const POPULAR_KNIVES = [
         category: "Outdoor",
         description: "A compact, high-quality Italian-made outdoor knife with beautiful wood or G10 handles.",
         whySpecial: "Perfect size for a hunting or camp knife, featuring LionSteel's impeccable fit and finish and a very ergonomic handle.",
-        steels: ["M390 Microclean", "Sleipner"],
+        steels: ["M390", "Sleipner"],
         image: "https://www.lionsteel.it/en/product/1815_m4/m4_ul",
         link: "https://www.lionsteel.it/en/product/1815_m4/m4_ul"
     },
@@ -334,7 +334,7 @@ export const POPULAR_KNIVES = [
         category: "Tactical",
         description: "A legendary tactical folder that has been a staple of the Microtech lineup since the 1990s.",
         whySpecial: "Its unique handle geometry and ceramic bearing system make it one of the most reliable hard-use folders available.",
-        steels: ["M390 Microclean", "Elmax SuperClean", "CTS-204P"],
+        steels: ["M390", "Elmax", "CTS-204P"],
         image: "https://microtechknives.com/cdn/shop/files/socom-elite-manual_900x.jpg",
         link: "https://microtechknives.com/collections/socom-elite"
     },
@@ -397,7 +397,7 @@ export const POPULAR_KNIVES = [
         category: "Outdoor",
         description: "The ultimate 'saltwater' EDC designed to be completely impervious to corrosion.",
         whySpecial: "Uses Vanax steel and marine-grade components, making it the perfect choice for humid environments or maritime use.",
-        steels: ["Vanax SuperClean"],
+        steels: ["Vanax", "LC200N / Cronidur 30"],
         image: "https://cdn.shopify.com/s/files/1/0741/1937/files/IMG_0007-web_f96f700d-8c82-4d16-9e98-c8bdac91c7ed.jpg?v=1707959584",
         link: "https://quietcarry.com/collections/the-waypoint"
     },
@@ -449,7 +449,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "The knife that pioneered the concept of a lightweight, high-performance pocket knife with a clip.",
         whySpecial: "The Delica is the perfect size for most daily tasks and features Spyderco's Bi-Directional Texturing for a secure grip.",
-        steels: ["VG-10", "K390 Microclean", "ZDP-189", "CPM-S30V"],
+        steels: ["VG-10", "K390", "ZDP-189", "CPM-S30V"],
         image: "https://www.spyderco.com/products/Delica-4-Lightweight/209",
         link: "https://www.spyderco.com/catalog/details/C11G/Delica-reg-4-G-10/282"
     },
@@ -482,7 +482,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A larger, more robust evolution of the Native 5, designed for hard use with a Compression Lock.",
         whySpecial: "The Shaman's handle ergonomics are legendary, filling the hand perfectly for heavy cutting tasks.",
-        steels: ["CPM-S30V", "CPM Rex 45", "CPM-CruWear", "15V"],
+        steels: ["CPM-S30V", "CPM-CruWear", "CPM Rex 45", "CPM-MagnaCut"],
         image: "https://www.spyderco.com/products/Shaman/1057",
         link: "https://www.spyderco.com/catalog/details/C229G/Shaman-trade-/1057"
     },
@@ -506,7 +506,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A slim, minimalist folder with incredible machining textures, made entirely in the USA.",
         whySpecial: "Features a unique internally-milled texture that provides grip without being abrasive, and a very snappy action.",
-        steels: ["CPM-MagnaCut", "M390 Microclean"],
+        steels: ["CPM-MagnaCut", "M390"],
         image: "https://tactileknife.co/cdn/shop/products/Rockwall-Side_900x.jpg",
         link: "https://tactileknife.co/products/rockwall"
     },
@@ -558,7 +558,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "A long, slender flipper based on the award-winning 0454 designed by Dmitry Sinkevich.",
         whySpecial: "Combines a massive 4.1-inch blade with a slim, carbon fiber handle, providing an incredible blade-to-weight ratio.",
-        steels: ["CPM-S35VN", "CPM-S90V", "MagnaCut"],
+        steels: ["CPM-S35VN", "CPM-20CV", "CPM-MagnaCut"],
         image: "https://zt.kaiusa.com/0452cf.html",
         link: "https://zt.kaiusa.com/0452cf.html"
     },
@@ -569,7 +569,7 @@ export const POPULAR_KNIVES = [
         category: "EDC",
         description: "Designed by Rick Hinderer, this is often considered one of the best production flippers ever made.",
         whySpecial: "Features the Hinderer 'slicer' grind which provides a perfect balance of toughness and slicing efficiency.",
-        steels: ["CPM-20CV", "CTS-204P", "M390 Microclean", "Elmax SuperClean"],
+        steels: ["CPM-20CV", "CTS-204P", "M390", "Elmax"],
         image: "https://zt.kaiusa.com/media/catalog/product/0/5/0562cf_1.jpg",
         link: "https://zt.kaiusa.com/0562cf.html"
     }
