@@ -349,12 +349,9 @@ Be concise and premium.`;
 
     const clearCompare = () => {
         setCompareList([]);
-        if (view === 'COMPARE') {
-            navigate({ compareSteels: null }, true);
-        }
     };
 
-    // Filter knives based on search query AND grade library filters (producer, alloy content)
+    // Filter knives based on search query AND grade library filters (producer and alloy content)
     const filteredKnives = useMemo(() => {
         const normalize = (val) => {
             if (typeof val !== 'string') return "";
@@ -377,8 +374,8 @@ Be concise and premium.`;
                 else if (k.category.toLowerCase().includes(searchLower)) matchesSearch = true;
                 else if (k.description.toLowerCase().includes(searchLower)) matchesSearch = true;
                 else if (k.whySpecial.toLowerCase().includes(searchLower)) matchesSearch = true;
-                else if (k.steels.some(sObj => {
-                    const steelName = sObj.name;
+                else if (k.steels.some(s => {
+                    const steelName = typeof s === 'string' ? s : (s?.name || "");
                     const normalizedSteel = normalize(steelName);
                     const normalizedSearch = normalize(searchLower);
                     return steelName.toLowerCase().includes(searchLower) ||
@@ -391,11 +388,11 @@ Be concise and premium.`;
 
             // Now apply grade library filters (producer and alloy content)
             // A knife passes if ANY of its steel variants match the filters
-            const hasMatchingSteel = k.steels.some(sObj => {
-                const steelName = sObj.name;
-                const steel = steels.find(s =>
-                    normalize(s.name) === normalize(steelName) ||
-                    s.name.toLowerCase() === steelName.toLowerCase()
+            const hasMatchingSteel = k.steels.some(s => {
+                const steelName = typeof s === 'string' ? s : (s?.name || "");
+                const steel = steels.find(foundSteel =>
+                    normalize(foundSteel.name) === normalize(steelName) ||
+                    foundSteel.name.toLowerCase() === steelName.toLowerCase()
                 );
 
                 if (!steel) return false; // Steel not found in database
@@ -413,7 +410,7 @@ Be concise and premium.`;
 
             return hasMatchingSteel;
         });
-    }, [knifeSearch, steels, activeProducer, filters]);
+    }, [knifeSearch, steels, activeProducer, filters, initialKnives]);
 
     const resetFilters = () => {
         setFilters({ minC: 0, minCr: 0, minV: 0 });

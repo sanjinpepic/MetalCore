@@ -96,6 +96,17 @@ async function main() {
         'magnacut': 'crucible-1',
         'cpm rex 45': 'crucible-10',
         '1095 high carbon': 'classic-1',
+        's30v': 'crucible-14',
+        's45vn': 'crucible-16',
+        's110v': 'crucible-13',
+        'magnacut': 'crucible-1',
+        'maxamet': 'carpenter-2',
+        'd2': 'classic-3',
+        '420hc': 'classic-8',
+        'x55crmov14': 'classic-9',
+        'lc200n / cronidur 30': 'zapp-1',
+        'cru-wear': 'crucible-8',
+        'cpm-cruwear': 'crucible-8',
     };
     for (const [alias, id] of Object.entries(aliases)) {
         steelLookup.set(alias, id);

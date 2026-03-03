@@ -91,7 +91,7 @@ export const PREMIUM_STEELS = [
         id: 'bohler-6', name: "M340", producer: "Böhler", pm: true, C: 0.54, Cr: 17.3, V: 0.1, Mo: 1.1, W: 0, Co: 0, edge: 7, toughness: 5, corrosion: 8, sharpen: 6,
         ht_curve: "200:60,400:58,500:59",
         desc: "A popular mid-range powder stainless from Böhler. Balances edge retention and corrosion resistance well for production knives.",
-        knives: ["Spyderco (older models)", "European production folders"],
+        knives: ["Spyderco (older models)", "European production folders", "LionSteel M4"],
         pros: ["Good balance of performance and workability", "Decent corrosion resistance", "Takes a good edge"],
         cons: ["Outperformed by super-steels", "Not exceptional in any single area"],
         use_case: "Mid-range production folders and everyday carry."
@@ -220,7 +220,7 @@ export const PREMIUM_STEELS = [
         id: 'crucible-1', name: "MagnaCut", producer: "Crucible", parent: "Erasteel", pm: true, C: 1.15, Cr: 10.7, V: 4.0, Mo: 2.0, W: 0, Co: 0, edge: 8, toughness: 7, corrosion: 9.5, sharpen: 6,
         ht_curve: "175:61,225:62,300:60,400:58",
         desc: "Revolutionary stainless steel designed specifically for knives. Offers unrivaled balance of toughness and corrosion resistance.",
-        knives: ["Chris Reeve Sebenza 31", "Tactile Rockwall", "Hogue Deka"],
+        knives: ["GiantMouse ACE Riv", "ZT 0452CF", "ZT 0562CF", "Tactile Rockwall", "Spyderco PM2", "Hogue Deka"],
         pros: ["Stainless perfection", "High toughness (replaces 4V/3V)", "Great edge retention"],
         cons: ["Still relatively new (premium price)", "Requires precise salt-bath HT"],
         use_case: "The ultimate choice for salt-water folders, high-end EDC, and kitchen knives."
@@ -338,7 +338,7 @@ export const PREMIUM_STEELS = [
         edge: 10, toughness: 3, corrosion: 8, sharpen: 1,
         ht_curve: "200:61,400:59,500:58",
         desc: "A hyper wear-resistant stainless steel built for extreme edge retention.",
-        knives: ["Spyderco Manix 2 LW", "Spyderco PM2 (S110V)"],
+        knives: ["Spyderco Para Military 2", "Spyderco Manix 2", "Spyderco Para 3"],
         pros: ["Near-Maxamet edge life", "Very stainless"],
         cons: ["Low toughness", "Extremely difficult to sharpen"],
         use_case: "Light-duty slicing where sharpening frequency must be minimal."
@@ -349,7 +349,7 @@ export const PREMIUM_STEELS = [
         edge: 7, toughness: 6, corrosion: 7.5, sharpen: 6,
         ht_curve: "200:59,400:58,500:56",
         desc: "The first steel designed specifically for knives. Set the modern benchmark for premium production folders.",
-        knives: ["Spyderco Paramilitary 2", "Benchmade Griptilian", "Chris Reeve Sebenza (older)"],
+        knives: ["Spyderco Para Military 2", "Benchmade Griptilian", "Buck 110", "Chris Reeve Sebenza (older)"],
         pros: ["Balanced performance", "Good corrosion resistance", "Predictable heat treatment"],
         cons: ["Outperformed by newer steels", "Not exceptional in any one area"],
         use_case: "Reliable premium EDC and outdoor knives."
@@ -396,7 +396,7 @@ export const PREMIUM_STEELS = [
         id: 'crucible-19', name: "SPY27", producer: "Crucible", parent: "Erasteel", pm: true, C: 1.25, Cr: 14.0, V: 2.0, Mo: 2.0, W: 0, Co: 1.5, edge: 5, toughness: 7, corrosion: 10, sharpen: 8,
         ht_curve: "150:58,200:57,250:56",
         desc: "Spyderco's proprietary super-stainless with 14% chromium and 1.5% Cobalt. Built for absolute corrosion immunity in any environment.",
-        knives: ["Spyderco Salt", "Spyderco Salt 2", "Spyderco Yojana"],
+        knives: ["Spyderco Sage 5", "Spyderco Para Military 2", "Spyderco Para 3", "Spyderco Yojana"],
         pros: ["Virtually rust-proof in any conditions", "Very tough", "Easy to maintain"],
         cons: ["Modest edge retention", "Not a performance steel for cutting"],
         use_case: "Marine, food-service, and sweat-heavy environments where corrosion is non-negotiable."
@@ -424,7 +424,9 @@ export const PREMIUM_STEELS = [
 
     // --- ERASTEEL ---
     {
-        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", pm: true, C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0, edge: 8.0, toughness: 8.0, corrosion: 1, sharpen: 3,
+        id: 'erasteel-3', name: "ASP 2003", producer: "Erasteel", pm: true,
+        C: 1.28, Cr: 4.0, V: 3.1, Mo: 5.0, W: 6.4, Co: 0,
+        edge: 8.0, toughness: 8.0, corrosion: 1, sharpen: 3,
         ht_curve: "500:64,540:66,580:63",
         desc: "A high-performance powder metallurgy high-speed steel optimized for extreme toughness and wear resistance.",
         knives: ["Custom Industrial Knives", "High-Performance Work Tools"],
@@ -990,7 +992,7 @@ export const PREMIUM_STEELS = [
         edge: 4, toughness: 8.5, corrosion: 8.5, sharpen: 9,
         ht_curve: "150:57,200:56,250:55",
         desc: "A slightly harder evolution of X50CrMoV15 used in mid-range European chef knives.",
-        knives: ["Mercer Culinary", "F. Dick", "Burgvogel"],
+        knives: ["Mercer Culinary", "F. Dick", "Burgvogel", "Victorinox Classic SD"],
         pros: ["Good toughness", "Easy maintenance"],
         cons: ["Still soft vs Japanese steels"],
         use_case: "Commercial kitchen chef knives."
@@ -1003,7 +1005,7 @@ export const PREMIUM_STEELS = [
         edge: 3, toughness: 7, corrosion: 1, sharpen: 10,
         ht_curve: "150:58,200:57,250:55",
         desc: "The fundamental high-carbon steel. Known for taking an incredibly keen edge, high toughness, and extreme ease of sharpening.",
-        knives: ["ESEE Knives", "KA-BAR Becker", "Traditional Pocket Knives"],
+        knives: ["ESEE Knives", "KA-BAR Becker", "KA-BAR USMC Utility", "Traditional Pocket Knives"],
         pros: ["Trivially easy to sharpen", "Durable and tough", "Very affordable"],
         cons: ["Rusts instantly", "Lacks wear resistance"],
         use_case: "Hard-use survival knives, bushcraft, and traditional folders."
@@ -1025,7 +1027,7 @@ export const PREMIUM_STEELS = [
         edge: 6, toughness: 5, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,400:58,500:60",
         desc: "The classic high-carbon, high-chromium tool steel. A massive leap in wear resistance during its time, acting as the father of modern high-wear steels.",
-        knives: ["Ontario RAT 1 (D2)", "Budget CIVIVI/We Knife", "Ka-Bar Dozier"],
+        knives: ["Ontario RAT 1 (D2)", "Budget CIVIVI/We Knife", "Ka-Bar Dozier", "Benchmade Infidel"],
         pros: ["Excellent edge retention for the price", "Aggressive cutting edge"],
         cons: ["Semi-stainless", "Can be chippy", "Hard to sharpen compared to 1095/440C"],
         use_case: "Budget-friendly everyday carry and hard-working tools."
@@ -1073,6 +1075,28 @@ export const PREMIUM_STEELS = [
         pros: ["Almost indestructible", "Flexes without breaking", "Easy to sharpen in the field"],
         cons: ["No abrasion resistance", "Will rust quickly without oil"],
         use_case: "Swords, machetes, and extreme-abuse chopping tools."
+    },
+    {
+        id: 'classic-8', name: "420HC", producer: "Various", pm: false,
+        C: 0.45, Cr: 13.0, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 3, toughness: 8, corrosion: 8, sharpen: 10,
+        ht_curve: "150:56,200:55,250:54",
+        desc: "A high-carbon version of 420 stainless. While it has lower edge retention than modern super-steels, Buck's Paul Bos heat treat made it legendary for toughness and ease of sharpening.",
+        knives: ["Buck 110 Folding Hunter", "Buck 119 Special", "Leatherman Wave+"],
+        pros: ["Extreme corrosion resistance", "Trivially easy to sharpen", "Very tough for a stainless"],
+        cons: ["Poor edge retention compared to modern alloys"],
+        use_case: "Budget-friendly utility knives and tools where maintenance ease is prioritized."
+    },
+    {
+        id: 'classic-9', name: "X55CrMoV14", producer: "Victorinox / Outokumpu", pm: false,
+        C: 0.52, Cr: 15.0, V: 0.15, Mo: 0.50, W: 0, Co: 0,
+        edge: 3, toughness: 7, corrosion: 9, sharpen: 10,
+        ht_curve: "150:56,200:55,250:54",
+        desc: "The proprietary stainless steel used in Swiss Army Knives. Optimized for extreme corrosion resistance and ease of maintenance over absolute hardness.",
+        knives: ["Victorinox Classic SD", "Swiss Army Knife Pioneer", "Victorinox Kitchen Knives"],
+        pros: ["Virtually rust-proof in normal use", "Incredibly easy to sharpen to a razor edge", "Decent toughness"],
+        cons: ["Low edge retention", "Soft compared to modern super-steels"],
+        use_case: "Multi-tools, kitchen knives, and everyday carry where rust resistance is paramount."
     }
 
 ];

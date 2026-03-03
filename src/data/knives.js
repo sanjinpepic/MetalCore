@@ -72,6 +72,17 @@ export const POPULAR_KNIVES = [
         link: "https://www.benchmade.com/products/163-1?srsltid=AfmBOopyQDRx1u6QMZ5zcWrz9A6UMNSF_XVtc6DcExsaQ9XiqzCWoW9j"
     },
     {
+        id: "bm-infidel",
+        name: "Infidel",
+        maker: "Benchmade",
+        category: "Tactical",
+        description: "One of the most famous Out-The-Front (OTF) automatic knives in the world.",
+        whySpecial: "The Infidel's rock-solid reliability and iconic spear-point blade have made it a favorite for tactical professionals for over a decade.",
+        steels: ["D2", "S30V"],
+        image: "https://www.benchmade.com/media/catalog/product/3/3/3300bk_main_1_1.jpg",
+        link: "https://www.benchmade.com/products/3300bk"
+    },
+    {
         id: "bm-griptilian",
         name: "Griptilian",
         maker: "Benchmade",
@@ -94,6 +105,30 @@ export const POPULAR_KNIVES = [
         steels: ["N690", "VG-10", "CPM-S35VN"],
         image: "https://www.boker.de/media/image/ca/61/42/01BO296_1.jpg",
         link: "https://www.boker.de/en/kwaiken-flipper-01bo296"
+    },
+
+    // --- BUCK KNIVES ---
+    {
+        id: "buck-110",
+        name: "110 Folding Hunter",
+        maker: "Buck Knives",
+        category: "Outdoor",
+        description: "Perhaps the most iconic folding knife in American history, the 110 defined the 'lockback' folder.",
+        whySpecial: "Its timeless brass-and-wood aesthetic combined with its legendary lifetime warranty has made it a favorite for over 50 years.",
+        steels: ["420HC", "CPM-S30V"],
+        image: "https://www.buckknives.com/media/catalog/product/0/1/0110brs-b_0.jpg",
+        link: "https://www.buckknives.com/product/110-folding-hunter-knife/"
+    },
+    {
+        id: "buck-119",
+        name: "119 Special",
+        maker: "Buck Knives",
+        category: "Outdoor",
+        description: "A classic large fixed blade that has been used by generations of outdoorsmen and hunters.",
+        whySpecial: "The iconic clip-point blade and phenolic handle are instantly recognizable and have stood the test of time.",
+        steels: ["420HC", "S30V"],
+        image: "https://www.buckknives.com/media/catalog/product/0/1/0119brs-b.jpg",
+        link: "https://www.buckknives.com/product/119-special-knife/"
     },
 
     // --- BRADFORD KNIVES ---
@@ -246,6 +281,20 @@ export const POPULAR_KNIVES = [
         steels: ["RWL34", "CPM-154", "DS93X", "CPM-MagnaCut"],
         image: "https://grimsmoknives.com/cdn/shop/files/norseman-header_15f4e7ab-5cc4-4205-bae1-84601825f39e.jpg?v=1701711358&width=1400",
         link: "https://grimsmoknives.com/pages/the-norseman"
+    },
+
+    // --- HINDERER KNIVES ---
+    // --- KA-BAR ---
+    {
+        id: "kabar-usmc",
+        name: "USMC Utility Knife",
+        maker: "KA-BAR",
+        category: "Survival",
+        description: "The legendary fighting and utility knife of the United States Marine Corps since WWII.",
+        whySpecial: "A symbol of American military history, its stacked-leather handle and robust 1095 blade make it a surprisingly capable survival tool even today.",
+        steels: ["1095 High Carbon"],
+        image: "https://www.kabar.com/products/1217",
+        link: "https://www.kabar.com/products/1217"
     },
 
     // --- HINDERER KNIVES ---
@@ -497,6 +546,17 @@ export const POPULAR_KNIVES = [
         image: "https://www.spyderco.com/products/SpydieChef/1013",
         link: "https://www.spyderco.com/catalog/details/C211TI/SpydieChef-trade-/1013"
     },
+    {
+        id: "spy-pm2",
+        name: "Para Military 2 (PM2)",
+        maker: "Spyderco",
+        category: "EDC",
+        description: "The definitive choice for knife enthusiasts worldwide, the PM2 sets the standard for ergonomics and performance.",
+        whySpecial: "Features the patented Compression Lock, a nested-liner construction, and an incredible variety of steel configurations.",
+        steels: ["CPM-S45VN", "CPM-S30V", "CPM-MagnaCut", "Maxamet", "CPM-CruWear", "CPM-S110V"],
+        image: "https://www.spyderco.com/products/Para-Military-trade-2-Black-G-10/191",
+        link: "https://www.spyderco.com/catalog/details/C81G2/Para-Military-reg-2-Black-G-10/472"
+    },
 
     // --- TACTILE KNIFE CO. ---
     {
@@ -535,6 +595,19 @@ export const POPULAR_KNIVES = [
         steels: ["CPM-S35VN", "CPM-MagnaCut"],
         image: "https://cdn11.bigcommerce.com/s-sxmon9efck/images/stencil/500x659/products/115/1762/IMG_0003__60942.1757424248.JPG?c=1",
         link: "https://whiteriverknives.com/search.php?search_query=firecraft+fc4"
+    },
+
+    // --- VICTORINOX ---
+    {
+        id: "vic-classicsd",
+        name: "Classic SD",
+        maker: "Victorinox",
+        category: "EDC",
+        description: "The most famous multi-tool in the world, the Swiss Army Knife 'Classic' is a staple for keys and pockets.",
+        whySpecial: "Despite its tiny size, its scissors and blade are incredibly functional, and its presence is universally non-threatening.",
+        steels: ["X55CrMoV14"],
+        image: "https://www.victorinox.com/global-pantry/media/catalog/product/0/6/0_6223_v_1.jpg",
+        link: "https://www.victorinox.com/en-US/Products/Swiss-Army-Knives/Small-Pocket-Knives/Classic-SD/p/0.6223/"
     },
 
     // --- WÜSTHOF ---

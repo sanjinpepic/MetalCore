@@ -21,6 +21,10 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
     const filteredKnives = useMemo(() => {
         return knives.filter(knife => {
             const matchesCategory = activeCategory === "ALL" || knife.category === activeCategory;
+
+            // Search is already filtered in parent (SteelLedgerClient), but let's be safe 
+            // and ensure we only filter by category here since we're using the 'knives' prop 
+            // which is already filtered by search in the parent.
             return matchesCategory;
         });
     }, [knives, activeCategory]);
@@ -189,17 +193,18 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                                 <div className="text-[10px] md:text-xs font-bold text-slate-600 uppercase tracking-widest">Available Configurations</div>
                                                 <div className="flex flex-wrap gap-2 md:gap-3">
                                                     {knife.steels.map(s => {
-                                                        const steel = steels.find(foundSteel => normalize(foundSteel.name) === normalize(s.name));
+                                                        const steelName = typeof s === 'string' ? s : s.name;
+                                                        const steel = steels.find(foundSteel => normalize(foundSteel.name) === normalize(steelName));
                                                         return (
                                                             <button
-                                                                key={s.id}
+                                                                key={steelName}
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();
-                                                                    steel ? setDetailSteel(steel) : alert(`Data for ${s.name} not found.`);
+                                                                    steel ? setDetailSteel(steel) : alert(`Data for ${steelName} not found.`);
                                                                 }}
                                                                 className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
                                                             >
-                                                                {s.name}
+                                                                {steelName}
                                                             </button>
                                                         );
                                                     })}
