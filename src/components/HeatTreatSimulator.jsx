@@ -66,7 +66,10 @@ const HeatTreatSimulator = ({ steel }) => {
                     step="5"
                     value={temp}
                     onChange={(e) => setTemp(parseInt(e.target.value))}
-                    className="w-full h-1.5 bg-white/5 rounded-full appearance-none cursor-pointer accent-accent border border-white/5"
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchMove={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    className="w-full h-1.5 bg-white/5 rounded-full appearance-none cursor-pointer accent-accent border border-white/5 touch-none"
                 />
                 <div className="flex justify-between mt-2 text-[8px] font-mono text-slate-600 font-black uppercase tracking-widest">
                     <span>150°C</span>
