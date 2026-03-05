@@ -309,7 +309,6 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             <span className="w-6 h-px bg-rose-500/30"></span>
                             Analytics Engine
                         </div>
-                        <h1 className="text-4xl font-display font-black text-white tracking-tighter italic uppercase leading-tight">Performance <br /><span className="text-rose-500">Matrix</span></h1>
                     </div>
 
                     {/* Search & Density Section */}

@@ -9,28 +9,29 @@ const FossilParticle = ({ p, x, y }) => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{
-                opacity: [0, p.opacity, 0],
-                y: [`${p.y}%`, `${(p.y - 40 + 100) % 100}%`]
+                opacity: [0, p.opacity, p.opacity * 0.6, p.opacity, 0],
+                x: p.xOffset.map(val => `calc(${p.x}% + ${val}vw)`),
+                y: p.yOffset.map(val => `calc(${p.y}% + ${val}vh)`)
             }}
             style={{
                 x: px,
                 y: py,
                 position: 'absolute',
-                left: `${p.x}%`,
                 width: p.size,
                 height: p.size,
                 borderRadius: '50%',
                 backgroundColor: 'white',
-                filter: 'blur(0.5px)',
-                boxShadow: '0 0 8px rgba(255,255,255,0.3)'
+                filter: p.blur,
+                boxShadow: '0 0 12px rgba(255,255,255,0.4)',
+                willChange: 'transform, opacity'
             }}
             transition={{
                 duration: p.speed,
                 repeat: Infinity,
-                ease: "linear",
-                opacity: { duration: p.speed, repeat: Infinity, times: [0, 0.5, 1] }
+                repeatType: "mirror",
+                ease: "easeInOut",
             }}
-            className="absolute"
+            className="absolute rounded-full"
         />
     );
 };
@@ -65,19 +66,23 @@ const InteractiveBackground = () => {
     // Generate random particles (representing carbides/atoms)
     const particles = useMemo(() => {
         if (!mounted) return [];
-        return Array.from({ length: 45 }).map((_, i) => ({
+        return Array.from({ length: 60 }).map((_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
-            size: Math.random() * 1.5 + 0.5,
-            opacity: Math.random() * 0.2 + 0.05,
-            speed: Math.random() * 10 + 15,
-            parallaxFactor: Math.random() * 0.5 + 0.2 // For subtle mouse reaction
+            // Generate multiple keyframes for organic floating (vw/vh offsets)
+            xOffset: [0, (Math.random() - 0.5) * 15, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 10],
+            yOffset: [0, -(Math.random() * 15 + 5), -(Math.random() * 25 + 10), -(Math.random() * 35 + 15)],
+            size: Math.random() * 2.5 + 1.0, // 1px to 3.5px
+            opacity: Math.random() * 0.4 + 0.2, // 20% to 60% opacity
+            blur: `blur(${Math.random() * 2 + 0.5}px)`, // Variable depth of field
+            speed: Math.random() * 30 + 20, // Very slow: 20s to 50s per cycle
+            parallaxFactor: Math.random() * 0.4 + 0.1
         }));
     }, [mounted]);
 
     if (!mounted) {
-        return <div className="fixed inset-0 z-0 bg-black" />;
+        return <div className="fixed inset-0 z-0 bg-[#020203]" />;
     }
 
     return (
@@ -85,32 +90,32 @@ const InteractiveBackground = () => {
             {/* Ambient Glows - Layered */}
             <motion.div
                 style={{ x, y }}
-                className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-accent/5 rounded-full blur-[150px] opacity-60"
+                className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-accent/10 rounded-full blur-[150px] opacity-70"
             />
 
             <motion.div
                 style={{ x: invX, y: invY }}
-                className="absolute bottom-[-20%] right-[-20%] w-[80%] h-[80%] bg-indigo-500/5 rounded-full blur-[150px] opacity-40"
+                className="absolute bottom-[-20%] right-[-20%] w-[80%] h-[80%] bg-indigo-500/10 rounded-full blur-[150px] opacity-60"
             />
 
-            {/* Particle Layer with subtle parallax */}
-            <div className="absolute inset-0">
-                {particles.map((p) => (
-                    <FossilParticle key={p.id} p={p} x={x} y={y} />
-                ))}
-            </div>
-
             {/* Subtle Grid Overlay */}
-            <div className="absolute inset-0 opacity-[0.02]"
+            <div className="absolute inset-0 opacity-[0.03]"
                 style={{
                     backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
                     backgroundSize: '60px 60px'
                 }}
             />
 
-            {/* Vingette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-40" />
+            {/* Vingette Overlay (Under particles to act as backdrop) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60" />
+
+            {/* Particle Layer with subtle parallax (Above vignette so they don't get darkened) */}
+            <div className="absolute inset-0">
+                {particles.map((p) => (
+                    <FossilParticle key={p.id} p={p} x={x} y={y} />
+                ))}
+            </div>
         </div>
     );
 };

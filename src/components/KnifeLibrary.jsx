@@ -55,16 +55,16 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </ViewHeader>
 
             {/* Category Filters & Search */}
-            <div className="sticky top-0 z-10 bg-black/80 backdrop-blur-xl border-b border-white/5 transition-all">
-                {/* Mobile categories — plain block, NOT inside flex */}
-                <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
+            <div className="sticky top-0 z-20 h-28 md:h-16 bg-[#0a0a0c]/80 backdrop-blur-2xl border-b border-white/5 flex flex-col md:flex-row justify-center md:justify-between px-6 md:px-12 py-3 md:py-0 gap-3 items-center">
+                {/* Mobile categories */}
+                <div className="md:hidden overflow-x-auto no-scrollbar shrink-0 flex items-center -mx-2 px-2 w-full">
                     <div className="flex gap-2">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-3 py-2 rounded-2xl text-[10px] font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
-                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
+                                className={`px-4 py-2 rounded-2xl text-[10px] font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
+                                    ? "bg-sky-500 text-black shadow-lg shadow-sky-500/20"
                                     : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
                                     }`}
                             >
@@ -74,47 +74,46 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                     </div>
                 </div>
 
-                {/* Desktop: categories + search row. Mobile: just search */}
-                <div className="px-4 md:px-12 pb-3 pt-2 md:py-4 flex justify-between items-center gap-4">
-                    <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar">
-                        {categories.map(cat => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`px-6 py-3 rounded-2xl text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
-                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
-                                    : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
+                {/* Desktop categories */}
+                <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar items-center">
+                    {categories.map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => setActiveCategory(cat)}
+                            className={`px-6 py-3 rounded-2xl text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
+                                ? "bg-sky-500 text-black shadow-lg shadow-sky-500/20"
+                                : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
+                                }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
 
-                    <div className="relative w-full md:w-64 md:shrink-0">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
-                            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                        </svg>
-                        <input
-                            type="text"
-                            placeholder="Search knives..."
-                            className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
-                            value={knifeSearch}
-                            onChange={e => setKnifeSearch(e.target.value)}
-                        />
-                    </div>
+                {/* Search */}
+                <div className="relative w-full md:w-64 shrink-0 flex items-center">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
+                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search knives..."
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
+                        value={knifeSearch}
+                        onChange={e => setKnifeSearch(e.target.value)}
+                    />
                 </div>
             </div>
 
             <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
                 {Object.entries(groupedKnives).map(([maker, makerKnives]) => (
                     <section key={maker}>
-                        <div className="sticky top-[7.5rem] md:top-[5rem] z-[5] py-2 md:py-4 -mx-4 md:-mx-8 px-4 md:px-8 bg-black border-b border-white/5 flex items-center justify-between transition-all">
-                            <div className="flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                                <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{maker}</h2>
-                                <div className="flex-1 h-px bg-white/5"></div>
-                                <span className="text-[10px] font-bold text-slate-600">{makerKnives.length} {makerKnives.length === 1 ? 'knife' : 'knives'}</span>
+                        <div className="sticky top-28 md:top-16 z-10 py-3 md:py-4 -mx-6 md:-mx-12 px-6 md:px-12 bg-[#0a0a0c]/80 backdrop-blur-2xl border-b border-white/5 flex items-center justify-between">
+                            <div className="flex items-center gap-3 w-full">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(20,184,166,0.8)]"></div>
+                                <h2 className="text-xs md:text-sm font-black text-white uppercase tracking-[0.2em] italic">{maker}</h2>
+                                <div className="flex-1 h-px bg-white/5 mx-2"></div>
+                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{makerKnives.length} {makerKnives.length === 1 ? 'MODEL' : 'MODELS'}</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
