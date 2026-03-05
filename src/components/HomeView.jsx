@@ -1,13 +1,15 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import { motion } from 'framer-motion';
 import { useSettings } from '../context/SettingsContext';
 import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
 
-import { hapticFeedback } from '../hooks/useMobile';
+import { hapticFeedback, useMobile } from '../hooks/useMobile';
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters, setShowRecommender }) => {
+    const { isMobile } = useMobile();
     const { dashboardLayout, setDashboardLayout } = useSettings();
     const searchContainerRef = useRef(null);
 
@@ -149,7 +151,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
                             <div className="p-2">
                                 {searchResults.map((result) => (
-                                    <button
+                                    <motion.button
                                         key={result.id}
                                         onClick={() => {
                                             hapticFeedback('light');
@@ -175,7 +177,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                 <div className="text-lg font-black text-white italic leading-none group-hover/item:text-accent transition-colors">{result.name}</div>
                                             </div>
                                         </div>
-                                    </button>
+                                    </motion.button>
                                 ))}
                             </div>
                             <button onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }} className="w-full py-3 bg-white/5 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white hover:bg-white/10 transition-all">
@@ -306,13 +308,21 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     {/* Right Column */}
                     <div className="xl:col-span-4 space-y-8">
                         {featuredSteel && dashboardLayout.showSpotlight && (
-                            <section className="glass-panel p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group h-full flex flex-col justify-between">
+                            <motion.section
+                                className="glass-panel p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group h-full flex flex-col justify-between"
+                            >
                                 {/* Decorative Background Elements */}
                                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-indigo-500/20 transition-colors duration-700" />
                                 <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-accent/10 transition-colors duration-700" />
 
                                 <div className="relative z-10 space-y-6">
-                                    <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Daily Spotlight</div>
+                                    <div className="flex items-center justify-between">
+                                        <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Steel of the Month</div>
+                                        <div className="px-3 py-1 bg-accent/20 border border-accent/30 rounded-full text-[9px] font-black text-accent uppercase tracking-widest flex items-center gap-2">
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" /><path d="M12 2 4.5 9.5 12 17l7.5-7.5L12 2Z" /></svg>
+                                            Community Choice
+                                        </div>
+                                    </div>
                                     <h2 className="text-4xl font-display font-black text-white italic leading-none truncate group-hover:text-accent transition-colors cursor-pointer" onClick={() => setDetailSteel(featuredSteel)}>{featuredSteel.name}</h2>
                                     <p className="text-slate-400 text-sm leading-relaxed italic line-clamp-3">"{featuredSteel.desc}"</p>
                                 </div>
@@ -344,7 +354,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         </svg>
                                     </button>
                                 </div>
-                            </section>
+                            </motion.section>
                         )}
                     </div>
                 </div>

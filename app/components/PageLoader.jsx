@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { HomeSkeleton } from '../../src/components/Common/Skeleton.jsx'
 
 export default function PageLoader() {
     // Always start with true to match server render and prevent hydration errors
@@ -34,7 +35,7 @@ export default function PageLoader() {
             sessionStorage.setItem('metalcore_loader_shown', 'true')
         }
 
-        const minDisplayTime = 800 // Minimum time to show loader (for that cool effect)
+        const minDisplayTime = 1200 // Slightly longer for the skeleton to be appreciated
         const startTime = Date.now()
 
         // Wait for page to load, then ensure minimum display time
@@ -80,37 +81,35 @@ export default function PageLoader() {
     if (!loading) return null
 
     return (
-        <div id="loading" style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: '#050505',
-            color: '#94a3b8',
-            zIndex: 9999,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            transition: 'opacity 0.5s ease-out'
-        }}>
-            <div className="spinner"></div>
-            <h2 style={{
-                fontSize: '1.25rem',
-                fontWeight: 'bold',
-                color: 'white',
-                marginBottom: '0.5rem'
-            }}>
-                Initialize MetalCore
-            </h2>
-            <p style={{
-                fontSize: '0.75rem',
-                color: '#64748b',
-                fontFamily: 'JetBrains Mono, monospace'
-            }}>
-                Loading resources...
-            </p>
+        <div id="loading" className="fixed inset-0 z-[9999] bg-black overflow-y-auto">
+            {/* Background elements to match the HomeView */}
+            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-black">
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/5 rounded-full blur-[120px]" />
+            </div>
+
+            <div className="relative pt-24">
+                <div className="flex flex-col items-center justify-center mb-12">
+                    <div className="w-16 h-16 mb-6 relative">
+                        <div className="absolute inset-0 skeleton rounded-full opacity-20" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="animate-pulse">
+                                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">
+                        Initializing MetalCore
+                    </h2>
+                    <p className="text-[10px] text-slate-500 font-mono uppercase tracking-widest mt-2">
+                        Forging Database Resources...
+                    </p>
+                </div>
+
+                <HomeSkeleton />
+            </div>
         </div>
     )
 }

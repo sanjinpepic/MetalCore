@@ -440,15 +440,21 @@ const Sidebar = ({
                                                 nav.id === 'MATRIX' ? 'nav-matrix' :
                                                     nav.id === 'KNIVES' ? 'nav-knives' : undefined
                                     }
-                                    className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${isSelected
-                                        ? `bg-${color}-500 text-black shadow-lg shadow-${color}-500/20 scale-[1.02]`
-                                        : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'
-                                        }`}
+                                    className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all relative group ${isSelected ? 'text-black' : 'text-slate-500 hover:text-slate-300'}`}
                                 >
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
-                                        {nav.icon}
-                                    </svg>
-                                    {nav.label}
+                                    {isSelected && (
+                                        <motion.div
+                                            layoutId="sidebar-active"
+                                            className={`absolute inset-0 bg-${color}-500 rounded-xl z-0 shadow-lg shadow-${color}-500/20`}
+                                            transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                                        />
+                                    )}
+                                    <div className="relative z-10 flex items-center gap-3.5">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                                            {nav.icon}
+                                        </svg>
+                                        {nav.label}
+                                    </div>
                                 </button>
                             );
                         })}

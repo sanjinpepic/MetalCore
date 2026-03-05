@@ -10,6 +10,7 @@ import AlloyBreakdown, { ELEMENT_DATA } from './ProLab/AlloyBreakdown';
 import PerformanceFrontier from './ProLab/PerformanceFrontier';
 import HeatTreatMaster from './ProLab/HeatTreatMaster';
 import CustomSelect from './Common/CustomSelect';
+import HeatTreatSimulator from './HeatTreatSimulator';
 
 const ProLabView = ({ steels }) => {
     const { myKnives } = useUser();
@@ -118,8 +119,27 @@ const ProLabView = ({ steels }) => {
                             <PerformanceFrontier steel={simSteel} steels={steels} />
                         </div>
 
+                        {/* Interactive Laboratory Tools */}
+                        <div className="glass-panel p-8 rounded-[2.5rem] border-white/5">
+                            <h4 className="text-sm font-black text-white uppercase tracking-widest mb-8 flex items-center gap-3 italic">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                                </svg>
+                                Thermodynamic Simulator
+                            </h4>
+                            <HeatTreatSimulator steel={simSteel} />
+                        </div>
+
                         {/* Row 2: Industrial HT Protocols - Full Width */}
                         <div className="lg:col-span-2 glass-panel p-8 rounded-[2.5rem] border-indigo-500/10 bg-indigo-500/5">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="p-2 bg-indigo-500/20 rounded-xl">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-400">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-sm md:text-base font-black text-white uppercase tracking-widest italic">Industrial Protocol</h3>
+                            </div>
                             <HeatTreatMaster steel={simSteel} />
                         </div>
                     </div>
@@ -127,6 +147,16 @@ const ProLabView = ({ steels }) => {
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                         {compareSteel ? (
                             <>
+                                <div className="xl:col-span-2 glass-panel p-8 rounded-[2.5rem] border-white/5">
+                                    <h4 className="text-sm font-black text-white uppercase tracking-widest mb-8 flex items-center gap-3 italic">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                            <polyline points="22 4 12 14.01 9 11.01" />
+                                        </svg>
+                                        Chemical Signature Duel
+                                    </h4>
+                                    <ChemicalRadar steels={[simSteel, compareSteel]} />
+                                </div>
                                 <div className="glass-panel p-8 rounded-[2.5rem] border-white/5 space-y-8">
                                     <div className="flex items-center justify-between border-b border-white/5 pb-4">
                                         <h2 className="text-3xl font-black text-white italic uppercase">{simSteel.name}</h2>
@@ -137,7 +167,11 @@ const ProLabView = ({ steels }) => {
                                     </div>
                                     <AlloyBreakdown steel={simSteel} customElements={duelElements} />
                                     <div className="pt-8 border-t border-white/5">
-                                        <HeatTreatMaster steel={simSteel} />
+                                        <div className="flex items-center gap-2 mb-6">
+                                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Industrial Protocol</span>
+                                        </div>
+                                        <HeatTreatSimulator steel={simSteel} />
                                     </div>
                                 </div>
                                 <div className="glass-panel p-8 rounded-[2.5rem] border-indigo-500/20 bg-indigo-500/5 space-y-8">
@@ -150,7 +184,11 @@ const ProLabView = ({ steels }) => {
                                     </div>
                                     <AlloyBreakdown steel={compareSteel} customElements={duelElements} />
                                     <div className="pt-8 border-t border-white/5">
-                                        <HeatTreatMaster steel={compareSteel} />
+                                        <div className="flex items-center gap-2 mb-6">
+                                            <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                                            <span className="text-[10px] font-black text-indigo-500/50 uppercase tracking-widest">Industrial Protocol</span>
+                                        </div>
+                                        <HeatTreatSimulator steel={compareSteel} />
                                     </div>
                                 </div>
                             </>

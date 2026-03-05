@@ -34,7 +34,6 @@ const HeatTreatMaster = ({ steel }) => {
         <div className="space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <h3 className="text-xl font-black text-white italic uppercase tracking-tight">Industrial Protocol</h3>
                     <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">Foundry-Spec Heat Treatment Guide</p>
                 </div>
                 <div className="flex items-center gap-2">

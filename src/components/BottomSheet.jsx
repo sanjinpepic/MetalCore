@@ -2,9 +2,10 @@
 
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { hapticFeedback } from '../hooks/useMobile';
+import { hapticFeedback, useMobile } from '../hooks/useMobile';
 
 export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 100 }) {
+    const { isMobile } = useMobile();
     const contentRef = useRef(null);
     const isDragging = useRef(false);
     const dragStartY = useRef(0);
@@ -222,10 +223,11 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                     <motion.div
                         key="mobile-sheet"
                         style={{ y: sheetY, zIndex: baseZIndex }}
-                        initial={false}
+                        initial={isMobile ? { y: '100dvh' } : false}
+                        animate={isMobile ? { y: 0 } : false}
+                        exit={isMobile ? { y: '100dvh' } : false}
+                        transition={isMobile ? { duration: 0.3, ease: [0.22, 1, 0.36, 1] } : undefined}
                         className="fixed inset-x-0 bottom-0 md:hidden will-change-transform"
-                    // Position: top of sheet at 5% from top (95vh height)
-                    // The sheetY motion value moves it: 0 = open, positive = down
                     >
                         <div
                             className="bg-[#0a0a0b] rounded-t-3xl shadow-2xl border-t border-white/10 overflow-hidden flex flex-col"
@@ -266,9 +268,10 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                         style={{ zIndex: baseZIndex }}
                     >
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0 }}
+                            key="desktop-modal-content"
+                            initial={{ scale: 0.99, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
+                            exit={{ opacity: 0, transition: { duration: 0.1 } }}
                             transition={springConfig}
                             onClick={(e) => e.stopPropagation()}
                             className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar will-change-transform"

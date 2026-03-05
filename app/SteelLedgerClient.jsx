@@ -24,6 +24,7 @@ import { NavigationProvider, useNavigation } from '../src/context/NavigationCont
 import { SettingsProvider } from '../src/context/SettingsContext.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 import CommandPalette from '../src/components/CommandPalette.jsx';
+import InteractiveBackground from '../src/components/Common/InteractiveBackground.jsx';
 import { hapticFeedback } from '../src/hooks/useMobile';
 
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
@@ -454,16 +455,8 @@ Be concise and premium.`;
     return (
         <>
             <div className="flex app-shell font-sans bg-black relative">
-                {/* Full-page Background Gradients - Behind Everything */}
-                <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
-                    <div className="absolute top-0 right-0 w-[1200px] h-[1200px] bg-accent/8 rounded-full blur-[250px] -translate-y-1/2 translate-x-1/2" />
-                    <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-indigo-500/8 rounded-full blur-[200px] translate-y-1/2 -translate-x-1/2" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[180px]" />
-                    {/* Sidebar-area gradient - gives the glass sidebar something vibrant to blur */}
-                    <div className="hidden md:block absolute top-0 left-0 w-[500px] h-[600px] bg-accent/20 rounded-full blur-[150px] -translate-x-1/4 -translate-y-1/4" />
-                    <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[500px] bg-indigo-500/15 rounded-full blur-[130px] -translate-x-1/4 translate-y-1/4" />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/20 via-slate-950/20 to-black" />
-                </div>
+                {/* Dynamic Interactive Background */}
+                <InteractiveBackground />
 
                 {/* Database Unavailable Banner */}
                 {showDbBanner && (
@@ -488,22 +481,8 @@ Be concise and premium.`;
                     </div>
                 )}
 
-                {/* Detail Modal */}
-                {detailSteel && (
-                    <SteelDetailModal
-                        steel={detailSteel}
-                        onClose={() => navigate({ detailSteel: null })}
-                        onOpenKnife={openKnifeModal}
-                    />
-                )}
+                {/* Detail Modals - Rendered after main content for correct stacking */}
 
-                {detailKnife && (
-                    <KnifeDetailModal
-                        knife={detailKnife}
-                        onClose={() => navigate({ detailKnife: null })}
-                        onOpenSteel={openSteelModal}
-                    />
-                )}
 
                 {/* Mobile Filters Button - Only show on views with filters */}
                 {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
@@ -729,6 +708,23 @@ Be concise and premium.`;
 
                 {/* Mobile Bottom Navigation */}
                 <MobileBottomNav view={view} setView={setView} setAiOpen={setAiOpen} />
+
+                {/* Modals - Injected at end for proper z-index and shared layout stacking */}
+                {detailSteel && (
+                    <SteelDetailModal
+                        steel={detailSteel}
+                        onClose={() => navigate({ detailSteel: null })}
+                        onOpenKnife={openKnifeModal}
+                    />
+                )}
+
+                {detailKnife && (
+                    <KnifeDetailModal
+                        knife={detailKnife}
+                        onClose={() => navigate({ detailKnife: null })}
+                        onOpenSteel={openSteelModal}
+                    />
+                )}
             </div>
 
             {/* Command Palette - Moved outside absolute shell for consistent centering */}

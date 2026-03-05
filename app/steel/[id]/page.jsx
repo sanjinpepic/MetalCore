@@ -28,12 +28,18 @@ export async function generateMetadata({ params }) {
         }
 
         return {
-            title: `${steel.name} Steel Composition & Analysis | MetalCore`,
-            description: `Detailed analysis of ${steel.name} (${steel.producer}) steel. Composition: C: ${steel.C}%, Cr: ${steel.Cr}%, V: ${steel.V}%. Performance: Edge ${steel.edge}/10, Toughness ${steel.toughness}/10.`,
+            title: `${steel.name} (${steel.producer}) Performance & Composition | MetalCore`,
+            description: `Everything you need to know about ${steel.name} steel. Heat treatment data, performance charts, and knife examples. Composition: C: ${steel.C}%, Cr: ${steel.Cr}%, V: ${steel.V}%.`,
             openGraph: {
-                title: `${steel.name} Steel Review - Composition, Properties & Knives`,
-                description: `Everything you need to know about ${steel.name} steel. Heat treatment data, performance charts, and knife examples.`,
+                title: `${steel.name} Steel Analysis - Composition, Properties & Deployment`,
+                description: `Deep metallurgical dive into ${steel.name}. Explore edge retention, toughness, and how it compares to the legendary CPM MagnaCut.`,
                 type: 'article',
+                url: `https://metalcore.io/steel/${id}`,
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title: `${steel.name} Steel Review`,
+                description: `Full performance profile and chemical composition analysis of ${steel.name} steel.`,
             }
         };
     } catch (error) {
