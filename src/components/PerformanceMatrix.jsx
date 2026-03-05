@@ -129,6 +129,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const chartRef = useRef(null);
     const containerRef = useRef(null);
     const exportRef = useRef(null);
+    const mobileInfoRef = useRef(null);
+    const [hasScrolledToSelection, setHasScrolledToSelection] = useState(false);
 
     const toggleFullScreen = () => {
         if (!containerRef.current) return;
@@ -196,6 +198,20 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         window.addEventListener('resize', check);
         return () => window.removeEventListener('resize', check);
     }, []);
+
+    // Auto-scroll logic for mobile
+    useEffect(() => {
+        if (isMobile && selectedSteel && !hasScrolledToSelection && mobileInfoRef.current) {
+            // Slight delay to allow the bar to animate in/render
+            setTimeout(() => {
+                mobileInfoRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                setHasScrolledToSelection(true);
+            }, 100);
+        }
+    }, [isMobile, selectedSteel, hasScrolledToSelection]);
 
     // Local search within the already filtered steels
     const matrixSteels = useMemo(() => {
@@ -737,7 +753,10 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
                     {/* Mobile Selected Steel Info Bar */}
                     {isMobile && selectedSteel && (
-                        <div className="lg:hidden px-3 pb-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                        <div
+                            ref={mobileInfoRef}
+                            className="lg:hidden px-3 pb-2 animate-in fade-in slide-in-from-bottom-2 duration-300"
+                        >
                             <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3">
                                 <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: getProducerColor(selectedSteel.producer) }} />
                                 <div className="flex-1 min-w-0">
