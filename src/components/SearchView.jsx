@@ -66,7 +66,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
     }, [filteredSteels]);
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black">
+        <div className="flex flex-col flex-1 min-w-0 md:h-full md:overflow-y-auto custom-scrollbar bg-transparent pb-40 md:pb-0">
             {/* View-wide background glow */}
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-amber-500/10 to-transparent pointer-events-none" />
 

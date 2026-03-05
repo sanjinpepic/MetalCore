@@ -204,12 +204,26 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         if (isMobile && selectedSteel && !hasScrolledToSelection && mobileInfoRef.current) {
             // Slight delay to allow the bar to animate in/render
             setTimeout(() => {
-                mobileInfoRef.current?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
+                const element = mobileInfoRef.current;
+                if (!element) return;
+
+                // On mobile, the scroll container is window/body
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const elementTop = rect.top + scrollTop;
+
+                // Offset calculation:
+                // We want the element's top to be visible well above the bottom nav (~80px)
+                // We'll aim to position the element near the top/middle of the viewport
+                const offset = 140; // Pixels from top of viewport
+
+                window.scrollTo({
+                    top: elementTop - offset,
+                    behavior: 'smooth'
                 });
+
                 setHasScrolledToSelection(true);
-            }, 100);
+            }, 150);
         }
     }, [isMobile, selectedSteel, hasScrolledToSelection]);
 
@@ -412,7 +426,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </aside>
 
             {/* Main Area */}
-            <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black relative">
+            <div className="flex flex-col flex-1 min-w-0 md:h-full md:overflow-y-auto custom-scrollbar bg-transparent relative pb-40 md:pb-0">
                 {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
                 <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-rose-500/10 to-transparent pointer-events-none" />
 

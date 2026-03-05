@@ -454,7 +454,7 @@ Be concise and premium.`;
 
     return (
         <>
-            <div className="flex app-shell font-sans bg-black relative">
+            <div className="flex app-shell font-sans relative">
                 {/* Dynamic Interactive Background */}
                 <InteractiveBackground />
 
@@ -540,7 +540,7 @@ Be concise and premium.`;
                                 duration: 1.3,
                                 ease: [0.22, 1, 0.36, 1]
                             }}
-                            className="w-full md:h-full md:overflow-hidden"
+                            className="w-full md:h-full md:overflow-hidden min-h-screen md:min-h-0"
                         >
                             {view === 'HOME' && (
                                 <HomeView

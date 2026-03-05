@@ -30,7 +30,7 @@ const ProLabView = ({ steels }) => {
     }, [simSteel, compareSteel]);
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black relative">
+        <div className="flex flex-col flex-1 min-w-0 md:h-full md:overflow-y-auto custom-scrollbar bg-transparent relative pb-40 md:pb-0">
             {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
             <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-500/10 to-transparent pointer-events-none" />
 
@@ -147,15 +147,19 @@ const ProLabView = ({ steels }) => {
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                         {compareSteel ? (
                             <>
-                                <div className="xl:col-span-2 glass-panel p-8 rounded-[2.5rem] border-white/5">
-                                    <h4 className="text-sm font-black text-white uppercase tracking-widest mb-8 flex items-center gap-3 italic">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
-                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                            <polyline points="22 4 12 14.01 9 11.01" />
-                                        </svg>
-                                        Chemical Signature Duel
-                                    </h4>
-                                    <ChemicalRadar steels={[simSteel, compareSteel]} />
+                                <div className="xl:col-span-2 glass-panel p-8 rounded-[2.5rem] border-indigo-500/20 bg-indigo-500/5">
+                                    <div className="flex items-center gap-3 mb-8">
+                                        <div className="p-2 bg-indigo-500/20 rounded-xl">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-400">
+                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                            </svg>
+                                        </div>
+                                        <h3 className="text-sm md:text-base font-black text-white uppercase tracking-widest italic">Metallurgical Duel Analysis</h3>
+                                    </div>
+                                    <p className="text-slate-400 text-sm italic uppercase font-black tracking-widest max-w-2xl">
+                                        Comparing the chemical signatures and thermal processing protocols of {simSteel.name} versus {compareSteel.name}.
+                                        Below you will find the carbide-forming element breakdown and suggested optimization protocols for both specimens.
+                                    </p>
                                 </div>
                                 <div className="glass-panel p-8 rounded-[2.5rem] border-white/5 space-y-8">
                                     <div className="flex items-center justify-between border-b border-white/5 pb-4">

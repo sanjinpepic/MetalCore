@@ -40,7 +40,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
     }, [filteredKnives]);
 
     return (
-        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar max-w-[100vw] [overflow-x:clip]">
+        <div className="flex-1 md:h-full md:overflow-y-auto bg-transparent custom-scrollbar max-w-[100vw] [overflow-x:clip] pb-40 md:pb-0">
             {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
             <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-sky-500/10 to-transparent pointer-events-none" />
             <ViewHeader
