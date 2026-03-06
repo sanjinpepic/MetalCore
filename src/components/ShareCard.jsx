@@ -128,8 +128,8 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
                             </p>
                         </div>
                         <div className="text-right">
-                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Generated Access</div>
-                            <div className="text-2xl font-black text-white italic tracking-tight">metalcore.ai/database</div>
+                            <div className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Access At</div>
+                            <div className="text-2xl font-black text-white italic tracking-tight">metalcre.vercel.app/</div>
                         </div>
                     </div>
                 </div>
