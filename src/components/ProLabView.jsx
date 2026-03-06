@@ -65,7 +65,7 @@ const ProLabView = ({ steels }) => {
                 {/* Global Selection Bar */}
                 <div className="glass-panel p-6 rounded-3xl flex flex-wrap items-center gap-6 border-white/5">
                     <div className="flex flex-col gap-2">
-                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Primary Specimen</span>
+                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Primary Grade</span>
                         <CustomSelect
                             options={filteredSteels}
                             value={simSteel.id}
@@ -79,7 +79,7 @@ const ProLabView = ({ steels }) => {
                         <>
                             <div className="text-indigo-500 font-display font-black italic text-2xl pt-4">VS</div>
                             <div className="flex flex-col gap-2">
-                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Opponent Specimen</span>
+                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Opponent Grade</span>
                                 <CustomSelect
                                     options={filteredSteels.filter(s => s.id !== simSteel.id)}
                                     value={compareSteel?.id || ''}
@@ -158,7 +158,7 @@ const ProLabView = ({ steels }) => {
                                     </div>
                                     <p className="text-slate-400 text-sm italic uppercase font-black tracking-widest max-w-2xl">
                                         Comparing the chemical signatures and thermal processing protocols of {simSteel.name} versus {compareSteel.name}.
-                                        Below you will find the carbide-forming element breakdown and suggested optimization protocols for both specimens.
+                                        Below you will find the carbide-forming element breakdown and suggested optimization protocols for both grades.
                                     </p>
                                 </div>
                                 <div className="glass-panel p-8 rounded-[2.5rem] border-white/5 space-y-8">
@@ -205,7 +205,7 @@ const ProLabView = ({ steels }) => {
                                 </div>
                                 <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">Initialize Duel</h3>
                                 <p className="text-slate-500 text-sm max-w-xs mt-2 uppercase font-black tracking-widest leading-loose">
-                                    Select an opponent specimen above to compare chemical signatures and heat-treat protocols side-by-side.
+                                    Select an opponent grade above to compare chemical signatures and heat-treat protocols side-by-side.
                                 </p>
                             </div>
                         )}
