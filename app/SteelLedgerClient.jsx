@@ -24,7 +24,6 @@ import { NavigationProvider, useNavigation } from '../src/context/NavigationCont
 import { SettingsProvider } from '../src/context/SettingsContext.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
 import CommandPalette from '../src/components/CommandPalette.jsx';
-import InteractiveBackground from '../src/components/Common/InteractiveBackground.jsx';
 import { hapticFeedback } from '../src/hooks/useMobile';
 
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
@@ -455,8 +454,7 @@ Be concise and premium.`;
     return (
         <>
             <div className="flex app-shell font-sans relative">
-                {/* Dynamic Interactive Background */}
-                <InteractiveBackground />
+
 
                 {/* Database Unavailable Banner */}
                 {showDbBanner && (

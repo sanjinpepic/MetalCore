@@ -317,7 +317,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                                 <div className="relative z-10 space-y-6">
                                     <div className="flex items-center justify-between">
-                                        <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Steel of the Month</div>
+                                        <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Steel of the Day</div>
                                         <div className="px-3 py-1 bg-accent/20 border border-accent/30 rounded-full text-[9px] font-black text-accent uppercase tracking-widest flex items-center gap-2">
                                             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" /><path d="M12 2 4.5 9.5 12 17l7.5-7.5L12 2Z" /></svg>
                                             Community Choice
