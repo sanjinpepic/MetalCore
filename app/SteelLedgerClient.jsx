@@ -326,7 +326,7 @@ Be concise and premium.`;
     };
 
     const filteredSteels = useMemo(() => {
-        const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
+        const normalize = (str) => (str || '').toLowerCase().replace(/[\s-]/g, '');
         const normalizedSearch = search ? normalize(search) : '';
 
         return steels.filter(s => {
@@ -379,11 +379,11 @@ Be concise and premium.`;
             // First apply search filter
             let matchesSearch = !knifeSearch;
             if (knifeSearch) {
-                if (k.name.toLowerCase().includes(searchLower)) matchesSearch = true;
-                else if (k.maker.toLowerCase().includes(searchLower)) matchesSearch = true;
-                else if (k.category.toLowerCase().includes(searchLower)) matchesSearch = true;
-                else if (k.description.toLowerCase().includes(searchLower)) matchesSearch = true;
-                else if (k.whySpecial.toLowerCase().includes(searchLower)) matchesSearch = true;
+                if ((k.name || '').toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if ((k.maker || '').toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if ((k.category || '').toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if ((k.description || '').toLowerCase().includes(searchLower)) matchesSearch = true;
+                else if ((k.whySpecial || '').toLowerCase().includes(searchLower)) matchesSearch = true;
                 else if (k.steels.some(s => {
                     const steelName = typeof s === 'string' ? s : (s?.name || "");
                     const normalizedSteel = normalize(steelName);
@@ -402,7 +402,7 @@ Be concise and premium.`;
                 const steelName = typeof s === 'string' ? s : (s?.name || "");
                 const steel = steels.find(foundSteel =>
                     normalize(foundSteel.name) === normalize(steelName) ||
-                    foundSteel.name.toLowerCase() === steelName.toLowerCase()
+                    (foundSteel.name || '').toLowerCase() === steelName.toLowerCase()
                 );
 
                 if (!steel) return false; // Steel not found in database
