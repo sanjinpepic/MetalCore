@@ -26,7 +26,7 @@ export const PREMIUM_STEELS = [
 
     // --- ALLEIMA ---
     {
-        id: 'alleima-2', name: "12C27", producer: "Alleima", parent: "Sandvik", pm: false, C: 0.6, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0, edge: 3, toughness: 8, corrosion: 8, sharpen: 9,
+        id: 'alleima-2', name: "12C27", producer: "Alleima", parent: "Alleima", pm: false, C: 0.6, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0, edge: 3, toughness: 8, corrosion: 8, sharpen: 9,
         ht_curve: "150:56,200:55,250:54",
         desc: "The classic Swedish stainless steel. Pure and consistent, it has been used for decades in millions of knives.",
         knives: ["Morakniv Companion", "Opinel No. 8 (Stainless)", "Victorinox (similar)"],
@@ -35,7 +35,7 @@ export const PREMIUM_STEELS = [
         use_case: "Standard utility knives, kitchen tools, and outdoor beaters."
     },
     {
-        id: 'alleima-1', name: "14C28N", producer: "Alleima", parent: "Sandvik", pm: false, C: 0.62, Cr: 14.0, V: 0, Mo: 0, W: 0, Co: 0, edge: 4.5, toughness: 8.5, corrosion: 9, sharpen: 8.5,
+        id: 'alleima-1', name: "14C28N", producer: "Alleima", parent: "Alleima", pm: false, C: 0.62, Cr: 14.0, V: 0, Mo: 0, W: 0, Co: 0, edge: 4.5, toughness: 8.5, corrosion: 9, sharpen: 8.5,
         ht_curve: "150:58,200:57,250:56",
         desc: "Developed specifically for professional knife applications. Alleima used Nitrogen to boost corrosion resistance.",
         knives: ["Kershaw Leek", "CIVIVI Elementum", "Ruike P801"],
@@ -44,11 +44,11 @@ export const PREMIUM_STEELS = [
         use_case: "Budget-friendly production folders and tactical knives."
     },
     {
-        id: 'alleima-4', name: "19C27", producer: "Alleima", parent: "Sandvik", pm: false,
+        id: 'alleima-4', name: "19C27", producer: "Alleima", parent: "Alleima", pm: false,
         C: 0.95, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 5, toughness: 7, corrosion: 7.5, sharpen: 8,
         ht_curve: "150:59,200:58,250:57",
-        desc: "A razor-blade stainless steel from Alleima (formerly Sandvik). Higher carbon than 12C27 for better wear resistance while maintaining ease of sharpening.",
+        desc: "A razor-blade stainless steel from Alleima. Higher carbon than 12C27 for better wear resistance while maintaining ease of sharpening.",
         knives: ["High-end razors", "Custom thin-grind kitchen knives", "Mora Garberg (stainless)"],
         pros: ["Fine grain structure", "Easy to sharpen", "Good stainlessness"],
         cons: ["Moderate edge retention", "Not a super-steel"],
@@ -1223,7 +1223,7 @@ export const PREMIUM_STEELS = [
 
     // --- ALLEIMA (additional) ---
     {
-        id: 'alleima-3', name: "13C26", producer: "Alleima", parent: "Sandvik", pm: false,
+        id: 'alleima-3', name: "13C26", producer: "Alleima", parent: "Alleima", pm: false,
         C: 0.68, Cr: 13.0, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 4, toughness: 8.5, corrosion: 8, sharpen: 9,
         ht_curve: "150:57,200:56,250:55",
