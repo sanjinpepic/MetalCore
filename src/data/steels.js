@@ -1096,7 +1096,7 @@ export const PREMIUM_STEELS = [
         use_case: "Affordable stainless fixed blades and classic custom knives."
     },
     {
-        id: 'classic-5', name: "154CM", producer: "Crucible", pm: false,
+        id: 'classic-5', name: "154CM", producer: "Crucible", parent: "Erasteel",pm: false,
         C: 1.05, Cr: 14.0, V: 0, Mo: 4.0, W: 0, Co: 0,
         edge: 6, toughness: 5, corrosion: 7.5, sharpen: 7,
         ht_curve: "200:60,400:58,500:59",
