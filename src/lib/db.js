@@ -1,401 +1,213 @@
-import { Pool } from 'pg';
-import fs from 'fs';
-import path from 'path';
-
-let pools = {
-    local: null,
-    railway: null
-};
-
-function getPool() {
-    let source = 'local';
-    try {
-        const configPath = path.resolve(process.cwd(), 'database-config.json');
-        if (fs.existsSync(configPath)) {
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-            source = config.source || 'local';
-        }
-    } catch (e) {
-        // Fallback
-    }
-
-    if (!pools[source]) {
-        const connectionString = source === 'railway'
-            ? process.env.RAILWAY_DATABASE_URL
-            : process.env.DATABASE_URL;
-
-        pools[source] = new Pool({
-            connectionString: connectionString,
-            ssl: connectionString?.includes('sslmode') || source === 'railway'
-                ? { rejectUnauthorized: false }
-                : false,
-        });
-    }
-
-    return pools[source];
-}
+import { prisma } from './prisma.js';
 
 export async function fetchAllData() {
-    const [steelsRes, knivesRes, glossaryRes, faqRes, producersRes, joinRes] = await Promise.all([
-        getPool().query('SELECT * FROM "Steel"'),
-        getPool().query('SELECT * FROM "Knife"'),
-        getPool().query('SELECT * FROM "Glossary"'),
-        getPool().query('SELECT * FROM "FAQ"'),
-        getPool().query('SELECT * FROM "Producer"'),
-        getPool().query('SELECT * FROM "_SteelToKnife"'),
+    const [steels, knives, glossary, faq, producers] = await Promise.all([
+        prisma.steel.findMany({ include: { knives: { select: { id: true, name: true } } } }),
+        prisma.knife.findMany({ include: { steels: { select: { id: true, name: true } } } }),
+        prisma.glossary.findMany(),
+        prisma.fAQ.findMany(),
+        prisma.producer.findMany(),
     ]);
 
-    // Build steel id -> name map
-    const steelNameMap = new Map(steelsRes.rows.map(s => [s.id, s.name]));
-
-    // _SteelToKnife has columns A and B. Determine which is which from the data.
-    const knifIds = new Set(knivesRes.rows.map(k => k.id));
-    const sampleA = joinRes.rows[0]?.A;
-    const knifeCol = knifIds.has(sampleA) ? 'A' : 'B';
-    const steelCol = knifeCol === 'A' ? 'B' : 'A';
-
-    // Build knife id -> [steel names] and steel id -> [knife names] maps
-    const knifeToSteels = new Map();
-    const steelToKnives = new Map();
-    const knifeNameMap = new Map(knivesRes.rows.map(k => [k.id, k.name]));
-    for (const row of joinRes.rows) {
-        const kId = row[knifeCol];
-        const sId = row[steelCol];
-        const steelName = steelNameMap.get(sId);
-        const knifeName = knifeNameMap.get(kId);
-
-        if (kId && sId) {
-            if (!knifeToSteels.has(kId)) knifeToSteels.set(kId, []);
-            knifeToSteels.get(kId).push({ id: sId, name: steelName });
-
-            if (!steelToKnives.has(sId)) steelToKnives.set(sId, []);
-            steelToKnives.get(sId).push({ id: kId, name: knifeName });
-        }
-    }
-
-    const formattedKnives = knivesRes.rows.map(k => ({
-        ...k,
-        steels: knifeToSteels.get(k.id) || [],
-    }));
-
-    return {
-        steels: steelsRes.rows.map(s => ({
-            ...s,
-            knives: steelToKnives.get(s.id) || [],
-        })),
-        knives: formattedKnives,
-        glossary: glossaryRes.rows,
-        faq: faqRes.rows,
-        producers: producersRes.rows,
-    };
+    return { steels, knives, glossary, faq, producers };
 }
 
 // ========== STEEL CRUD OPERATIONS ==========
 
 export async function createSteel(steelData) {
-    const { knives, ...steelFields } = steelData;
+    const { knives, ...fields } = steelData;
 
-    const query = `
-        INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co",
-                             edge, toughness, corrosion, sharpen, ht_curve, "desc",
-                             use_case, pros, cons, pm, parent)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
-        RETURNING *
-    `;
-
-    const values = [
-        steelFields.id || `custom-${Date.now()}`,
-        steelFields.name,
-        steelFields.producer,
-        steelFields.C || 0,
-        steelFields.Cr || 0,
-        steelFields.V || 0,
-        steelFields.Mo || 0,
-        steelFields.W || 0,
-        steelFields.Co || 0,
-        steelFields.edge || 5,
-        steelFields.toughness || 5,
-        steelFields.corrosion || 5,
-        steelFields.sharpen || 5,
-        steelFields.ht_curve || '',
-        steelFields.desc || '',
-        steelFields.use_case || '',
-        steelFields.pros || [],
-        steelFields.cons || [],
-        steelFields.pm || false,
-        steelFields.parent || null
-    ];
-
-    const result = await getPool().query(query, values);
-
-    // Handle knife relationships if provided
-    if (knives && knives.length > 0) {
-        await updateSteelKnifeRelations(result.rows[0].id, knives);
-    }
-
-    return result.rows[0];
+    return prisma.steel.create({
+        data: {
+            id: fields.id || `custom-${Date.now()}`,
+            name: fields.name,
+            producer: fields.producer,
+            C: fields.C || 0,
+            Cr: fields.Cr || 0,
+            V: fields.V || 0,
+            Mo: fields.Mo || 0,
+            W: fields.W || 0,
+            Co: fields.Co || 0,
+            edge: fields.edge || 5,
+            toughness: fields.toughness || 5,
+            corrosion: fields.corrosion || 5,
+            sharpen: fields.sharpen || 5,
+            ht_curve: fields.ht_curve || '',
+            desc: fields.desc || '',
+            use_case: fields.use_case || '',
+            pros: fields.pros || [],
+            cons: fields.cons || [],
+            pm: fields.pm ?? false,
+            parent: fields.parent || [],
+            knives: knives?.length ? { connect: knives.map(id => ({ id })) } : undefined,
+        },
+    });
 }
 
 export async function updateSteel(id, steelData) {
-    const { knives, ...steelFields } = steelData;
+    const { knives, ...fields } = steelData;
 
-    const query = `
-        UPDATE "Steel"
-        SET name = $1, producer = $2, "C" = $3, "Cr" = $4, "V" = $5,
-            "Mo" = $6, "W" = $7, "Co" = $8, edge = $9, toughness = $10,
-            corrosion = $11, sharpen = $12, ht_curve = $13, "desc" = $14,
-            use_case = $15, pros = $16, cons = $17, pm = $18, parent = $19
-        WHERE id = $20
-        RETURNING *
-    `;
-
-    const values = [
-        steelFields.name,
-        steelFields.producer,
-        steelFields.C || 0,
-        steelFields.Cr || 0,
-        steelFields.V || 0,
-        steelFields.Mo || 0,
-        steelFields.W || 0,
-        steelFields.Co || 0,
-        steelFields.edge || 5,
-        steelFields.toughness || 5,
-        steelFields.corrosion || 5,
-        steelFields.sharpen || 5,
-        steelFields.ht_curve || '',
-        steelFields.desc || '',
-        steelFields.use_case || '',
-        steelFields.pros || [],
-        steelFields.cons || [],
-        steelFields.pm || false,
-        steelFields.parent || null,
-        id
-    ];
-
-    const result = await getPool().query(query, values);
-
-    if (knives !== undefined) {
-        await updateSteelKnifeRelations(id, knives);
-    }
-
-    return result.rows[0];
+    return prisma.steel.update({
+        where: { id },
+        data: {
+            name: fields.name,
+            producer: fields.producer,
+            C: fields.C || 0,
+            Cr: fields.Cr || 0,
+            V: fields.V || 0,
+            Mo: fields.Mo || 0,
+            W: fields.W || 0,
+            Co: fields.Co || 0,
+            edge: fields.edge || 5,
+            toughness: fields.toughness || 5,
+            corrosion: fields.corrosion || 5,
+            sharpen: fields.sharpen || 5,
+            ht_curve: fields.ht_curve || '',
+            desc: fields.desc || '',
+            use_case: fields.use_case || '',
+            pros: fields.pros || [],
+            cons: fields.cons || [],
+            pm: fields.pm ?? false,
+            parent: fields.parent || [],
+            knives: knives !== undefined ? { set: knives.map(id => ({ id })) } : undefined,
+        },
+    });
 }
 
 export async function deleteSteel(id) {
-    console.log(`DB: Deleting steel ${id}...`);
-    // Explicitly delete relationships just in case CASCADE isn't enabled
-    const relResult = await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [id]);
-    const steelResult = await getPool().query('DELETE FROM "Steel" WHERE id = $1', [id]);
-    console.log(`DB: Deleted ${steelResult.rowCount} steel(s) and ${relResult.rowCount} relationship(s)`);
-    return { success: true, id, rowCount: steelResult.rowCount };
-}
-
-async function updateSteelKnifeRelations(steelId, knifeIds) {
-    // Delete existing relations for this steel
-    await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [steelId]);
-
-    // Insert new relations
-    if (knifeIds && knifeIds.length > 0) {
-        // Determine column structure (steel could be in A or B)
-        const sampleQuery = await getPool().query('SELECT "A", "B" FROM "_SteelToKnife" LIMIT 1');
-        const steelCol = 'A'; // Based on schema, steel is in column A
-        const knifeCol = 'B'; // Based on schema, knife is in column B
-
-        const values = knifeIds.map((knifeId, i) =>
-            `($${i * 2 + 1}, $${i * 2 + 2})`
-        ).join(',');
-
-        const query = `INSERT INTO "_SteelToKnife" ("${steelCol}", "${knifeCol}") VALUES ${values}`;
-        const params = knifeIds.flatMap(knifeId => [steelId, knifeId]);
-
-        await getPool().query(query, params);
-    }
+    await prisma.steel.delete({ where: { id } });
+    return { success: true, id };
 }
 
 // ========== KNIFE CRUD OPERATIONS ==========
 
 export async function createKnife(knifeData) {
-    const { steels, ...knifeFields } = knifeData;
+    const { steels, ...fields } = knifeData;
 
-    const query = `
-        INSERT INTO "Knife" (id, name, maker, category, description, "whySpecial", image, link)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-        RETURNING *
-    `;
-
-    const values = [
-        knifeFields.id || `custom-knife-${Date.now()}`,
-        knifeFields.name,
-        knifeFields.maker || '',
-        knifeFields.category || 'EDC',
-        knifeFields.description || '',
-        knifeFields.whySpecial || '',
-        knifeFields.image || '',
-        knifeFields.link || ''
-    ];
-
-    const result = await getPool().query(query, values);
-
-    // Handle steel relationships if provided
-    if (steels && steels.length > 0) {
-        await updateKnifeSteelRelations(result.rows[0].id, steels);
-    }
-
-    return result.rows[0];
+    return prisma.knife.create({
+        data: {
+            id: fields.id || `custom-knife-${Date.now()}`,
+            name: fields.name,
+            maker: fields.maker || '',
+            category: fields.category || 'EDC',
+            description: fields.description || '',
+            whySpecial: fields.whySpecial || '',
+            image: fields.image || '',
+            link: fields.link || '',
+            steels: steels?.length ? { connect: steels.map(id => ({ id })) } : undefined,
+        },
+    });
 }
 
 export async function updateKnife(id, knifeData) {
-    const { steels, ...knifeFields } = knifeData;
+    const { steels, ...fields } = knifeData;
 
-    const query = `
-        UPDATE "Knife"
-        SET name = $1, maker = $2, category = $3, description = $4,
-            "whySpecial" = $5, image = $6, link = $7
-        WHERE id = $8
-        RETURNING *
-    `;
-
-    const values = [
-        knifeFields.name,
-        knifeFields.maker || '',
-        knifeFields.category || 'EDC',
-        knifeFields.description || '',
-        knifeFields.whySpecial || '',
-        knifeFields.image || '',
-        knifeFields.link || '',
-        id
-    ];
-
-    const result = await getPool().query(query, values);
-
-    if (steels !== undefined) {
-        await updateKnifeSteelRelations(id, steels);
-    }
-
-    return result.rows[0];
+    return prisma.knife.update({
+        where: { id },
+        data: {
+            name: fields.name,
+            maker: fields.maker || '',
+            category: fields.category || 'EDC',
+            description: fields.description || '',
+            whySpecial: fields.whySpecial || '',
+            image: fields.image || '',
+            link: fields.link || '',
+            steels: steels !== undefined ? { set: steels.map(id => ({ id })) } : undefined,
+        },
+    });
 }
 
 export async function deleteKnife(id) {
-    console.log(`DB: Deleting knife ${id}...`);
-    // Explicitly delete relationships just in case CASCADE isn't enabled
-    const relResult = await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [id]);
-    const knifeResult = await getPool().query('DELETE FROM "Knife" WHERE id = $1', [id]);
-    console.log(`DB: Deleted ${knifeResult.rowCount} knife/knives and ${relResult.rowCount} relationship(s)`);
-    return { success: true, id, rowCount: knifeResult.rowCount };
-}
-
-async function updateKnifeSteelRelations(knifeId, steelIds) {
-    // Delete existing relations for this knife
-    await getPool().query('DELETE FROM "_SteelToKnife" WHERE "A" = $1 OR "B" = $1', [knifeId]);
-
-    // Insert new relations
-    if (steelIds && steelIds.length > 0) {
-        const steelCol = 'A'; // Steel is in column A
-        const knifeCol = 'B'; // Knife is in column B
-
-        const values = steelIds.map((steelId, i) =>
-            `($${i * 2 + 1}, $${i * 2 + 2})`
-        ).join(',');
-
-        const query = `INSERT INTO "_SteelToKnife" ("${steelCol}", "${knifeCol}") VALUES ${values}`;
-        const params = steelIds.flatMap(steelId => [steelId, knifeId]);
-
-        await getPool().query(query, params);
-    }
+    await prisma.knife.delete({ where: { id } });
+    return { success: true, id };
 }
 
 // ========== GLOSSARY CRUD OPERATIONS ==========
 
 export async function createGlossary(data) {
-    const query = `
-        INSERT INTO "Glossary" (term, def, category, level)
-        VALUES ($1, $2, $3, $4)
-        RETURNING *
-    `;
-    const values = [data.term, data.def, data.category || '', data.level || ''];
-    const result = await getPool().query(query, values);
-    return result.rows[0];
+    return prisma.glossary.create({
+        data: {
+            term: data.term,
+            def: data.def,
+            category: data.category || '',
+            level: data.level || '',
+        },
+    });
 }
 
 export async function updateGlossary(id, data) {
-    const query = `
-        UPDATE "Glossary"
-        SET term = $1, def = $2, category = $3, level = $4
-        WHERE id = $5
-        RETURNING *
-    `;
-    const values = [data.term, data.def, data.category || '', data.level || '', id];
-    const result = await getPool().query(query, values);
-    return result.rows[0];
+    return prisma.glossary.update({
+        where: { id: Number(id) },
+        data: {
+            term: data.term,
+            def: data.def,
+            category: data.category || '',
+            level: data.level || '',
+        },
+    });
 }
 
 export async function deleteGlossary(id) {
-    console.log(`DB: Deleting glossary ${id}...`);
-    const result = await getPool().query('DELETE FROM "Glossary" WHERE id = $1', [id]);
-    console.log(`DB: Deleted ${result.rowCount} glossary entry/entries`);
-    return { success: true, id, rowCount: result.rowCount };
+    await prisma.glossary.delete({ where: { id: Number(id) } });
+    return { success: true, id };
 }
 
 // ========== FAQ CRUD OPERATIONS ==========
 
 export async function createFAQ(data) {
-    const query = `
-        INSERT INTO "FAQ" (q, a, category)
-        VALUES ($1, $2, $3)
-        RETURNING *
-    `;
-    const values = [data.q, data.a, data.category || ''];
-    const result = await getPool().query(query, values);
-    return result.rows[0];
+    return prisma.fAQ.create({
+        data: {
+            q: data.q,
+            a: data.a,
+            category: data.category || '',
+        },
+    });
 }
 
 export async function updateFAQ(id, data) {
-    const query = `
-        UPDATE "FAQ"
-        SET q = $1, a = $2, category = $3
-        WHERE id = $4
-        RETURNING *
-    `;
-    const values = [data.q, data.a, data.category || '', id];
-    const result = await getPool().query(query, values);
-    return result.rows[0];
+    return prisma.fAQ.update({
+        where: { id: Number(id) },
+        data: {
+            q: data.q,
+            a: data.a,
+            category: data.category || '',
+        },
+    });
 }
 
 export async function deleteFAQ(id) {
-    console.log(`DB: Deleting FAQ ${id}...`);
-    const result = await getPool().query('DELETE FROM "FAQ" WHERE id = $1', [id]);
-    console.log(`DB: Deleted ${result.rowCount} FAQ entry/entries`);
-    return { success: true, id, rowCount: result.rowCount };
+    await prisma.fAQ.delete({ where: { id: Number(id) } });
+    return { success: true, id };
 }
 
 // ========== PRODUCER CRUD OPERATIONS ==========
 
 export async function createProducer(data) {
-    const query = `
-        INSERT INTO "Producer" (name, location, coords, region, "desc")
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING *
-    `;
-    const values = [data.name, data.location, data.coords || [], data.region, data.desc];
-    const result = await getPool().query(query, values);
-    return result.rows[0];
+    return prisma.producer.create({
+        data: {
+            name: data.name,
+            location: data.location,
+            coords: data.coords || [],
+            region: data.region,
+            desc: data.desc,
+        },
+    });
 }
 
 export async function updateProducer(id, data) {
-    const query = `
-        UPDATE "Producer"
-        SET name = $1, location = $2, coords = $3, region = $4, "desc" = $5
-        WHERE id = $6
-        RETURNING *
-    `;
-    const values = [data.name, data.location, data.coords || [], data.region, data.desc, id];
-    const result = await getPool().query(query, values);
-    return result.rows[0];
+    return prisma.producer.update({
+        where: { id: Number(id) },
+        data: {
+            name: data.name,
+            location: data.location,
+            coords: data.coords || [],
+            region: data.region,
+            desc: data.desc,
+        },
+    });
 }
 
 export async function deleteProducer(id) {
-    console.log(`DB: Deleting producer ${id}...`);
-    const result = await getPool().query('DELETE FROM "Producer" WHERE id = $1', [id]);
-    console.log(`DB: Deleted ${result.rowCount} producer(s)`);
-    return { success: true, id, rowCount: result.rowCount };
+    await prisma.producer.delete({ where: { id: Number(id) } });
+    return { success: true, id };
 }

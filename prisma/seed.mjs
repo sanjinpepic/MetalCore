@@ -7,12 +7,11 @@ import vm from 'vm';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const connectionString = String(process.env.RAILWAY_DATABASE_URL || process.env.DATABASE_URL || '');
+process.loadEnvFile(path.resolve(__dirname, '../.env'));
+const connectionString = String(process.env.DIRECT_URL || process.env.DATABASE_URL || '');
 const pool = new Pool({
     connectionString,
-    ssl: connectionString.includes('sslmode') || connectionString.includes('rlwy.net')
-        ? { rejectUnauthorized: false }
-        : false
+    ssl: { rejectUnauthorized: false },
 });
 
 function loadData(filePath) {
