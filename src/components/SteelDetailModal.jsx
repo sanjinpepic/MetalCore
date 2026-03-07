@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+
+const COMP_KEYS = ['C', 'Cr', 'V', 'Mo', 'W', 'Co'];
+const PERF_KEYS = ['edge', 'toughness', 'corrosion', 'sharpen'];
+const COMP_W = { C: 2, Cr: 1.5, V: 3, Mo: 1, W: 1, Co: 0.5 };
+const PERF_W = { edge: 2, toughness: 2, corrosion: 1.5, sharpen: 1 };
+
 import HeatTreatChart from './HeatTreatChart';
 import PerformanceRadar from './PerformanceRadar';
 import EdgeRetentionPredictor from './EdgeRetentionPredictor';
@@ -6,10 +12,26 @@ import { useUser } from '../context/UserContext';
 import BottomSheet from './BottomSheet';
 import ShareCard from './ShareCard';
 
-const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
+function findSimilar(steel, allSteels, n = 4) {
+    const maxComp = {};
+    COMP_KEYS.forEach(k => { maxComp[k] = Math.max(...allSteels.map(s => s[k] || 0)) || 1; });
+    return allSteels
+        .filter(s => s.id !== steel.id)
+        .map(s => {
+            let dist = 0;
+            COMP_KEYS.forEach(k => { dist += COMP_W[k] * ((((s[k] || 0) - (steel[k] || 0)) / maxComp[k]) ** 2); });
+            PERF_KEYS.forEach(k => { dist += PERF_W[k] * ((((s[k] || 0) - (steel[k] || 0)) / 10) ** 2); });
+            return { ...s, _dist: Math.sqrt(dist) };
+        })
+        .sort((a, b) => a._dist - b._dist)
+        .slice(0, n);
+}
+
+const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenSteel }) => {
     const { favoriteSteels, toggleFavorite } = useUser();
     const isFavorite = favoriteSteels.includes(steel.id);
     const [copied, setCopied] = useState(false);
+    const similarSteels = useMemo(() => allSteels.length > 1 ? findSimilar(steel, allSteels) : [], [steel, allSteels]);
 
     const shareSteel = useCallback(() => {
         const url = `${window.location.origin}${window.location.pathname}?steel=${encodeURIComponent(steel.name)}`;
@@ -136,6 +158,28 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife }) => {
                                             className="px-3 py-1.5 bg-white/3 border border-white/5 hover:border-accent/40 hover:bg-white/8 rounded-lg text-[10px] text-slate-200 transition-all font-bold"
                                         >
                                             {k.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                        {similarSteels.length > 0 && (
+                            <div className="glass-panel p-5 rounded-2xl">
+                                <h4 className="text-sm font-black text-white uppercase tracking-widest mb-4 flex items-center gap-3 italic">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-violet-400">
+                                        <circle cx="18" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><path d="M13 6h3a2 2 0 0 1 2 2v7" /><path d="M11 18H8a2 2 0 0 1-2-2V9" />
+                                    </svg>
+                                    Consider Also
+                                </h4>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {similarSteels.map(s => (
+                                        <button
+                                            key={s.id}
+                                            onClick={() => onOpenSteel && onOpenSteel(s)}
+                                            className="text-left p-3 rounded-xl bg-white/3 border border-white/5 hover:border-violet-400/30 hover:bg-white/8 transition-all group"
+                                        >
+                                            <div className="text-xs font-black text-slate-200 group-hover:text-white transition-colors uppercase tracking-tight leading-tight">{s.name}</div>
+                                            <div className="text-[10px] text-slate-600 mt-0.5 font-medium">{s.producer}</div>
                                         </button>
                                     ))}
                                 </div>

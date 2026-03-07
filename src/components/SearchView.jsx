@@ -92,7 +92,26 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             </div>
 
             <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
-                {isFiltered ? (
+                {filteredSteels.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-24 text-center gap-6">
+                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-2">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-600">
+                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p className="text-slate-400 font-bold text-lg">No grades match your filters</p>
+                            <p className="text-slate-600 text-sm mt-1">Try adjusting the alloy minimums or changing the brand filter.</p>
+                        </div>
+                        <button
+                            onClick={resetFilters}
+                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-bold text-slate-300 hover:bg-white/10 hover:border-accent/30 hover:text-white transition-all"
+                        >
+                            Reset Filters
+                        </button>
+                    </div>
+                )}
+                {filteredSteels.length > 0 && isFiltered ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 items-start">
                         {filteredSteels.map(s => <SteelCard key={s.id} s={s} compareList={compareList} toggleCompare={toggleCompare} setDetailSteel={setDetailSteel} />)}
                     </div>

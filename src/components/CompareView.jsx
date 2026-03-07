@@ -6,8 +6,10 @@ import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
 
 
-const CompareView = ({ items, setView, toggleCompare, clearCompare, generateReport, isAiLoading }) => {
+const CompareView = ({ items, setView, toggleCompare, clearCompare, generateReport, isAiLoading, savedComparisons = [], onSaveComparison, onLoadComparison, onDeleteComparison }) => {
     const [copied, setCopied] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [saveName, setSaveName] = useState('');
 
     const shareComparison = useCallback(() => {
         const steelNames = items.map(s => encodeURIComponent(s.name)).join(',');
@@ -73,6 +75,37 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                 </div>
 
                 <div className="absolute top-1/2 -translate-y-1/2 right-4 md:right-12 flex items-center gap-3">
+                    {saving ? (
+                        <div className="flex items-center gap-2">
+                            <input
+                                autoFocus
+                                type="text"
+                                value={saveName}
+                                onChange={e => setSaveName(e.target.value)}
+                                onKeyDown={e => { if (e.key === 'Enter' && saveName.trim()) { onSaveComparison(saveName.trim()); setSaving(false); setSaveName(''); } if (e.key === 'Escape') { setSaving(false); setSaveName(''); } }}
+                                placeholder="Name this set..."
+                                className="bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-accent/50 w-44"
+                            />
+                            <button
+                                onClick={() => { if (saveName.trim()) { onSaveComparison(saveName.trim()); setSaving(false); setSaveName(''); } }}
+                                className="p-2.5 bg-accent text-black rounded-xl font-bold text-xs transition-all hover:bg-accent/80 disabled:opacity-40"
+                                disabled={!saveName.trim()}
+                            >Save</button>
+                            <button onClick={() => { setSaving(false); setSaveName(''); }} className="p-2.5 bg-white/5 text-slate-400 rounded-xl hover:bg-white/10 transition-all">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => setSaving(true)}
+                            className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-slate-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all"
+                            title="Save Comparison"
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                            </svg>
+                        </button>
+                    )}
                     <button
                         onClick={shareComparison}
                         className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-slate-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all"
@@ -176,6 +209,37 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                     </div>
                 </div>
             </div>
+
+            {savedComparisons.length > 0 && (
+                <div className="px-6 md:px-12 pb-12">
+                    <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2.5">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                        </svg>
+                        Saved Comparisons
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                        {savedComparisons.map(comp => (
+                            <div key={comp.id} className="flex items-center gap-0 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                                <button
+                                    onClick={() => onLoadComparison(comp)}
+                                    className="px-4 py-3 text-xs font-bold text-slate-300 hover:text-white hover:bg-white/5 transition-all flex items-center gap-2.5"
+                                >
+                                    <span className="text-slate-500 font-mono">{comp.steelIds.length}×</span>
+                                    {comp.name}
+                                </button>
+                                <button
+                                    onClick={() => onDeleteComparison(comp.id)}
+                                    className="px-3 py-3 text-slate-600 hover:text-red-400 hover:bg-red-400/10 transition-all border-l border-white/5"
+                                >
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             <Footer />
         </div>
     );

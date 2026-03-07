@@ -15,6 +15,7 @@ export const UserProvider = ({ children }) => {
 
     const [favoriteSteels, setFavoriteSteels] = useState([]);
     const [myKnives, setMyKnives] = useState([]);
+    const [savedComparisons, setSavedComparisons] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
     // Load data from localStorage
@@ -22,10 +23,12 @@ export const UserProvider = ({ children }) => {
         const savedUser = localStorage.getItem('metalcore_user');
         const savedFavorites = localStorage.getItem('metalcore_favorites');
         const savedKnives = localStorage.getItem('metalcore_my_knives');
+        const savedComps = localStorage.getItem('metalcore_saved_comparisons');
 
         if (savedUser) setUser(JSON.parse(savedUser));
         if (savedFavorites) setFavoriteSteels(JSON.parse(savedFavorites));
         if (savedKnives) setMyKnives(JSON.parse(savedKnives));
+        if (savedComps) setSavedComparisons(JSON.parse(savedComps));
 
         setIsLoaded(true);
     }, []);
@@ -45,6 +48,20 @@ export const UserProvider = ({ children }) => {
         if (!isLoaded) return;
         localStorage.setItem('metalcore_my_knives', JSON.stringify(myKnives));
     }, [myKnives, isLoaded]);
+
+    useEffect(() => {
+        if (!isLoaded) return;
+        localStorage.setItem('metalcore_saved_comparisons', JSON.stringify(savedComparisons));
+    }, [savedComparisons, isLoaded]);
+
+    const saveComparison = (name, steelIds) => {
+        const entry = { id: Date.now().toString(), name, steelIds, createdAt: new Date().toISOString() };
+        setSavedComparisons(prev => [entry, ...prev]);
+    };
+
+    const deleteComparison = (id) => {
+        setSavedComparisons(prev => prev.filter(c => c.id !== id));
+    };
 
     const toggleFavorite = (steelId) => {
         setFavoriteSteels(prev =>
@@ -86,6 +103,9 @@ export const UserProvider = ({ children }) => {
             addKnife,
             removeKnife,
             updateKnife,
+            savedComparisons,
+            saveComparison,
+            deleteComparison,
             isLoaded
         }}>
             {children}

@@ -19,7 +19,7 @@ import AIAnalystPanel from '../src/components/AIAnalystPanel.jsx';
 import SettingsModal from '../src/components/SettingsModal.jsx';
 import ImportModal from '../src/components/ImportModal.jsx';
 import SteelRecommender from '../src/components/SteelRecommender.jsx';
-import { UserProvider } from '../src/context/UserContext.jsx';
+import { UserProvider, useUser } from '../src/context/UserContext.jsx';
 import { NavigationProvider, useNavigation } from '../src/context/NavigationContext.jsx';
 import { SettingsProvider } from '../src/context/SettingsContext.jsx';
 import MobileBottomNav from '../src/components/MobileBottomNav.jsx';
@@ -52,6 +52,7 @@ export default function SteelLedgerClient({ initialSteels, initialKnives, initia
 
 function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError }) {
     const { currentState, navigate } = useNavigation();
+    const { savedComparisons, saveComparison, deleteComparison } = useUser();
     const [steels, setSteels] = useState(initialSteels);
     const [showDbBanner, setShowDbBanner] = useState(dbError);
     const [search, setSearch] = useState("");
@@ -85,7 +86,11 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
 
     const fileInputRef = useRef(null);
 
-    const producers = ["ALL", ...[...new Set(steels.map(s => s.producer))].filter(p => p !== 'Various').sort((a, b) => a.localeCompare(b))];
+    const getSteelGroup = (s) => {
+        const p = Array.isArray(s.parent) ? s.parent[0] : s.parent;
+        return (p && p.trim()) || s.producer || 'Other';
+    };
+    const producers = ["ALL", ...[...new Set(steels.map(getSteelGroup))].sort((a, b) => a.localeCompare(b))];
 
     // Trending Logic
     const incrementTrending = (steelId) => {
@@ -329,7 +334,7 @@ Be concise and premium.`;
                 normalize(s.name).includes(normalizedSearch) ||
                 normalize(s.producer).includes(normalizedSearch);
             const matchesFilters = s.C >= filters.minC && s.Cr >= filters.minCr && s.V >= filters.minV;
-            const matchesProducer = activeProducer === "ALL" || s.producer === activeProducer;
+            const matchesProducer = activeProducer === "ALL" || getSteelGroup(s) === activeProducer;
             return matchesSearch && matchesFilters && matchesProducer;
         });
     }, [steels, search, filters, activeProducer]);
@@ -349,6 +354,11 @@ Be concise and premium.`;
 
     const clearCompare = () => {
         setCompareList([]);
+    };
+
+    const loadComparison = (comp) => {
+        const resolved = comp.steelIds.map(id => steels.find(s => s.id === id)).filter(Boolean);
+        setCompareList(resolved);
     };
 
     // Filter knives based on search query AND grade library filters (producer and alloy content)
@@ -398,7 +408,7 @@ Be concise and premium.`;
                 if (!steel) return false; // Steel not found in database
 
                 // Check producer filter
-                const matchesProducer = activeProducer === "ALL" || steel.producer === activeProducer;
+                const matchesProducer = activeProducer === "ALL" || getSteelGroup(steel) === activeProducer;
 
                 // Check alloy content filters
                 const matchesFilters = steel.C >= filters.minC &&
@@ -600,6 +610,10 @@ Be concise and premium.`;
                                     clearCompare={clearCompare}
                                     generateReport={generateReport}
                                     isAiLoading={isAiLoading}
+                                    savedComparisons={savedComparisons}
+                                    onSaveComparison={(name) => saveComparison(name, compareList.map(s => s.id))}
+                                    onLoadComparison={loadComparison}
+                                    onDeleteComparison={deleteComparison}
                                 />
                             )}
 
@@ -714,6 +728,8 @@ Be concise and premium.`;
                         steel={detailSteel}
                         onClose={() => navigate({ detailSteel: null })}
                         onOpenKnife={openKnifeModal}
+                        allSteels={steels}
+                        onOpenSteel={(s) => navigate({ detailSteel: s.id, detailKnife: null })}
                     />
                 )}
 
