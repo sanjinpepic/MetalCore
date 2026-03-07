@@ -6,6 +6,12 @@ import { hapticFeedback } from '../hooks/useMobile';
 
 const SIDEBAR_WIDTH = 288; // w-72 = 18rem = 288px
 
+const PRODUCER_SHORT = {
+    'New Jersey Steel Baron': 'NJSB',
+    'Myodo Metals': 'Myodo',
+    'Victorinox / Outokumpu': 'Victorinox',
+};
+
 // Gradient tint colors that match each view's theme
 const VIEW_GRADIENTS = {
     HOME: 'rgba(16,185,129,0.10)',    // emerald
@@ -547,7 +553,7 @@ const Sidebar = ({
                                             onClick={() => { hapticFeedback('light'); setActiveProducer(p); }}
                                             className={`text-[11px] uppercase font-black px-4 py-2.5 rounded-full border transition-all ${activeProducer === p ? 'bg-white text-black border-white shadow-lg shadow-white/10' : 'text-slate-500 border-white/5 hover:border-white/10 hover:text-slate-300 bg-white/5'}`}
                                         >
-                                            {p}
+                                            {PRODUCER_SHORT[p] ?? p}
                                         </button>
                                     ))}
                                 </div>

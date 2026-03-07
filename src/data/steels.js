@@ -485,6 +485,39 @@ export const PREMIUM_STEELS = [
         cons: ["Virtually no corrosion resistance", "Nearly impossible to hand-sharpen", "Very brittle at thin edges"],
         use_case: "Industrial cutting, competition knives, and abrasive-material specialists."
     },
+    {
+        id: 'erasteel-7', name: "ASP 2004", producer: "Erasteel", pm: true,
+        C: 1.32, Cr: 4.0, V: 4.0, Mo: 5.0, W: 6.5, Co: 0,
+        edge: 8.5, toughness: 7.5, corrosion: 1, sharpen: 4,
+        ht_curve: "500:64,540:66,580:63",
+        desc: "Erasteel's PM equivalent to M4 tool steel — the cobalt-free, higher-vanadium sibling of ASP 2003. The step up from ASP 2003 for those who want more wear resistance without adding cobalt. Higher vanadium carbide volume gives noticeably better edge retention while the PM process retains excellent toughness for a high-vanadium HSS.",
+        knives: ["Custom high-performance fixed blades", "Precision industrial cutting tools", "Specialist performance knives"],
+        pros: ["Better wear resistance than ASP 2003", "Cobalt-free — no hot-hardness premium cost", "Excellent toughness for its wear class", "PM consistency throughout"],
+        cons: ["Non-stainless", "Harder to sharpen than ASP 2003", "Limited availability in knife-making circles"],
+        use_case: "A direct upgrade from ASP 2003 for custom makers who want M4-class edge retention with the reliability of Erasteel's PM process."
+    },
+    {
+        id: 'erasteel-8', name: "ASP 2017", producer: "Erasteel", pm: true,
+        C: 1.55, Cr: 4.3, V: 5.0, Mo: 4.5, W: 6.5, Co: 5.0,
+        edge: 9, toughness: 6, corrosion: 1, sharpen: 2,
+        ht_curve: "500:65,540:67,580:64",
+        desc: "A medium-cobalt, high-vanadium PM HSS occupying the performance tier between ASP 2004 and ASP 2030 in the Erasteel lineup. The cobalt addition improves hot-hardness and secondary hardening over the cobalt-free grades while the elevated vanadium pushes edge retention further than ASP 2003/2004. A rarely discussed but capable industrial-grade knife steel.",
+        knives: ["Custom extreme-performance knives", "Industrial cutting specialists", "High-end professional tools"],
+        pros: ["High edge retention", "Better hot-hardness than cobalt-free grades", "Good wear resistance", "PM consistency"],
+        cons: ["Non-stainless", "Very difficult to sharpen", "Limited knife-specific applications documented"],
+        use_case: "Specialized industrial cutting tools and custom knives where a step up from ASP 2004 is needed without going to full ASP 2030 cobalt levels."
+    },
+    {
+        id: 'erasteel-9', name: "ASP 2344", producer: "Erasteel", pm: true,
+        C: 0.40, Cr: 5.0, V: 1.0, Mo: 1.35, W: 0, Co: 0,
+        edge: 3, toughness: 10, corrosion: 2, sharpen: 7,
+        ht_curve: "200:50,400:52,500:54",
+        desc: "Erasteel's PM version of H13 hot-work tool steel (European designation 1.2344). Unlike the other ASP grades which are high-speed steels optimized for wear, ASP 2344 is optimized for extreme toughness and thermal fatigue resistance. The PM process gives significantly better toughness and isotropy than conventional H13. Used by custom makers building the most abuse-resistant large blades and choppers.",
+        knives: ["Custom extreme-toughness choppers", "Large camp knives", "Impact tools"],
+        pros: ["Exceptional toughness", "Outstanding thermal fatigue resistance", "Better than conventional H13 in every metric", "PM consistency"],
+        cons: ["Very low edge retention", "Non-stainless", "Not a traditional knife steel by any standard"],
+        use_case: "Extreme-toughness large blades and impact tools where the PM upgrade over conventional H13 is worth the premium."
+    },
 
     // --- HITACHI ---
     {
@@ -843,9 +876,9 @@ export const PREMIUM_STEELS = [
         use_case: "The toughest fixed blades and impact tools."
     },
 
-    // --- VARIOUS ---
+    // --- CLASSIC CARBON ---
     {
-        id: 'carbon-4', name: "1075", producer: "Various", pm: false, C: 0.75, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 4, toughness: 9.5, corrosion: 1, sharpen: 9.5,
+        id: 'carbon-4', name: "1075", producer: "Various", parent: "Classic Carbon", pm: false, C: 0.75, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 4, toughness: 9.5, corrosion: 1, sharpen: 9.5,
         ht_curve: "150:57,200:56,250:55",
         desc: "The softest and toughest of the common 10XX carbon steels. Nearly impossible to break and the easiest steel to sharpen.",
         knives: ["Budget machetes", "Condor knives", "Entry-level fixed blades"],
@@ -854,7 +887,7 @@ export const PREMIUM_STEELS = [
         use_case: "Choppers, machetes, and tools where surviving abuse matters more than holding an edge."
     },
     {
-        id: 'carbon-3', name: "1080", producer: "Various", pm: false, C: 0.8, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 1, sharpen: 9,
+        id: 'carbon-3', name: "1080", producer: "Various", parent: "Classic Carbon", pm: false, C: 0.8, Cr: 0.1, V: 0, Mo: 0, W: 0, Co: 0, edge: 5, toughness: 9, corrosion: 1, sharpen: 9,
         ht_curve: "150:58,200:57,250:56",
         desc: "The workhorse of bushcraft and survival knives. Exceptional toughness and trivially easy to sharpen with any abrasive.",
         knives: ["Mora 2000", "Condor Hamador", "Many custom bushcraft knives"],
@@ -862,10 +895,8 @@ export const PREMIUM_STEELS = [
         cons: ["Low corrosion resistance", "Modest edge retention"],
         use_case: "Bushcraft, batoning, and hard-use outdoor blades where toughness is king."
     },
-
-
     {
-        id: 'carbon-1', name: "52100", producer: "Various", pm: false,
+        id: 'carbon-1', name: "52100", producer: "Various", parent: "Classic Carbon", pm: false,
         C: 1.0, Cr: 1.5, V: 0.0, Mo: 0.0, W: 0.0, Co: 0,
         edge: 6, toughness: 8, corrosion: 1, sharpen: 9,
         ht_curve: "150:62,200:61,250:60",
@@ -875,75 +906,8 @@ export const PREMIUM_STEELS = [
         cons: ["Rust-prone"],
         use_case: "Custom chef knives and outdoor blades."
     },
-
     {
-        id: 'others-15', name: "9Cr18MoV", producer: "Various", pm: false,
-        C: 0.95, Cr: 18.0, V: 0.12, Mo: 1.2, W: 0, Co: 0,
-        edge: 6, toughness: 4, corrosion: 8, sharpen: 6,
-        ht_curve: "150:59,200:58,300:56",
-        desc: "China's equivalent to 440C with tighter tolerances. Used in mid-range Chinese production knives and increasingly well heat-treated by top manufacturers.",
-        knives: ["WE Knife (older models)", "Kizer (budget lines)", "Chinese production knives"],
-        pros: ["Good corrosion resistance", "Decent hardness", "Improving quality with better HT"],
-        cons: ["Quality varies by manufacturer", "Outclassed by PM steels"],
-        use_case: "Mid-range Chinese production knives."
-    },
-    {
-        id: 'others-6', name: "A2", producer: "Various", pm: false, C: 1.0, Cr: 5.0, V: 0.5, Mo: 1.1, W: 0, Co: 0, edge: 5, toughness: 8, corrosion: 2, sharpen: 8,
-        ht_curve: "200:58,400:56,500:60",
-        desc: "A classic air-hardening tool steel known for its incredible toughness and ease of sharpening.",
-        knives: ["Bark River Bravo 1 (A2)", "Chris Reeve (Vintage)"],
-        pros: ["Very high impact resistance", "Easy to field-sharpen", "Stable edge"],
-        cons: ["Low corrosion resistance"],
-        use_case: "Outdoor knives and heavy-duty survival tools."
-    },
-
-    {
-        id: 'toolsteel-6', name: "H13", producer: "Various", pm: false,
-        C: 0.40, Cr: 5.25, V: 1.0, Mo: 1.35, W: 0, Co: 0,
-        edge: 3, toughness: 10, corrosion: 3, sharpen: 8,
-        ht_curve: "200:48,400:50,600:52",
-        desc: "A hot-work die steel originally designed for aluminum extrusion dies. Extraordinary toughness makes it interesting for the most abuse-resistant large blades.",
-        knives: ["Custom choppers", "Large camp blades", "Experimental designs"],
-        pros: ["Incredible toughness", "Excellent thermal resistance", "Nearly unbreakable"],
-        cons: ["Very low hardness for a knife steel", "Poor edge retention", "Not a traditional knife steel"],
-        use_case: "Extreme-abuse large blades and experimental knife designs."
-    },
-    {
-        id: 'toolsteel-1', name: "M2", producer: "Various", pm: false,
-        C: 0.85, Cr: 4.15, V: 1.85, Mo: 5.0, W: 6.35, Co: 0,
-        edge: 8, toughness: 6, corrosion: 1, sharpen: 3,
-        ht_curve: "500:63,540:65,580:62",
-        desc: "The classic high-speed steel that defined the HSS category. Still widely used in industrial tooling and increasingly popular with knife enthusiasts for its balanced performance.",
-        knives: ["Custom fixed blades", "Industrial knives", "Vintage tool knives"],
-        pros: ["Proven track record spanning decades", "Good balance of hardness and toughness", "Widely available and affordable"],
-        cons: ["Non-stainless", "Needs maintenance", "Moderate sharpening difficulty"],
-        use_case: "General-purpose high-speed cutting tools and custom knives."
-    },
-    {
-        id: 'toolsteel-2', name: "M42", producer: "Various", pm: false,
-        C: 1.10, Cr: 3.75, V: 1.15, Mo: 9.5, W: 1.5, Co: 8.0,
-        edge: 9, toughness: 5, corrosion: 1, sharpen: 2,
-        ht_curve: "500:67,540:69,580:65",
-        desc: "A super high-speed cobalt steel with extreme hardness capability. Can reach 69 HRC while maintaining useful toughness. A step up from M2 in every performance metric.",
-        knives: ["Custom performance knives", "Industrial cutting"],
-        pros: ["Extreme hardness", "Excellent hot-hardness", "Superior to M2 in wear resistance"],
-        cons: ["Very brittle at max hardness", "Rusts easily", "Diamond stones required"],
-        use_case: "High-performance cutting where extreme hardness is beneficial."
-    },
-
-    {
-        id: 'toolsteel-3', name: "S7", producer: "Various", pm: false,
-        C: 0.50, Cr: 3.25, V: 0.25, Mo: 1.4, W: 0, Co: 0,
-        edge: 3, toughness: 10, corrosion: 2, sharpen: 8,
-        ht_curve: "200:54,400:52,500:56",
-        desc: "The quintessential shock-resistant tool steel. Designed to withstand repeated heavy impact without chipping or breaking. The gold standard for impact resistance.",
-        knives: ["Busse Combat (various)", "Custom impact knives", "Pry tools"],
-        pros: ["Nearly unbreakable", "Can withstand extreme impact", "Easy to sharpen"],
-        cons: ["Very low edge retention", "Non-stainless", "Soft by knife standards"],
-        use_case: "Impact tools, large choppers, pry-bar knives, and breaching tools."
-    },
-    {
-        id: 'carbon-5', name: "SK-5", producer: "Various", pm: false,
+        id: 'carbon-5', name: "SK-5", producer: "Various", parent: "Classic Carbon", pm: false,
         C: 0.86, Cr: 0.3, V: 0.1, Mo: 0.05, W: 0, Co: 0,
         edge: 6, toughness: 8, corrosion: 1, sharpen: 8,
         ht_curve: "150:58,200:57,250:56",
@@ -954,53 +918,7 @@ export const PREMIUM_STEELS = [
         use_case: "Fixed blades, survival knives, and outdoor cutting tasks."
     },
     {
-        id: 'toolsteel-4', name: "T15", producer: "Various", pm: false,
-        C: 1.55, Cr: 4.75, V: 5.0, Mo: 0.5, W: 12.5, Co: 5.0,
-        edge: 9.5, toughness: 4, corrosion: 1, sharpen: 1,
-        ht_curve: "500:66,540:68,580:64",
-        desc: "A tungsten-based high-speed steel with massive 12.5% tungsten. Known for extreme hot-hardness and abrasion resistance in the most demanding industrial applications.",
-        knives: ["Custom extreme-performance knives", "Industrial tooling"],
-        pros: ["Extreme hot-hardness", "Incredible abrasion resistance", "Very high hardness potential"],
-        cons: ["Very brittle", "Extremely difficult to work", "Rusts rapidly"],
-        use_case: "Industrial cutting and custom knives where tungsten HSS properties are desired."
-    },
-    {
-        id: 'toolsteel-5', name: "W2", producer: "Various", pm: false,
-        C: 1.10, Cr: 0.15, V: 0.25, Mo: 0, W: 0, Co: 0,
-        edge: 6, toughness: 7, corrosion: 0, sharpen: 9,
-        ht_curve: "150:64,200:62,250:60",
-        desc: "A classic water-hardening tool steel prized for beautiful hamon lines. The vanadium addition provides finer grain than W1, making it popular with traditional bladesmiths.",
-        knives: ["Custom Japanese-style knives", "Traditional American cutlery", "Art knives with hamon"],
-        pros: ["Beautiful hamon capability", "Very sharp", "Easy to sharpen", "Fine grain structure"],
-        cons: ["Extremely reactive", "Lower edge retention", "Demanding heat treatment (water quench)"],
-        use_case: "Traditional bladesmithing and art knives where aesthetics and tradition matter."
-    },
-    {
-        id: 'german-1', name: "X50CrMoV15", producer: "Various", pm: false,
-        C: 0.5, Cr: 15.0, V: 0.1, Mo: 0.8, W: 0, Co: 0,
-        edge: 3.5, toughness: 9, corrosion: 9, sharpen: 10,
-        ht_curve: "150:56,200:55,250:54",
-        desc: "The classic German kitchen steel. Extremely tough, forgiving, and easy to sharpen.",
-        knives: ["Wüsthof Classic", "Zwilling Pro", "Victorinox Fibrox"],
-        pros: ["Extremely tough", "Rust-resistant", "Beginner friendly"],
-        cons: ["Poor edge retention", "Soft by enthusiast standards"],
-        use_case: "Professional kitchens, high-impact food prep, Western chef knives."
-    },
-    {
-        id: 'german-2', name: "X55CrMoV14", producer: "Various", pm: false,
-        C: 0.55, Cr: 14.5, V: 0.1, Mo: 0.7, W: 0, Co: 0,
-        edge: 4, toughness: 8.5, corrosion: 8.5, sharpen: 9,
-        ht_curve: "150:57,200:56,250:55",
-        desc: "A slightly harder evolution of X50CrMoV15 used in mid-range European chef knives.",
-        knives: ["Mercer Culinary", "F. Dick", "Burgvogel", "Victorinox Classic SD"],
-        pros: ["Good toughness", "Easy maintenance"],
-        cons: ["Still soft vs Japanese steels"],
-        use_case: "Commercial kitchen chef knives."
-    },
-
-    // --- FOUNDATIONAL / CLASSIC ---
-    {
-        id: 'classic-1', name: "1095 High Carbon", producer: "Various", pm: false,
+        id: 'classic-1', name: "1095 High Carbon", producer: "Various", parent: "Classic Carbon", pm: false,
         C: 0.95, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 3, toughness: 7, corrosion: 1, sharpen: 10,
         ht_curve: "150:58,200:57,250:55",
@@ -1011,7 +929,42 @@ export const PREMIUM_STEELS = [
         use_case: "Hard-use survival knives, bushcraft, and traditional folders."
     },
     {
-        id: 'classic-2', name: "O1 Tool Steel", producer: "Various", pm: false,
+        id: 'classic-7', name: "5160 Spring Steel", producer: "Various", parent: "Classic Carbon", pm: false,
+        C: 0.60, Cr: 0.80, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 3, toughness: 10, corrosion: 1, sharpen: 8,
+        ht_curve: "150:58,200:57,300:55",
+        desc: "A carbon spring steel famous for its extreme impact resistance and toughness. The primary choice for swords and large choppers.",
+        knives: ["Traditional Swords", "Kukris", "Large Camp Choppers"],
+        pros: ["Almost indestructible", "Flexes without breaking", "Easy to sharpen in the field"],
+        cons: ["No abrasion resistance", "Will rust quickly without oil"],
+        use_case: "Swords, machetes, and extreme-abuse chopping tools."
+    },
+    {
+        id: 'carbon-2', name: "1060", producer: "Various", parent: "Classic Carbon", pm: false,
+        C: 0.60, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 3, toughness: 10, corrosion: 1, sharpen: 9,
+        ht_curve: "150:56,200:55,250:53",
+        desc: "A medium-high carbon spring steel used for swords and large blades for centuries. Lower carbon than 1075 gives equivalent toughness with marginally easier heat treatment. The traditional carbon content where basic edge performance meets extreme flexibility and shock absorption — the classic sword steel composition.",
+        knives: ["Traditional samurai sword replicas", "Functional longswords", "Large camp choppers", "Historical reproduction blades"],
+        pros: ["Extreme toughness and flex resistance", "Will not snap under impact loads", "Easy to sharpen anywhere", "Historical authenticity"],
+        cons: ["Poor edge retention", "Rusts readily without oil and care"],
+        use_case: "Functional swords, large choppers, and traditional blades where shock resistance and flexibility are non-negotiable."
+    },
+    {
+        id: 'carbon-6', name: "1084", producer: "Various", parent: "Classic Carbon", pm: false,
+        C: 0.84, Cr: 0, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 5, toughness: 8.5, corrosion: 1, sharpen: 9.5,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "The bladesmithing community's favorite beginner and workhorse steel. Located at the sweet spot of the 10XX series — enough carbon for solid edge retention and hardness while retaining excellent toughness. Extremely forgiving to heat treat in a basic forge with fast-quench oil, making it the definitive first steel for aspiring knifemakers and a respected choice for accomplished professionals alike.",
+        knives: ["Handmade fixed blades", "Forge-welded Damascus core or cladding", "Student bladesmithing projects", "Mid-range custom hunters"],
+        pros: ["Very forgiving heat treatment", "Excellent toughness-to-edge balance", "Inexpensive and widely available", "Perfect for learning stock-removal and forging"],
+        cons: ["No corrosion resistance", "Less edge retention than high-alloy or PM steels"],
+        use_case: "The premier learning steel for knifemakers, and an excellent choice for functional outdoor fixed blades where the maker controls the heat treatment."
+    },
+
+    // --- TRADITIONAL TOOL STEEL ---
+    {
+        id: 'classic-2', name: "O1 Tool Steel", producer: "Various", parent: "Traditional Tool Steel", pm: false,
         C: 0.90, Cr: 0.50, V: 0.20, Mo: 0, W: 0.50, Co: 0,
         edge: 4, toughness: 6, corrosion: 1, sharpen: 9,
         ht_curve: "150:60,200:59,250:58",
@@ -1022,7 +975,7 @@ export const PREMIUM_STEELS = [
         use_case: "Custom bushcraft knives and woodworking tools."
     },
     {
-        id: 'classic-3', name: "D2", producer: "Various", pm: false,
+        id: 'classic-3', name: "D2", producer: "Various", parent: "Traditional Tool Steel", pm: false,
         C: 1.50, Cr: 12.0, V: 0.90, Mo: 0.80, W: 0, Co: 0,
         edge: 6, toughness: 5, corrosion: 3, sharpen: 5,
         ht_curve: "200:60,400:58,500:60",
@@ -1033,7 +986,106 @@ export const PREMIUM_STEELS = [
         use_case: "Budget-friendly everyday carry and hard-working tools."
     },
     {
-        id: 'classic-4', name: "440C", producer: "Various", pm: false,
+        id: 'others-6', name: "A2", producer: "Various", parent: "Traditional Tool Steel", pm: false, C: 1.0, Cr: 5.0, V: 0.5, Mo: 1.1, W: 0, Co: 0, edge: 5, toughness: 8, corrosion: 2, sharpen: 8,
+        ht_curve: "200:58,400:56,500:60",
+        desc: "A classic air-hardening tool steel known for its incredible toughness and ease of sharpening.",
+        knives: ["Bark River Bravo 1 (A2)", "Chris Reeve (Vintage)"],
+        pros: ["Very high impact resistance", "Easy to field-sharpen", "Stable edge"],
+        cons: ["Low corrosion resistance"],
+        use_case: "Outdoor knives and heavy-duty survival tools."
+    },
+    {
+        id: 'toolsteel-3', name: "S7", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 0.50, Cr: 3.25, V: 0.25, Mo: 1.4, W: 0, Co: 0,
+        edge: 3, toughness: 10, corrosion: 2, sharpen: 8,
+        ht_curve: "200:54,400:52,500:56",
+        desc: "The quintessential shock-resistant tool steel. Designed to withstand repeated heavy impact without chipping or breaking. The gold standard for impact resistance.",
+        knives: ["Busse Combat (various)", "Custom impact knives", "Pry tools"],
+        pros: ["Nearly unbreakable", "Can withstand extreme impact", "Easy to sharpen"],
+        cons: ["Very low edge retention", "Non-stainless", "Soft by knife standards"],
+        use_case: "Impact tools, large choppers, pry-bar knives, and breaching tools."
+    },
+    {
+        id: 'toolsteel-6', name: "H13", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 0.40, Cr: 5.25, V: 1.0, Mo: 1.35, W: 0, Co: 0,
+        edge: 3, toughness: 10, corrosion: 3, sharpen: 8,
+        ht_curve: "200:48,400:50,600:52",
+        desc: "A hot-work die steel originally designed for aluminum extrusion dies. Extraordinary toughness makes it interesting for the most abuse-resistant large blades.",
+        knives: ["Custom choppers", "Large camp blades", "Experimental designs"],
+        pros: ["Incredible toughness", "Excellent thermal resistance", "Nearly unbreakable"],
+        cons: ["Very low hardness for a knife steel", "Poor edge retention", "Not a traditional knife steel"],
+        use_case: "Extreme-abuse large blades and experimental knife designs."
+    },
+    {
+        id: 'toolsteel-5', name: "W2", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 1.10, Cr: 0.15, V: 0.25, Mo: 0, W: 0, Co: 0,
+        edge: 6, toughness: 7, corrosion: 0, sharpen: 9,
+        ht_curve: "150:64,200:62,250:60",
+        desc: "A classic water-hardening tool steel prized for beautiful hamon lines. The vanadium addition provides finer grain than W1, making it popular with traditional bladesmiths.",
+        knives: ["Custom Japanese-style knives", "Traditional American cutlery", "Art knives with hamon"],
+        pros: ["Beautiful hamon capability", "Very sharp", "Easy to sharpen", "Fine grain structure"],
+        cons: ["Extremely reactive", "Lower edge retention", "Demanding heat treatment (water quench)"],
+        use_case: "Traditional bladesmithing and art knives where aesthetics and tradition matter."
+    },
+    {
+        id: 'toolsteel-7', name: "W1", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 1.05, Cr: 0.15, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 5, toughness: 6, corrosion: 0, sharpen: 9.5,
+        ht_curve: "150:64,200:62,250:60",
+        desc: "The original water-hardening tool steel and direct predecessor to W2. An extremely pure carbon steel with only trace chromium. Famous in American bladesmithing for producing brilliant hamons via differential heat treatment and for sharpening to an incredibly fine, toothy edge. The foundational steel of the American custom knife tradition before Japanese steels gained prominence.",
+        knives: ["Traditional American custom knives", "Hunting knives with hamon", "Classic Randall-style blades", "Art knives"],
+        pros: ["Beautiful hamon potential", "Sharpens to a razor edge", "Inexpensive and historically available", "Foundational to American bladesmithing"],
+        cons: ["Instant rusting — zero corrosion resistance", "Lower edge retention than modern alloys", "Water quench required — demanding and unforgiving process"],
+        use_case: "Traditional custom knives, art pieces with hamon, and bladesmithing education in the American tradition."
+    },
+    {
+        id: 'toolsteel-1', name: "M2", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 0.85, Cr: 4.15, V: 1.85, Mo: 5.0, W: 6.35, Co: 0,
+        edge: 8, toughness: 6, corrosion: 1, sharpen: 3,
+        ht_curve: "500:63,540:65,580:62",
+        desc: "The classic high-speed steel that defined the HSS category. Still widely used in industrial tooling and increasingly popular with knife enthusiasts for its balanced performance.",
+        knives: ["Custom fixed blades", "Industrial knives", "Vintage tool knives"],
+        pros: ["Proven track record spanning decades", "Good balance of hardness and toughness", "Widely available and affordable"],
+        cons: ["Non-stainless", "Needs maintenance", "Moderate sharpening difficulty"],
+        use_case: "General-purpose high-speed cutting tools and custom knives."
+    },
+    {
+        id: 'toolsteel-2', name: "M42", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 1.10, Cr: 3.75, V: 1.15, Mo: 9.5, W: 1.5, Co: 8.0,
+        edge: 9, toughness: 5, corrosion: 1, sharpen: 2,
+        ht_curve: "500:67,540:69,580:65",
+        desc: "A super high-speed cobalt steel with extreme hardness capability. Can reach 69 HRC while maintaining useful toughness. A step up from M2 in every performance metric.",
+        knives: ["Custom performance knives", "Industrial cutting"],
+        pros: ["Extreme hardness", "Excellent hot-hardness", "Superior to M2 in wear resistance"],
+        cons: ["Very brittle at max hardness", "Rusts easily", "Diamond stones required"],
+        use_case: "High-performance cutting where extreme hardness is beneficial."
+    },
+    {
+        id: 'toolsteel-4', name: "T15", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 1.55, Cr: 4.75, V: 5.0, Mo: 0.5, W: 12.5, Co: 5.0,
+        edge: 9.5, toughness: 4, corrosion: 1, sharpen: 1,
+        ht_curve: "500:66,540:68,580:64",
+        desc: "A tungsten-based high-speed steel with massive 12.5% tungsten. Known for extreme hot-hardness and abrasion resistance in the most demanding industrial applications.",
+        knives: ["Custom extreme-performance knives", "Industrial tooling"],
+        pros: ["Extreme hot-hardness", "Incredible abrasion resistance", "Very high hardness potential"],
+        cons: ["Very brittle", "Extremely difficult to work", "Rusts rapidly"],
+        use_case: "Industrial cutting and custom knives where tungsten HSS properties are desired."
+    },
+    {
+        id: 'toolsteel-8', name: "T1 HSS", producer: "Various", parent: "Traditional Tool Steel", pm: false,
+        C: 0.75, Cr: 4.0, V: 1.0, Mo: 0, W: 18.0, Co: 0,
+        edge: 8, toughness: 5, corrosion: 1, sharpen: 3,
+        ht_curve: "500:63,540:65,580:62",
+        desc: "The original high-speed steel — a historical milestone alloy developed around 1900 by Bethlehem Steel that revolutionized industrial manufacturing. The 18-4-1 formula (18% tungsten, 4% chromium, 1% vanadium) allowed machinists to cut metal at previously impossible speeds without losing hardness from heat. The foundational alloy of the entire HSS category, before M2 displaced it due to cobalt-free performance at lower cost.",
+        knives: ["Vintage industrial cutting tools", "Custom specialist performance knives"],
+        pros: ["Historical significance — the original HSS", "Excellent hot-hardness", "High wear resistance", "Can reach 65+ HRC"],
+        cons: ["Very high tungsten content makes it expensive and heavy", "Non-stainless", "M2 and modern PM steels are superior at lower cost"],
+        use_case: "Historical context and industrial cutting where the original 18-4-1 HSS formula is specified. A milestone steel that defined modern tool metallurgy."
+    },
+
+    // --- CLASSIC STAINLESS ---
+    {
+        id: 'classic-4', name: "440C", producer: "Various", parent: "Classic Stainless", pm: false,
         C: 1.10, Cr: 17.0, V: 0, Mo: 0.75, W: 0, Co: 0,
         edge: 5, toughness: 5, corrosion: 8.5, sharpen: 7,
         ht_curve: "150:59,200:58,300:56",
@@ -1055,7 +1107,7 @@ export const PREMIUM_STEELS = [
         use_case: "Solid mid-range EDC folders and tactical knives."
     },
     {
-        id: 'classic-6', name: "8Cr13MoV", producer: "Various", pm: false,
+        id: 'classic-6', name: "8Cr13MoV", producer: "Various", parent: "Classic Stainless", pm: false,
         C: 0.80, Cr: 13.0, V: 0.10, Mo: 0.15, W: 0, Co: 0,
         edge: 3, toughness: 6, corrosion: 6, sharpen: 9,
         ht_curve: "150:57,200:56,250:55",
@@ -1066,18 +1118,7 @@ export const PREMIUM_STEELS = [
         use_case: "Entry-level starter knives and budget friendly utility tools."
     },
     {
-        id: 'classic-7', name: "5160 Spring Steel", producer: "Various", pm: false,
-        C: 0.60, Cr: 0.80, V: 0, Mo: 0, W: 0, Co: 0,
-        edge: 3, toughness: 10, corrosion: 1, sharpen: 8,
-        ht_curve: "150:58,200:57,300:55",
-        desc: "A carbon spring steel famous for its extreme impact resistance and toughness. The primary choice for swords and large choppers.",
-        knives: ["Traditional Swords", "Kukris", "Large Camp Choppers"],
-        pros: ["Almost indestructible", "Flexes without breaking", "Easy to sharpen in the field"],
-        cons: ["No abrasion resistance", "Will rust quickly without oil"],
-        use_case: "Swords, machetes, and extreme-abuse chopping tools."
-    },
-    {
-        id: 'classic-8', name: "420HC", producer: "Various", pm: false,
+        id: 'classic-8', name: "420HC", producer: "Various", parent: "Classic Stainless", pm: false,
         C: 0.45, Cr: 13.0, V: 0, Mo: 0, W: 0, Co: 0,
         edge: 3, toughness: 8, corrosion: 8, sharpen: 10,
         ht_curve: "150:56,200:55,250:54",
@@ -1086,6 +1127,28 @@ export const PREMIUM_STEELS = [
         pros: ["Extreme corrosion resistance", "Trivially easy to sharpen", "Very tough for a stainless"],
         cons: ["Poor edge retention compared to modern alloys"],
         use_case: "Budget-friendly utility knives and tools where maintenance ease is prioritized."
+    },
+    {
+        id: 'german-1', name: "X50CrMoV15", producer: "Various", parent: "Classic Stainless", pm: false,
+        C: 0.5, Cr: 15.0, V: 0.1, Mo: 0.8, W: 0, Co: 0,
+        edge: 3.5, toughness: 9, corrosion: 9, sharpen: 10,
+        ht_curve: "150:56,200:55,250:54",
+        desc: "The classic German kitchen steel (DIN 1.4116 / 4116). The alloy behind nearly all mid-range German chef knives. Engineered for corrosion resistance and mass-production consistency rather than peak performance, it has stood the test of time in professional kitchens worldwide.",
+        knives: ["Wüsthof Classic", "Zwilling Pro", "Victorinox Fibrox"],
+        pros: ["Extremely tough", "Rust-resistant", "Beginner friendly"],
+        cons: ["Poor edge retention", "Soft by enthusiast standards"],
+        use_case: "Professional kitchens, high-impact food prep, Western chef knives."
+    },
+    {
+        id: 'german-2', name: "X55CrMoV14", producer: "Various", parent: "Classic Stainless", pm: false,
+        C: 0.55, Cr: 14.5, V: 0.1, Mo: 0.7, W: 0, Co: 0,
+        edge: 4, toughness: 8.5, corrosion: 8.5, sharpen: 9,
+        ht_curve: "150:57,200:56,250:55",
+        desc: "A slightly harder evolution of X50CrMoV15 used in mid-range European chef knives.",
+        knives: ["Mercer Culinary", "F. Dick", "Burgvogel", "Victorinox Classic SD"],
+        pros: ["Good toughness", "Easy maintenance"],
+        cons: ["Still soft vs Japanese steels"],
+        use_case: "Commercial kitchen chef knives."
     },
     {
         id: 'classic-9', name: "X55CrMoV14", producer: "Victorinox / Outokumpu", pm: false,
@@ -1097,6 +1160,189 @@ export const PREMIUM_STEELS = [
         pros: ["Virtually rust-proof in normal use", "Incredibly easy to sharpen to a razor edge", "Decent toughness"],
         cons: ["Low edge retention", "Soft compared to modern super-steels"],
         use_case: "Multi-tools, kitchen knives, and everyday carry where rust resistance is paramount."
-    }
+    },
+    {
+        id: 'classic-10', name: "440A", producer: "Various", parent: "Classic Stainless", pm: false,
+        C: 0.68, Cr: 17.0, V: 0, Mo: 0.75, W: 0, Co: 0,
+        edge: 2.5, toughness: 9, corrosion: 9.5, sharpen: 10,
+        ht_curve: "150:54,200:53,250:52",
+        desc: "The softest and most corrosion-resistant member of the 440 stainless family. Once extremely widespread in budget kitchen and diving knives for its ease of production and rust immunity. Today largely replaced by better-performing steels, but it set the foundation for stainless cutlery. Often mislabeled simply as 'stainless steel' on entry-level knives.",
+        knives: ["Budget kitchen knives", "Diving knives", "Vintage production knives", "Some budget multi-tools"],
+        pros: ["Excellent corrosion resistance", "Very easy to sharpen", "High toughness", "Inexpensive to produce"],
+        cons: ["Very low edge retention", "Very soft (48-54 HRC)", "Largely obsolete for serious use"],
+        use_case: "Budget diving knives and applications where rust resistance and ease of sharpening outweigh edge retention entirely."
+    },
+    {
+        id: 'classic-11', name: "440B", producer: "Various", parent: "Classic Stainless", pm: false,
+        C: 0.85, Cr: 17.0, V: 0, Mo: 0.75, W: 0, Co: 0,
+        edge: 3.5, toughness: 7.5, corrosion: 9, sharpen: 9,
+        ht_curve: "150:56,200:55,250:54",
+        desc: "The middle ground of the 440 stainless series, sitting between 440A and 440C. Higher carbon than 440A gives meaningfully better edge retention while maintaining excellent corrosion resistance. Never as popular as its siblings due to its awkward middle position, but it was used in many vintage American production knives.",
+        knives: ["Vintage production folders", "Mid-tier diving knives", "Some vintage fixed blades"],
+        pros: ["Better edge retention than 440A", "Good corrosion resistance", "Easy to sharpen"],
+        cons: ["Outperformed by 440C without meaningful advantage over 440A", "Largely superseded by modern alloys"],
+        use_case: "Vintage and legacy knife applications. Rarely specified in new designs today."
+    },
+
+    // --- CHINESE GRADES ---
+    {
+        id: 'classic-12', name: "3Cr13", producer: "Various", parent: "Chinese Grades", pm: false,
+        C: 0.32, Cr: 13.0, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 1.5, toughness: 8, corrosion: 7, sharpen: 10,
+        ht_curve: "150:50,200:49,250:48",
+        desc: "The most ubiquitous budget Chinese stainless steel. Found in hundreds of millions of knives globally — restaurant supply sets, gift sets, novelty blades, and promotional items. Extremely soft but functionally rust-resistant and practically impossible to damage through normal use. The global baseline for 'a knife with a stainless blade.'",
+        knives: ["Budget gift-set knives", "Restaurant supply sets", "Promotional items", "Mass-market folding knives"],
+        pros: ["Very cheap to produce", "Decent corrosion resistance", "Will not chip or break"],
+        cons: ["Very low hardness (48-52 HRC)", "Terrible edge retention", "Rolls rather than holds an edge"],
+        use_case: "The baseline benchmark steel — anything bought at the very lowest price tier. Not a choice, a consequence."
+    },
+    {
+        id: 'others-15', name: "9Cr18MoV", producer: "Various", parent: "Chinese Grades", pm: false,
+        C: 0.95, Cr: 18.0, V: 0.12, Mo: 1.2, W: 0, Co: 0,
+        edge: 6, toughness: 4, corrosion: 8, sharpen: 6,
+        ht_curve: "150:59,200:58,300:56",
+        desc: "China's equivalent to 440C with tighter tolerances. Used in mid-range Chinese production knives and increasingly well heat-treated by top manufacturers.",
+        knives: ["WE Knife (older models)", "Kizer (budget lines)", "Chinese production knives"],
+        pros: ["Good corrosion resistance", "Decent hardness", "Improving quality with better HT"],
+        cons: ["Quality varies by manufacturer", "Outclassed by PM steels"],
+        use_case: "Mid-range Chinese production knives."
+    },
+
+    // --- AICHI (additional) ---
+    {
+        id: 'aichi-3', name: "AUS-6", producer: "Aichi", pm: false,
+        C: 0.65, Cr: 13.0, V: 0.1, Mo: 0.1, W: 0, Co: 0,
+        edge: 2.5, toughness: 7, corrosion: 8, sharpen: 9.5,
+        ht_curve: "150:55,200:54,250:53",
+        desc: "The entry-level steel in Aichi's AUS lineup. Once common in budget American production knives of the 1980s–90s. Lower carbon than AUS-8 means easier sharpening and better toughness but very modest edge retention. Has been almost entirely superseded by AUS-8 and modern budget steels like 14C28N.",
+        knives: ["Buck Knives (vintage budget)", "Ontario (older budget models)", "Various vintage American brands"],
+        pros: ["Very easy to sharpen", "Good corrosion resistance", "High toughness"],
+        cons: ["Poor edge retention", "Largely obsolete — superseded by AUS-8 and 14C28N"],
+        use_case: "Legacy budget production knives. Rarely specified in new designs."
+    },
+
+    // --- ALLEIMA (additional) ---
+    {
+        id: 'alleima-3', name: "13C26", producer: "Alleima", parent: "Sandvik", pm: false,
+        C: 0.68, Cr: 13.0, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 4, toughness: 8.5, corrosion: 8, sharpen: 9,
+        ht_curve: "150:57,200:56,250:55",
+        desc: "Alleima's dedicated razor-blade and fine-edge steel. Slightly higher carbon than 12C27 with a tighter composition for optimal thin-grind performance. The preferred steel for premium straight razors worldwide and the direct ancestor of 14C28N. Pure composition and ultrafine grain make it the benchmark for edge refinement in the Swedish steel tradition.",
+        knives: ["Premium straight razors", "Böker straight razors", "Dovo straight razors", "Custom thin-grind kitchen knives"],
+        pros: ["Optimal for razors and thin grinds", "Excellent corrosion resistance", "Incredibly easy to sharpen", "Fine uniform grain structure"],
+        cons: ["Not designed for thick-geometry hard-use knives", "Lower wear resistance than higher-carbon grades"],
+        use_case: "Straight razors, thin-grind kitchen knives, and applications requiring a polished, hair-splitting edge."
+    },
+
+    // --- BÖHLER (additional) ---
+    {
+        id: 'bohler-12', name: "K460", producer: "Böhler", pm: false,
+        C: 0.95, Cr: 0.6, V: 0.1, Mo: 0.1, W: 0.6, Co: 0,
+        edge: 4.5, toughness: 7, corrosion: 1, sharpen: 8.5,
+        ht_curve: "150:60,200:59,250:58",
+        desc: "Böhler's equivalent to O1 tool steel (1.2510 / DIN designation). An oil-hardening carbon tool steel with tungsten for fine grain and excellent edge stability. Popular with European knifemakers as a premium carbon option with reliable, predictable heat treatment and excellent finishability.",
+        knives: ["European custom fixed blades", "Custom hunters", "Traditional folding knives"],
+        pros: ["Excellent edge sharpness", "Fine grain structure from tungsten", "Forgiving oil-quench heat treatment", "Good toughness"],
+        cons: ["Not stainless — rusts readily without care", "Moderate edge retention"],
+        use_case: "Custom hunting knives and fixed blades where O1-class performance is needed with reliable European material sourcing."
+    },
+
+    // --- CRUCIBLE (additional) ---
+    {
+        id: 'crucible-20', name: "CPM 1V", producer: "Crucible", parent: "Erasteel", pm: true,
+        C: 0.50, Cr: 4.5, V: 1.0, Mo: 1.3, W: 0, Co: 0,
+        edge: 3, toughness: 10, corrosion: 2, sharpen: 7,
+        ht_curve: "200:58,400:60,500:61",
+        desc: "Crucible's maximum-toughness PM tool steel — the toughest steel in the entire CPM lineup. Lower carbon and alloying than 3V gives it near-unbreakable impact resistance at the cost of edge retention. The go-to for applications where a broken blade is a catastrophic failure. Relatively rare in production knives but prized by custom makers building breaching tools and extreme choppers.",
+        knives: ["Custom choppers", "Breaching tools", "Extreme-use fixed blades", "Custom tactical tools"],
+        pros: ["Maximum toughness in the CPM lineup", "Excellent impact resistance", "PM consistency and quality"],
+        cons: ["Low edge retention", "Non-stainless", "Rarely available from production makers"],
+        use_case: "The absolute maximum toughness application — choppers, breaching tools, and near-indestructible large blades."
+    },
+    {
+        id: 'crucible-21', name: "CPM 2V", producer: "Crucible", parent: "Erasteel", pm: true,
+        C: 0.95, Cr: 8.0, V: 1.9, Mo: 1.3, W: 0, Co: 0,
+        edge: 4, toughness: 9.5, corrosion: 2, sharpen: 6,
+        ht_curve: "200:58,400:60,500:62",
+        desc: "The underrated middle child of Crucible's CPM toughness series, sitting between CPM 1V and CPM 3V. Higher carbon and vanadium than 1V brings better wear resistance while retaining extraordinary impact resistance — more of a true knife steel than 1V without sacrificing the toughness that makes this family exceptional.",
+        knives: ["Custom hard-use fixed blades", "Tactical knives", "Camp knives"],
+        pros: ["Very high toughness", "Better wear resistance than 1V", "PM consistency"],
+        cons: ["Non-stainless", "Modest edge retention vs wear-focused steels", "Limited production knife availability"],
+        use_case: "Hard-use camp and survival knives prioritizing toughness while wanting a step up from 1V in edge performance."
+    },
+    {
+        id: 'crucible-22', name: "CPM D2", producer: "Crucible", parent: "Erasteel", pm: true,
+        C: 1.55, Cr: 12.0, V: 1.0, Mo: 0.8, W: 0, Co: 0,
+        edge: 7, toughness: 6.5, corrosion: 3, sharpen: 5,
+        ht_curve: "200:60,400:58,500:61",
+        desc: "Crucible's powder metallurgy version of the classic D2 tool steel. The PM process gives significantly better toughness, a more uniform carbide distribution, and reduced anisotropy compared to conventional D2. A strict upgrade at a modest cost premium — everything D2 is, done better.",
+        knives: ["Custom fixed blades", "Production mid-range folders", "European-style hunting knives"],
+        pros: ["Better toughness than conventional D2", "Good edge retention", "More uniform carbide distribution", "Reduced directional properties"],
+        cons: ["Still semi-stainless (12% Cr)", "Similar corrosion behavior to standard D2"],
+        use_case: "D2-class performance with better toughness — ideal for custom makers wanting a strict upgrade from commodity D2."
+    },
+
+    // --- DAMASTEEL (additional) ---
+    {
+        id: 'damasteel-3', name: "PMC27", producer: "Damasteel", pm: true,
+        C: 0.27, Cr: 14.0, V: 0, Mo: 0.5, W: 0, Co: 0,
+        edge: 3, toughness: 9, corrosion: 9, sharpen: 9.5,
+        ht_curve: "200:58,400:56,500:55",
+        desc: "Damasteel's low-carbon stainless PM steel, used as the tough/corrosion-resistant contrast layer in their DS93X Damascus alongside RWL34. The low carbon maximizes toughness and stainlessness in the soft layers, creating the performance and visual contrast that makes Damasteel Damascus both beautiful and functional.",
+        knives: ["Used as a component in Damasteel DS93X Damascus", "Not sold as a mono-steel knife material"],
+        pros: ["Very tough", "Excellent corrosion resistance", "PM consistency"],
+        cons: ["Very low edge retention as a standalone steel", "Primarily a Damascus fabrication component"],
+        use_case: "Damascus construction as the soft/tough contrast layer paired with RWL34. Rarely if ever used as a mono-steel."
+    },
+
+    // --- HITACHI (additional) ---
+    {
+        id: 'hitachi-12', name: "Gin-1 (Ginsan / Silver #1)", producer: "Hitachi", parent: "Proterial", pm: false,
+        C: 0.63, Cr: 13.5, V: 0, Mo: 0, W: 0, Co: 0,
+        edge: 4.5, toughness: 7, corrosion: 8.5, sharpen: 9,
+        ht_curve: "150:60,200:59,250:58",
+        desc: "Hitachi's semi-stainless high-carbon steel — the bridge between their pure carbon and stainless ranges. Also known as Ginsan or Silver Paper No.1. Combines the sharpening feel of Japanese carbon steel with borderline stainless properties at 13.5% chromium. A darling of Japanese kitchen knife craftsmen who want near-carbon performance without the demanding maintenance of fully reactive steels.",
+        knives: ["Takamura Ginsan Gyuto", "Sakai Takayuki Ginsan", "Kanehiro Ginsan", "Mid-range Japanese kitchen knives"],
+        pros: ["Japanese carbon sharpening feel and edge quality", "Semi-stainless — resistant to kitchen moisture with minimal care", "Good toughness", "Excellent finishability"],
+        cons: ["Not fully stainless — will patina and rust if neglected", "Moderate edge retention compared to PM steels"],
+        use_case: "Japanese kitchen knives where the user wants near-carbon sharpness with semi-stainless convenience — the ideal compromise for home and professional chefs."
+    },
+
+    // --- MYODO METALS ---
+    {
+        id: 'myodo-1', name: "H1", producer: "Myodo Metals", pm: false,
+        C: 0.15, Cr: 15.0, V: 0, Mo: 0.5, W: 0, Co: 0,
+        edge: 3.5, toughness: 10, corrosion: 10, sharpen: 8,
+        ht_curve: "150:57,200:56,250:55",
+        desc: "A precipitation-hardened austenitic stainless steel with near-zero carbon, high silicon (~3.5%), and nickel (~6%). Hardened not through martensite but through precipitation of intermetallic phases — meaning there are no chromium carbides depleting the corrosion-resistant matrix. The result is functional rust immunity in any environment, including full saltwater submersion. Spyderco's proprietary choice for their Salt series. Note: C shown is nominal — hardening is not carbon-martensite based.",
+        knives: ["Spyderco Salt 1", "Spyderco Salt 2 (Yellow)", "Spyderco Caribbean"],
+        pros: ["Absolute rust immunity — safe for saltwater, bleach, food acids", "Very high toughness", "Takes a functional working edge", "Unique precipitation-hardening mechanism"],
+        cons: ["Low edge retention", "Unusual metallurgy requires adapted sharpening approach", "Reaches modest hardness (~57 HRC)"],
+        use_case: "Diving, marine, fishing, food processing, EMT, and any environment where rust is completely unacceptable."
+    },
+
+    // --- VARIOUS (additional Chinese grades) ---
+    {
+        id: 'others-16', name: "8Cr14MoV", producer: "Various", parent: "Chinese Grades", pm: false,
+        C: 0.80, Cr: 14.0, V: 0.15, Mo: 0.15, W: 0, Co: 0,
+        edge: 4, toughness: 5, corrosion: 7.5, sharpen: 8,
+        ht_curve: "150:58,200:57,250:56",
+        desc: "A mid-range Chinese stainless steel — a clear step above 8Cr13MoV with increased chromium and molybdenum for better corrosion resistance and heat treatability. Used in better Chinese production knives where the maker wants to demonstrate a quality step-up. Quality varies significantly by heat treatment.",
+        knives: ["WE Knife (mid-range lines)", "Kizer mid-range", "Various Chinese production folders"],
+        pros: ["Better edge retention than 8Cr13MoV", "Good corrosion resistance", "Easy to sharpen"],
+        cons: ["Quality varies significantly by manufacturer and heat treatment", "Outclassed by PM steels at comparable price points"],
+        use_case: "Mid-range Chinese production knives — a meaningful step above baseline budget steels."
+    },
+    {
+        id: 'others-17', name: "7Cr17MoV", producer: "Various", parent: "Chinese Grades", pm: false,
+        C: 0.70, Cr: 17.0, V: 0.1, Mo: 0.15, W: 0, Co: 0,
+        edge: 3, toughness: 6, corrosion: 8, sharpen: 9,
+        ht_curve: "150:56,200:55,250:54",
+        desc: "A high-chromium budget Chinese stainless steel that trades cutting performance for maximum corrosion resistance and production economy. Common in mass-produced kitchen knives, restaurant supply cutlery, and import sets designed to survive dishwashers and general neglect. The high chromium keeps rust away; the low carbon keeps the edge soft.",
+        knives: ["Mass-produced kitchen sets", "Restaurant supply cutlery", "Budget import knives", "Promotional items"],
+        pros: ["High chromium for corrosion resistance", "Very easy to sharpen", "Inexpensive to produce"],
+        cons: ["Low edge retention", "Soft edge", "Inferior to modern budget steels in every performance metric"],
+        use_case: "Budget kitchen and utility knives where corrosion resistance and low manufacturing cost dominate over cutting performance."
+    },
 
 ];

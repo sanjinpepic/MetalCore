@@ -85,7 +85,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
 
     const fileInputRef = useRef(null);
 
-    const producers = ["ALL", ...new Set(steels.map(s => s.producer))];
+    const producers = ["ALL", ...[...new Set(steels.map(s => s.producer))].filter(p => p !== 'Various').sort((a, b) => a.localeCompare(b))];
 
     // Trending Logic
     const incrementTrending = (steelId) => {
@@ -567,6 +567,7 @@ Be concise and premium.`;
                                     setDetailSteel={setDetailSteel}
                                     setView={setView}
                                     resetFilters={resetFilters}
+                                    activeProducer={activeProducer}
                                 />
                             )}
 
