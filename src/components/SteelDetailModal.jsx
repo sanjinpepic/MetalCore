@@ -57,12 +57,11 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
 
     const shareCardRef = React.useRef(null);
 
-    const handleDownload = async (dataUrl) => {
+    const handleDownload = async (blob) => {
+        const filename = `${steel.name.replace(/\s+/g, '_')}_Performance.png`;
         if (navigator.share && navigator.canShare) {
             try {
-                const res = await fetch(dataUrl);
-                const blob = await res.blob();
-                const file = new File([blob], `${steel.name.replace(/\s+/g, '_')}_Performance.png`, { type: 'image/png' });
+                const file = new File([blob], filename, { type: 'image/png' });
                 if (navigator.canShare({ files: [file] })) {
                     await navigator.share({ title: `${steel.name} Performance Card`, files: [file] });
                     return;
@@ -71,16 +70,19 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                 if (err.name === 'AbortError') return;
             }
         }
-        // link.click() is blocked on iOS Safari — window.open() is the reliable fallback
+        // createObjectURL works on all browsers including mobile Safari
+        const url = URL.createObjectURL(blob);
         try {
             const link = document.createElement('a');
-            link.download = `${steel.name.replace(/\s+/g, '_')}_Performance.png`;
-            link.href = dataUrl;
+            link.download = filename;
+            link.href = url;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         } catch {
-            window.open(dataUrl, '_blank');
+            window.open(url, '_blank');
+        } finally {
+            URL.revokeObjectURL(url);
         }
     };
 
