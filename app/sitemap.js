@@ -1,55 +1,36 @@
 import { fetchAllData } from '../src/lib/db';
+import { PREMIUM_STEELS } from '../src/data/steels';
 
 export default async function sitemap() {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalcore.io'; // Replace with actual domain
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalcore.io';
 
+    // Try live DB; fall back to static bundle so sitemap always works
     let steels = [];
-    let knives = [];
-
     try {
         const data = await fetchAllData();
         steels = data.steels;
-        knives = data.knives;
     } catch (error) {
-        console.error('Sitemap generation failed:', error);
+        console.error('Sitemap: DB unavailable, using static data', error.message);
+        steels = PREMIUM_STEELS;
     }
 
+    const now = new Date();
+
     const steelUrls = steels.map((steel) => {
-        // Slugify the name: "M390 Microclean" -> "m390-microclean"
         const slug = steel.name.toLowerCase().trim().replace(/\s+/g, '-');
-        const entry = {
+        return {
             url: `${baseUrl}/steel/${slug}`,
+            lastModified: steel.updatedAt ? new Date(steel.updatedAt) : now,
             changeFrequency: 'monthly',
             priority: 0.8,
         };
-
-        // Use a real lastModified timestamp if available on the steel record
-        if (steel.updatedAt) {
-            try {
-                entry.lastModified = new Date(steel.updatedAt);
-            } catch (err) {
-                // fallback: omit lastModified if parsing fails
-            }
-        }
-
-        return entry;
     });
 
-    // We can also add knife URLs if we create a route for them later (e.g. /knife/[id])
-    // For now, let's just stick to steels as requested, but maybe add the main pages.
-
-    const mainRoutes = [
-        '',
-        '/search',
-        '/matrix',
-        '/knives',
-        '/compare',
-        '/education'
-    ].map((route) => ({
+    const mainRoutes = ['', '/compare', '/matrix', '/knives', '/education', '/search'].map((route) => ({
         url: `${baseUrl}${route}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 1,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: route === '' ? 1.0 : 0.9,
     }));
 
     return [...mainRoutes, ...steelUrls];

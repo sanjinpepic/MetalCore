@@ -28,11 +28,17 @@ const outfit = Outfit({
 export const metadata = {
   metadataBase: new URL('https://metalcore.io'),
   title: {
-    default: 'MetalCore - Premium Metallurgy | Knife Steel Database',
+    default: 'MetalCore — Knife Steel Database | Composition, Properties & Reviews',
     template: '%s | MetalCore',
   },
-  description: 'The ultimate resource for knife steel composition, performance charts, and heat treatment protocols.',
-  keywords: ['knife steel', 'metallurgy', 'M390', 'MagnaCut', 'steel composition', 'knife database', 'EDC', 'heat treatment'],
+  description: 'The ultimate knife steel database. Compare composition, edge retention, toughness, and heat treatment data for 250+ steels including M390, MagnaCut, S30V, VG-10, and more.',
+  keywords: [
+    'knife steel database', 'knife steel comparison', 'best knife steel', 'knife steel chart',
+    'M390 steel', 'MagnaCut steel', 'S30V steel', 'VG-10 steel', 'D2 steel', 'CPM steel',
+    'steel composition', 'steel properties', 'edge retention', 'toughness', 'corrosion resistance',
+    'heat treatment', 'powder metal steel', 'stainless steel knives',
+    'metallurgy', 'blade steel', 'knife making', 'EDC knife steel',
+  ],
   manifest: '/manifest.json',
   openGraph: {
     type: 'website',
@@ -79,19 +85,38 @@ export default function RootLayout({ children }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'SoftwareApplication',
-              name: 'MetalCore',
-              applicationCategory: 'DatabaseApplication',
-              operatingSystem: 'Any',
-              description: 'The ultimate resource for knife steel composition, performance charts, and heat treatment protocols.',
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'MetalCore',
+                url: 'https://metalcore.io',
+                description: 'The ultimate knife steel database. Compare 250+ steels by composition, edge retention, toughness, and heat treatment.',
+                potentialAction: {
+                  '@type': 'SearchAction',
+                  target: { '@type': 'EntryPoint', urlTemplate: 'https://metalcore.io/?search={search_term_string}' },
+                  'query-input': 'required name=search_term_string',
+                },
               },
-            }),
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Organization',
+                name: 'MetalCore',
+                url: 'https://metalcore.io',
+                logo: 'https://metalcore.io/icons/icon-512x512.png',
+                description: 'MetalCore provides the most comprehensive knife steel database on the internet, covering composition, performance, and heat treatment for 250+ steels.',
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'SoftwareApplication',
+                name: 'MetalCore',
+                applicationCategory: 'DatabaseApplication',
+                operatingSystem: 'Any',
+                description: 'Interactive knife steel comparison tool with 250+ steels, performance charts, and heat treatment data.',
+                offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+                featureList: ['Steel composition lookup', 'Performance comparison', 'Heat treatment curves', 'Side-by-side steel comparison', 'Knife database'],
+              },
+            ]),
           }}
         />
         <ConsentProvider>
