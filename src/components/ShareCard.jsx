@@ -10,16 +10,20 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
         if (!cardRef.current) return;
         setGenerating(true);
         try {
-            // Double rAF ensures two full paint cycles complete before capture —
-            // critical on mobile where the browser may not have painted yet.
+            // Double rAF: ensures two full paint cycles before capture (critical on mobile).
             await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-            const dataUrl = await toPng(cardRef.current, {
+
+            const opts = {
                 quality: 1,
-                // Cap at 2× — larger values can exceed iOS Safari's canvas size limit
                 pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
                 backgroundColor: '#000000',
                 cacheBust: true,
-            });
+            };
+
+            // html-to-image on mobile requires two calls: the first primes the
+            // font/resource cache, the second produces the correct output.
+            try { await toPng(cardRef.current, opts); } catch { /* prime only */ }
+            const dataUrl = await toPng(cardRef.current, opts);
             onGenerated(dataUrl);
         } catch (err) {
             console.error('Failed to generate image', err);
@@ -57,8 +61,12 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
                 </button>
             )}
 
-            {/* The Actual Card — must stay near the viewport origin so mobile browsers paint it */}
-            <div className="fixed top-0 left-0 opacity-0 pointer-events-none overflow-hidden" style={{ zIndex: -1 }}>
+            {/* Card capture container.
+                - width/height 0 + overflow visible: element extends into the page but
+                  takes no layout space. Avoids overflow:hidden clipping the paint area.
+                - High z-index: forces mobile browsers to include it in the paint layer.
+                  z-index:-1 causes some mobile renderers to skip painting entirely. */}
+            <div style={{ position: 'fixed', top: 0, left: 0, width: 0, height: 0, overflow: 'visible', opacity: 0, pointerEvents: 'none', zIndex: 9999 }}>
                 <div
                     ref={cardRef}
                     className="w-[1080px] h-[1080px] bg-black p-20 flex flex-col justify-between relative overflow-hidden font-sans"
