@@ -33,19 +33,44 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
     const [copied, setCopied] = useState(false);
     const similarSteels = useMemo(() => allSteels.length > 1 ? findSimilar(steel, allSteels) : [], [steel, allSteels]);
 
-    const shareSteel = useCallback(() => {
+    const shareSteel = useCallback(async () => {
         const url = `${window.location.origin}${window.location.pathname}?steel=${encodeURIComponent(steel.name)}`;
-        navigator.clipboard.writeText(url).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        }).catch(() => {
-            prompt('Copy this link:', url);
-        });
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `${steel.name} | MetalCore`,
+                    text: `Check out ${steel.name} on MetalCore — the knife steel database`,
+                    url,
+                });
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    navigator.clipboard.writeText(url).catch(() => prompt('Copy this link:', url));
+                }
+            }
+        } else {
+            navigator.clipboard.writeText(url).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            }).catch(() => prompt('Copy this link:', url));
+        }
     }, [steel.name]);
 
     const shareCardRef = React.useRef(null);
 
-    const handleDownload = (dataUrl) => {
+    const handleDownload = async (dataUrl) => {
+        if (navigator.share && navigator.canShare) {
+            try {
+                const res = await fetch(dataUrl);
+                const blob = await res.blob();
+                const file = new File([blob], `${steel.name.replace(/\s+/g, '_')}_Performance.png`, { type: 'image/png' });
+                if (navigator.canShare({ files: [file] })) {
+                    await navigator.share({ title: `${steel.name} Performance Card`, files: [file] });
+                    return;
+                }
+            } catch (err) {
+                if (err.name === 'AbortError') return;
+            }
+        }
         const link = document.createElement('a');
         link.download = `${steel.name.replace(/\s+/g, '_')}_Performance.png`;
         link.href = dataUrl;

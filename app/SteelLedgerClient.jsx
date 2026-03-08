@@ -90,7 +90,13 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
         const p = Array.isArray(s.parent) ? s.parent[0] : s.parent;
         return (p && p.trim()) || s.producer || 'Other';
     };
-    const producers = ["ALL", ...[...new Set(steels.map(getSteelGroup))].sort((a, b) => a.localeCompare(b))];
+    const GENERIC_GROUPS = new Set(['Classic Carbon', 'Classic Stainless', 'Chinese Grades', 'Traditional Tool Steel', 'Other']);
+    const producers = ["ALL", ...[...new Set(steels.map(getSteelGroup))].sort((a, b) => {
+        const aGeneric = GENERIC_GROUPS.has(a);
+        const bGeneric = GENERIC_GROUPS.has(b);
+        if (aGeneric !== bGeneric) return aGeneric ? 1 : -1;
+        return a.localeCompare(b);
+    })];
 
     // Trending Logic
     const incrementTrending = (steelId) => {
