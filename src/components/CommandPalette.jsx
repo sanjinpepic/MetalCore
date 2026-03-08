@@ -26,7 +26,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     const listRef = useRef(null);
 
     const normalize = (str) => {
-        if (!str) return '';
+        if (typeof str !== 'string') return '';
         return str.toLowerCase()
             .replace(/cpm[- ]?/, "")
             .replace(/böhler |bohler /, "")
@@ -113,7 +113,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
             ...steels.filter(s =>
                 normalize(s.name).includes(queryNorm) ||
                 normalize(s.producer).includes(queryNorm) ||
-                (s.parent && normalize(s.parent).includes(queryNorm)) ||
+                (s.parent && normalize(Array.isArray(s.parent) ? s.parent[0] : s.parent).includes(queryNorm)) ||
                 (queryNorm === 'pm' && s.pm) ||
                 (queryNorm === 'conventional' || queryNorm === 'conv' && !s.pm)
             )
