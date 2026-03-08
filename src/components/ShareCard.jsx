@@ -10,10 +10,15 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
         if (!cardRef.current) return;
         setGenerating(true);
         try {
+            // Double rAF ensures two full paint cycles complete before capture —
+            // critical on mobile where the browser may not have painted yet.
+            await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
             const dataUrl = await toPng(cardRef.current, {
                 quality: 1,
-                pixelRatio: 2, // Higher resolution for sharing
-                backgroundColor: '#000'
+                // Cap at 2× — larger values can exceed iOS Safari's canvas size limit
+                pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+                backgroundColor: '#000000',
+                cacheBust: true,
             });
             onGenerated(dataUrl);
         } catch (err) {
@@ -52,8 +57,8 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
                 </button>
             )}
 
-            {/* The Actual Card (Rendered off-screen or in a hidden container for capture) */}
-            <div className="fixed -left-[2000px] top-0 pointer-events-none">
+            {/* The Actual Card — must stay near the viewport origin so mobile browsers paint it */}
+            <div className="fixed top-0 left-0 opacity-0 pointer-events-none overflow-hidden" style={{ zIndex: -1 }}>
                 <div
                     ref={cardRef}
                     className="w-[1080px] h-[1080px] bg-black p-20 flex flex-col justify-between relative overflow-hidden font-sans"

@@ -71,10 +71,17 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                 if (err.name === 'AbortError') return;
             }
         }
-        const link = document.createElement('a');
-        link.download = `${steel.name.replace(/\s+/g, '_')}_Performance.png`;
-        link.href = dataUrl;
-        link.click();
+        // link.click() is blocked on iOS Safari — window.open() is the reliable fallback
+        try {
+            const link = document.createElement('a');
+            link.download = `${steel.name.replace(/\s+/g, '_')}_Performance.png`;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch {
+            window.open(dataUrl, '_blank');
+        }
     };
 
     return (
