@@ -231,8 +231,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
     const matrixSteels = useMemo(() => {
         if (!searchTerm) return steels;
         return steels.filter(s =>
-            s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            s.producer.toLowerCase().includes(searchTerm.toLowerCase())
+            (s.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (s.producer || '').toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [steels, searchTerm]);
 

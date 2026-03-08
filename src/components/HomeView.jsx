@@ -25,7 +25,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
     const [yAxis, setYAxis] = useState('toughness');
 
     // Robust Search Matching
-    const normalize = (str) => str.toLowerCase().replace(/[\s-]/g, '');
+    const normalize = (str) => str ? str.toLowerCase().replace(/[\s-]/g, '') : '';
 
     // Spotlight Logic
     const searchResults = useMemo(() => {
