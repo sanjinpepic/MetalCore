@@ -77,9 +77,9 @@ const EducationView = ({ glossary, faq, producers }) => {
     }, [faq]);
 
     return (
-        <div className="flex flex-col flex-1 min-w-0 md:h-full md:overflow-y-auto custom-scrollbar bg-transparent relative pb-40 md:pb-0">
+        <div className="flex flex-col flex-1 min-w-0 min-h-dvh md:h-full md:overflow-y-auto custom-scrollbar bg-black">
             {/* Desktop gradient overlay */}
-            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
+            <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
 
             {/* Header */}
             <ViewHeader
@@ -207,7 +207,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                     if (!items || items.length === 0) return null;
                                     return (
                                         <section key={cat.id}>
-                                            <div className="sticky top-[8.5rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
+                                            <div className="sticky top-[8.5rem] md:top-[4.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
                                                 <div className="flex items-center gap-2 md:gap-3">
                                                     <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-accent"></div>
                                                     <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{cat.id}</h2>
