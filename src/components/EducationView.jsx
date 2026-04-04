@@ -95,7 +95,7 @@ const EducationView = ({ glossary, faq, producers }) => {
 
 
             {/* Navigation Tabs & Search */}
-            <div className="sticky top-0 z-[40] bg-black/80 backdrop-blur-2xl transition-all w-full">
+            <div className="sticky top-0 z-[40] bg-transparent backdrop-blur-2xl transition-all w-full">
                 {/* Mobile tabs — own row */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
@@ -207,7 +207,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                     if (!items || items.length === 0) return null;
                                     return (
                                         <section key={cat.id}>
-                                            <div className="sticky top-[8.5rem] md:top-[5.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-slate-950/80 backdrop-blur-2xl transition-all">
+                                            <div className="sticky top-[8.5rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
                                                 <div className="flex items-center gap-2 md:gap-3">
                                                     <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-accent"></div>
                                                     <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{cat.id}</h2>
