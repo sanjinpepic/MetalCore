@@ -13,14 +13,8 @@ const pool = new Pool({
 });
 
 async function main() {
-    const res = await pool.query("SELECT id, name FROM \"Steel\" WHERE id = 'takefu-10'");
-    if (res.rows.length > 0) {
-        console.log('FOUND:', res.rows[0]);
-    } else {
-        console.log('NOT FOUND in database');
-    }
-    const total = await pool.query("SELECT count(*) FROM \"Steel\"");
-    console.log('Total steels in DB:', total.rows[0].count);
+    const res = await pool.query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
+    console.log('Tables:', res.rows.map(r => r.table_name).join(', '));
     await pool.end();
 }
 

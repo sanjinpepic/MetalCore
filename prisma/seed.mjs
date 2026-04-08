@@ -30,7 +30,6 @@ async function main() {
     const { GLOSSARY, FAQ, PRODUCERS } = loadData('../src/data/education.js');
     console.log(`Loaded: ${PREMIUM_STEELS.length} steels, ${POPULAR_KNIVES.length} knives, ${GLOSSARY.length} glossary, ${FAQ.length} FAQ, ${PRODUCERS.length} producers`);
 
-    // Detect _SteelToKnife column order from foreign key constraints
     const fkRows = await pool.query(`
         SELECT kcu.column_name, ccu.table_name AS ref_table
         FROM information_schema.table_constraints tc
@@ -45,33 +44,7 @@ async function main() {
         if (row.ref_table === 'Knife') knifeCol = row.column_name;
         if (row.ref_table === 'Steel') steelCol = row.column_name;
     }
-    console.log(`Join table columns: ${knifeCol}=Knife, ${steelCol}=Steel`);
 
-    console.log('Clearing existing data...');
-    await pool.query('DELETE FROM "_SteelToKnife"');
-    await pool.query('DELETE FROM "Knife"');
-    await pool.query('DELETE FROM "Steel"');
-    await pool.query('DELETE FROM "Glossary"');
-    await pool.query('DELETE FROM "FAQ"');
-    await pool.query('DELETE FROM "Producer"');
-
-    console.log('Seeding Steels...');
-    for (const s of PREMIUM_STEELS) {
-        const parentArr = s.parent ? (Array.isArray(s.parent) ? s.parent : [s.parent]) : [];
-        await pool.query(
-            `INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co", edge, toughness, corrosion, sharpen, ht_curve, "desc", use_case, pros, cons, pm, parent)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`,
-            [s.id, s.name, s.producer, s.C, s.Cr, s.V, s.Mo, s.W, s.Co, s.edge, s.toughness, s.corrosion, s.sharpen, s.ht_curve || '', s.desc, s.use_case, s.pros || [], s.cons || [], s.pm ?? false, parentArr]
-        );
-    }
-
-    // Build name/id -> id lookup for steel matching
-    const steelLookup = new Map();
-    for (const s of PREMIUM_STEELS) {
-        steelLookup.set(s.name.toLowerCase(), s.id);
-        steelLookup.set(s.id.toLowerCase(), s.id);
-    }
-    // Aliases: knives.js uses different name variants than steels.js
     const aliases = {
         'cpm-s30v': 'crucible-14',
         'cpm-s35vn': 'crucible-15',
@@ -83,17 +56,17 @@ async function main() {
         'cpm-154': 'crucible-4',
         'cpm-m4': 'crucible-9',
         'cpm-cruwear': 'crucible-8',
-        'cpm-magnacut': 'crucible-1',
+        'cpm-magnacut': 'boutique-21',
         'm390 microclean': 'bohler-5',
         'elmax superclean': 'uddeholm-3',
-        'k390 microclean': 'bohler-3',
+        'k390 microclean': 'bohler-22',
         'vanax superclean': 'uddeholm-10',
         's35vn': 'crucible-15',
         '15v': 'crucible-3',
         'mc63 (sg2)': 'takefu-2',
         'm4': 'crucible-9',
-        'carbon steel': 'carbon-1',   // generic "Carbon Steel" -> 1075
-        'magnacut': 'crucible-1',
+        'carbon steel': 'carbon-1',
+        'magnacut': 'boutique-21',
         'cpm rex 45': 'crucible-10',
         '1095 high carbon': 'carbon-5',
         's30v': 'crucible-14',
@@ -101,73 +74,82 @@ async function main() {
         's110v': 'crucible-13',
         'maxamet': 'carpenter-5',
         'd2': 'toolsteel-2',
-        '420hc': 'stainless-3',
+        '420hc': 'carpenter-1',
         'x55crmov14': 'victorinox-1',
         'lc200n / cronidur 30': 'zapp-1',
         'cru-wear': 'crucible-8',
-        'cpm-cruwear': 'crucible-8',
     };
-    for (const [alias, id] of Object.entries(aliases)) {
-        steelLookup.set(alias, id);
-    }
 
-    console.log('Seeding Knives...');
-    for (const k of POPULAR_KNIVES) {
-        await pool.query(
-            `INSERT INTO "Knife" (id, name, maker, category, description, "whySpecial", image, link)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
-            [k.id, k.name, k.maker, k.category, k.description, k.whySpecial, k.image, k.link]
-        );
+    console.log('Clearing optional tables outside transaction...');
+    try { await pool.query('DELETE FROM "SteelPrice"'); } catch (e) { }
+    try { await pool.query('DELETE FROM "SteelComparison"'); } catch (e) { }
 
-        if (k.steels) {
-            for (const steelRef of k.steels) {
-                const steelId = steelLookup.get(steelRef.toLowerCase());
-                if (steelId) {
-                    await pool.query(
-                        `INSERT INTO "_SteelToKnife" ("${knifeCol}", "${steelCol}") VALUES ($1, $2)`,
-                        [k.id, steelId]
-                    );
-                } else {
-                    console.warn(`  Warning: steel "${steelRef}" not found for knife "${k.name}"`);
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+        console.log('Clearing main tables...');
+        await client.query('TRUNCATE TABLE "_SteelToKnife", "Knife", "Steel", "Glossary", "FAQ", "Producer" CASCADE');
+
+        console.log('Seeding Steels...');
+        const steelLookup = new Map();
+        const canonLookup = new Map();
+        const canon = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        for (const s of PREMIUM_STEELS) {
+            const parentArr = s.parent ? (Array.isArray(s.parent) ? s.parent : [s.parent]) : [];
+            const normalizedId = s.id.toLowerCase().trim();
+            await client.query(
+                `INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co", edge, toughness, corrosion, sharpen, ht_curve, "desc", use_case, pros, cons, pm, parent)
+                 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`,
+                [normalizedId, s.name, s.producer, s.C, s.Cr, s.V, s.Mo, s.W, s.Co, s.edge, s.toughness, s.corrosion, s.sharpen, s.ht_curve || '', s.desc, s.use_case, s.pros || [], s.cons || [], s.pm ?? false, parentArr]
+            );
+            steelLookup.set(normalizedId, normalizedId);
+            steelLookup.set(s.name.toLowerCase().trim(), normalizedId);
+            canonLookup.set(canon(s.name), normalizedId);
+            canonLookup.set(canon(s.id), normalizedId);
+        }
+
+        for (const [alias, id] of Object.entries(aliases)) {
+            const normalizedId = id.toLowerCase().trim();
+            steelLookup.set(alias.toLowerCase().trim(), normalizedId);
+            canonLookup.set(canon(alias), normalizedId);
+        }
+
+        console.log('Seeding Knives...');
+        for (const k of POPULAR_KNIVES) {
+            await client.query(
+                `INSERT INTO "Knife" (id, name, maker, category, description, "whySpecial", image, link)
+                 VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+                [k.id, k.name, k.maker, k.category, k.description, k.whySpecial, k.image, k.link]
+            );
+            if (k.steels) {
+                for (const steelRef of k.steels) {
+                    const lowerRef = steelRef.toLowerCase().trim();
+                    const steelId = steelLookup.get(lowerRef) || canonLookup.get(canon(steelRef));
+                    if (steelId) {
+                        await client.query(
+                            `INSERT INTO "_SteelToKnife" ("${knifeCol}", "${steelCol}") VALUES ($1, $2)`,
+                            [k.id, steelId]
+                        );
+                    }
                 }
             }
         }
-    }
 
-    console.log('Seeding Glossary...');
-    for (const g of GLOSSARY) {
-        await pool.query('INSERT INTO "Glossary" (term, def, category, level) VALUES ($1, $2, $3, $4)', [g.term, g.def, g.category || '', g.level || '']);
-    }
+        console.log('Seeding Education...');
+        for (const g of GLOSSARY) await client.query('INSERT INTO "Glossary" (term, def, category, level) VALUES ($1, $2, $3, $4)', [g.term, g.def, g.category || '', g.level || '']);
+        for (const f of FAQ) await client.query('INSERT INTO "FAQ" (q, a, category) VALUES ($1, $2, $3)', [f.q, f.a, f.category || '']);
+        for (const p of PRODUCERS) await client.query('INSERT INTO "Producer" (name, location, coords, region, "desc") VALUES ($1,$2,$3,$4,$5)', [p.name, p.location, p.coords, p.region, p.desc]);
 
-    console.log('Seeding FAQ...');
-    for (const f of FAQ) {
-        await pool.query('INSERT INTO "FAQ" (q, a, category) VALUES ($1, $2, $3)', [f.q, f.a, f.category || '']);
+        await client.query('COMMIT');
+        console.log('Seeding complete successfully.');
+    } catch (e) {
+        if (client) await client.query('ROLLBACK').catch(() => {});
+        console.error('Seeding failed.', e);
+        process.exit(1);
+    } finally {
+        if (client) client.release();
     }
-
-    console.log('Seeding Producers...');
-    for (const p of PRODUCERS) {
-        await pool.query(
-            'INSERT INTO "Producer" (name, location, coords, region, "desc") VALUES ($1,$2,$3,$4,$5)',
-            [p.name, p.location, p.coords, p.region, p.desc]
-        );
-    }
-
-    // Verify
-    const counts = await pool.query(`
-        SELECT
-            (SELECT count(*) FROM "Steel") as steels,
-            (SELECT count(*) FROM "Knife") as knives,
-            (SELECT count(*) FROM "_SteelToKnife") as relations,
-            (SELECT count(*) FROM "Glossary") as glossary,
-            (SELECT count(*) FROM "FAQ") as faq,
-            (SELECT count(*) FROM "Producer") as producers
-    `);
-    console.log('Seeding complete. Row counts:', counts.rows[0]);
 }
 
-main()
-    .catch((e) => {
-        console.error(e);
-        process.exit(1);
-    })
-    .finally(() => pool.end());
+main().catch((e) => { console.error(e); process.exit(1); }).finally(() => pool.end());
