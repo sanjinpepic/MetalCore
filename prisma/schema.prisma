@@ -17,6 +17,8 @@ model Steel {
   Mo          Float
   W           Float
   Co          Float
+  N           Float?
+  Nb          Float?
   edge        Float
   toughness   Float
   corrosion   Float

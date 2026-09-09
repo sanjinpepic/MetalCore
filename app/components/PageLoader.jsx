@@ -35,7 +35,7 @@ export default function PageLoader() {
             sessionStorage.setItem('metalcore_loader_shown', 'true')
         }
 
-        const minDisplayTime = 1200 // Slightly longer for the skeleton to be appreciated
+        const minDisplayTime = 300 // Brief brand moment without blocking real content
         const startTime = Date.now()
 
         // Wait for page to load, then ensure minimum display time

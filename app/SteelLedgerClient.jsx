@@ -482,16 +482,24 @@ Be concise and premium.`;
                             </svg>
                             <span>Database is currently unavailable — data will appear once the connection is restored.</span>
                         </div>
-                        <button
-                            onClick={() => setShowDbBanner(false)}
-                            className="text-amber-500 hover:text-amber-300 shrink-0"
-                            aria-label="Dismiss"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </button>
+                        <div className="flex items-center gap-3 shrink-0">
+                            <button
+                                onClick={() => window.location.reload()}
+                                className="px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-700/50 text-amber-400 text-xs font-bold hover:bg-amber-500/20 transition-colors"
+                            >
+                                Retry
+                            </button>
+                            <button
+                                onClick={() => setShowDbBanner(false)}
+                                className="text-amber-500 hover:text-amber-300"
+                                aria-label="Dismiss"
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 )}
 
@@ -551,7 +559,7 @@ Be concise and premium.`;
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{
-                                duration: 1.3,
+                                duration: 0.3,
                                 ease: [0.22, 1, 0.36, 1]
                             }}
                             className="w-full md:h-full md:overflow-hidden min-h-screen md:min-h-0"

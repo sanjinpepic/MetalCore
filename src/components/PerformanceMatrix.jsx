@@ -3,6 +3,7 @@ import ViewHeader from './Common/ViewHeader';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { toPng } from 'html-to-image';
 import PerformanceRadar from './PerformanceRadar';
+import { getProducerColor } from '../utils/producerColors';
 
 // Helper for collision detection
 const solveLabelCollisions = (steels, xAxisKey, yAxisKey, width, height, mobile = false) => {
@@ -241,37 +242,6 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
         return solveLabelCollisions(matrixSteels, xAxis, yAxis, chartDimensions.width, chartDimensions.height, isMobile);
     }, [matrixSteels, xAxis, yAxis, chartDimensions, isMobile]);
 
-    const producerColors = {
-        "Crucible": "#FF5733",    // Vibrant Orange
-        "Böhler": "#33FF57",      // Lime Green
-        "Uddeholm": "#3357FF",    // Royal Blue
-        "Carpenter": "#F333FF",   // Magenta
-        "Hitachi": "#FF33A1",     // Hot Pink
-        "Takefu": "#33FFF5",      // Cyan
-        "Alleima": "#FFF533",     // Bright Yellow
-        "Erasteel": "#FF8633",    // Deep Orange
-        "Zapp": "#A133FF",        // Purple
-        "Latrobe": "#E91E63",     // Pink
-        "Niagara": "#00BCD4",     // Teal
-        "Lohmann": "#8BC34A",     // Light Green
-        "Damasteel": "#795548",   // Brown
-        "Various": "#94a3b8",     // Slate
-        "Other": "#ffffff"        // White
-    };
-
-    const getProducerColor = (producer) => {
-        if (!producer) return producerColors["Other"];
-        const found = Object.keys(producerColors).find(k => producer.includes(k));
-        if (found) return producerColors[found];
-
-        // Dynamic color generation for any other producer to ensure uniqueness
-        let hash = 0;
-        for (let i = 0; i < producer.length; i++) {
-            hash = producer.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
-        return "#" + "00000".substring(0, 6 - c.length) + c;
-    };
     // Filter steels to show labels for: Top performers or hovered
     const labeledSteels = useMemo(() => {
         if (labelDensity === 'none' && !hoveredSteel) return [];
@@ -802,7 +772,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
             </div>
 
             {/* Background Texture Overlay */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
+            <div className="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('/textures/carbon-fibre.png')] mix-blend-overlay"></div>
         </div>
     );
 };

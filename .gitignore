@@ -22,6 +22,8 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+seed_output.txt
 
 # local env files
 .env
@@ -51,3 +53,5 @@ database-config.json
 backup.sql
 *-db.js
 diagnose-*.js
+# stale data backup
+src/data/steels.js.backup

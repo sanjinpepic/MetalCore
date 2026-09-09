@@ -39,7 +39,23 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
         });
     }, [items, unitSystem]);
 
-    if (lineData.length === 0) return null;
+    if (lineData.length === 0) {
+        return (
+            <div className={`glass-gradient rounded-[2.5rem] shadow-2xl ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
+                {!noTitle && (
+                    <h3 className={`${compact ? 'text-sm mb-4' : 'text-lg mb-8'} font-black text-white uppercase tracking-widest flex items-center gap-3 italic`}>
+                        <svg width={compact ? "16" : "20"} height={compact ? "16" : "20"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                        Hitting Hardness Matrix
+                    </h3>
+                )}
+                <p className={`${compact ? 'text-xs' : 'text-sm'} text-slate-400 font-mono`}>
+                    No heat treatment data available for {items?.length === 1 ? items[0].name : 'these steels'}.
+                </p>
+            </div>
+        );
+    }
 
     const chartContent = (
         <>

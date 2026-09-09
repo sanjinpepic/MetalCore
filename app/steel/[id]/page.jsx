@@ -103,13 +103,13 @@ function RatingBar({ label, value }) {
                 <span style={{ color: '#e4e4e7', fontSize: '14px', fontFamily: 'monospace' }}>{value}/10</span>
             </div>
             <div style={{ height: '6px', background: '#27272a', borderRadius: '9999px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${pct}%`, background: '#f97316', borderRadius: '9999px' }} />
+                <div style={{ height: '100%', width: `${pct}%`, background: '#f59e0b', borderRadius: '9999px' }} />
             </div>
         </div>
     );
 }
 
-function Badge({ children, color = '#f97316' }) {
+function Badge({ children, color = '#f59e0b' }) {
     return (
         <span style={{
             fontSize: '11px',
@@ -139,7 +139,7 @@ export default async function SteelPage({ params }) {
                 <div style={{ textAlign: 'center' }}>
                     <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Steel Not Found</h1>
                     <p style={{ color: '#71717a', marginBottom: '24px' }}>No steel matching &quot;{id}&quot; in our database.</p>
-                    <Link href="/" style={{ color: '#f97316', textDecoration: 'underline' }}>← Back to MetalCore</Link>
+                    <Link href="/" style={{ color: '#f59e0b', textDecoration: 'underline' }}>← Back to MetalCore</Link>
                 </div>
             </div>
         );
@@ -152,6 +152,8 @@ export default async function SteelPage({ params }) {
         { symbol: 'Mo', name: 'Molybdenum', value: steel.Mo },
         { symbol: 'W',  name: 'Tungsten',   value: steel.W  },
         { symbol: 'Co', name: 'Cobalt',     value: steel.Co },
+        { symbol: 'N',  name: 'Nitrogen',   value: steel.N  },
+        { symbol: 'Nb', name: 'Niobium',    value: steel.Nb },
     ].filter((e) => e.value > 0);
 
     // JSON-LD structured data for rich results in Google / AI
@@ -179,6 +181,8 @@ export default async function SteelPage({ params }) {
                 { '@type': 'PropertyValue', name: 'Chromium',            value: `${steel.Cr}%` },
                 { '@type': 'PropertyValue', name: 'Vanadium',            value: `${steel.V}%`  },
                 { '@type': 'PropertyValue', name: 'Molybdenum',          value: `${steel.Mo}%` },
+                ...(steel.N > 0 ? [{ '@type': 'PropertyValue', name: 'Nitrogen', value: `${steel.N}%` }] : []),
+                ...(steel.Nb > 0 ? [{ '@type': 'PropertyValue', name: 'Niobium', value: `${steel.Nb}%` }] : []),
                 { '@type': 'PropertyValue', name: 'Edge Retention',      value: `${steel.edge}/10`      },
                 { '@type': 'PropertyValue', name: 'Toughness',           value: `${steel.toughness}/10` },
                 { '@type': 'PropertyValue', name: 'Corrosion Resistance', value: `${steel.corrosion}/10` },
@@ -198,7 +202,7 @@ export default async function SteelPage({ params }) {
     const s = {
         page:       { position: 'fixed', inset: 0, overflowY: 'auto', background: '#09090b', color: '#f4f4f5', fontFamily: 'system-ui, sans-serif' },
         nav:        { borderBottom: '1px solid #27272a', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-        navBrand:   { color: '#f97316', fontWeight: 800, fontSize: '18px', letterSpacing: '0.15em', textDecoration: 'none' },
+        navBrand:   { color: '#f59e0b', fontWeight: 800, fontSize: '18px', letterSpacing: '0.15em', textDecoration: 'none' },
         navBack:    { color: '#71717a', fontSize: '14px', textDecoration: 'none' },
         main:       { maxWidth: '900px', margin: '0 auto', padding: '48px 24px' },
         label:      { fontSize: '11px', fontFamily: 'monospace', color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '12px', display: 'block' },
@@ -271,7 +275,7 @@ export default async function SteelPage({ params }) {
                                             {elements.map((el) => (
                                                 <tr key={el.symbol} style={{ borderTop: '1px solid #27272a' }}>
                                                     <td style={{ padding: '10px 0' }}>
-                                                        <span style={{ fontFamily: 'monospace', color: '#f97316', fontSize: '14px' }}>{el.symbol}</span>
+                                                        <span style={{ fontFamily: 'monospace', color: '#f59e0b', fontSize: '14px' }}>{el.symbol}</span>
                                                         <span style={{ color: '#71717a', fontSize: '13px', marginLeft: '10px' }}>{el.name}</span>
                                                     </td>
                                                     <td style={{ padding: '10px 0', textAlign: 'right', fontFamily: 'monospace', color: '#e4e4e7', fontSize: '14px' }}>
@@ -341,10 +345,10 @@ export default async function SteelPage({ params }) {
                                 Use the MetalCore interactive database to compare composition, heat treatment curves, and performance side-by-side.
                             </p>
                             <Link
-                                href={`/?compare=${encodeURIComponent(steel.name)}`}
+                                href={`/?view=COMPARE&steels=${encodeURIComponent(steel.name)}`}
                                 style={{
                                     display: 'inline-block',
-                                    background: '#f97316',
+                                    background: '#f59e0b',
                                     color: '#000',
                                     fontWeight: 700,
                                     padding: '14px 32px',

@@ -36,7 +36,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
 
     // Chemical filter parser — matches "El:op value" e.g. "C:>3", "Cr:~15", "Mo:4%"
     // Supported elements map to steel object keys
-    const CHEM_ELEMENTS = { c: 'C', cr: 'Cr', v: 'V', mo: 'Mo', w: 'W', co: 'Co' };
+    const CHEM_ELEMENTS = { c: 'C', cr: 'Cr', v: 'V', mo: 'Mo', w: 'W', co: 'Co', n: 'N', nb: 'Nb' };
     const parseChemFilter = (raw) => {
         // Regex: element : optional-operator value optional-%
         const m = raw.trim().match(/^([a-zA-Z]{1,2})\s*:\s*(>=|<=|[><=~]?)\s*(\d+(?:\.\d+)?)%?$/);

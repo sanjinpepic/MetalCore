@@ -1,12 +1,56 @@
 'use client'
 
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { hapticFeedback, useMobile } from '../hooks/useMobile';
 
-export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 100 }) {
+export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 100, label = 'Dialog' }) {
     const { isMobile } = useMobile();
     const contentRef = useRef(null);
+    const previouslyFocused = useRef(null);
+
+    // Move focus into the sheet on open, restore on close
+    useEffect(() => {
+        if (!isOpen) return;
+        previouslyFocused.current = document.activeElement;
+        const focusTarget = contentRef.current?.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusTarget) {
+            focusTarget.focus({ preventScroll: true });
+        }
+        return () => {
+            if (previouslyFocused.current && previouslyFocused.current.focus) {
+                previouslyFocused.current.focus({ preventScroll: true });
+            }
+        };
+    }, [isOpen]);
+
+    // Escape to close + minimal focus trap
+    const handleKeyDown = useCallback((e) => {
+        if (e.key === 'Escape') {
+            e.stopPropagation();
+            onClose();
+            return;
+        }
+        if (e.key === 'Tab') {
+            const focusables = contentRef.current?.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (!focusables || focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+    }, [onClose]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, handleKeyDown]);
     const isDragging = useRef(false);
     const dragStartY = useRef(0);
     const dragStartSheetY = useRef(0);
@@ -230,6 +274,9 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                         className="fixed inset-x-0 bottom-0 md:hidden will-change-transform"
                     >
                         <div
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label={label}
                             className="bg-[#0a0a0b] rounded-t-3xl shadow-2xl border-t border-white/10 overflow-hidden flex flex-col"
                             style={{ height: `${SNAP_HEIGHT * 100}dvh` }}
                         >
@@ -269,6 +316,9 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                     >
                         <motion.div
                             key="desktop-modal-content"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label={label}
                             initial={{ scale: 0.99, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ opacity: 0, transition: { duration: 0.1 } }}

@@ -36,6 +36,29 @@ const VIEW_COLORS = {
     PROFILE: 'violet'
 };
 
+// Static Tailwind classes (runtime-constructed classes are purged by JIT)
+const VIEW_ACTIVE_BG = {
+    HOME: 'bg-emerald-500 shadow-emerald-500/20',
+    SEARCH: 'bg-amber-500 shadow-amber-500/20',
+    MATRIX: 'bg-rose-500 shadow-rose-500/20',
+    KNIVES: 'bg-sky-500 shadow-sky-500/20',
+    EDUCATION: 'bg-indigo-500 shadow-indigo-500/20',
+    PRO_LAB: 'bg-orange-500 shadow-orange-500/20',
+    COMPARE: 'bg-cyan-500 shadow-cyan-500/20',
+    PROFILE: 'bg-violet-500 shadow-violet-500/20'
+};
+
+const VIEW_HOVER = {
+    HOME: 'hover:border-emerald-500/30 group-hover:text-emerald-400',
+    SEARCH: 'hover:border-amber-500/30 group-hover:text-amber-400',
+    MATRIX: 'hover:border-rose-500/30 group-hover:text-rose-400',
+    KNIVES: 'hover:border-sky-500/30 group-hover:text-sky-400',
+    EDUCATION: 'hover:border-indigo-500/30 group-hover:text-indigo-400',
+    PRO_LAB: 'hover:border-orange-500/30 group-hover:text-orange-400',
+    COMPARE: 'hover:border-cyan-500/30 group-hover:text-cyan-400',
+    PROFILE: 'hover:border-violet-500/30 group-hover:text-violet-400'
+};
+
 const Sidebar = ({
     view,
     setView,
@@ -415,10 +438,10 @@ const Sidebar = ({
                     <div className="mt-4 px-1">
                         <button
                             onClick={() => { hapticFeedback('light'); openCommandPalette(); }}
-                            className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-${VIEW_COLORS[view] || 'amber'}-500/30 transition-all group`}
+                            className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] ${VIEW_HOVER[view] || VIEW_HOVER.SEARCH} transition-all group`}
                         >
                             <div className="flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-slate-500 group-hover:text-${VIEW_COLORS[view] || 'amber'}-400 transition-colors`}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-slate-500 ${(VIEW_HOVER[view] || VIEW_HOVER.SEARCH).split(' ')[1]} transition-colors`}>
                                     <circle cx="11" cy="11" r="8" />
                                     <path d="m21 21-4.35-4.35" />
                                 </svg>
@@ -451,7 +474,7 @@ const Sidebar = ({
                                     {isSelected && (
                                         <motion.div
                                             layoutId="sidebar-active"
-                                            className={`absolute inset-0 bg-${color}-500 rounded-xl z-0 shadow-lg shadow-${color}-500/20`}
+                                            className={`absolute inset-0 rounded-xl z-0 shadow-lg ${VIEW_ACTIVE_BG[color] || VIEW_ACTIVE_BG.SEARCH}`}
                                             transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                                         />
                                     )}

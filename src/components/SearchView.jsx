@@ -25,10 +25,10 @@ const SteelCard = ({ s, compareList, toggleCompare, setDetailSteel }) => {
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-px bg-white/5 rounded-xl overflow-hidden group-hover:bg-accent/10 transition-colors">
-                {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
+                {['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'].filter(el => s[el] > 0).map(el => (
                     <div key={el} className="bg-black/90 p-3 text-center">
                         <div className="text-[9px] text-slate-500 uppercase font-black mb-1.5">{el}</div>
-                        <div className="text-xs md:text-sm font-mono font-bold text-slate-300">{s[el] || 0}</div>
+                        <div className="text-xs md:text-sm font-mono font-bold text-slate-300">{s[el]}</div>
                     </div>
                 ))}
             </div>

@@ -99,9 +99,9 @@ async function main() {
             const parentArr = s.parent ? (Array.isArray(s.parent) ? s.parent : [s.parent]) : [];
             const normalizedId = s.id.toLowerCase().trim();
             await client.query(
-                `INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co", edge, toughness, corrosion, sharpen, ht_curve, "desc", use_case, pros, cons, pm, parent)
-                 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`,
-                [normalizedId, s.name, s.producer, s.C, s.Cr, s.V, s.Mo, s.W, s.Co, s.edge, s.toughness, s.corrosion, s.sharpen, s.ht_curve || '', s.desc, s.use_case, s.pros || [], s.cons || [], s.pm ?? false, parentArr]
+                `INSERT INTO "Steel" (id, name, producer, "C", "Cr", "V", "Mo", "W", "Co", "N", "Nb", edge, toughness, corrosion, sharpen, ht_curve, "desc", use_case, pros, cons, pm, parent)
+                 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)`,
+                [normalizedId, s.name, s.producer, s.C, s.Cr, s.V, s.Mo, s.W, s.Co, s.N ?? null, s.Nb ?? null, s.edge, s.toughness, s.corrosion, s.sharpen, s.ht_curve || '', s.desc, s.use_case, s.pros || [], s.cons || [], s.pm ?? false, parentArr]
             );
             steelLookup.set(normalizedId, normalizedId);
             steelLookup.set(s.name.toLowerCase().trim(), normalizedId);

@@ -87,11 +87,11 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
     };
 
     return (
-        <BottomSheet isOpen={!!steel} onClose={onClose}>
+        <BottomSheet isOpen={!!steel} onClose={onClose} label={`${steel?.name ?? 'Steel'} details`}>
             <div className="relative">
                 {/* Close button - positioned for both mobile and desktop */}
                 <div className="absolute top-1 right-0 z-10 flex items-center gap-2">
-                    <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
+                    <button onClick={onClose} aria-label="Close details" className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -115,6 +115,8 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 <h2 className="text-2xl md:text-3xl font-display font-black text-white leading-none italic uppercase tracking-tighter">{steel.name}</h2>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); toggleFavorite(steel.id); }}
+                                    aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                                    aria-pressed={isFavorite}
                                     className={`p-2 rounded-xl border transition-all flex items-center justify-center w-9 h-9 shrink-0 ${isFavorite ? 'bg-accent text-black border-accent shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 border-white/10 hover:text-accent'}`}
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5" className="shrink-0">
@@ -123,6 +125,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); shareSteel(); }}
+                                    aria-label={copied ? 'Link copied' : 'Copy share link'}
                                     className="p-2 rounded-xl border border-white/10 transition-all flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-slate-500 hover:text-accent"
                                 >
                                     {copied ? (
@@ -141,6 +144,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                     onClick={(e) => { e.stopPropagation(); shareCardRef.current?.generateImage(); }}
                                     className="p-2 rounded-xl border border-white/10 transition-all flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-slate-500 hover:text-accent group"
                                     title="Export Performance Card"
+                                    aria-label="Export performance card as image"
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:scale-110 transition-transform">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -153,10 +157,10 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                         </div>
 
                         <div className="grid grid-cols-3 gap-2">
-                            {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
+                            {['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'].filter(el => steel[el] > 0).map(el => (
                                 <div key={el} className="bg-black/40 rounded-2xl p-2 text-center border border-white/10">
-                                    <div className="text-[8px] text-slate-600 uppercase font-black mb-1">{el}</div>
-                                    <div className="text-xs font-mono font-black text-white">{steel[el] || 0}%</div>
+                                    <div className="text-[8px] text-slate-500 uppercase font-black mb-1">{el}</div>
+                                    <div className="text-xs font-mono font-black text-white">{steel[el]}%</div>
                                 </div>
                             ))}
                         </div>

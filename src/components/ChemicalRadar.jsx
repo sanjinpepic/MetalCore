@@ -48,8 +48,10 @@ const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, index, orientation, r
 };
 
 const ChemicalRadar = ({ steels, compact = false }) => {
-    // Standard elements to compare
+    // Standard elements to compare; extend when any steel carries N/Nb
     const elements = ['C', 'Cr', 'V', 'Mo', 'W', 'Co'];
+    if (steels?.some(s => s.N > 0)) elements.push('N');
+    if (steels?.some(s => s.Nb > 0)) elements.push('Nb');
 
     // Normalize data: Different elements have different typical ranges
     const maxValues = {
@@ -58,7 +60,9 @@ const ChemicalRadar = ({ steels, compact = false }) => {
         V: 15.0,
         Mo: 10.0,
         W: 20.0,
-        Co: 15.0
+        Co: 15.0,
+        N: 2.0,
+        Nb: 1.0
     };
 
     const data = elements.map(el => {

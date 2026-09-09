@@ -5,6 +5,7 @@ import { useSettings } from '../context/SettingsContext';
 import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
+import { PRODUCER_COLORS as producerColorsShared, getProducerColor as getProducerColorShared } from '../utils/producerColors';
 
 import { hapticFeedback, useMobile } from '../hooks/useMobile';
 
@@ -39,18 +40,10 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
             .slice(0, 5);
     }, [search, steels]);
 
-    // Producer Color Logic
-    const producerColors = {
-        "Crucible": "#FF5733", "Böhler": "#33FF57", "Uddeholm": "#3357FF",
-        "Carpenter": "#F333FF", "Hitachi": "#FF33A1", "Takefu": "#33FFF5",
-        "Alleima": "#FFF533", "Erasteel": "#FF8633", "Zapp": "#A133FF",
-        "Various": "#94a3b8", "Other": "#ffffff"
-    };
+    // Producer Color Logic (shared module — single source of truth)
+    const producerColors = producerColorsShared;
 
-    const getProducerColor = (producer) => {
-        const found = Object.keys(producerColors).find(k => producer.includes(k));
-        return found ? producerColors[found] : producerColors["Other"];
-    };
+    const getProducerColor = getProducerColorShared;
 
     // Featured Steel
     const featuredSteel = useMemo(() => {
@@ -147,7 +140,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     </div>
 
                     {/* Spotlight Dropdown */}
-                    {searchResults.length > 0 && (
+                    {search.trim().length > 0 && searchResults.length > 0 && (
                         <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
                             <div className="p-2">
                                 {searchResults.map((result) => (
@@ -182,6 +175,17 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                             </div>
                             <button onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }} className="w-full py-3 bg-white/5 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white hover:bg-white/10 transition-all">
                                 View all results for "{search}"
+                            </button>
+                        </div>
+                    )}
+                    {search.trim().length > 0 && searchResults.length === 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-[110] p-6 text-center">
+                            <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">No matches for "{search}"</div>
+                            <button
+                                onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }}
+                                className="text-[10px] font-black text-accent uppercase tracking-[0.2em] hover:underline"
+                            >
+                                Search the full database instead
                             </button>
                         </div>
                     )}

@@ -26,7 +26,10 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
     // Expected format: [{ element: 'C', SteelA: 1.5, SteelB: 0.8 }, ...]
     const compositionData = useMemo(() => {
         if (!items || items.length === 0) return [];
+        // Include N/Nb only when at least one compared steel carries them
         const elements = ['C', 'Cr', 'V', 'Mo', 'W', 'Co'];
+        if (items.some(item => item.N > 0)) elements.push('N');
+        if (items.some(item => item.Nb > 0)) elements.push('Nb');
 
         return elements.map(el => {
             const point = { element: el };
@@ -153,10 +156,10 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                             <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">{s.producer}</div>
                             <h3 className="text-xl md:text-3xl font-black text-white mb-5 uppercase tracking-tighter italic leading-none">{s.name}</h3>
                             <div className="grid grid-cols-3 gap-2.5">
-                                {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
+                                {['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'].filter(el => s[el] > 0).map(el => (
                                     <div key={el} className="bg-black/40 rounded-xl p-2.5 text-center border border-white/5">
-                                        <div className="text-[9px] text-slate-600 uppercase font-black mb-1.5">{el}</div>
-                                        <div className="text-sm font-mono font-black text-slate-200">{s[el] || 0}</div>
+                                        <div className="text-[9px] text-slate-500 uppercase font-black mb-1.5">{el}</div>
+                                        <div className="text-sm font-mono font-black text-slate-200">{s[el]}</div>
                                     </div>
                                 ))}
                             </div>
