@@ -3,7 +3,7 @@ import ViewHeader from './Common/ViewHeader';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { toPng } from 'html-to-image';
 import PerformanceRadar from './PerformanceRadar';
-import { getProducerColor } from '../utils/producerColors';
+import { getSteelDot } from '../utils/producerColors';
 
 // Helper for collision detection
 const solveLabelCollisions = (steels, xAxisKey, yAxisKey, width, height, mobile = false) => {
@@ -351,6 +351,37 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         </div>
                     </div>
 
+                    {/* Producer Index */}
+                    <div className="space-y-3">
+                        <span className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest">Producer</span>
+                        <div className="max-h-44 overflow-y-auto custom-scrollbar rounded-xl border border-white/5">
+                            <button
+                                onClick={() => setActiveProducer('ALL')}
+                                className={`w-full flex items-center justify-between px-3.5 py-2 text-left transition-colors duration-200 ${activeProducer === 'ALL' ? 'bg-accent/[0.07] text-accent' : 'text-stone-400 hover:bg-white/[0.04] hover:text-white'}`}
+                            >
+                                <span className="text-[10px] font-mono font-medium uppercase tracking-[0.15em]">All Producers</span>
+                                <span className="text-[9px] font-mono text-stone-600">{steels.length}</span>
+                            </button>
+                            {producers.filter(p => p !== 'ALL').map(p => {
+                                const active = activeProducer === p;
+                                const count = steels.filter(s => {
+                                    const par = Array.isArray(s.parent) ? s.parent[0] : s.parent;
+                                    return ((par && par.trim()) || s.producer || 'Other') === p;
+                                }).length;
+                                return (
+                                    <button
+                                        key={p}
+                                        onClick={() => setActiveProducer(active ? 'ALL' : p)}
+                                        className={`w-full flex items-center justify-between px-3.5 py-2 text-left transition-colors duration-200 ${active ? 'bg-accent/[0.07] text-accent' : 'text-stone-400 hover:bg-white/[0.04] hover:text-white'}`}
+                                    >
+                                        <span className="text-[10px] font-mono font-medium uppercase tracking-[0.15em] truncate">{p}</span>
+                                        <span className="text-[9px] font-mono text-stone-600 shrink-0 pl-2">{count}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+
                     {/* Selection Details */}
                     {displaySteel && (
                         <div className="space-y-6 pt-6 border-t border-white/5 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -377,7 +408,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                 </button>
                             </div>
 
-                            <PerformanceRadar items={[displaySteel]} compact={true} colors={[getProducerColor(displaySteel.producer)]} />
+                            <PerformanceRadar items={[displaySteel]} compact={true} />
 
                             <div className="grid grid-cols-2 gap-4">
                                 {Object.keys(axisOptions).map(key => (
@@ -508,18 +539,17 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                             if (isMobile) return null;
                                             if (active && payload && payload.length) {
                                                 const data = payload[0].payload;
-                                                const color = getProducerColor(data.producer);
                                                 return (
                                                     <div className="glass-strong p-5 rounded-2xl border border-white/10 shadow-plate-lg min-w-[240px]">
                                                         <div className="flex items-center justify-between mb-4">
                                                             <div className="flex items-center gap-2">
-                                                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-                                                                <div className="text-[10px] font-mono font-medium uppercase tracking-[0.2em] flex items-center gap-1.5" style={{ color: color }}>
+                                                                <div className={`w-2 h-2 rounded-full ${data.pm ? 'bg-accent shadow-ember-sm' : 'bg-stone-500'}`} />
+                                                                <div className="text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 flex items-center gap-1.5">
                                                                     {data.producer}
                                                                     {data.pm !== undefined && (
                                                                         <>
                                                                             <span className="w-0.5 h-0.5 rounded-full bg-stone-600" />
-                                                                            <span className={data.pm ? "text-accent-400" : "text-white/50"}>{data.pm ? 'PM' : 'CONV'}</span>
+                                                                            <span className={data.pm ? "text-accent" : "text-white/50"}>{data.pm ? 'PM' : 'CONV'}</span>
                                                                         </>
                                                                     )}
                                                                 </div>
@@ -557,7 +587,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onMouseLeave={() => setHoveredSteel(null)}
                                         shape={(props) => {
                                             const { cx, cy, payload } = props;
-                                            const color = getProducerColor(payload.producer);
+                                            const isPm = !!payload.pm;
+                                            const baseColor = isPm ? '#FF5A1F' : 'rgba(237,233,226,0.55)';
                                             const isHovered = hoveredSteel === payload.name;
                                             const isSelected = selectedSteel?.name === payload.name;
                                             const isDimmed = (hoveredSteel && !isHovered) || (selectedSteel && !isSelected && !isHovered);
@@ -596,11 +627,11 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                     <circle
                                                         cx={cx} cy={cy}
                                                         r={isSelected ? (isMobile ? 7 : 10) : isHovered ? (isMobile ? 6 : 8) : (isMobile ? 5 : 6)}
-                                                        fill={color}
-                                                        stroke={isSelected ? "#EDE9E2" : isHovered ? color : "none"}
-                                                        strokeWidth={isSelected ? (isMobile ? 2 : 3) : 0}
+                                                        fill={baseColor}
+                                                        stroke={isSelected ? "#EDE9E2" : isHovered ? baseColor : isPm ? "rgba(255,90,31,0.5)" : "none"}
+                                                        strokeWidth={isSelected ? (isMobile ? 2 : 3) : isHovered ? 1.5 : isPm ? 1 : 0}
                                                         className="cursor-pointer"
-                                                        style={{ filter: isHovered || isSelected ? `drop-shadow(0 0 ${isMobile ? '6' : '10'}px ${color})` : 'none' }}
+                                                        style={{ filter: isHovered || isSelected ? `drop-shadow(0 0 ${isMobile ? '6' : '10'}px ${baseColor})` : 'none' }}
                                                     />
                                                 </g>
                                             );
@@ -699,28 +730,28 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                 </div>
                             </div>
 
-                            {/* Producer Legend Module */}
-                            <div className="flex flex-wrap items-center justify-center gap-1.5 px-4 pt-1.5 border-t border-white/5">
+                            {/* Producer Filter Rail */}
+                            <div className="flex flex-wrap items-center justify-center gap-1 px-4 pt-1.5 border-t border-white/5">
                                 {producers.map(prod => {
                                     const isActive = activeProducer === prod;
-                                    const color = prod === "ALL" ? "#ffffff" : getProducerColor(prod);
+                                    const count = prod === 'ALL' ? steels.length : steels.filter(s => {
+                                        const p = Array.isArray(s.parent) ? s.parent[0] : s.parent;
+                                        const group = (p && p.trim()) || s.producer || 'Other';
+                                        return group === prod;
+                                    }).length;
                                     return (
                                         <button
                                             key={`fs-leg-${prod}`}
                                             onClick={() => setActiveProducer(isActive && prod !== 'ALL' ? 'ALL' : prod)}
                                             className={isActive
-                                                ? 'flex items-center gap-1.5 px-2 py-1 rounded-md transition-all active:scale-95 bg-accent/10 shadow-sm'
-                                                : 'flex items-center gap-1.5 px-2 py-1 rounded-md transition-all active:scale-95 hover:bg-white/5'}
+                                                ? 'flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all active:scale-95 bg-accent/10 border border-accent/25'
+                                                : 'flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all active:scale-95 hover:bg-white/5 border border-transparent'}
                                         >
-                                            <div
-                                                className="w-1.5 h-1.5 rounded-full shrink-0"
-                                                style={{
-                                                    backgroundColor: color,
-                                                    boxShadow: isActive ? `0 0 8px ${color}` : 'none'
-                                                }}
-                                            />
-                                            <span className={isActive ? "text-[8px] font-mono font-medium uppercase tracking-tight transition-colors text-white" : "text-[8px] font-mono font-medium uppercase tracking-tight transition-colors text-stone-500"}>
+                                            <span className={isActive ? "text-[8px] font-mono font-medium uppercase tracking-tight transition-colors text-accent" : "text-[8px] font-mono font-medium uppercase tracking-tight transition-colors text-stone-500 hover:text-stone-300"}>
                                                 {prod}
+                                            </span>
+                                            <span className={isActive ? "text-[8px] font-mono font-semibold text-accent/70" : "text-[8px] font-mono text-stone-700"}>
+                                                {count}
                                             </span>
                                         </button>
                                     );
@@ -736,7 +767,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                             className="lg:hidden px-3 pb-2 animate-in fade-in slide-in-from-bottom-2 duration-300"
                         >
                             <div className="bg-[#12100D]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3">
-                                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: getProducerColor(selectedSteel.producer) }} />
+                                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: getSteelDot(selectedSteel) }} />
                                 <div className="flex-1 min-w-0">
                                     <div className="text-xs font-semibold text-white uppercase tracking-tight truncate">{selectedSteel.name}</div>
                                     <div className="flex gap-3 mt-0.5">

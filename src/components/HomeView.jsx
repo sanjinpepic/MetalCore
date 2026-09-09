@@ -5,7 +5,7 @@ import { useSettings } from '../context/SettingsContext';
 import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
-import { PRODUCER_COLORS as producerColorsShared, getProducerColor as getProducerColorShared } from '../utils/producerColors';
+import { DOT_PM, DOT_REST } from '../utils/producerColors';
 
 import { hapticFeedback, useMobile } from '../hooks/useMobile';
 
@@ -40,11 +40,6 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
             .slice(0, 5);
     }, [search, steels]);
 
-    // Producer Color Logic (shared module — single source of truth)
-    const producerColors = producerColorsShared;
-
-    const getProducerColor = getProducerColorShared;
-
     // Featured Steel
     const featuredSteel = useMemo(() => {
         if (!steels || steels.length === 0) return null;
@@ -59,14 +54,6 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
             .sort((a, b) => (b[xAxis] + b[yAxis]) - (a[xAxis] + a[yAxis]))
             .slice(0, 20);
     }, [steels, xAxis, yAxis]);
-
-    const activeProducers = useMemo(() => {
-        const unique = new Set(eliteSteels.map(s => {
-            const prod = Object.keys(producerColors).find(k => s.producer.includes(k));
-            return prod || "Other";
-        }));
-        return Array.from(unique);
-    }, [eliteSteels]);
 
     const stats = [
         { label: 'Steel Grades', value: steels.length, icon: 'database', target: 'SEARCH' },
@@ -158,7 +145,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded-xl group/item"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="w-2 h-10 rounded-full" style={{ backgroundColor: getProducerColor(result.producer) }} />
+                                            <div className={`w-2 h-10 rounded-full shrink-0 ${result.pm ? 'bg-accent shadow-ember-sm' : 'bg-white/10'}`} />
                                             <div className="text-left">
                                                 <div className="text-[10px] font-medium text-stone-500 uppercase tracking-[0.2em] leading-none mb-1 flex items-center gap-2">
                                                     {result.parent ?? result.producer}
@@ -193,9 +180,9 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     )}
                 </div>
 
-                {/* Composition Ticker */}
+                {/* Composition Ticker — live specimen strip */}
                 {steels.length > 0 && (
-                    <div className="forge-enter mt-10 border-y border-white/5 py-3 overflow-hidden relative" style={{ '--stagger': '380ms' }}>
+                    <div className="forge-enter mt-8 border-y border-white/10 bg-white/[0.015] py-3.5 overflow-hidden relative" style={{ '--stagger': '380ms' }}>
                         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0B0A08] to-transparent z-10 pointer-events-none" />
                         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0B0A08] to-transparent z-10 pointer-events-none" />
                         <div className="animate-marquee flex items-center w-max">
@@ -205,11 +192,14 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <span key={`${rep}-${s.id}`} className="flex items-center shrink-0">
                                             <button
                                                 onClick={() => { hapticFeedback('light'); setDetailSteel(s); }}
-                                                className="text-[10px] font-mono font-medium uppercase tracking-[0.3em] text-stone-600 hover:text-accent px-7 py-2 transition-colors duration-300 whitespace-nowrap"
+                                                className="group/tick flex items-center gap-2.5 px-6 py-2 whitespace-nowrap cursor-pointer"
                                             >
-                                                {s.name}
+                                                <span className={`w-1 h-1 rounded-full shrink-0 transition-colors ${s.pm ? 'bg-accent shadow-ember-sm' : 'bg-stone-600 group-hover/tick:bg-stone-400'}`} />
+                                                <span className="text-[11px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] text-stone-400 group-hover/tick:text-accent transition-colors duration-300">
+                                                    {s.name}
+                                                </span>
                                             </button>
-                                            <span className="w-1 h-1 rounded-full bg-accent/40 shrink-0 pointer-events-none" />
+                                            <span className="w-px h-3 bg-white/10 shrink-0 pointer-events-none" />
                                         </span>
                                     ))}
                                 </div>
@@ -343,8 +333,8 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                             {eliteSteels.map((entry, index) => (
                                                 <Cell
                                                     key={`cell-${index}`}
-                                                    fill={getProducerColor(entry.producer)}
-                                                    className="hover:brightness-150 transition-all duration-300 transform-origin-center filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                                                    fill={entry.pm ? 'rgba(255,90,31,0.9)' : 'rgba(237,233,226,0.5)'}
+                                                    className="hover:brightness-150 transition-all duration-300 transform-origin-center filter drop-shadow-[0_0_6px_rgba(255,90,31,0.45)]"
                                                 />
                                             ))}
                                         </Scatter>
@@ -362,7 +352,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                             className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 ease-snap shrink-0 group/elite"
                                         >
                                             <span className="text-[9px] font-mono font-medium text-stone-600 group-hover/elite:text-accent/70 transition-colors">{String(i + 1).padStart(2, '0')}</span>
-                                            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: getProducerColor(s.producer) }} />
+                                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${s.pm ? 'bg-accent' : 'bg-stone-500'}`} />
                                             <span className="text-xs font-bold uppercase tracking-wide text-white group-hover/elite:text-accent transition-colors whitespace-nowrap">{s.name}</span>
                                             <span className="text-[9px] font-mono font-semibold text-stone-500">{s[xAxis]} / {s[yAxis]}</span>
                                         </button>

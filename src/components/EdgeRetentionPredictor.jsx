@@ -44,7 +44,7 @@ const EdgeRetentionPredictor = ({ steel }) => {
 
             <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                 <div
-                    className="h-full bg-gradient-to-r from-[#C53A0C] via-[#FF5A1F] to-[#FFD9A8] transition-all duration-1000 ease-out-expo"
+                    className="h-full bg-gradient-to-r from-[#C53A0C] via-[#FF5A1F] to-[#FFD9A8] shadow-ember-sm transition-all duration-1000 ease-out-expo"
                     style={{ width: `${prediction.score}%` }}
                 />
             </div>

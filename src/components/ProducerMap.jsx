@@ -26,7 +26,7 @@ const ProducerMap = ({ producers }) => {
                         {/* Status / Region Badge */}
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <span className={`w-2 h-2 rounded-full transition-all duration-500 ${activeProducer?.name === p.name ? 'bg-accent shadow-ember-sm scale-125' : 'bg-stone-700'}`}></span>
+                                <span className={`w-2 h-2 rounded-full transition-all duration-500 ${activeProducer?.name === p.name ? 'bg-accent shadow-ember-sm scale-125' : 'bg-white/20'}`}></span>
                                 <span className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest">{p.region}</span>
                             </div>
                             <div className="text-[9px] font-mono text-stone-600 font-medium uppercase tracking-[0.2em]">Hub ID: 0{i + 1}</div>
@@ -54,7 +54,7 @@ const ProducerMap = ({ producers }) => {
             </div>
 
             {/* System Footer (Internal) */}
-            <div className="mt-16 pt-8 border-t border-white/5 flex justify-between items-center text-[8px] font-mono text-stone-800 uppercase tracking-[0.4em] font-bold">
+            <div className="mt-16 pt-8 border-t border-white/5 flex justify-between items-center text-[8px] font-mono text-stone-600 uppercase tracking-[0.4em] font-medium">
                 <span>Network Integrity: Verified</span>
                 <span>Active Nodes: {producers.length}</span>
             </div>

@@ -54,7 +54,7 @@ const HeatTreatSimulator = ({ steel }) => {
                 </div>
                 <div className="text-right">
                     <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] mb-1">Estimated Hardness</div>
-                    <div className="text-3xl font-mono font-bold text-white">{prediction.hrc} <span className="text-sm text-stone-500">HRC</span></div>
+                    <div className="text-3xl font-mono font-bold text-white tracking-tight">{prediction.hrc} <span className="text-sm text-stone-500 font-medium">HRC</span></div>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@ const HeatTreatSimulator = ({ steel }) => {
                 />
                 <div className="flex justify-between mt-2 text-[8px] font-mono text-stone-600 font-medium uppercase tracking-[0.2em]">
                     <span>150°C</span>
-                    <span>Secondary Peak</span>
+                    <span className="text-accent/50">Secondary Peak</span>
                     <span>700°C</span>
                 </div>
             </div>

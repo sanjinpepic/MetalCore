@@ -238,7 +238,7 @@ const OnboardingOverlay = () => {
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.94, y: 20, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                        className="w-full max-w-2xl md:max-w-4xl glass-strong rounded-3xl overflow-hidden relative my-8"
+                        className="w-full max-w-2xl md:max-w-4xl glass-strong rounded-3xl border border-white/10 shadow-plate-lg overflow-hidden relative my-8"
                     >
                         {/* Decorative Gradient Blob */}
                         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -266,7 +266,7 @@ const OnboardingOverlay = () => {
                                     <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap">
                                         <Map size={24} strokeWidth={2.5} />
                                     </div>
-                                    <h3 className="text-base md:text-lg font-bold text-white mb-2">The Explorer</h3>
+                                    <h3 className="font-display uppercase tracking-tight text-sm md:text-base text-white mb-2">The Explorer</h3>
                                     <p className="text-[11px] md:text-xs text-stone-400 leading-relaxed mb-4 flex-1">
                                         Active in the EDC world but new to metallurgy. Help me understand steel compositions and what makes a knife "good".
                                     </p>
@@ -300,7 +300,7 @@ const OnboardingOverlay = () => {
                                     <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap">
                                         <FlaskConical size={24} strokeWidth={2.5} />
                                     </div>
-                                    <h3 className="text-base md:text-lg font-bold text-white mb-2">The Metallurgist</h3>
+                                    <h3 className="font-display uppercase tracking-tight text-sm md:text-base text-white mb-2">The Metallurgist</h3>
                                     <p className="text-[11px] md:text-xs text-stone-400 leading-relaxed mb-4 flex-1">
                                         I need raw data. Heat treatment protocols, crystalline structure analysis, and proprietary alloy mapping.
                                     </p>
@@ -312,7 +312,7 @@ const OnboardingOverlay = () => {
 
                             <button
                                 onClick={skipTour}
-                                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-stone-500 hover:text-white transition-colors duration-200"
+                                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full text-stone-500 hover:text-white hover:bg-white/5 transition-colors duration-200"
                             >
                                 <X size={20} />
                             </button>
@@ -378,14 +378,14 @@ const OnboardingOverlay = () => {
                                     {currentStepIndex > 0 && (
                                         <button
                                             onClick={prevStep}
-                                            className="p-1 sm:p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors"
+                                            className="p-1 sm:p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-bone transition-colors"
                                         >
                                             <ChevronLeft size={14} />
                                         </button>
                                     )}
                                     <button
                                         onClick={nextStep}
-                                        className="px-3 sm:px-4 py-1 sm:py-2 rounded-lg bg-accent hover:bg-accent-400 text-[#1A0C05] text-[10px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1 sm:gap-2 transition-colors duration-200 ease-snap"
+                                        className="px-3 sm:px-4 py-1 sm:py-2 rounded-lg bg-accent hover:bg-accent/90 text-[#1A0C05] text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-[0.2em] flex items-center gap-1 sm:gap-2 transition-colors duration-200 ease-snap"
                                     >
                                         {currentStepIndex === totalSteps - 1 ? 'Finish' : 'Next'}
                                         {currentStepIndex === totalSteps - 1 ? <CheckCircle2 size={12} /> : <ChevronRight size={12} />}

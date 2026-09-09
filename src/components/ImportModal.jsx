@@ -77,7 +77,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-[#12100D]/95 backdrop-blur-md" onClick={onClose}>
-            <div className="glass-panel w-full h-full md:h-auto md:max-w-2xl p-6 md:p-10 md:rounded-3xl border-white/10 shadow-plate-lg relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
+            <div className="glass-panel w-full h-full md:h-auto md:max-w-2xl p-6 md:p-10 md:rounded-3xl border border-white/10 shadow-plate-lg relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
                 {/* Close Button */}
                 <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[110]">
                     <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-stone-400 transition-all border border-white/10 backdrop-blur-3xl group">
@@ -89,6 +89,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                 </div>
 
                 <div className="mb-8">
+                    <span className="text-[9px] font-mono font-medium uppercase tracking-[0.3em] text-accent block mb-2">Data Intake</span>
                     <h2 className="text-2xl md:text-3xl font-display text-white mb-2 uppercase tracking-tight">Import Dataset</h2>
                     <p className="text-stone-400 text-sm">Add custom steel grades or knife data to your local session.</p>
                 </div>
@@ -97,13 +98,13 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                 <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 mb-8">
                     <button
                         onClick={() => setMode('UPLOAD')}
-                        className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all ${mode === 'UPLOAD' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-white'}`}
+                        className={`flex-1 py-2.5 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] rounded-lg transition-all ${mode === 'UPLOAD' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-stone-300'}`}
                     >
                         Upload File
                     </button>
                     <button
                         onClick={() => setMode('MANUAL')}
-                        className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all ${mode === 'MANUAL' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-white'}`}
+                        className={`flex-1 py-2.5 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] rounded-lg transition-all ${mode === 'MANUAL' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-stone-300'}`}
                     >
                         Manual Entry
                     </button>
@@ -111,7 +112,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
 
                 {mode === 'UPLOAD' ? (
                     <div
-                        className={`border-2 border-dashed rounded-3xl p-12 flex flex-col items-center justify-center gap-4 transition-all ${dragActive ? 'border-accent bg-accent/5' : 'border-white/10 hover:border-white/20 hover:bg-white/5'}`}
+                        className={`border-2 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center gap-4 transition-all ${dragActive ? 'border-accent bg-accent/5' : 'border-white/10 hover:border-white/20 hover:bg-white/5'}`}
                         onDragEnter={handleDrag}
                         onDragLeave={handleDrag}
                         onDragOver={handleDrag}
@@ -126,11 +127,11 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                             </svg>
                         </div>
                         <div className="text-center">
-                            <h3 className="text-lg font-bold text-white mb-1">Drag & Drop Excel File</h3>
-                            <p className="text-xs text-stone-500 mb-6">Supports .xlsx or .csv files</p>
+                            <h3 className="font-display uppercase tracking-tight text-white text-base mb-1">Drag & Drop Excel File</h3>
+                            <p className="text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-600 mb-6">Supports .xlsx or .csv files</p>
                             <button
                                 onClick={() => fileInputRef.current.click()}
-                                className="px-6 py-3 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-stone-200 transition-colors"
+                                className="px-6 py-3 bg-accent text-[#1A0C05] font-mono font-semibold text-[10px] uppercase tracking-[0.25em] rounded-xl hover:bg-accent/90 transition-colors shadow-ember"
                             >
                                 Browse Files
                             </button>
@@ -143,10 +144,10 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                             />
                         </div>
                         <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/5 w-full">
-                            <div className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-2">Required Columns</div>
+                            <div className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] mb-2">Required Columns</div>
                             <div className="flex flex-wrap gap-2">
                                 {['Name', 'Producer', 'C', 'Cr', 'V', 'Mo', 'W', 'Co', 'Edge', 'Toughness', 'Corrosion', 'Sharpen'].map(col => (
-                                    <span key={col} className="text-[10px] px-2 py-1 rounded bg-black/40 text-stone-400 border border-white/5">{col}</span>
+                                    <span key={col} className="text-[10px] px-2 py-1 rounded-full bg-white/5 text-stone-400 border border-white/10 font-mono">{col}</span>
                                 ))}
                             </div>
                         </div>
@@ -155,26 +156,26 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                     <form onSubmit={submitManual} className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Grade Name</label>
+                                <label className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Grade Name</label>
                                 <input required name="name" value={formData.name} onChange={handleManualChange} placeholder="e.g. MagnaCut" className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-accent outline-none transition-colors" />
                             </div>
                             <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Producer</label>
+                                <label className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Producer</label>
                                 <input required name="producer" value={formData.producer} onChange={handleManualChange} placeholder="e.g. Crucible" className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-accent outline-none transition-colors" />
                             </div>
                         </div>
 
                         <div className="space-y-1.5">
-                            <label className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Description</label>
+                            <label className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Description</label>
                             <textarea name="desc" value={formData.desc} onChange={handleManualChange} placeholder="Brief description of the steel..." rows="2" className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-accent outline-none transition-colors resize-none" />
                         </div>
 
                         <div>
-                            <div className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-3">Composition (%)</div>
+                            <div className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] mb-3">Composition (%)</div>
                             <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                                 {['C', 'Cr', 'V', 'Mo', 'W', 'Co'].map(el => (
                                     <div key={el} className="space-y-1.5">
-                                        <label className="text-[9px] font-bold text-stone-600 text-center block">{el}</label>
+                                        <label className="text-[9px] font-mono font-medium text-stone-600 text-center block">{el}</label>
                                         <input
                                             type="number"
                                             step="0.05"
@@ -189,7 +190,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                         </div>
 
                         <div>
-                            <div className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-3">Performance Ratings (0-10)</div>
+                            <div className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] mb-3">Performance Ratings (0-10)</div>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                 {['Edge Retention', 'Toughness', 'Corrosion', 'Sharpening'].map(metric => {
                                     const key = metric.split(' ')[0].toLowerCase();
@@ -197,7 +198,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
 
                                     return (
                                         <div key={metric} className="space-y-1.5">
-                                            <label className="text-[9px] font-bold text-stone-600 truncate block">{metric}</label>
+                                            <label className="text-[9px] font-mono font-medium text-stone-600 truncate block">{metric}</label>
                                             <input
                                                 type="number"
                                                 min="0" max="10" step="0.5"
@@ -212,7 +213,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                             </div>
                         </div>
 
-                        <button type="submit" className="w-full py-4 bg-accent text-[#1A0C05] font-semibold uppercase tracking-widest rounded-xl hover:bg-white transition-colors shadow-ember mt-4">
+                        <button type="submit" className="w-full py-4 bg-accent text-[#1A0C05] font-mono font-semibold uppercase tracking-[0.25em] rounded-xl hover:bg-accent/90 transition-colors shadow-ember mt-4">
                             Add Grade
                         </button>
                     </form>

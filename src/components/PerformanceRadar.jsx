@@ -77,13 +77,13 @@ const PerformanceRadar = ({ items, colors = HEAT_COLORS, compact = false, noCont
             <div className={cardView ? "h-[500px] w-full" : (compact ? "h-[250px]" : "h-[450px] md:h-[550px]")}>
                 <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius={cardView ? "60%" : (compact ? "65%" : "70%")} data={radarData}>
-                        <PolarGrid stroke="#2E2822" strokeWidth={1} />
+                        <PolarGrid stroke="#292420" strokeWidth={1} />
                         <PolarAngleAxis
                             dataKey="subject"
                             tick={(props) => (
                                 <CustomPolarAngleAxisTick
                                     {...props}
-                                    fill="rgba(237,233,226,0.55)"
+                                    fill="rgba(237,233,226,0.35)"
                                     fontSize={cardView ? 18 : (compact ? 9 : 11)}
                                     letterSpacing={cardView ? '0.2em' : '0.05em'}
                                 />
@@ -101,7 +101,7 @@ const PerformanceRadar = ({ items, colors = HEAT_COLORS, compact = false, noCont
                                 strokeWidth={cardView ? 6 : (compact ? 3 : 4)}
                             />
                         ))}
-                        {!compact && <Legend wrapperStyle={{ paddingTop: '40px', fontWeight: 600, fontSize: '11px' }} />}
+                        {!compact && <Legend wrapperStyle={{ paddingTop: '40px', fontWeight: 600, fontSize: '11px', fontFamily: 'JetBrains Mono, monospace' }} />}
                         <Tooltip
                             contentStyle={{ backgroundColor: '#12100D', borderColor: 'rgba(237,233,226,0.1)', borderRadius: '0.75rem', color: '#EDE9E2', padding: '1rem', fontFamily: 'JetBrains Mono, monospace' }}
                             itemStyle={{ color: '#EDE9E2', fontSize: '12px', fontWeight: 600 }}

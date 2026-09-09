@@ -60,6 +60,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
     const [compareList, setCompareList] = useState([]);
     const [filters, setFilters] = useState({ minC: 0, minCr: 0, minV: 0 });
     const [activeProducer, setActiveProducer] = useState("ALL");
+    const [pmOnly, setPmOnly] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     // Get current navigation state
@@ -97,6 +98,15 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
         if (aGeneric !== bGeneric) return aGeneric ? 1 : -1;
         return a.localeCompare(b);
     })];
+
+    const producerCounts = useMemo(() => {
+        const counts = {};
+        for (const s of steels) {
+            const g = getSteelGroup(s);
+            counts[g] = (counts[g] || 0) + 1;
+        }
+        return counts;
+    }, [steels]);
 
     // Trending Logic
     const incrementTrending = (steelId) => {
@@ -341,9 +351,10 @@ Be concise and premium.`;
                 normalize(s.producer).includes(normalizedSearch);
             const matchesFilters = s.C >= filters.minC && s.Cr >= filters.minCr && s.V >= filters.minV;
             const matchesProducer = activeProducer === "ALL" || getSteelGroup(s) === activeProducer;
-            return matchesSearch && matchesFilters && matchesProducer;
+            const matchesPm = !pmOnly || !!s.pm;
+            return matchesSearch && matchesFilters && matchesProducer && matchesPm;
         });
-    }, [steels, search, filters, activeProducer]);
+    }, [steels, search, filters, activeProducer, pmOnly]);
 
     const toggleCompare = (steel, e) => {
         if (e) e.stopPropagation();
@@ -421,16 +432,19 @@ Be concise and premium.`;
                     steel.Cr >= filters.minCr &&
                     steel.V >= filters.minV;
 
-                return matchesProducer && matchesFilters;
+                const matchesPm = !pmOnly || !!steel.pm;
+
+                return matchesProducer && matchesFilters && matchesPm;
             });
 
             return hasMatchingSteel;
         });
-    }, [knifeSearch, steels, activeProducer, filters, initialKnives]);
+    }, [knifeSearch, steels, activeProducer, filters, pmOnly, initialKnives]);
 
     const resetFilters = () => {
         setFilters({ minC: 0, minCr: 0, minV: 0 });
         setActiveProducer("ALL");
+        setPmOnly(false);
     };
 
     // Command Palette state
@@ -506,38 +520,17 @@ Be concise and premium.`;
                 {/* Detail Modals - Rendered after main content for correct stacking */}
 
 
-                {/* Mobile Filters Button - Only show on views with filters */}
-                {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
-                    <button
-                        onClick={() => { hapticFeedback('medium'); setMobileMenuOpen(!mobileMenuOpen); }}
-                        className="fixed top-safe-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-ember text-[#1A0C05]"
-                        aria-label={mobileMenuOpen ? "Close filters" : "Open filters"}
-                    >
-                        {mobileMenuOpen ? (
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        ) : (
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                            </svg>
-                        )}
-                    </button>
-                )}
+                {/* Mobile Filters Button — views own their criteria rails now */}
 
                 {/* Sidebar - Above background layer */}
                 <Sidebar
                     activeProducer={activeProducer}
-                    setActiveProducer={setActiveProducer}
                     filters={filters}
-                    setFilters={setFilters}
-                    steels={steels}
+                    pmOnly={pmOnly}
                     view={view}
                     setView={setView}
                     mobileMenuOpen={mobileMenuOpen}
                     setMobileMenuOpen={setMobileMenuOpen}
-                    producers={producers}
                     handleImportClick={handleImportClick}
                     fileInputRef={fileInputRef}
                     handleFileUpload={handleFileUpload}
@@ -592,6 +585,14 @@ Be concise and premium.`;
                                     setView={setView}
                                     resetFilters={resetFilters}
                                     activeProducer={activeProducer}
+                                    setActiveProducer={setActiveProducer}
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    pmOnly={pmOnly}
+                                    setPmOnly={setPmOnly}
+                                    producers={producers}
+                                    producerCounts={producerCounts}
+                                    totalSteels={steels.length}
                                 />
                             )}
 
@@ -613,6 +614,16 @@ Be concise and premium.`;
                                     setDetailKnife={setDetailKnife}
                                     knifeSearch={knifeSearch}
                                     setKnifeSearch={setKnifeSearch}
+                                    activeProducer={activeProducer}
+                                    setActiveProducer={setActiveProducer}
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    pmOnly={pmOnly}
+                                    setPmOnly={setPmOnly}
+                                    producers={producers}
+                                    producerCounts={producerCounts}
+                                    totalSteels={steels.length}
+                                    resetFilters={resetFilters}
                                 />
                             )}
 

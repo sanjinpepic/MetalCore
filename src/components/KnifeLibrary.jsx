@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
+import GradeFilterBar from './Common/GradeFilterBar';
 
 const normalize = (val) => {
     if (typeof val !== 'string') return "";
@@ -13,7 +14,7 @@ const normalize = (val) => {
         .trim();
 };
 
-const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSearch, setKnifeSearch }) => {
+const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSearch, setKnifeSearch, activeProducer, setActiveProducer, filters, setFilters, pmOnly, setPmOnly, producers, producerCounts, totalSteels, resetFilters }) => {
     const [activeCategory, setActiveCategory] = useState("ALL");
 
     const categories = ["ALL", "EDC", "Kitchen", "Survival", "Outdoor", "Tactical"];
@@ -55,7 +56,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </ViewHeader>
 
             {/* Category Filters & Search */}
-            <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl transition-all">
+            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] transition-all">
                 {/* Mobile categories — plain block, NOT inside flex */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
@@ -74,16 +75,16 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                     </div>
                 </div>
 
-                {/* Desktop: categories + search row. Mobile: just search */}
-                <div className="px-4 md:px-12 pb-3 pt-2 md:py-4 flex justify-between items-center gap-4">
-                    <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar">
+                {/* Desktop: categories | criteria | search. Mobile: search + criteria scroll */}
+                <div className="px-4 md:px-12 py-3 flex items-center gap-3">
+                    <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar flex-1 min-w-0">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-6 py-3 rounded-2xl text-sm font-mono font-medium transition-all whitespace-nowrap uppercase tracking-[0.2em] shrink-0 ${activeCategory === cat
-                                    ? "bg-accent text-[#1A0C05] scale-105 shadow-ember-sm"
-                                    : "bg-white/5 text-stone-500 hover:text-white hover:bg-white/10"
+                                className={`px-4 py-2 rounded-lg text-[10px] font-mono font-medium transition-all whitespace-nowrap uppercase tracking-[0.2em] shrink-0 active:scale-95 ${activeCategory === cat
+                                    ? "bg-accent text-[#1A0C05] shadow-ember-sm"
+                                    : "bg-white/5 text-stone-500 hover:text-white hover:bg-white/10 border border-white/5"
                                     }`}
                             >
                                 {cat}
@@ -91,17 +92,62 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                         ))}
                     </div>
 
-                    <div className="relative w-full md:w-64 md:shrink-0">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
-                            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                        </svg>
-                        <input
-                            type="text"
-                            placeholder="Search knives..."
-                            className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
-                            value={knifeSearch}
-                            onChange={e => setKnifeSearch(e.target.value)}
+                    <div className="flex md:hidden flex-1 min-w-0 items-center gap-2">
+                        <div className="relative w-36 shrink-0">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
+                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <input
+                                type="text"
+                                placeholder="Search knives..."
+                                className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors placeholder:text-stone-600"
+                                value={knifeSearch}
+                                onChange={e => setKnifeSearch(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex-1 min-w-0 overflow-x-auto no-scrollbar">
+                            <GradeFilterBar
+                                producers={producers}
+                                activeProducer={activeProducer}
+                                setActiveProducer={setActiveProducer}
+                                filters={filters}
+                                setFilters={setFilters}
+                                pmOnly={pmOnly}
+                                setPmOnly={setPmOnly}
+                                producerCounts={producerCounts}
+                                total={totalSteels}
+                                shown={knives.length}
+                                onClear={resetFilters}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="hidden md:flex items-center gap-3 shrink-0">
+                        <GradeFilterBar
+                            producers={producers}
+                            activeProducer={activeProducer}
+                            setActiveProducer={setActiveProducer}
+                            filters={filters}
+                            setFilters={setFilters}
+                            pmOnly={pmOnly}
+                            setPmOnly={setPmOnly}
+                            producerCounts={producerCounts}
+                            total={totalSteels}
+                            shown={knives.length}
+                            onClear={resetFilters}
                         />
+                        <div className="relative w-44 xl:w-52">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
+                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <input
+                                type="text"
+                                placeholder="Search knives..."
+                                className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors placeholder:text-stone-600"
+                                value={knifeSearch}
+                                onChange={e => setKnifeSearch(e.target.value)}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,7 +155,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
                 {Object.entries(groupedKnives).map(([maker, makerKnives]) => (
                     <section key={maker}>
-                        <div className="sticky top-[6.75rem] md:top-[4.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
+                        <div className="sticky top-[7.25rem] md:top-16 z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-[#0B0A08]/85 backdrop-blur-2xl transition-all">
                             <div className="flex items-center gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
                                 <h2 className="text-xs md:text-sm font-mono font-medium text-stone-400 uppercase tracking-[0.2em]">{maker}</h2>

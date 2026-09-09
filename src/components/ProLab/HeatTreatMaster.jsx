@@ -34,11 +34,11 @@ const HeatTreatMaster = ({ steel }) => {
         <div className="space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-[10px] text-stone-500 uppercase font-mono font-medium tracking-widest mt-1">Foundry-Spec Heat Treatment Guide</p>
+                    <p className="text-[10px] text-stone-500 uppercase font-mono font-medium tracking-[0.2em] mt-1">Foundry-Spec Heat Treatment Guide</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-accent animate-ember-pulse" />
-                    <span className="text-[10px] font-mono font-medium text-accent uppercase tracking-widest">Hardening Phase</span>
+                    <span className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em]">Hardening Phase</span>
                 </div>
             </div>
 
@@ -46,7 +46,7 @@ const HeatTreatMaster = ({ steel }) => {
                 {/* Protocol Cards */}
                 <div className="p-6 bg-black/40 rounded-3xl border border-white/5 space-y-6">
                     <div>
-                        <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest mb-3">Quench Medium</div>
+                        <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-3">Quench Medium</div>
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-400">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -58,7 +58,7 @@ const HeatTreatMaster = ({ steel }) => {
                     </div>
 
                     <div>
-                        <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest mb-3">Austenitizing Temp</div>
+                        <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-3">Austenitizing Temp</div>
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -72,14 +72,14 @@ const HeatTreatMaster = ({ steel }) => {
                     <div className="pt-4 border-t border-white/5">
                         <div className="flex items-center gap-3">
                             <div className={data.cryo.includes('Required') ? 'w-2 h-2 rounded-full bg-accent shadow-ember-sm' : 'w-2 h-2 rounded-full bg-stone-600'} />
-                            <span className="text-[10px] font-mono font-medium text-stone-400 uppercase tracking-widest">Cryogenic Phase: <b>{data.cryo}</b></span>
+                            <span className="text-[10px] font-mono font-medium text-stone-400 uppercase tracking-[0.2em]">Cryogenic Phase: <b>{data.cryo}</b></span>
                         </div>
                     </div>
                 </div>
 
                 {/* HRC Target Column */}
                 <div className="space-y-4">
-                    <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest mb-1">Target Hardness by Application</div>
+                    <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-1">Target Hardness by Application</div>
                     {data.tempers.map((t, i) => (
                         <div key={i} className="p-4 bg-white/5 border border-white/5 rounded-2xl flex items-center justify-between group hover:bg-white/10 transition-all cursor-default">
                             <div>

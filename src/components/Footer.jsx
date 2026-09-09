@@ -25,13 +25,13 @@ const Footer = () => {
                         </svg>
                         METALCORE
                     </div>
-                    <p className="text-[10px] font-mono text-stone-600 uppercase tracking-[0.4em] font-bold">
+                    <p className="text-[10px] font-mono text-stone-600 uppercase tracking-[0.4em] font-medium">
                         Metallurgy Core System v2.5
                     </p>
                 </div>
 
                 <div className="flex flex-col items-center md:items-end space-y-6 md:space-y-4 pb-20 md:pb-0">
-                    <div className="flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-6 text-[9px] md:text-[10px] font-bold uppercase tracking-normal md:tracking-widest text-stone-500 leading-none">
+                    <div className="flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-6 text-[9px] md:text-[10px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 leading-none">
                         <Link href="/legal/terms" className="whitespace-nowrap hover:text-accent transition-colors">
                             Terms
                         </Link>
@@ -51,9 +51,9 @@ const Footer = () => {
                         href="https://buymeacoffee.com/metal.core"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-2xl transition-all duration-300"
+                        className="group relative flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-xl transition-all duration-300"
                     >
-                        <div className="absolute inset-0 bg-accent/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+                        <div className="absolute inset-0 bg-accent/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
                         <span className="text-[10px] font-mono font-medium text-stone-400 group-hover:text-white uppercase tracking-[0.2em] transition-colors relative">
                             Support me
                         </span>
@@ -63,7 +63,7 @@ const Footer = () => {
                             </svg>
                         </div>
                     </a>
-                    <p className="text-[9px] text-stone-700 font-bold uppercase tracking-widest">
+                    <p className="text-[9px] font-mono text-stone-700 uppercase tracking-[0.2em]">
                         © {new Date().getFullYear()} MetalCore. All rights reserved.
                     </p>
                 </div>

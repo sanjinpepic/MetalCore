@@ -25,10 +25,10 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
             <div className="flex items-center justify-between">
                 <div>
                     <h3 className="text-xl font-display text-white uppercase tracking-tight">Chemical DNA</h3>
-                    <p className="text-[10px] text-stone-500 uppercase font-mono font-medium tracking-widest mt-1">Metallurgical Signature Analysis</p>
+                    <p className="text-[10px] text-stone-500 uppercase font-mono font-medium tracking-[0.2em] mt-1">Metallurgical Signature Analysis</p>
                 </div>
                 <div className="px-3 py-1 bg-white/5 rounded-full border border-white/10">
-                    <span className="text-[10px] font-mono font-medium text-stone-400 uppercase tracking-widest">Alloy Content: {(elements.reduce((acc, el) => acc + (steel[el] || 0), 0)).toFixed(1)}%</span>
+                    <span className="text-[10px] font-mono font-medium text-stone-400 uppercase tracking-[0.2em]">Alloy Content: {(elements.reduce((acc, el) => acc + (steel[el] || 0), 0)).toFixed(1)}%</span>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
                                     <span className={steel[el] > 0 ? 'text-lg font-mono font-medium text-accent-400' : 'text-lg font-mono font-medium text-stone-600'}>{el}</span>
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest">{ELEMENT_DATA[el].name}</div>
+                                    <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em]">{ELEMENT_DATA[el].name}</div>
                                     <div className={steel[el] > 0 ? 'text-xs font-semibold uppercase transition-colors text-white group-hover:text-accent-400' : 'text-xs font-semibold uppercase transition-colors text-stone-600'}>{ELEMENT_DATA[el].impact}</div>
                                 </div>
                             </div>

@@ -38,19 +38,21 @@ const PerformanceFrontier = ({ steel, steels }) => {
                             dataKey="toughness"
                             name="Toughness"
                             domain={[0, 10]}
-                            tick={{ fill: 'rgba(237,233,226,0.4)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
-                            label={{ value: 'Toughness →', position: 'bottom', offset: 0, fill: 'rgba(237,233,226,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono, monospace' }}
+                            tickLine={false}
+                            tick={{ fill: 'rgba(237,233,226,0.35)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
+                            label={{ value: 'Toughness →', position: 'bottom', offset: 0, fill: 'rgba(237,233,226,0.35)', fontSize: 9, fontFamily: 'JetBrains Mono, monospace' }}
                         />
                         <YAxis
                             type="number"
                             dataKey="edge"
                             name="Edge Retention"
                             domain={[0, 10]}
-                            tick={{ fill: 'rgba(237,233,226,0.4)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
-                            label={{ value: 'Wear Resistance →', angle: -90, position: 'insideLeft', fill: 'rgba(237,233,226,0.4)', fontSize: 9, fontFamily: 'JetBrains Mono, monospace' }}
+                            tickLine={false}
+                            tick={{ fill: 'rgba(237,233,226,0.35)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
+                            label={{ value: 'Wear Resistance →', angle: -90, position: 'insideLeft', fill: 'rgba(237,233,226,0.35)', fontSize: 9, fontFamily: 'JetBrains Mono, monospace' }}
                         />
                         <Tooltip
-                            cursor={{ strokeDasharray: '3 3' }}
+                            cursor={{ strokeDasharray: '3 3', stroke: 'rgba(255, 90, 31, 0.4)' }}
                             content={({ active, payload }) => {
                                 if (active && payload && payload.length) {
                                     const data = payload[0].payload;
@@ -89,8 +91,8 @@ const PerformanceFrontier = ({ steel, steels }) => {
                             {chartData.map((entry, index) => (
                                 <Cell
                                     key={`cell-${index}`}
-                                    fill={entry.id === steel?.id ? '#FF5A1F' : '#3A332B'}
-                                    stroke={entry.id === steel?.id ? '#EDE9E2' : '#4A4136'}
+                                    fill={entry.id === steel?.id ? '#FF5A1F' : 'rgba(237,233,226,0.2)'}
+                                    stroke={entry.id === steel?.id ? '#EDE9E2' : 'rgba(237,233,226,0.35)'}
                                     strokeWidth={entry.id === steel?.id ? 2 : 1}
                                     r={entry.id === steel?.id ? 10 : 6}
                                 />

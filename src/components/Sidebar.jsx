@@ -6,10 +6,74 @@ import { hapticFeedback } from '../hooks/useMobile';
 
 const SIDEBAR_WIDTH = 288; // w-72 = 18rem = 288px
 
-const PRODUCER_SHORT = {
-    'New Jersey Steel Baron': 'NJSB',
-    'Myodo Metals': 'Myodo',
-    'Victorinox / Outokumpu': 'Victorinox',
+const CriteriaSummary = ({ activeProducer, filters, pmOnly, resetFilters, showImport, handleImportClick, fileInputRef, handleFileUpload }) => {
+    const criteriaActive = (activeProducer && activeProducer !== 'ALL') || pmOnly || (filters && (filters.minC > 0 || filters.minCr > 0 || filters.minV > 0));
+
+    return (
+        <section className="space-y-4">
+            <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                </svg>
+                Active Criteria
+            </div>
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden">
+                {criteriaActive ? (
+                    <div className="p-5 space-y-3.5">
+                        <div className="flex items-center justify-between gap-3">
+                            <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Producer</span>
+                            <span className="text-[11px] font-bold text-stone-200 truncate">{activeProducer && activeProducer !== 'ALL' ? activeProducer : 'All Mills'}</span>
+                        </div>
+                        {filters && (
+                            <>
+                                <div className="flex items-center justify-between gap-3">
+                                    <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Carbon ≥</span>
+                                    <span className={`text-[11px] font-bold font-mono ${filters.minC > 0 ? 'text-accent' : 'text-stone-500'}`}>{filters.minC > 0 ? `${filters.minC.toFixed(2)}%` : 'Any'}</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-3">
+                                    <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Chromium ≥</span>
+                                    <span className={`text-[11px] font-bold font-mono ${filters.minCr > 0 ? 'text-accent' : 'text-stone-500'}`}>{filters.minCr > 0 ? `${filters.minCr.toFixed(1)}%` : 'Any'}</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-3">
+                                    <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Vanadium ≥</span>
+                                    <span className={`text-[11px] font-bold font-mono ${filters.minV > 0 ? 'text-accent' : 'text-stone-500'}`}>{filters.minV > 0 ? `${filters.minV.toFixed(1)}%` : 'Any'}</span>
+                                </div>
+                            </>
+                        )}
+                        <div className="flex items-center justify-between gap-3">
+                            <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">PM Route</span>
+                            <span className={`text-[11px] font-bold font-mono ${pmOnly ? 'text-accent' : 'text-stone-500'}`}>{pmOnly ? 'On' : 'Off'}</span>
+                        </div>
+                        <button
+                            onClick={() => { hapticFeedback('light'); resetFilters(); }}
+                            className="w-full pt-1 py-2.5 rounded-xl border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 hover:text-accent hover:border-accent/30 transition-all duration-300"
+                        >
+                            Clear All Criteria
+                        </button>
+                    </div>
+                ) : (
+                    <p className="p-5 text-[11px] text-stone-500 leading-relaxed">
+                        No criteria set. Filter producers, composition floor and PM route from the rail inside the library.
+                    </p>
+                )}
+            </div>
+
+            {showImport && (
+                <div className="pt-4 mt-2 border-t border-white/5">
+                    <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-stone-500 hover:text-white hover:bg-white/5 transition-all group">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <path d="M12 18v-6" />
+                            <path d="m9 15 3-3 3 3" />
+                        </svg>
+                        Import Dataset
+                    </button>
+                    <input type="file" ref={fileInputRef} className="hidden" accept=".xlsx,.csv" onChange={handleFileUpload} />
+                </div>
+            )}
+        </section>
+    );
 };
 
 // Single ember accent — views differentiate by content, not hue
@@ -64,11 +128,9 @@ const Sidebar = ({
     setView,
     mobileMenuOpen,
     setMobileMenuOpen,
-    producers,
     activeProducer,
-    setActiveProducer,
     filters,
-    setFilters,
+    pmOnly,
     handleImportClick,
     fileInputRef,
     handleFileUpload,
@@ -561,78 +623,16 @@ const Sidebar = ({
                             </div>
                         </section>
                     ) : (
-                        <>
-                            <section className="space-y-4">
-                                <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                                    </svg>
-                                    Filter Brand
-                                </div>
-                                <div className="flex flex-wrap gap-2 px-1">
-                                    {producers.map(p => (
-                                        <button
-                                            key={p}
-                                            onClick={() => { hapticFeedback('light'); setActiveProducer(p); }}
-                                            className={`text-[11px] uppercase font-semibold px-4 py-2.5 rounded-full border transition-all duration-300 ease-snap ${activeProducer === p ? 'bg-bone text-[#1A0C05] border-bone shadow-lg shadow-black/40' : 'text-stone-400 border-white/10 hover:border-white/20 hover:text-white bg-white/[0.04]'}`}
-                                        >
-                                            {PRODUCER_SHORT[p] ?? p}
-                                        </button>
-                                    ))}
-                                </div>
-                            </section>
-
-                            <section className="mt-10 space-y-6">
-                                <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34-9-3V5" />
-                                    </svg>
-                                    Alloy Minimums %
-                                </div>
-                                <div className="space-y-8 px-3">
-                                    {[
-                                        { id: 'minC', label: 'Carbon', icon: 'C' },
-                                        { id: 'minCr', label: 'Chromium', icon: 'Cr' },
-                                        { id: 'minV', label: 'Vanadium', icon: 'V' },
-                                    ].map(f => (
-                                        <div key={f.id} className="space-y-2.5">
-                                            <div className="flex justify-between items-center text-xs font-mono text-stone-400">
-                                                <span className="flex items-center gap-2.5">
-                                                    <span className="w-5 h-5 flex items-center justify-center bg-white/5 rounded border border-white/10 text-[9px] font-bold text-stone-500">{f.icon}</span>
-                                                    {f.label}
-                                                </span>
-                                                <span className="text-accent font-bold text-sm">{filters[f.id]}%</span>
-                                            </div>
-                                            <input
-                                                type="range"
-                                                min="0"
-                                                max="10"
-                                                step="0.1"
-                                                value={filters[f.id]}
-                                                onChange={e => setFilters({ ...filters, [f.id]: parseFloat(e.target.value) })}
-                                                className="w-full accent-accent h-1.5 bg-stone-800 rounded-lg appearance-none cursor-pointer hover:bg-stone-700 transition-colors"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-                        </>
-                    )}
-
-                    {(view === 'SEARCH' || view === 'KNIVES') && (
-                        <section className="mt-10 pt-6 border-t border-white/5">
-                            <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-stone-500 hover:text-white hover:bg-white/5 transition-all group">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                    <polyline points="14 2 14 8 20 8" />
-                                    <path d="M12 18v-6" />
-                                    <path d="m9 15 3-3 3 3" />
-                                </svg>
-                                Import Dataset
-                            </button>
-                            <input type="file" ref={fileInputRef} className="hidden" accept=".xlsx,.csv" onChange={handleFileUpload} />
-                        </section>
+                        <CriteriaSummary
+                            activeProducer={activeProducer}
+                            filters={filters}
+                            pmOnly={pmOnly}
+                            resetFilters={resetFilters}
+                            showImport={view === 'SEARCH' || view === 'KNIVES'}
+                            handleImportClick={handleImportClick}
+                            fileInputRef={fileInputRef}
+                            handleFileUpload={handleFileUpload}
+                        />
                     )}
 
                     <div className="pb-4" />

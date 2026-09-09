@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
+import GradeFilterBar from './Common/GradeFilterBar';
 
 import { hapticFeedback } from '../hooks/useMobile';
 
@@ -79,7 +80,7 @@ const LedgerRow = ({ s, index, isSelected, toggleCompare, setDetailSteel }) => (
     </div>
 );
 
-const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters, activeProducer }) => {
+const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters, activeProducer, setActiveProducer, filters, setFilters, pmOnly, setPmOnly, producers, producerCounts, totalSteels }) => {
     const isFiltered = activeProducer && activeProducer !== 'ALL';
 
     const groupedSteels = useMemo(() => {
@@ -110,18 +111,33 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 </p>
             </ViewHeader>
 
-            {/* Search Bar */}
-            <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl px-4 md:px-12 py-3 md:py-4 flex justify-end items-center transition-all">
-                <div className="relative w-full md:w-64">
+            {/* Criteria Rail */}
+            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] px-4 md:px-12 py-3 flex items-center gap-3 transition-all">
+                <div className="relative w-40 md:w-64 shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
                         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                     </svg>
                     <input
                         type="text"
-                        placeholder="Search steels by name or producer..."
-                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors"
+                        placeholder="Search grades..."
+                        className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-6 text-white text-xs focus:outline-none focus:border-accent/40 transition-colors placeholder:text-stone-600"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
+                    />
+                </div>
+                <div className="flex-1 min-w-0 flex justify-end overflow-x-auto no-scrollbar">
+                    <GradeFilterBar
+                        producers={producers}
+                        activeProducer={activeProducer}
+                        setActiveProducer={setActiveProducer}
+                        filters={filters}
+                        setFilters={setFilters}
+                        pmOnly={pmOnly}
+                        setPmOnly={setPmOnly}
+                        producerCounts={producerCounts}
+                        total={totalSteels}
+                        shown={filteredSteels.length}
+                        onClear={resetFilters}
                     />
                 </div>
             </div>
@@ -135,8 +151,8 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                             </svg>
                         </div>
                         <div>
-                            <p className="text-stone-400 font-bold text-lg">No grades match your filters</p>
-                            <p className="text-stone-600 text-sm mt-1">Try adjusting the alloy minimums or changing the brand filter.</p>
+                            <p className="text-stone-400 font-bold text-lg">No grades match your criteria</p>
+                            <p className="text-stone-600 text-sm mt-1">Try widening the composition floor or clearing the producer filter.</p>
                         </div>
                         <button
                             onClick={resetFilters}
@@ -167,7 +183,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                                 return a.localeCompare(b);
                             }).map(([producer, steels]) => (
                                 <section key={producer}>
-                                    <div className="sticky top-[3.75rem] md:top-[4.25rem] z-20 flex items-center gap-3 px-4 md:px-8 py-3 bg-[#0B0A08]/90 backdrop-blur-xl border-b border-white/5">
+                                    <div className="sticky top-16 z-20 flex items-center gap-3 px-4 md:px-8 py-3 bg-[#0B0A08]/90 backdrop-blur-xl border-b border-white/5">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
                                         <h2 className="text-xs md:text-sm font-mono font-medium text-stone-400 uppercase tracking-[0.2em] truncate">{producer}</h2>
                                         <div className="flex-1 h-px bg-white/5"></div>

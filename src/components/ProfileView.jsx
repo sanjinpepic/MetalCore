@@ -48,7 +48,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                 color="violet"
             >
                 <div className="flex flex-col md:flex-row items-start md:items-end gap-8 mt-8" ref={editRef}>
-                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-black/50 border-4 border-white/5 shadow-plate flex items-center justify-center overflow-hidden shrink-0 backdrop-blur-md">
+                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-black/50 border border-white/10 shadow-plate flex items-center justify-center overflow-hidden shrink-0 backdrop-blur-md">
                         {user.avatar ? (
                             <Image src={user.avatar} alt="Avatar" width={128} height={128} className="w-full h-full object-cover" unoptimized />
                         ) : (
@@ -107,18 +107,18 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                 <div className="space-y-10">
                     <section>
                         <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xs font-semibold text-stone-500 uppercase tracking-[0.3em] flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-accent rounded-full"></span>
-                                My Favorite Grades
+                            <h2 className="text-[10px] font-mono font-medium text-accent/80 uppercase tracking-[0.3em] flex items-center gap-3">
+                                <span className="inline-block w-8 h-px bg-accent/50"></span>
+                                01 — My Favorite Grades
                             </h2>
-                            <span className="text-accent font-mono font-bold text-sm bg-accent/10 px-3 py-1 rounded-full">{favoriteSteels.length}</span>
+                            <span className="text-accent font-mono font-medium text-sm bg-accent/10 border border-accent/20 px-3 py-1 rounded-full">{favoriteSteels.length}</span>
                         </div>
                         {favoriteSteelsData.length > 0 ? (
                             <div className="grid grid-cols-1 gap-3">
                                 {favoriteSteelsData.map(steel => (
-                                    <div key={steel.id} onClick={() => setDetailSteel(steel)} className="group bg-white/5 border border-white/10 rounded-2xl p-4 flex items-center justify-between hover:bg-white/10 transition-all cursor-pointer hover:border-accent/30">
+                                    <div key={steel.id} onClick={() => setDetailSteel(steel)} className="group bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between hover:bg-white/10 transition-all cursor-pointer hover:border-accent/30">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-black/40 flex items-center justify-center text-sm font-mono font-medium text-white group-hover:text-accent transition-colors">
+                                            <div className="w-10 h-10 rounded-lg bg-black/40 border border-white/5 flex items-center justify-center text-sm font-mono font-medium text-white group-hover:text-accent transition-colors">
                                                 {steel.name.slice(0, 2)}
                                             </div>
                                             <div>
@@ -133,7 +133,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                 ))}
                             </div>
                         ) : (
-                            <div className="p-8 rounded-3xl border border-dashed border-white/10 text-center space-y-4">
+                            <div className="p-8 rounded-2xl border border-dashed border-white/10 text-center space-y-4">
                                 <p className="text-stone-500 text-sm font-medium">No favorites pinned to your profile yet.</p>
                                 <button onClick={() => setView('SEARCH')} className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] hover:text-white transition-colors">Explore Library</button>
                             </div>
@@ -144,9 +144,9 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                 <div className="lg:col-span-2 space-y-10">
                     <section>
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-xs font-semibold text-stone-500 uppercase tracking-[0.3em] flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-accent rounded-full"></span>
-                                My Knife Collection
+                            <h2 className="text-[10px] font-mono font-medium text-accent/80 uppercase tracking-[0.3em] flex items-center gap-3">
+                                <span className="inline-block w-8 h-px bg-accent/50"></span>
+                                02 — My Knife Collection
                             </h2>
                             <button
                                 onClick={() => setShowAddKnife(true)}
@@ -157,7 +157,11 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                         </div>
 
                         {showAddKnife && (
-                            <div className="mb-10 p-8 rounded-3xl border border-accent/30 bg-accent/5 animate-in fade-in slide-in-from-top-4 duration-300">
+                            <div className="mb-10 p-8 rounded-2xl border border-accent/25 bg-accent/[0.06] shadow-plate animate-in fade-in slide-in-from-top-4 duration-300">
+                                <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.3em] mb-2 flex items-center gap-2">
+                                    <span className="inline-block w-5 h-px bg-accent/40"></span>
+                                    New Entry
+                                </div>
                                 <h3 className="text-white font-display uppercase text-xl mb-6 tracking-tight">Add New Piece</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                     <div className="space-y-2">
@@ -167,7 +171,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                             placeholder="e.g. Prototype-01"
                                             value={newKnife.name}
                                             onChange={e => setNewKnife({ ...newKnife, name: e.target.value })}
-                                            className="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-accent transition-colors font-medium"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-accent transition-colors font-medium"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -187,7 +191,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                         placeholder="Specific HRC or maker details..."
                                         value={newKnife.notes}
                                         onChange={e => setNewKnife({ ...newKnife, notes: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-white h-24 focus:outline-none focus:border-accent transition-colors resize-none font-medium"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white h-24 focus:outline-none focus:border-accent transition-colors resize-none font-medium"
                                     />
                                 </div>
                                 <div className="flex gap-3">
@@ -202,7 +206,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                 {myKnives.map((knife) => {
                                     const steel = steels.find(s => s.id === knife.steelId);
                                     return (
-                                        <div key={knife.id} className="glass-panel p-8 rounded-3xl border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent relative group">
+                                        <div key={knife.id} className="glass-panel p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent shadow-plate relative group">
                                             <div className="flex justify-between items-start mb-6">
                                                 <div>
                                                     <h3 className="text-2xl font-display text-white uppercase tracking-tight transition-colors group-hover:text-accent">{knife.name}</h3>
@@ -217,14 +221,14 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                                 <div className="grid grid-cols-2 gap-4 mb-6">
                                                     <div className="space-y-1">
                                                         <div className="text-[8px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em]">Edge Retention</div>
-                                                        <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                                                        <div className="h-[3px] bg-white/10 rounded-full overflow-hidden">
                                                             <div className="h-full bg-accent" style={{ width: `${steel.edge * 10}%` }} />
                                                         </div>
                                                     </div>
                                                     <div className="space-y-1">
                                                         <div className="text-[8px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em]">Toughness</div>
-                                                        <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                                                            <div className="h-full bg-accent-400" style={{ width: `${steel.toughness * 10}%` }} />
+                                                        <div className="h-[3px] bg-white/10 rounded-full overflow-hidden">
+                                                            <div className="h-full bg-accent/70" style={{ width: `${steel.toughness * 10}%` }} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -241,15 +245,15 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                 })}
                             </div>
                         ) : (
-                            <div className="p-20 rounded-3xl border border-dashed border-white/5 bg-white/[0.01] text-center">
-                                <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center text-stone-700 mx-auto mb-6 border border-white/5">
+                            <div className="p-20 rounded-2xl border border-dashed border-white/5 bg-white/[0.01] text-center">
+                                <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center text-stone-700 mx-auto mb-6 border border-white/5">
                                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14.5 3.5c1.4-1.4 3.7-1.4 5.1 0 1.4 1.4 1.4 3.7 0 5.1L17 11l-3.5-3.5 2.5-2.5z" /><path d="m8.5 9.5 7 7" /><path d="M18.4 16.6 20 20l-3.4-1.6L12 21l-1.5-5.5L5 14l5.5-1.5L12 7l4.4 4.6-4.6 4.4z" /></svg>
                                 </div>
                                 <h3 className="text-white font-display uppercase text-xl mb-2">Build Your Collection</h3>
                                 <p className="text-stone-500 text-sm max-w-sm mx-auto mb-8 font-medium">Track your favorite tools, their steel grades, and custom heat treatments in one place.</p>
                                 <button
                                     onClick={() => setShowAddKnife(true)}
-                                    className="px-8 py-4 bg-accent text-[#1A0C05] font-semibold uppercase text-sm rounded-2xl hover:scale-105 transition-all shadow-ember"
+                                    className="px-8 py-4 bg-accent text-[#1A0C05] font-semibold uppercase text-sm rounded-xl hover:scale-105 transition-all shadow-ember"
                                 >
                                     Start Now
                                 </button>

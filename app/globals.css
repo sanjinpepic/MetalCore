@@ -544,3 +544,44 @@ body::after {
         animation: none;
     }
 }
+/* Forge range - ember-fill slider for composition floors */
+.forge-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #FF5A1F 0%, #FF5A1F var(--fill, 0%), rgba(255, 255, 255, 0.08) var(--fill, 0%), rgba(255, 255, 255, 0.08) 100%);
+    outline: none;
+    cursor: pointer;
+}
+
+.forge-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #EDE9E2;
+    border: 2px solid #FF5A1F;
+    box-shadow: 0 0 12px rgba(255, 90, 31, 0.35);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.forge-range::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+}
+
+.forge-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #EDE9E2;
+    border: 2px solid #FF5A1F;
+    box-shadow: 0 0 12px rgba(255, 90, 31, 0.35);
+}
+
+.forge-range::-moz-range-track {
+    height: 3px;
+    background: transparent;
+}

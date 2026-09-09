@@ -75,23 +75,27 @@ const HeatTreatChart = ({ items, colors = HEAT_COLORS, containerClass = "h-[300p
                         <CartesianGrid strokeDasharray="3 3" stroke="#292420" />
                         <XAxis
                             dataKey="temp"
-                            stroke="#3A332B"
+                            stroke="rgba(237,233,226,0.1)"
+                            tickLine={false}
                             fontSize={11}
-                            tick={{ fill: 'rgba(237,233,226,0.45)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
-                            label={{ value: `Tempering Temp (${getTemperatureUnit(unitSystem)})`, position: 'bottom', fill: '#6E685D', fontSize: 10, dy: 5 }}
+                            tick={{ fill: 'rgba(237,233,226,0.35)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
+                            label={{ value: `Tempering Temp (${getTemperatureUnit(unitSystem)})`, position: 'bottom', fill: 'rgba(237,233,226,0.35)', fontSize: 10, dy: 5 }}
                         />
                         <YAxis
                             domain={['auto', 'auto']}
-                            stroke="#3A332B"
+                            stroke="rgba(237,233,226,0.1)"
+                            tickLine={false}
                             fontSize={10}
-                            tick={{ fill: 'rgba(237,233,226,0.45)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
-                            label={{ value: 'Hardness (HRC)', angle: -90, position: 'insideLeft', fill: '#6E685D', fontSize: 10, dx: 5 }}
+                            tick={{ fill: 'rgba(237,233,226,0.35)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
+                            label={{ value: 'Hardness (HRC)', angle: -90, position: 'insideLeft', fill: 'rgba(237,233,226,0.35)', fontSize: 10, dx: 5 }}
                         />
                         <Tooltip
+                            cursor={{ strokeDasharray: '3 3', stroke: 'rgba(255, 90, 31, 0.4)' }}
                             contentStyle={{ backgroundColor: '#12100D', borderColor: 'rgba(237,233,226,0.1)', borderRadius: '0.75rem', padding: '1rem', fontFamily: 'JetBrains Mono, monospace' }}
+                            labelStyle={{ color: 'rgba(237,233,226,0.5)', fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase' }}
                             itemStyle={{ color: '#EDE9E2', fontSize: '12px', fontWeight: 600 }}
                         />
-                        <Legend wrapperStyle={{ paddingTop: '25px', fontWeight: 600, fontSize: '11px' }} />
+                        <Legend wrapperStyle={{ paddingTop: '25px', fontWeight: 600, fontSize: '11px', fontFamily: 'JetBrains Mono, monospace' }} />
                         {items.map((s, i) => (
                             <Line
                                 key={s.id}

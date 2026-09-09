@@ -81,7 +81,7 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                             }
                         >
                             <item.icon className="w-5 h-5" />
-                            <span className="text-[10px] font-bold">{item.label}</span>
+                            <span className="text-[9px] font-mono font-medium uppercase tracking-[0.15em]">{item.label}</span>
                         </button>
                     ))}
                 </div>
@@ -105,14 +105,14 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                             className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-stone-300"
                         >
                             <CompareIcon className="w-5 h-5" />
-                            <span className="text-[10px] font-medium">Compare</span>
+                            <span className="text-[9px] font-mono font-medium uppercase tracking-[0.15em]">Compare</span>
                         </button>
                         <button
                             onClick={() => { handleNavClick('PRO_LAB'); }}
                             className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 text-stone-300"
                         >
                             <FlaskIcon className="w-5 h-5" />
-                            <span className="text-[10px] font-medium">Pro Lab</span>
+                            <span className="text-[9px] font-mono font-medium uppercase tracking-[0.15em]">Pro Lab</span>
                         </button>
                         <button
                             onClick={() => {
@@ -123,7 +123,7 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                             className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 border border-accent/25 text-accent hover:from-accent/30 hover:to-accent/20"
                         >
                             <SparklesIcon className="w-5 h-5" />
-                            <span className="text-[10px] font-medium">Ferry AI</span>
+                            <span className="text-[9px] font-mono font-medium uppercase tracking-[0.15em]">Ferry AI</span>
                         </button>
                     </div>
                 </motion.div>

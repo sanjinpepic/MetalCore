@@ -257,7 +257,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                         style={{ zIndex: baseZIndex - 10 }}
                     >
                         <motion.div
-                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            className="absolute inset-0 bg-[#0B0A08]/70 backdrop-blur-sm"
                             style={{ opacity: backdropOpacity }}
                             onClick={onClose}
                         />
@@ -285,7 +285,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                                 data-drag-handle
                                 className="flex justify-center pt-3 pb-2 shrink-0 cursor-grab active:cursor-grabbing touch-none"
                             >
-                                <div className="w-12 h-1.5 rounded-full bg-white/20" />
+                                <div className="w-12 h-1.5 rounded-full bg-white/15" />
                             </div>
 
                             {/* Single unified scroll container */}
@@ -324,7 +324,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                             exit={{ opacity: 0, transition: { duration: 0.1 } }}
                             transition={springConfig}
                             onClick={(e) => e.stopPropagation()}
-                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-3xl border-white/10 shadow-plate-lg overflow-y-auto custom-scrollbar will-change-transform"
+                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-3xl border border-white/10 shadow-plate-lg overflow-y-auto custom-scrollbar will-change-transform"
                         >
                             {children}
                         </motion.div>

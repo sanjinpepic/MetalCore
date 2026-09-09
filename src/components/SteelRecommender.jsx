@@ -137,11 +137,17 @@ export default function SteelRecommender({ steels, onClose, onSelectSteel }) {
 
                 {/* Progress dots */}
                 {!showResults && (
-                    <div className="flex items-center gap-2 mb-1">
-                        {STEPS.map((_, i) => (
-                            <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ease-snap ${i < step ? 'bg-accent' : i === step ? 'bg-accent/60' : 'bg-white/10'}`} />
-                        ))}
-                    </div>
+                    <>
+                        <div className="text-[10px] font-mono font-medium text-accent/80 uppercase tracking-[0.3em] mb-3 flex items-center gap-3">
+                            <span className="inline-block w-8 h-px bg-accent/50" />
+                            Step {String(step + 1).padStart(2, '0')} / {String(TOTAL_STEPS).padStart(2, '0')}
+                        </div>
+                        <div className="flex items-center gap-2 mb-1">
+                            {STEPS.map((_, i) => (
+                                <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ease-snap ${i < step ? 'bg-accent' : i === step ? 'bg-accent/60' : 'bg-white/10'}`} />
+                            ))}
+                        </div>
+                    </>
                 )}
             </div>
 
@@ -194,18 +200,21 @@ function StepView({ step, selected, onSelect }) {
             </div>
 
             <div className={`grid gap-3 md:gap-4 ${step.options.length === 4 ? 'grid-cols-2' : step.options.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'}`}>
-                {step.options.map(opt => {
+                {step.options.map((opt, oi) => {
                     const isSelected = selected === opt.id;
                     return (
                         <motion.button
                             key={opt.id}
                             whileTap={{ scale: 0.97 }}
                             onClick={() => onSelect(opt.id)}
-                            className={`text-left p-5 md:p-6 rounded-2xl border transition-all duration-300 ease-snap group ${isSelected
-                                ? 'border-accent bg-accent/10 shadow-lg shadow-accent/10'
+                            className={`relative text-left p-5 md:p-6 rounded-xl border transition-all duration-300 ease-snap group ${isSelected
+                                ? 'border-accent bg-accent/10 shadow-ember-sm'
                                 : 'border-white/5 bg-white/[0.03] hover:border-white/15 hover:bg-white/[0.06]'
                                 }`}
                         >
+                            <span className={`absolute top-4 right-5 text-[9px] font-mono font-medium tracking-[0.2em] ${isSelected ? 'text-accent/70' : 'text-stone-600'}`}>
+                                {String(oi + 1).padStart(2, '0')}
+                            </span>
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 border transition-colors ${isSelected ? 'bg-accent/20 border-accent/30' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-colors ${isSelected ? 'text-accent' : 'text-stone-400 group-hover:text-stone-300'}`}>
                                     <path d={opt.icon} />
@@ -248,11 +257,11 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                             hapticFeedback('medium');
                             onSelectSteel(steel);
                         }}
-                        className={`w-full text-left p-4 md:p-5 rounded-2xl border bg-gradient-to-r transition-all duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
+                        className={`w-full text-left p-4 md:p-5 rounded-xl border bg-gradient-to-r transition-all duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
                     >
                         <div className="flex items-start gap-4">
                             {/* Rank badge */}
-                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 font-display text-lg ${i === 0 ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-white/5 text-stone-500 border border-white/10'}`}>
+                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center shrink-0 font-display text-lg ${i === 0 ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-white/5 text-stone-500 border border-white/10'}`}>
                                 {i + 1}
                             </div>
 
@@ -260,7 +269,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between gap-3 mb-1">
                                     <h3 className="font-display text-white uppercase tracking-tight text-base md:text-lg truncate">{steel.name}</h3>
-                                    <span className={`text-sm md:text-base font-display shrink-0 ${i === 0 ? 'text-accent' : 'text-accent'}`}>{steel.matchScore}%</span>
+                                    <span className={`text-sm md:text-base font-display shrink-0 ${i === 0 ? 'text-accent' : 'text-stone-300'}`}>{steel.matchScore}%</span>
                                 </div>
                                 <div className="text-stone-500 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] mb-2 flex items-center gap-2">
                                     {steel.producer}
@@ -295,7 +304,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
             <div className="flex gap-3 mt-8">
                 <button
                     onClick={onRestart}
-                    className="flex-1 py-3 rounded-2xl border border-white/10 text-stone-400 text-sm font-medium hover:bg-white/5 hover:text-white transition-all duration-300 ease-snap"
+                    className="flex-1 py-3 rounded-xl border border-white/10 text-stone-400 text-sm font-mono font-medium uppercase tracking-[0.2em] hover:bg-white/5 hover:text-white transition-all duration-300 ease-snap"
                 >
                     Start Over
                 </button>

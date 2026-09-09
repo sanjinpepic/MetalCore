@@ -83,13 +83,13 @@ const ChemicalRadar = ({ steels, compact = false }) => {
         <div className="w-full h-[300px] md:h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-                    <PolarGrid stroke="#2E2822" />
+                    <PolarGrid stroke="#292420" />
                     <PolarAngleAxis
                         dataKey="subject"
                         tick={(props) => (
                             <CustomPolarAngleAxisTick
                                 {...props}
-                                fill="rgba(237,233,226,0.55)"
+                                fill="rgba(237,233,226,0.35)"
                                 fontSize={11}
                             />
                         )}

@@ -37,7 +37,7 @@ export default function CookieConsent() {
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
                         {/* Icon */}
                         <div className="flex-shrink-0">
-                            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                                 <svg
                                     className="w-6 h-6 text-accent"
                                     fill="none"
@@ -56,16 +56,17 @@ export default function CookieConsent() {
 
                         {/* Content */}
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white mb-2">
+                            <span className="text-[9px] font-mono font-medium uppercase tracking-[0.3em] text-stone-600 block mb-1.5">Consent Protocol</span>
+                            <h3 className="font-display uppercase tracking-tight text-base md:text-lg text-white mb-2">
                                 Cookie Preferences
                             </h3>
-                            <p className="text-sm text-stone-300 leading-relaxed">
+                            <p className="text-sm text-stone-400 leading-relaxed">
                                 We use cookies to enhance your experience, save your preferences, and analyze usage.
                                 Essential cookies are required for the app to function. By clicking "Accept All", you
                                 consent to our use of cookies.{' '}
                                 <a
                                     href="/legal/privacy"
-                                    className="text-accent hover:text-accent-400 underline transition-colors"
+                                    className="text-accent hover:text-accent/80 underline transition-colors"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -78,13 +79,13 @@ export default function CookieConsent() {
                         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                             <button
                                 onClick={declineOptional}
-                                className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all duration-200 hover:scale-105"
+                                className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-bone font-mono text-xs font-medium uppercase tracking-[0.2em] transition-all duration-200 hover:scale-105"
                             >
                                 Essential Only
                             </button>
                             <button
                                 onClick={acceptCookies}
-                                className="px-6 py-2.5 rounded-xl bg-accent hover:bg-accent-600 text-[#1A0C05] font-medium shadow-ember transition-all duration-200 hover:scale-105"
+                                className="px-6 py-2.5 rounded-xl bg-accent hover:bg-accent/90 text-[#1A0C05] font-mono text-xs font-semibold uppercase tracking-[0.2em] shadow-ember transition-all duration-200 hover:scale-105"
                             >
                                 Accept All
                             </button>
