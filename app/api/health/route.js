@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '../../src/lib/prisma.js';
+import { prisma } from '../../../src/lib/prisma.js';
 
 export async function GET() {
     const startedAt = Date.now();
