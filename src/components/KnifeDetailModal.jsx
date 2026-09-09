@@ -31,7 +31,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel, allSteels = [] }) => {
                         <button
                             onClick={onClose}
                             aria-label="Close details"
-                            className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-500 hover:text-white transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group"
+                            className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-500 hover:text-white transition-colors duration-300 ease-snap border border-white/10 backdrop-blur-3xl group"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform duration-300 ease-snap">
                                 <path d="M18 6 6 18" />
@@ -83,7 +83,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel, allSteels = [] }) => {
                                         <button
                                             key={steelName}
                                             onClick={() => onOpenSteel(steelName)}
-                                            className="w-full flex items-center gap-3.5 px-4 py-3.5 bg-white/[0.03] hover:bg-accent/[0.06] border border-white/[0.07] hover:border-accent/30 rounded-xl text-left transition-all duration-300 ease-snap group active:scale-[0.99]"
+                                            className="w-full flex items-center gap-3.5 px-4 py-3.5 bg-white/[0.03] hover:bg-accent/[0.06] border border-white/[0.07] hover:border-accent/30 rounded-xl text-left transition duration-300 ease-snap group active:scale-[0.99]"
                                         >
                                             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${data?.pm ? 'bg-accent shadow-ember-sm' : 'bg-stone-600'}`} />
                                             <span className="text-sm font-display text-white group-hover:text-accent uppercase tracking-tight transition-colors duration-300 truncate flex-1">{steelName}</span>
@@ -94,7 +94,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel, allSteels = [] }) => {
                                                     {data.V > 0 && <span><span className="text-stone-700">V</span> <span className="text-stone-300 font-semibold">{data.V}</span></span>}
                                                 </span>
                                             )}
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-300 shrink-0">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent group-hover:translate-x-0.5 transition duration-300 shrink-0">
                                                 <path d="M5 12h14" />
                                                 <path d="m12 5 7 7-7 7" />
                                             </svg>

@@ -139,7 +139,7 @@ const CustomSelect = ({
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
                 aria-label={selectedOption ? `Selected: ${selectedOption.name}` : placeholder}
-                className={`w-full bg-white/5 border ${isOpen ? 'border-white/20' : 'border-white/10'} rounded-2xl px-5 py-4 flex items-center justify-between group transition-all hover:bg-white/[0.07] ${isOpen ? 'shadow-ember-sm' : ''} focus:outline-none focus:ring-2 focus:ring-accent/50`}
+                className={`w-full bg-white/5 border ${isOpen ? 'border-white/20' : 'border-white/10'} rounded-2xl px-5 py-4 flex items-center justify-between group transition-colors hover:bg-white/[0.07] ${isOpen ? 'shadow-ember-sm' : ''} focus:outline-none focus:ring-2 focus:ring-accent/50`}
             >
                 <div className="flex flex-col items-start">
                     <span className="text-sm font-semibold text-white uppercase tracking-tight">
@@ -174,7 +174,7 @@ const CustomSelect = ({
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onKeyDown={handleInputKeyDown}
-                                    className="w-full bg-white/5 border border-white/5 rounded-xl px-10 py-3 text-xs font-mono font-medium text-white uppercase tracking-widest outline-none focus:border-accent/50 transition-all"
+                                    className="w-full bg-white/5 border border-white/5 rounded-xl px-10 py-3 text-xs font-mono font-medium text-white uppercase tracking-widest outline-none focus:border-accent/50 transition-colors"
                                 />
                                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -204,7 +204,7 @@ const CustomSelect = ({
                                                 setIsOpen(false);
                                             }}
                                             onMouseEnter={() => setHighlightedIndex(index)}
-                                            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all group outline-none
+                                            className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-colors group outline-none
                                                 ${isSelected ? 'bg-white/5' : ''}
                                                 ${isHighlighted && !isSelected ? activeColor.highlight : ''}
                                                 ${!isSelected && !isHighlighted ? 'hover:bg-white/5' : ''}

@@ -197,7 +197,7 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
         <button
             onClick={generateImage}
             disabled={generating}
-            className="w-full py-4 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-[#1A0C05] font-mono font-medium uppercase text-[11px] tracking-[0.25em] rounded-xl transition-all shadow-ember active:scale-[0.98] flex items-center justify-center gap-3"
+            className="w-full py-4 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-[#1A0C05] font-mono font-medium uppercase text-[11px] tracking-[0.25em] rounded-xl transition shadow-ember active:scale-[0.98] flex items-center justify-center gap-3"
         >
             {generating ? (
                 <div className="w-4 h-4 border-2 border-[#1A0C05]/20 border-t-[#1A0C05] rounded-full animate-spin" />

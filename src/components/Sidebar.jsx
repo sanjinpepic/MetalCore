@@ -46,7 +46,7 @@ const CriteriaSummary = ({ activeProducer, filters, pmOnly, resetFilters, showIm
                         </div>
                         <button
                             onClick={() => { hapticFeedback('light'); resetFilters(); }}
-                            className="w-full pt-1 py-2.5 rounded-xl border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 hover:text-accent hover:border-accent/30 transition-all duration-300"
+                            className="w-full pt-1 py-2.5 rounded-xl border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 hover:text-accent hover:border-accent/30 transition-colors duration-300"
                         >
                             Clear All Criteria
                         </button>
@@ -60,7 +60,7 @@ const CriteriaSummary = ({ activeProducer, filters, pmOnly, resetFilters, showIm
 
             {showImport && (
                 <div className="pt-4 mt-2 border-t border-white/5">
-                    <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-stone-500 hover:text-white hover:bg-white/5 transition-all group">
+                    <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-stone-500 hover:text-white hover:bg-white/5 transition-colors group">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                             <polyline points="14 2 14 8 20 8" />
@@ -460,7 +460,7 @@ const Sidebar = ({
                             setShowSettings(true);
                             setMobileMenuOpen(false);
                         }}
-                        className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg text-stone-400 hover:text-accent transition-all"
+                        className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg text-stone-400 hover:text-accent transition-colors"
                         aria-label="Settings"
                         data-tour="nav-profile"
                     >
@@ -476,7 +476,7 @@ const Sidebar = ({
                     <div className="mt-4 px-1">
                         <button
                             onClick={() => { hapticFeedback('light'); openCommandPalette(); }}
-                            className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] ${VIEW_HOVER[view] || VIEW_HOVER.SEARCH} transition-all group`}
+                            className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] ${VIEW_HOVER[view] || VIEW_HOVER.SEARCH} transition-colors group`}
                         >
                             <div className="flex items-center gap-3">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-stone-500 ${(VIEW_HOVER[view] || VIEW_HOVER.SEARCH).split(' ')[1]} transition-colors`}>
@@ -548,7 +548,7 @@ const Sidebar = ({
                     <div className="flex md:hidden flex-col gap-3 mt-4">
                         <button
                             onClick={() => handleNavClick('PRO_LAB')}
-                            className="w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all text-stone-500 hover:bg-white/5 hover:text-accent border border-white/5"
+                            className="w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-colors text-stone-500 hover:bg-white/5 hover:text-accent border border-white/5"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="M10 2v7.5M14 2v7.5M8.5 2h7M21 22H3l7-12.5M21 22l-7-12.5" />
@@ -557,7 +557,7 @@ const Sidebar = ({
                         </button>
                         <button
                             onClick={() => { hapticFeedback('medium'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30' : 'text-stone-500 hover:bg-white/[0.06] hover:text-accent border-white/5'}`}
+                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-colors duration-300 ease-snap border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30' : 'text-stone-500 hover:bg-white/[0.06] hover:text-accent border-white/5'}`}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
@@ -588,10 +588,10 @@ const Sidebar = ({
                                             setView('SEARCH');
                                             if (resetFilters) resetFilters();
                                         }}
-                                        className="w-full text-left px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-all flex items-center justify-between group"
+                                        className="w-full text-left px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-colors flex items-center justify-between group"
                                     >
                                         <span className="text-xs font-bold text-stone-400 group-hover:text-white line-clamp-1">{steel.name}</span>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent transform translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent transform translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition">
                                             <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                                         </svg>
                                     </button>

@@ -261,7 +261,7 @@ const OnboardingOverlay = () => {
                                 {/* Newbie Card */}
                                 <button
                                     onClick={() => startTour('newbie')}
-                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel border border-white/10 hover:border-accent/40 hover:bg-accent/[0.06] transition-all duration-300 ease-snap text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel border border-white/10 hover:border-accent/40 hover:bg-accent/[0.06] transition-colors duration-300 ease-snap text-left flex flex-col h-full"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap">
                                         <Map size={24} strokeWidth={2.5} />
@@ -278,7 +278,7 @@ const OnboardingOverlay = () => {
                                 {/* Enthusiast Card */}
                                 <button
                                     onClick={() => startTour('enthusiast')}
-                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-accent/[0.08] to-transparent border border-accent/20 hover:border-accent/40 hover:bg-accent/10 transition-all duration-300 ease-snap text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-accent/[0.08] to-transparent border border-accent/20 hover:border-accent/40 hover:bg-accent/10 transition-colors duration-300 ease-snap text-left flex flex-col h-full"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap relative z-10">
                                         <Flame size={24} strokeWidth={2.5} />
@@ -295,7 +295,7 @@ const OnboardingOverlay = () => {
                                 {/* Expert Card */}
                                 <button
                                     onClick={() => startTour('expert')}
-                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel border border-white/10 hover:border-accent/40 hover:bg-accent/[0.06] transition-all duration-300 ease-snap text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel border border-white/10 hover:border-accent/40 hover:bg-accent/[0.06] transition-colors duration-300 ease-snap text-left flex flex-col h-full"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap">
                                         <FlaskConical size={24} strokeWidth={2.5} />
@@ -370,7 +370,7 @@ const OnboardingOverlay = () => {
                                     {Array.from({ length: totalSteps }).map((_, idx) => (
                                         <div
                                             key={idx}
-                                            className={`h-0.5 sm:h-1 rounded-full transition-all duration-300 ${idx === currentStepIndex ? 'w-4 sm:w-6 bg-accent' : 'w-1 sm:w-2 bg-white/10'}`}
+                                            className={`h-0.5 sm:h-1 rounded-full transition-colors duration-300 ${idx === currentStepIndex ? 'w-4 sm:w-6 bg-accent' : 'w-1 sm:w-2 bg-white/10'}`}
                                         />
                                     ))}
                                 </div>

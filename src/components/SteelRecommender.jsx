@@ -144,7 +144,7 @@ export default function SteelRecommender({ steels, onClose, onSelectSteel }) {
                         </div>
                         <div className="flex items-center gap-2 mb-1">
                             {STEPS.map((_, i) => (
-                                <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ease-snap ${i < step ? 'bg-accent' : i === step ? 'bg-accent/60' : 'bg-white/10'}`} />
+                                <div key={i} className={`h-1 flex-1 rounded-full transition-colors duration-300 ease-snap ${i < step ? 'bg-accent' : i === step ? 'bg-accent/60' : 'bg-white/10'}`} />
                             ))}
                         </div>
                     </>
@@ -207,7 +207,7 @@ function StepView({ step, selected, onSelect }) {
                             key={opt.id}
                             whileTap={{ scale: 0.97 }}
                             onClick={() => onSelect(opt.id)}
-                            className={`relative text-left p-5 md:p-6 rounded-xl border transition-all duration-300 ease-snap group ${isSelected
+                            className={`relative text-left p-5 md:p-6 rounded-xl border transition-colors duration-300 ease-snap group ${isSelected
                                 ? 'border-accent bg-accent/10 shadow-ember-sm'
                                 : 'border-white/5 bg-white/[0.03] hover:border-white/15 hover:bg-white/[0.06]'
                                 }`}
@@ -257,7 +257,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                             hapticFeedback('medium');
                             onSelectSteel(steel);
                         }}
-                        className={`w-full text-left p-4 md:p-5 rounded-xl border bg-gradient-to-r transition-all duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
+                        className={`w-full text-left p-4 md:p-5 rounded-xl border bg-gradient-to-r transition duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
                     >
                         <div className="flex items-start gap-4">
                             {/* Rank badge */}
@@ -304,7 +304,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
             <div className="flex gap-3 mt-8">
                 <button
                     onClick={onRestart}
-                    className="flex-1 py-3 rounded-xl border border-white/10 text-stone-400 text-sm font-mono font-medium uppercase tracking-[0.2em] hover:bg-white/5 hover:text-white transition-all duration-300 ease-snap"
+                    className="flex-1 py-3 rounded-xl border border-white/10 text-stone-400 text-sm font-mono font-medium uppercase tracking-[0.2em] hover:bg-white/5 hover:text-white transition-colors duration-300 ease-snap"
                 >
                     Start Over
                 </button>

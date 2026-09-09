@@ -80,7 +80,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
             <div className="glass-panel w-full h-full md:h-auto md:max-w-2xl p-6 md:p-10 md:rounded-3xl border border-white/10 shadow-plate-lg relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
                 {/* Close Button */}
                 <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[110]">
-                    <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-stone-400 transition-all border border-white/10 backdrop-blur-3xl group">
+                    <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-stone-400 transition-colors border border-white/10 backdrop-blur-3xl group">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -98,13 +98,13 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                 <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 mb-8">
                     <button
                         onClick={() => setMode('UPLOAD')}
-                        className={`flex-1 py-2.5 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] rounded-lg transition-all ${mode === 'UPLOAD' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-stone-300'}`}
+                        className={`flex-1 py-2.5 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] rounded-lg transition-colors ${mode === 'UPLOAD' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-stone-300'}`}
                     >
                         Upload File
                     </button>
                     <button
                         onClick={() => setMode('MANUAL')}
-                        className={`flex-1 py-2.5 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] rounded-lg transition-all ${mode === 'MANUAL' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-stone-300'}`}
+                        className={`flex-1 py-2.5 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] rounded-lg transition-colors ${mode === 'MANUAL' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-stone-500 hover:text-stone-300'}`}
                     >
                         Manual Entry
                     </button>
@@ -112,7 +112,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
 
                 {mode === 'UPLOAD' ? (
                     <div
-                        className={`border-2 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center gap-4 transition-all ${dragActive ? 'border-accent bg-accent/5' : 'border-white/10 hover:border-white/20 hover:bg-white/5'}`}
+                        className={`border-2 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center gap-4 transition-colors ${dragActive ? 'border-accent bg-accent/5' : 'border-white/10 hover:border-white/20 hover:bg-white/5'}`}
                         onDragEnter={handleDrag}
                         onDragLeave={handleDrag}
                         onDragOver={handleDrag}

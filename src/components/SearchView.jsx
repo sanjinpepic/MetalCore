@@ -66,7 +66,7 @@ const LedgerRow = ({ s, index, isSelected, toggleCompare, setDetailSteel }) => (
             <span className="hidden sm:block text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Open</span>
             <div
                 onClick={(e) => { e.stopPropagation(); hapticFeedback('medium'); toggleCompare(s); }}
-                className={`p-2.5 rounded-full transition-all duration-300 ease-snap shrink-0 ${isSelected ? 'bg-accent text-[#1A0C05] shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-white hover:bg-white/10'}`}
+                className={`p-2.5 rounded-full transition-colors duration-300 ease-snap shrink-0 ${isSelected ? 'bg-accent text-[#1A0C05] shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-white hover:bg-white/10'}`}
             >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
@@ -112,7 +112,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             </ViewHeader>
 
             {/* Criteria Rail */}
-            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] px-4 md:px-12 py-3 flex flex-wrap items-center gap-x-3 gap-y-2 transition-all">
+            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] px-4 md:px-12 py-3 flex flex-wrap items-center gap-x-3 gap-y-2 transition-colors">
                 <div className="relative w-40 md:w-64 shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
                         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
@@ -156,7 +156,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         </div>
                         <button
                             onClick={resetFilters}
-                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-bold text-stone-300 hover:bg-white/10 hover:border-accent/30 hover:text-white transition-all duration-300 ease-snap"
+                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-bold text-stone-300 hover:bg-white/10 hover:border-accent/30 hover:text-white transition-colors duration-300 ease-snap"
                         >
                             Reset Filters
                         </button>
@@ -222,7 +222,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         </button>
                     </div>
                     <div className="h-8 w-px bg-white/10"></div>
-                    <button onClick={() => setView('COMPARE')} className="bg-bone text-[#1A0C05] px-6 md:px-10 py-3.5 md:py-4 rounded-full font-bold text-sm md:text-base flex items-center gap-3 hover:bg-accent transition-all duration-300 ease-snap shadow-plate active:scale-95 group">
+                    <button onClick={() => setView('COMPARE')} className="bg-bone text-[#1A0C05] px-6 md:px-10 py-3.5 md:py-4 rounded-full font-bold text-sm md:text-base flex items-center gap-3 hover:bg-accent transition duration-300 ease-snap shadow-plate active:scale-95 group">
                         <span className="hidden sm:inline">Launch Analysis</span>
                         <span className="sm:hidden uppercase tracking-widest">Launch</span>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:translate-x-1 transition-transform">

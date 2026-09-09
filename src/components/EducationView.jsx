@@ -95,7 +95,7 @@ const EducationView = ({ glossary, faq, producers }) => {
 
 
             {/* Navigation Tabs & Search */}
-            <div className="sticky top-0 z-[40] bg-transparent backdrop-blur-2xl transition-all w-full">
+            <div className="sticky top-0 z-[40] bg-transparent backdrop-blur-2xl transition-colors w-full">
                 {/* Mobile tabs — own row */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
@@ -107,7 +107,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-3 py-2 rounded-2xl flex items-center gap-2 text-[10px] font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap shrink-0 ${activeTab === tab.id ? 'bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10'}`}
+                                className={`px-3 py-2 rounded-2xl flex items-center gap-2 text-[10px] font-mono font-medium uppercase tracking-[0.2em] transition duration-300 ease-snap shrink-0 ${activeTab === tab.id ? 'bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10'}`}
                             >
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                     <path d={tab.icon} />
@@ -127,7 +127,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                 <button
                                     key={cat.id}
                                     onClick={() => setActiveCategory(cat.id)}
-                                    className={`px-2.5 py-1 rounded-lg text-[9px] font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap whitespace-nowrap shrink-0 ${activeCategory === cat.id
+                                    className={`px-2.5 py-1 rounded-lg text-[9px] font-mono font-medium uppercase tracking-[0.2em] transition-colors duration-300 ease-snap whitespace-nowrap shrink-0 ${activeCategory === cat.id
                                         ? 'bg-accent text-[#1A0C05] shadow-ember-sm'
                                         : 'bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10'
                                         }`}
@@ -150,7 +150,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-6 py-3 rounded-2xl flex items-center gap-3 text-sm font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap shrink-0 ${activeTab === tab.id ? 'bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10'}`}
+                                className={`px-6 py-3 rounded-2xl flex items-center gap-3 text-sm font-mono font-medium uppercase tracking-[0.2em] transition duration-300 ease-snap shrink-0 ${activeTab === tab.id ? 'bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10'}`}
                             >
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                     <path d={tab.icon} />
@@ -188,7 +188,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                     <button
                                         key={cat.id}
                                         onClick={() => setActiveCategory(cat.id)}
-                                        className={`px-5 py-2.5 rounded-2xl text-xs font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap shrink-0 ${activeCategory === cat.id
+                                        className={`px-5 py-2.5 rounded-2xl text-xs font-mono font-medium uppercase tracking-[0.2em] transition-colors duration-300 ease-snap shrink-0 ${activeCategory === cat.id
                                             ? 'bg-accent text-[#1A0C05] shadow-ember-sm'
                                             : 'bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10 border border-white/5'
                                             }`}
@@ -207,7 +207,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                     if (!items || items.length === 0) return null;
                                     return (
                                         <section key={cat.id}>
-                                            <div className="sticky top-[8.5rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
+                                            <div className="sticky top-[8.5rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-colors">
                                                 <div className="flex items-center gap-2 md:gap-3">
                                                     <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-accent"></div>
                                                     <h2 className="text-xs md:text-sm font-mono font-medium text-stone-400 uppercase tracking-[0.2em]">{cat.id}</h2>
@@ -269,13 +269,13 @@ const EducationView = ({ glossary, faq, producers }) => {
                                             return (
                                                 <div
                                                     key={globalIdx}
-                                                    className={`glass-panel rounded-2xl border transition-all duration-300 ease-snap ${isOpen ? 'border-accent/25 bg-gradient-to-r from-accent/5 to-transparent' : 'border-white/5 hover:border-white/10'}`}
+                                                    className={`glass-panel rounded-2xl border transition-colors duration-300 ease-snap ${isOpen ? 'border-accent/25 bg-gradient-to-r from-accent/5 to-transparent' : 'border-white/5 hover:border-white/10'}`}
                                                 >
                                                     <button
                                                         onClick={() => toggleFaq(globalIdx)}
                                                         className="w-full p-5 md:p-6 flex items-center gap-4 md:gap-5 text-left"
                                                     >
-                                                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 border font-display text-sm transition-all duration-300 ease-snap ${isOpen ? 'bg-accent/15 border-accent/30 text-accent' : 'bg-accent/10 border-accent/25 text-accent/60'}`}>
+                                                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 border font-display text-sm transition-colors duration-300 ease-snap ${isOpen ? 'bg-accent/15 border-accent/30 text-accent' : 'bg-accent/10 border-accent/25 text-accent/60'}`}>
                                                             Q
                                                         </div>
                                                         <h3 className={`flex-1 text-sm md:text-base font-display uppercase tracking-tight leading-tight transition-colors duration-300 ${isOpen ? 'text-white' : 'text-stone-300'}`}>
@@ -289,7 +289,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                                         </svg>
                                                     </button>
                                                     <div
-                                                        className={`grid transition-all duration-300 ease-out-expo ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                                                        className={`grid transition-opacity duration-300 ease-out-expo ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                                                     >
                                                         <div className="overflow-hidden">
                                                             <div className="px-5 md:px-6 pb-5 md:pb-6 pl-[4.25rem] md:pl-[5rem]">

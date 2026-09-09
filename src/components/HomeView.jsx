@@ -1,4 +1,4 @@
-﻿import React, { useMemo, useRef, useState } from 'react';
+﻿import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import { motion } from 'framer-motion';
 import { useSettings } from '../context/SettingsContext';
@@ -8,6 +8,29 @@ import ViewHeader from './Common/ViewHeader';
 import { DOT_PM, DOT_REST } from '../utils/producerColors';
 
 import { hapticFeedback, useMobile } from '../hooks/useMobile';
+
+// Metric count-up for the index strip — eases in on reveal, never
+// animates layout (tabular figures hold their width). Reduced motion
+// renders the final value instantly.
+const CountUp = ({ value }) => {
+    const [display, setDisplay] = useState(0);
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            setDisplay(value);
+            return undefined;
+        }
+        let raf = 0;
+        const t0 = performance.now();
+        const tick = (t) => {
+            const p = Math.min(1, (t - t0) / 700);
+            setDisplay(Math.round(value * (1 - Math.pow(1 - p, 3))));
+            if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, [value]);
+    return <>{display}</>;
+};
 
 const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareList, toggleCompare, producers, incrementTrending, resetFilters, setShowRecommender }) => {
     const { isMobile } = useMobile();
@@ -93,14 +116,14 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     isHero={true}
                 >
                     <p className="text-stone-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-                        Composition, heat treatment and performance data for the world's finest blade alloys — from VG-10 to MagnaCut.
+                        Composition, heat treatment and performance data for the world's finest blade alloys, from VG-10 to MagnaCut.
                     </p>
                 </ViewHeader>
 
                 {/* Spotlight Global Search */}
                 <div ref={searchContainerRef} className="forge-enter relative group w-full max-w-2xl px-4 md:px-0 z-[100] mx-auto -mt-6" style={{ '--stagger': '280ms' }}>
                     <div className="absolute -inset-1 bg-accent/40 rounded-2xl blur-lg opacity-20 group-focus-within:opacity-60 transition duration-700 ease-out-expo" />
-                    <div className="relative bg-[#12100D]/90 border border-white/10 rounded-xl flex items-center px-6 py-5 backdrop-blur-2xl group-focus-within:border-accent/50 transition-all duration-300 ease-out-expo shadow-plate-lg">
+                    <div className="relative bg-[#12100D]/90 border border-white/10 rounded-xl flex items-center px-6 py-5 backdrop-blur-2xl group-focus-within:border-accent/50 transition-colors duration-300 ease-out-expo shadow-plate-lg">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500 mr-5 group-focus-within:text-accent transition-colors duration-300">
                             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
                         </svg>
@@ -162,7 +185,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     </motion.button>
                                 ))}
                             </div>
-                            <button onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }} className="w-full py-3 bg-white/[0.04] border-t border-white/5 text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] hover:text-white hover:bg-white/[0.08] transition-all duration-300">
+                            <button onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }} className="w-full py-3 bg-white/[0.04] border-t border-white/5 text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] hover:text-white hover:bg-white/[0.08] transition-colors duration-300">
                                 View all results for "{search}"
                             </button>
                         </div>
@@ -192,7 +215,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <span key={`${rep}-${s.id}`} className="flex items-center shrink-0">
                                             <button
                                                 onClick={() => { hapticFeedback('light'); setDetailSteel(s); }}
-                                                className="group/tick flex items-center gap-2.5 px-6 py-2 whitespace-nowrap cursor-pointer"
+                                                className="group/tick flex items-center gap-2.5 px-6 py-3.5 md:py-2 whitespace-nowrap cursor-pointer"
                                             >
                                                 <span className={`w-1 h-1 rounded-full shrink-0 transition-colors ${s.pm ? 'bg-accent shadow-ember-sm' : 'bg-stone-600 group-hover/tick:bg-stone-400'}`} />
                                                 <span className="text-[11px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] text-stone-400 group-hover/tick:text-accent transition-colors duration-300">
@@ -214,15 +237,15 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         <button
                             key={i}
                             onClick={() => { setView(stat.target); if (stat.target === 'SEARCH' && resetFilters) resetFilters(); }}
-                            className={`flex-1 flex flex-col items-center group transition-all px-6 md:px-12 py-2 ${i > 0 ? 'border-l border-white/5' : ''}`}
+                            className={`flex-1 flex flex-col items-center group transition-colors px-6 md:px-12 py-2 ${i > 0 ? 'border-l border-white/5' : ''}`}
                             data-tour={`nav-${stat.target.toLowerCase()}`}
                         >
                             <div className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.3em] mb-3 flex items-center gap-2.5 group-hover:text-stone-400 transition-colors">
                                 <span className="text-accent/60">{String(i + 1).padStart(2, '0')}</span>
                                 {stat.label}
                             </div>
-                            <div className="text-5xl md:text-7xl font-display text-white group-hover:text-accent transition-colors duration-300 leading-none">{stat.value}</div>
-                            <div className="h-0.5 w-0 bg-accent transition-all duration-300 ease-snap group-hover:w-full mt-4" />
+                            <div className="text-5xl md:text-7xl font-display text-white group-hover:text-accent transition-colors duration-300 leading-none tabular-nums"><CountUp value={stat.value} /></div>
+                            <div className="h-0.5 w-0 bg-accent transition-[width,background-color,border-color] duration-300 ease-snap group-hover:w-full mt-4" />
                         </button>
                     ))}
                 </div>
@@ -247,7 +270,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     <h3 className="text-2xl md:text-4xl font-display text-white uppercase tracking-tight leading-none">Performance Frontier</h3>
                                     <p className="text-[10px] md:text-xs text-stone-500 uppercase font-mono font-medium tracking-[0.2em] mt-3">Real-time visualization of the elite knife alloys</p>
                                 </div>
-                                <button onClick={() => setView('MATRIX')} className="shrink-0 p-3 bg-white/[0.05] rounded-xl border border-white/10 text-stone-400 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 ease-snap">
+                                <button onClick={() => setView('MATRIX')} className="shrink-0 p-3 bg-white/[0.05] rounded-xl border border-white/10 text-stone-400 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-colors duration-300 ease-snap">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10H3 M21 6H3 M21 14H3 M21 18H3" /></svg>
                                 </button>
                             </div>
@@ -258,7 +281,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <button
                                             key={key}
                                             onClick={() => setXAxis(key)}
-                                            className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.15em] transition-all duration-200 ease-snap whitespace-nowrap ${xAxis === key ? 'bg-accent text-[#1A0C05] shadow-ember-sm' : 'text-stone-500 hover:text-stone-300'}`}
+                                            className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.15em] transition-colors duration-200 ease-snap whitespace-nowrap ${xAxis === key ? 'bg-accent text-[#1A0C05] shadow-ember-sm' : 'text-stone-500 hover:text-stone-300'}`}
                                         >
                                             {shortLabel}
                                         </button>
@@ -334,7 +357,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                 <Cell
                                                     key={`cell-${index}`}
                                                     fill={entry.pm ? 'rgba(255,90,31,0.9)' : 'rgba(237,233,226,0.5)'}
-                                                    className="hover:brightness-150 transition-all duration-300 transform-origin-center filter drop-shadow-[0_0_6px_rgba(255,90,31,0.45)]"
+                                                    className="hover:brightness-150 transition-colors duration-300 transform-origin-center filter drop-shadow-[0_0_6px_rgba(255,90,31,0.45)]"
                                                 />
                                             ))}
                                         </Scatter>
@@ -349,7 +372,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <button
                                             key={s.id}
                                             onClick={() => setDetailSteel(s)}
-                                            className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 ease-snap shrink-0 group/elite"
+                                            className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] hover:border-accent/40 hover:bg-accent/5 transition-colors duration-300 ease-snap shrink-0 group/elite"
                                         >
                                             <span className="text-[9px] font-mono font-medium text-stone-600 group-hover/elite:text-accent/70 transition-colors">{String(i + 1).padStart(2, '0')}</span>
                                             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${s.pm ? 'bg-accent' : 'bg-stone-500'}`} />
@@ -369,7 +392,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-60px' }}
                             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                            className="px-6 md:px-12 lg:px-20 py-12 md:py-20 border-b border-white/5 relative"
+                            className="px-6 md:px-12 lg:px-20 py-12 md:py-20 border-b border-white/5 bg-white/[0.015] relative"
                         >
                             <div className="absolute top-0 right-0 w-[40rem] h-[20rem] bg-accent/[0.06] rounded-full blur-[120px] pointer-events-none" />
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative">
@@ -428,7 +451,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     {/* CTA */}
                                     <button
                                         onClick={() => setDetailSteel(featuredSteel)}
-                                        className="mt-10 w-full py-4 md:py-5 bg-accent hover:bg-accent-400 text-[#1A0C05] font-bold uppercase text-xs tracking-[0.2em] rounded-xl transition-all duration-300 ease-snap shadow-ember hover:shadow-ember active:scale-[0.97] flex items-center justify-center gap-3"
+                                        className="mt-10 w-full py-4 md:py-5 bg-accent hover:bg-accent-400 text-[#1A0C05] font-bold uppercase text-xs tracking-[0.2em] rounded-xl transition duration-300 ease-snap shadow-ember hover:shadow-ember active:scale-[0.97] flex items-center justify-center gap-3"
                                     >
                                         View Full Specs
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">

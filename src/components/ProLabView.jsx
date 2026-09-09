@@ -42,18 +42,18 @@ const ProLabView = ({ steels }) => {
             />
 
             {/* Navigation Tabs */}
-            <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl mb-6 md:mb-12 transition-all">
+            <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl mb-6 md:mb-12 transition-colors">
                 <div className="px-6 md:px-12 pb-3 pt-2 md:py-4 flex flex-wrap items-center gap-4">
                     <div className="flex gap-2 overflow-x-auto no-scrollbar">
                         <button
                             onClick={() => setActiveTab('ANALYZE')}
-                            className={activeTab === 'ANALYZE' ? 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-all shrink-0 bg-accent text-[#1A0C05] shadow-ember-sm' : 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-all shrink-0 bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10 border border-transparent'}
+                            className={activeTab === 'ANALYZE' ? 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-colors shrink-0 bg-accent text-[#1A0C05] shadow-ember-sm' : 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-colors shrink-0 bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10 border border-transparent'}
                         >
                             Deep Analysis
                         </button>
                         <button
                             onClick={() => setActiveTab('DUEL')}
-                            className={activeTab === 'DUEL' ? 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-all shrink-0 bg-accent text-[#1A0C05] shadow-ember-sm' : 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-all shrink-0 bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10 border border-transparent'}
+                            className={activeTab === 'DUEL' ? 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-colors shrink-0 bg-accent text-[#1A0C05] shadow-ember-sm' : 'px-6 py-3 rounded-2xl text-[10px] md:text-[11px] font-mono font-medium whitespace-nowrap uppercase tracking-[0.2em] transition-colors shrink-0 bg-white/5 text-stone-500 hover:text-stone-300 hover:bg-white/10 border border-transparent'}
                         >
                             Alloy Duel
                         </button>

@@ -243,13 +243,12 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
         <AnimatePresence>
             {isOpen && (
                 <>
-                    {/* Backdrop - High z-index to stay above everything */}
+                    {/* Backdrop - High z-index to stay above everything.
+                        Zero animation by design: this opens 100+ times a day —
+                        speed IS the experience. */}
                     <motion.div
                         key="cmd-backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15 }}
+                        initial={false}
                         onClick={onClose}
                         className="fixed inset-0 bg-[#0B0A08]/70 backdrop-blur-md z-[9998]"
                         style={{ pointerEvents: 'auto' }}
@@ -258,10 +257,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                     {/* Palette Container - Viewport absolute centering */}
                     <div className="fixed inset-0 z-[9999] flex justify-center items-start pointer-events-none p-4 pt-[15vh]">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.98, y: -10 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.98, y: -10 }}
-                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                            initial={false}
                             className="pointer-events-auto w-full max-w-xl glass-panel !bg-[#12100D]/95 rounded-2xl border border-white/10 shadow-plate-lg overflow-hidden flex flex-col max-h-[75vh]"
                         >
                             {/* Search Input */}
@@ -317,7 +313,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                         onMouseEnter={() => {
                                                             if (!isKeyboard) setActiveIndex(item.globalIndex);
                                                         }}
-                                                        className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl text-left transition-all ${item.globalIndex === activeIndex
+                                                        className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl text-left transition-colors ${item.globalIndex === activeIndex
                                                             ? 'bg-accent/[0.08] text-white'
                                                             : 'text-stone-400 hover:bg-white/[0.03]'
                                                             }`}

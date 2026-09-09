@@ -19,14 +19,14 @@ const ProducerMap = ({ producers }) => {
                 {producers.map((p, i) => (
                     <div
                         key={i}
-                        className={`group p-8 rounded-3xl border transition-all cursor-pointer relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent ${activeProducer?.name === p.name ? 'border-accent/30 shadow-ember-sm scale-[1.02]' : 'border-white/5 hover:border-accent/25'}`}
+                        className={`group p-8 rounded-3xl border transition cursor-pointer relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent ${activeProducer?.name === p.name ? 'border-accent/30 shadow-ember-sm scale-[1.02]' : 'border-white/5 hover:border-accent/25'}`}
                         onMouseEnter={() => setActiveProducer(p)}
                         onMouseLeave={() => setActiveProducer(null)}
                     >
                         {/* Status / Region Badge */}
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <span className={`w-2 h-2 rounded-full transition-all duration-500 ${activeProducer?.name === p.name ? 'bg-accent shadow-ember-sm scale-125' : 'bg-white/20'}`}></span>
+                                <span className={`w-2 h-2 rounded-full transition duration-500 ${activeProducer?.name === p.name ? 'bg-accent shadow-ember-sm scale-125' : 'bg-white/20'}`}></span>
                                 <span className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest">{p.region}</span>
                             </div>
                             <div className="text-[9px] font-mono text-stone-600 font-medium uppercase tracking-[0.2em]">Hub ID: 0{i + 1}</div>
@@ -48,7 +48,7 @@ const ProducerMap = ({ producers }) => {
                         <p className="text-xs text-stone-400 leading-relaxed font-medium">{p.desc}</p>
 
                         {/* Hover Overlay Visual */}
-                        <div className={`absolute -bottom-6 -right-6 w-32 h-32 bg-accent/5 rounded-full blur-2xl transition-all duration-700 ${activeProducer?.name === p.name ? 'opacity-100 scale-150' : 'opacity-0 scale-50'}`}></div>
+                        <div className={`absolute -bottom-6 -right-6 w-32 h-32 bg-accent/5 rounded-full blur-2xl transition duration-700 ${activeProducer?.name === p.name ? 'opacity-100 scale-150' : 'opacity-0 scale-50'}`}></div>
                     </div>
                 ))}
             </div>

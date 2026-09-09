@@ -303,7 +303,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                     <button
                                         key={d}
                                         onClick={() => setLabelDensity(d)}
-                                        className={labelDensity === d ? 'px-2 py-1 rounded-md text-[9px] font-mono font-medium uppercase transition-all bg-accent text-[#1A0C05]' : 'px-2 py-1 rounded-md text-[9px] font-mono font-medium uppercase transition-all text-stone-500 hover:text-white'}
+                                        className={labelDensity === d ? 'px-2 py-1 rounded-md text-[9px] font-mono font-medium uppercase transition-colors bg-accent text-[#1A0C05]' : 'px-2 py-1 rounded-md text-[9px] font-mono font-medium uppercase transition-colors text-stone-500 hover:text-white'}
                                     >
                                         {d}
                                     </button>
@@ -323,8 +323,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onClick={() => setYAxis(key)}
                                         disabled={key === xAxis}
                                         className={yAxis === key
-                                            ? 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-all text-left bg-accent text-[#1A0C05] shadow-ember-sm'
-                                            : 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-all text-left bg-white/5 text-stone-400 border border-white/5 hover:bg-white/10'}
+                                            ? 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-colors text-left bg-accent text-[#1A0C05] shadow-ember-sm'
+                                            : 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-colors text-left bg-white/5 text-stone-400 border border-white/5 hover:bg-white/10'}
                                     >
                                         {axisOptions[key].label}
                                     </button>
@@ -341,8 +341,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onClick={() => setXAxis(key)}
                                         disabled={key === yAxis}
                                         className={xAxis === key
-                                            ? 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-all text-left bg-accent text-[#1A0C05] shadow-ember-sm'
-                                            : 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-all text-left bg-white/5 text-stone-400 border border-white/5 hover:bg-white/10'}
+                                            ? 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-colors text-left bg-accent text-[#1A0C05] shadow-ember-sm'
+                                            : 'px-3 py-2.5 rounded-xl text-[10px] font-mono font-medium uppercase tracking-wider transition-colors text-left bg-white/5 text-stone-400 border border-white/5 hover:bg-white/10'}
                                     >
                                         {axisOptions[key].label}
                                     </button>
@@ -400,7 +400,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                 </div>
                                 <button
                                     onClick={() => setDetailSteel(displaySteel)}
-                                    className="p-3 bg-accent text-[#1A0C05] rounded-xl hover:scale-105 active:scale-95 transition-all shadow-ember-sm"
+                                    className="p-3 bg-accent text-[#1A0C05] rounded-xl hover:scale-105 active:scale-95 transition shadow-ember-sm"
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                         <path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -412,7 +412,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
 
                             <div className="grid grid-cols-2 gap-4">
                                 {Object.keys(axisOptions).map(key => (
-                                    <div key={key} className={xAxis === key || yAxis === key ? 'p-3 rounded-2xl bg-black/40 border transition-all border-accent/40 bg-accent/5' : 'p-3 rounded-2xl bg-black/40 border transition-all border-white/5'}>
+                                    <div key={key} className={xAxis === key || yAxis === key ? 'p-3 rounded-2xl bg-black/40 border transition-colors border-accent/40 bg-accent/5' : 'p-3 rounded-2xl bg-black/40 border transition-colors border-white/5'}>
                                         <div className="text-[9px] font-mono font-medium text-stone-600 uppercase mb-1">{axisOptions[key].shortLabel}</div>
                                         <div className="text-xl font-mono font-semibold text-white">{displaySteel[key]}</div>
                                     </div>
@@ -448,10 +448,10 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onClick={() => setYAxis(key)}
                                         disabled={key === xAxis}
                                         className={yAxis === key
-                                            ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-all bg-accent text-[#1A0C05]'
+                                            ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-colors bg-accent text-[#1A0C05]'
                                             : key === xAxis
-                                                ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-all bg-white/5 text-stone-600 opacity-30'
-                                                : 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-all bg-white/5 text-stone-400 active:scale-95'}
+                                                ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-opacity bg-white/5 text-stone-600 opacity-30'
+                                                : 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition bg-white/5 text-stone-400 active:scale-95'}
                                     >
                                         {axisOptions[key].shortLabel}
                                     </button>
@@ -468,10 +468,10 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                         onClick={() => setXAxis(key)}
                                         disabled={key === yAxis}
                                         className={xAxis === key
-                                            ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-all bg-accent text-[#1A0C05]'
+                                            ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-colors bg-accent text-[#1A0C05]'
                                             : key === yAxis
-                                                ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-all bg-white/5 text-stone-600 opacity-30'
-                                                : 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-all bg-white/5 text-stone-400 active:scale-95'}
+                                                ? 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition-opacity bg-white/5 text-stone-600 opacity-30'
+                                                : 'flex-1 py-1 rounded-md text-[8px] font-mono font-medium uppercase tracking-tight transition bg-white/5 text-stone-400 active:scale-95'}
                                     >
                                         {axisOptions[key].shortLabel}
                                     </button>
@@ -491,7 +491,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                         {/* Fullscreen Toggle */}
                         <button
                             onClick={toggleFullScreen}
-                            className="absolute top-4 right-4 z-50 p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-stone-400 hover:text-white transition-all backdrop-blur-md opacity-0 group-hover/chart:opacity-100 hidden lg:block"
+                            className="absolute top-4 right-4 z-50 p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-stone-400 hover:text-white transition-opacity backdrop-blur-md opacity-0 group-hover/chart:opacity-100 hidden lg:block"
                             title={isFullScreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                         >
                             {isFullScreen ? (
@@ -669,8 +669,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                 key={`fs-label-${d}`}
                                                 onClick={() => setLabelDensity(d)}
                                                 className={labelDensity === d
-                                                    ? 'px-2 py-1 rounded-md text-[8px] font-mono font-medium uppercase transition-all bg-accent text-[#1A0C05] shadow-sm'
-                                                    : 'px-2 py-1 rounded-md text-[8px] font-mono font-medium uppercase transition-all text-stone-500 hover:text-white'}
+                                                    ? 'px-2 py-1 rounded-md text-[8px] font-mono font-medium uppercase transition-colors bg-accent text-[#1A0C05] shadow-sm'
+                                                    : 'px-2 py-1 rounded-md text-[8px] font-mono font-medium uppercase transition-colors text-stone-500 hover:text-white'}
                                             >
                                                 {d}
                                             </button>
@@ -689,8 +689,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                     onClick={() => setYAxis(key)}
                                                     disabled={key === xAxis}
                                                     className={yAxis === key
-                                                        ? 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-all bg-accent text-[#1A0C05] shadow-ember-sm'
-                                                        : 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-all bg-white/5 text-stone-500 hover:text-white'}
+                                                        ? 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-colors bg-accent text-[#1A0C05] shadow-ember-sm'
+                                                        : 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-colors bg-white/5 text-stone-500 hover:text-white'}
                                                 >
                                                     {axisOptions[key].shortLabel}
                                                 </button>
@@ -706,8 +706,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                                     onClick={() => setXAxis(key)}
                                                     disabled={key === yAxis}
                                                     className={xAxis === key
-                                                        ? 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-all bg-accent text-[#1A0C05] shadow-ember-sm'
-                                                        : 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-all bg-white/5 text-stone-500 hover:text-white'}
+                                                        ? 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-colors bg-accent text-[#1A0C05] shadow-ember-sm'
+                                                        : 'px-3 py-1.5 rounded-lg text-[9px] font-mono font-medium uppercase transition-colors bg-white/5 text-stone-500 hover:text-white'}
                                                 >
                                                     {axisOptions[key].shortLabel}
                                                 </button>
@@ -720,7 +720,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                 <div className="border-l border-white/5 pl-6">
                                     <button
                                         onClick={handleDownload}
-                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-[#1A0C05] rounded-xl font-mono font-medium text-[10px] uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-ember-sm"
+                                        className="flex items-center gap-2 px-4 py-2 bg-accent text-[#1A0C05] rounded-xl font-mono font-medium text-[10px] uppercase tracking-widest hover:scale-105 active:scale-95 transition shadow-ember-sm"
                                     >
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
@@ -744,8 +744,8 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                             key={`fs-leg-${prod}`}
                                             onClick={() => setActiveProducer(isActive && prod !== 'ALL' ? 'ALL' : prod)}
                                             className={isActive
-                                                ? 'flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all active:scale-95 bg-accent/10 border border-accent/25'
-                                                : 'flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all active:scale-95 hover:bg-white/5 border border-transparent'}
+                                                ? 'flex items-center gap-1.5 px-2.5 py-1 rounded-md transition active:scale-95 bg-accent/10 border border-accent/25'
+                                                : 'flex items-center gap-1.5 px-2.5 py-1 rounded-md transition active:scale-95 hover:bg-white/5 border border-transparent'}
                                         >
                                             <span className={isActive ? "text-[8px] font-mono font-medium uppercase tracking-tight transition-colors text-accent" : "text-[8px] font-mono font-medium uppercase tracking-tight transition-colors text-stone-500 hover:text-stone-300"}>
                                                 {prod}

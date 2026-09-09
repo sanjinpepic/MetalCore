@@ -31,7 +31,7 @@ export default async function TermsPage() {
                         <div className="mt-8 pt-6 border-t border-[#EDE9E2]/[0.08]">
                             <a
                                 href="/"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent hover:bg-accent-400 text-[#1A0C05] font-semibold uppercase tracking-wider text-sm shadow-lg shadow-accent/25 transition-all duration-200 hover:scale-105"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent hover:bg-accent-400 text-[#1A0C05] font-semibold uppercase tracking-wider text-sm shadow-lg shadow-accent/25 transition duration-200 hover:scale-105"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

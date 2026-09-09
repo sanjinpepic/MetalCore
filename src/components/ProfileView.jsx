@@ -73,7 +73,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                     className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-stone-300 text-sm w-full h-24 focus:outline-none focus:border-accent resize-none font-medium"
                                 />
                                 <div className="flex gap-3">
-                                    <button onClick={handleSaveProfile} className="px-6 py-2 bg-accent text-[#1A0C05] font-bold rounded-xl text-sm transition-all hover:bg-accent-400 shadow-ember">Save Profile</button>
+                                    <button onClick={handleSaveProfile} className="px-6 py-2 bg-accent text-[#1A0C05] font-bold rounded-xl text-sm transition-colors hover:bg-accent-400 shadow-ember">Save Profile</button>
                                     <button onClick={() => setIsEditing(false)} className="px-6 py-2 bg-white/5 text-stone-400 font-bold rounded-xl text-sm border border-white/5 hover:bg-white/10 hover:text-white">Cancel</button>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                     <h1 className="text-3xl md:text-6xl font-display text-white uppercase tracking-tight leading-none">
                                         {user.name}
                                     </h1>
-                                    <button onClick={() => setIsEditing(true)} className="p-2 bg-white/5 border border-white/10 rounded-xl text-stone-500 hover:text-accent hover:border-accent/30 transition-all">
+                                    <button onClick={() => setIsEditing(true)} className="p-2 bg-white/5 border border-white/10 rounded-xl text-stone-500 hover:text-accent hover:border-accent/30 transition-colors">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
                                     </button>
                                 </div>
@@ -94,7 +94,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
 
                     {!isEditing && (
                         <div className="shrink-0 mb-1">
-                            <button className="px-5 py-3 bg-white/5 border border-white/10 rounded-xl flex items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-stone-300 hover:bg-white/10 hover:text-white transition-all group hover:border-accent/30">
+                            <button className="px-5 py-3 bg-white/5 border border-white/10 rounded-xl flex items-center gap-2.5 text-xs font-semibold uppercase tracking-widest text-stone-300 hover:bg-white/10 hover:text-white transition-colors group hover:border-accent/30">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent group-hover:scale-110 transition-transform"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
                                 Share Identity
                             </button>
@@ -116,7 +116,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                         {favoriteSteelsData.length > 0 ? (
                             <div className="grid grid-cols-1 gap-3">
                                 {favoriteSteelsData.map(steel => (
-                                    <div key={steel.id} onClick={() => setDetailSteel(steel)} className="group bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between hover:bg-white/10 transition-all cursor-pointer hover:border-accent/30">
+                                    <div key={steel.id} onClick={() => setDetailSteel(steel)} className="group bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer hover:border-accent/30">
                                         <div className="flex items-center gap-4">
                                             <div className="w-10 h-10 rounded-lg bg-black/40 border border-white/5 flex items-center justify-center text-sm font-mono font-medium text-white group-hover:text-accent transition-colors">
                                                 {steel.name.slice(0, 2)}
@@ -150,7 +150,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                             </h2>
                             <button
                                 onClick={() => setShowAddKnife(true)}
-                                className="px-4 py-2 bg-accent/10 border border-accent/20 text-accent rounded-xl text-[10px] font-mono font-medium uppercase tracking-[0.2em] hover:bg-accent hover:text-[#1A0C05] transition-all shadow-ember-sm"
+                                className="px-4 py-2 bg-accent/10 border border-accent/20 text-accent rounded-xl text-[10px] font-mono font-medium uppercase tracking-[0.2em] hover:bg-accent hover:text-[#1A0C05] transition-colors shadow-ember-sm"
                             >
                                 + Add Knife
                             </button>
@@ -195,8 +195,8 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                     />
                                 </div>
                                 <div className="flex gap-3">
-                                    <button onClick={handleAddKnife} className="px-8 py-3 bg-accent text-[#1A0C05] font-mono font-medium uppercase text-[10px] tracking-[0.2em] rounded-xl hover:bg-accent-400 transition-all shadow-ember">Register Piece</button>
-                                    <button onClick={() => setShowAddKnife(false)} className="px-8 py-3 bg-white/5 text-stone-400 font-mono font-medium uppercase text-[10px] tracking-[0.2em] rounded-xl hover:bg-white/10 transition-all">Discard</button>
+                                    <button onClick={handleAddKnife} className="px-8 py-3 bg-accent text-[#1A0C05] font-mono font-medium uppercase text-[10px] tracking-[0.2em] rounded-xl hover:bg-accent-400 transition-colors shadow-ember">Register Piece</button>
+                                    <button onClick={() => setShowAddKnife(false)} className="px-8 py-3 bg-white/5 text-stone-400 font-mono font-medium uppercase text-[10px] tracking-[0.2em] rounded-xl hover:bg-white/10 transition-colors">Discard</button>
                                 </div>
                             </div>
                         )}
@@ -212,7 +212,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                                     <h3 className="text-2xl font-display text-white uppercase tracking-tight transition-colors group-hover:text-accent">{knife.name}</h3>
                                                     {steel && <span className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em]">{steel.name} // {steel.producer}</span>}
                                                 </div>
-                                                <button onClick={() => removeKnife(knife.id)} className="p-2 text-stone-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all">
+                                                <button onClick={() => removeKnife(knife.id)} className="p-2 text-stone-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                                                 </button>
                                             </div>
@@ -237,8 +237,8 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                             <p className="text-stone-400 text-xs font-medium leading-relaxed mb-6 border-l-2 border-accent/20 pl-4">{knife.notes || 'No registration notes provided.'}</p>
 
                                             <div className="flex items-center gap-3">
-                                                <button onClick={() => { if (steel) setDetailSteel(steel); }} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:bg-accent hover:text-[#1A0C05] hover:border-accent transition-all">Specs</button>
-                                                <button className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:bg-white/10 hover:text-white transition-all">Update</button>
+                                                <button onClick={() => { if (steel) setDetailSteel(steel); }} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:bg-accent hover:text-[#1A0C05] hover:border-accent transition-colors">Specs</button>
+                                                <button className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:bg-white/10 hover:text-white transition-colors">Update</button>
                                             </div>
                                         </div>
                                     );
@@ -253,7 +253,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                 <p className="text-stone-500 text-sm max-w-sm mx-auto mb-8 font-medium">Track your favorite tools, their steel grades, and custom heat treatments in one place.</p>
                                 <button
                                     onClick={() => setShowAddKnife(true)}
-                                    className="px-8 py-4 bg-accent text-[#1A0C05] font-semibold uppercase text-sm rounded-xl hover:scale-105 transition-all shadow-ember"
+                                    className="px-8 py-4 bg-accent text-[#1A0C05] font-semibold uppercase text-sm rounded-xl hover:scale-105 transition shadow-ember"
                                 >
                                     Start Now
                                 </button>

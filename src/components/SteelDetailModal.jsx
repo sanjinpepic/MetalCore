@@ -100,7 +100,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                 {/* Dossier Header */}
                 <header className="relative pt-2 pb-8 border-b border-white/10">
                     <div className="absolute top-1 right-0 z-10 flex items-center gap-2">
-                        <button onClick={onClose} aria-label="Close details" className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-400 transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group">
+                        <button onClick={onClose} aria-label="Close details" className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-400 transition-colors duration-300 ease-snap border border-white/10 backdrop-blur-3xl group">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform duration-300 ease-snap">
                                 <line x1="18" y1="6" x2="6" y2="18" />
                                 <line x1="6" y1="6" x2="18" y2="18" />
@@ -126,7 +126,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 onClick={(e) => { e.stopPropagation(); toggleFavorite(steel.id); }}
                                 aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                 aria-pressed={isFavorite}
-                                className={`p-2 rounded-xl border transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 ${isFavorite ? 'bg-accent text-[#1A0C05] border-accent shadow-ember-sm' : 'bg-white/5 text-stone-500 border-white/10 hover:text-accent'}`}
+                                className={`p-2 rounded-xl border transition-colors duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 ${isFavorite ? 'bg-accent text-[#1A0C05] border-accent shadow-ember-sm' : 'bg-white/5 text-stone-500 border-white/10 hover:text-accent'}`}
                             >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                     <path d="m12 17.75-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
@@ -135,7 +135,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                             <button
                                 onClick={(e) => { e.stopPropagation(); shareSteel(); }}
                                 aria-label={copied ? 'Link copied' : 'Copy share link'}
-                                className="p-2 rounded-xl border border-white/10 transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-stone-500 hover:text-accent"
+                                className="p-2 rounded-xl border border-white/10 transition-colors duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-stone-500 hover:text-accent"
                             >
                                 {copied ? (
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-green-400 shrink-0">
@@ -151,7 +151,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                             </button>
                             <button
                                 onClick={(e) => { e.stopPropagation(); shareCardRef.current?.generateImage(); }}
-                                className="p-2 rounded-xl border border-white/10 transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-stone-500 hover:text-accent group"
+                                className="p-2 rounded-xl border border-white/10 transition-colors duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-stone-500 hover:text-accent group"
                                 title="Export Performance Card"
                                 aria-label="Export performance card as image"
                             >
@@ -200,7 +200,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                         <button
                                             key={i}
                                             onClick={() => onOpenKnife && onOpenKnife(k.name)}
-                                            className="px-3 py-1.5 bg-white/[0.03] border border-white/10 hover:border-accent/40 hover:bg-accent/5 rounded-lg text-[10px] font-mono font-medium text-stone-200 hover:text-accent uppercase tracking-[0.15em] transition-all duration-300 ease-snap"
+                                            className="px-3 py-1.5 bg-white/[0.03] border border-white/10 hover:border-accent/40 hover:bg-accent/5 rounded-lg text-[10px] font-mono font-medium text-stone-200 hover:text-accent uppercase tracking-[0.15em] transition-colors duration-300 ease-snap"
                                         >
                                             {k.name}
                                         </button>

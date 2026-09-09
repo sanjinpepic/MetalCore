@@ -77,7 +77,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                     <p className="text-stone-500 text-xs md:text-sm font-mono font-medium uppercase tracking-[0.2em] mb-10 max-w-md mx-auto leading-relaxed">
                         Pull grades from the library to open a comparative analysis
                     </p>
-                    <button onClick={() => setView('SEARCH')} className="px-8 py-4 bg-accent text-[#1A0C05] rounded-full text-xs font-mono font-medium uppercase tracking-[0.25em] transition-all duration-300 ease-snap shadow-ember-sm hover:shadow-ember active:scale-95">
+                    <button onClick={() => setView('SEARCH')} className="px-8 py-4 bg-accent text-[#1A0C05] rounded-full text-xs font-mono font-medium uppercase tracking-[0.25em] transition duration-300 ease-snap shadow-ember-sm hover:shadow-ember active:scale-95">
                         Open Grade Library
                     </button>
                 </div>
@@ -98,7 +98,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                 className="sticky top-0 bg-stone-950/90 backdrop-blur-xl z-[90] border-b border-white/10"
             >
                 <div className="absolute top-1/2 -translate-y-1/2 left-4 md:left-12 flex items-center gap-3">
-                    <button onClick={() => setView('SEARCH')} className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-stone-400 hover:text-white transition-all duration-300 ease-snap border border-white/5 group">
+                    <button onClick={() => setView('SEARCH')} className="p-3 bg-white/5 hover:bg-white/10 rounded-xl text-stone-400 hover:text-white transition-colors duration-300 ease-snap border border-white/5 group">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:-translate-x-1 transition-transform">
                             <path d="m15 18-6-6 6-6" />
                         </svg>
@@ -119,17 +119,17 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                             />
                             <button
                                 onClick={() => { if (saveName.trim()) { onSaveComparison(saveName.trim()); setSaving(false); setSaveName(''); } }}
-                                className="p-2.5 bg-accent text-[#1A0C05] rounded-xl font-bold text-xs transition-all duration-300 ease-snap hover:bg-accent/80 disabled:opacity-40"
+                                className="p-2.5 bg-accent text-[#1A0C05] rounded-xl font-bold text-xs transition-opacity duration-300 ease-snap hover:bg-accent/80 disabled:opacity-40"
                                 disabled={!saveName.trim()}
                             >Save</button>
-                            <button onClick={() => { setSaving(false); setSaveName(''); }} className="p-2.5 bg-white/5 text-stone-400 rounded-xl hover:bg-white/10 transition-all duration-300 ease-snap">
+                            <button onClick={() => { setSaving(false); setSaveName(''); }} className="p-2.5 bg-white/5 text-stone-400 rounded-xl hover:bg-white/10 transition-colors duration-300 ease-snap">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                             </button>
                         </div>
                     ) : (
                         <button
                             onClick={() => setSaving(true)}
-                            className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-stone-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all duration-300 ease-snap"
+                            className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-stone-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-colors duration-300 ease-snap"
                             title="Save Comparison"
                         >
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -139,7 +139,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                     )}
                     <button
                         onClick={shareComparison}
-                        className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-stone-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-all duration-300 ease-snap"
+                        className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-accent/10 text-stone-500 hover:text-accent border border-white/10 rounded-xl md:rounded-2xl transition-colors duration-300 ease-snap"
                         title="Share Comparison"
                     >
                         {copied ? (
@@ -157,7 +157,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
                     <button
                         onClick={() => { clearCompare(); setView('SEARCH'); }}
-                        className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-red-500/10 text-stone-500 hover:text-red-400 border border-white/10 rounded-xl md:rounded-2xl transition-all duration-300 ease-snap"
+                        className="p-3 md:px-6 md:py-4 bg-white/5 hover:bg-red-500/10 text-stone-500 hover:text-red-400 border border-white/10 rounded-xl md:rounded-2xl transition-colors duration-300 ease-snap"
                         title="Clear All"
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -188,7 +188,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                             {items.map((s, i) => (
                                 <div key={s.id} className="relative border-l border-white/5 px-5 md:px-7 pt-9 pb-7 group/col">
                                     <span className="absolute top-0 inset-x-0 h-[3px]" style={{ backgroundColor: colors[i % colors.length] }} />
-                                    <button onClick={() => toggleCompare(s)} title={`Remove ${s.name}`} className="absolute top-4 right-3 p-1.5 text-stone-600 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-300 ease-snap z-10">
+                                    <button onClick={() => toggleCompare(s)} title={`Remove ${s.name}`} className="absolute top-4 right-3 p-1.5 text-stone-600 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors duration-300 ease-snap z-10">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                                     </button>
                                     <div className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em] mb-2.5 truncate pr-6">{s.producer}</div>
@@ -211,7 +211,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                                                 </div>
                                                 <div className="mt-2 h-[3px] bg-white/[0.07] rounded-full overflow-hidden">
                                                     <div
-                                                        className="h-full rounded-full origin-left transition-all duration-700 ease-out-expo"
+                                                        className="h-full rounded-full origin-left transition-colors duration-700 ease-out-expo"
                                                         style={{
                                                             width: `${max > 0 ? ((s[el] || 0) / max) * 100 : 0}%`,
                                                             backgroundColor: colors[i % colors.length],
@@ -244,7 +244,7 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                                                     </div>
                                                     <div className="mt-2 h-[3px] bg-white/[0.07] rounded-full overflow-hidden">
                                                         <div
-                                                            className="h-full rounded-full origin-left transition-all duration-700 ease-out-expo"
+                                                            className="h-full rounded-full origin-left transition-colors duration-700 ease-out-expo"
                                                             style={{
                                                                 width: `${(v / 10) * 100}%`,
                                                                 backgroundColor: isBest ? '#FF5A1F' : 'rgba(237,233,226,0.25)'
@@ -320,14 +320,14 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
                             <div key={comp.id} className="flex items-center gap-0 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
                                 <button
                                     onClick={() => onLoadComparison(comp)}
-                                    className="px-4 py-3 text-xs font-bold text-stone-300 hover:text-white hover:bg-white/5 transition-all duration-300 ease-snap flex items-center gap-2.5"
+                                    className="px-4 py-3 text-xs font-bold text-stone-300 hover:text-white hover:bg-white/5 transition-colors duration-300 ease-snap flex items-center gap-2.5"
                                 >
                                     <span className="text-stone-500 font-mono">{comp.steelIds.length}×</span>
                                     {comp.name}
                                 </button>
                                 <button
                                     onClick={() => onDeleteComparison(comp.id)}
-                                    className="px-3 py-3 text-stone-600 hover:text-red-400 hover:bg-red-400/10 transition-all duration-300 ease-snap border-l border-white/5"
+                                    className="px-3 py-3 text-stone-600 hover:text-red-400 hover:bg-red-400/10 transition-colors duration-300 ease-snap border-l border-white/5"
                                 >
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                                 </button>

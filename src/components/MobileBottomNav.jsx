@@ -76,8 +76,8 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                             onClick={() => handleNavClick(item.id)}
                             data-tour={`mobile-nav-${item.id.toLowerCase()}`}
                             className={view === item.id
-                                ? 'flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all bg-accent/15 text-accent shadow-ember-sm'
-                                : 'flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all text-stone-500 hover:text-stone-300'
+                                ? 'flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-colors bg-accent/15 text-accent shadow-ember-sm'
+                                : 'flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-colors text-stone-500 hover:text-stone-300'
                             }
                         >
                             <item.icon className="w-5 h-5" />

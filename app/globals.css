@@ -13,8 +13,6 @@
        Three curves only. No CSS keyword easings anywhere. */
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-    --ease-dramatic: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 html {
@@ -571,4 +569,15 @@ body::after {
 .forge-range::-moz-range-track {
     height: 3px;
     background: transparent;
+}
+
+/* Motion lock: any transition without an explicit curve snaps to the system feedback curve. Utilities pick PROPERTIES; the curve always comes from the locked family. */
+[class*="transition-"]:not([class*="ease-"]) {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* Marquee pauses for keyboard/touch users focusing a ticker item (WCAG 2.2.2). */
+.animate-marquee:focus-within {
+    animation-play-state: paused;
 }

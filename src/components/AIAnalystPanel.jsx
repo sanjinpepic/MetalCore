@@ -15,7 +15,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                         </div>
                         <h3 className="font-display text-white uppercase tracking-tight text-sm md:text-base">Ferry - AI Analyst</h3>
                     </div>
-                    <button onClick={() => setAiOpen(false)} className="w-9 h-9 flex items-center justify-center hover:bg-white/5 bg-white/5 rounded-full text-stone-500 hover:text-white transition-all border border-white/5">
+                    <button onClick={() => setAiOpen(false)} className="w-9 h-9 flex items-center justify-center hover:bg-white/5 bg-white/5 rounded-full text-stone-500 hover:text-white transition-colors border border-white/5">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -68,7 +68,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                     <div className="relative">
                         <textarea
                             placeholder="Ask about a steel..."
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 pr-12 text-sm md:text-base text-white outline-none focus:border-accent/50 transition-all resize-none h-32 md:h-36 font-medium placeholder:text-stone-600"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 pr-12 text-sm md:text-base text-white outline-none focus:border-accent/50 transition-colors resize-none h-32 md:h-36 font-medium placeholder:text-stone-600"
                             value={aiQuery}
                             onChange={e => setAiQuery(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), askAi())}
@@ -76,7 +76,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                         <button
                             onClick={() => askAi()}
                             disabled={isAiLoading || !aiQuery.trim()}
-                            className="absolute bottom-5 right-5 p-3 bg-accent text-[#1A0C05] rounded-xl hover:bg-accent-400 disabled:opacity-50 disabled:grayscale transition-all shadow-ember active:scale-95"
+                            className="absolute bottom-5 right-5 p-3 bg-accent text-[#1A0C05] rounded-xl hover:bg-accent-400 disabled:opacity-50 disabled:grayscale transition shadow-ember active:scale-95"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <line x1="22" y1="2" x2="11" y2="13" />

@@ -7,7 +7,7 @@ const SettingsModal = ({ onClose }) => {
     const { unitSystem, setUnitSystem, dashboardLayout, setDashboardLayout } = useSettings();
 
     return (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-[#0B0A08]/90 backdrop-blur-xl transition-all" onClick={onClose}>
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-[#0B0A08]/90 backdrop-blur-xl transition-colors" onClick={onClose}>
             <div className="glass-strong w-full md:max-w-lg p-8 rounded-3xl border border-white/10 shadow-plate-lg relative" onClick={e => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-8">
                     <div className="flex items-center gap-2.5">
@@ -19,7 +19,7 @@ const SettingsModal = ({ onClose }) => {
                         </div>
                         <h3 className="font-display text-white uppercase tracking-tight text-sm md:text-base">Settings</h3>
                     </div>
-                    <button onClick={onClose} className="p-2 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full text-stone-500 hover:text-stone-300 transition-all">
+                    <button onClick={onClose} className="p-2 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full text-stone-500 hover:text-stone-300 transition-colors">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -36,7 +36,7 @@ const SettingsModal = ({ onClose }) => {
                                     hapticFeedback('light');
                                     setUnitSystem('metric');
                                 }}
-                                className={`p-4 rounded-xl font-mono text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] transition-all ${unitSystem === 'metric'
+                                className={`p-4 rounded-xl font-mono text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] transition-colors ${unitSystem === 'metric'
                                     ? 'bg-accent text-[#1A0C05] shadow-ember border border-accent'
                                     : 'bg-white/5 text-stone-400 border border-white/10 hover:bg-white/10 hover:text-stone-200'
                                     }`}
@@ -48,7 +48,7 @@ const SettingsModal = ({ onClose }) => {
                                     hapticFeedback('light');
                                     setUnitSystem('imperial');
                                 }}
-                                className={`p-4 rounded-xl font-mono text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] transition-all ${unitSystem === 'imperial'
+                                className={`p-4 rounded-xl font-mono text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] transition-colors ${unitSystem === 'imperial'
                                     ? 'bg-accent text-[#1A0C05] shadow-ember border border-accent'
                                     : 'bg-white/5 text-stone-400 border border-white/10 hover:bg-white/10 hover:text-stone-200'
                                     }`}
@@ -74,7 +74,7 @@ const SettingsModal = ({ onClose }) => {
                                         hapticFeedback('light');
                                         setDashboardLayout({ [item.id]: !dashboardLayout[item.id] });
                                     }}
-                                    className={`w-full p-4 rounded-xl flex items-center justify-between group transition-all ${dashboardLayout[item.id]
+                                    className={`w-full p-4 rounded-xl flex items-center justify-between group transition-colors ${dashboardLayout[item.id]
                                         ? 'bg-accent/[0.06] border-accent/25'
                                         : 'bg-white/[0.03] border-white/5 opacity-60'
                                         } border`}
@@ -85,9 +85,9 @@ const SettingsModal = ({ onClose }) => {
                                         </svg>
                                         <span className={`text-[11px] font-semibold uppercase tracking-[0.15em] ${dashboardLayout[item.id] ? 'text-bone' : 'text-stone-500'}`}>{item.label}</span>
                                     </div>
-                                    <div className={`w-10 h-6 rounded-full relative transition-all duration-300 ${dashboardLayout[item.id] ? 'bg-accent/90 shadow-ember-sm' : 'bg-white/10'
+                                    <div className={`w-10 h-6 rounded-full relative transition-colors duration-300 ${dashboardLayout[item.id] ? 'bg-accent/90 shadow-ember-sm' : 'bg-white/10'
                                         }`}>
-                                        <div className={`absolute top-1 w-4 h-4 rounded-full bg-bone transition-all duration-300 shadow-md ${dashboardLayout[item.id] ? 'left-5' : 'left-1'
+                                        <div className={`absolute top-1 w-4 h-4 rounded-full bg-bone transition-colors duration-300 shadow-md ${dashboardLayout[item.id] ? 'left-5' : 'left-1'
                                             }`} />
                                     </div>
 
@@ -99,7 +99,7 @@ const SettingsModal = ({ onClose }) => {
 
 
 
-                    <button onClick={onClose} className="w-full py-4 bg-accent text-[#1A0C05] font-mono font-semibold uppercase tracking-[0.25em] rounded-xl text-xs md:text-sm hover:bg-accent/90 transition-all duration-300 shadow-ember active:scale-[0.98]">Save Settings</button>
+                    <button onClick={onClose} className="w-full py-4 bg-accent text-[#1A0C05] font-mono font-semibold uppercase tracking-[0.25em] rounded-xl text-xs md:text-sm hover:bg-accent/90 transition duration-300 shadow-ember active:scale-[0.98]">Save Settings</button>
                 </div>
             </div>
         </div>

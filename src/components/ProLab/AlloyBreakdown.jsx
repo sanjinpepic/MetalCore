@@ -40,8 +40,8 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05, type: 'spring', stiffness: 400, damping: 30 }}
                         className={steel[el] > 0
-                            ? 'p-4 rounded-2xl border transition-all group bg-black/40 border-white/5 hover:border-accent/30'
-                            : 'p-4 rounded-2xl border transition-all group bg-black/10 border-white/5 opacity-40 hover:opacity-100 hover:border-white/10'}
+                            ? 'p-4 rounded-2xl border transition-colors group bg-black/40 border-white/5 hover:border-accent/30'
+                            : 'p-4 rounded-2xl border transition-opacity group bg-black/10 border-white/5 opacity-40 hover:opacity-100 hover:border-white/10'}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <div className="flex items-center gap-3">

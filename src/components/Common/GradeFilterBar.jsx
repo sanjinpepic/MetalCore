@@ -21,8 +21,8 @@ const PRESETS = [
     { label: 'Vanadium-Rich', patch: { minV: 2.0 } },
 ];
 
-const IDLE_CHIP = 'flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.03] border border-white/10 text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-stone-200 hover:border-white/20 transition-all duration-300 ease-snap shrink-0 whitespace-nowrap active:scale-95';
-const ACTIVE_CHIP = 'flex items-center gap-2 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-accent transition-all duration-300 ease-snap shrink-0 whitespace-nowrap active:scale-95';
+const IDLE_CHIP = 'flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.03] border border-white/10 text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-stone-200 hover:border-white/20 transition duration-300 ease-snap shrink-0 whitespace-nowrap active:scale-95';
+const ACTIVE_CHIP = 'flex items-center gap-2 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-accent transition duration-300 ease-snap shrink-0 whitespace-nowrap active:scale-95';
 
 const CriterionRow = ({ spec, filters, setFilters }) => {
     const value = filters[spec.id] || 0;
@@ -41,7 +41,7 @@ const CriterionRow = ({ spec, filters, setFilters }) => {
                 <span className="text-sm font-mono font-semibold text-accent">{spec.fmt(value)}%</span>
             </div>
             <div className="flex items-center gap-3">
-                <button onClick={() => step(-1)} aria-label={`Decrease ${spec.name}`} className="w-7 h-7 grid place-items-center rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-stone-400 hover:text-accent hover:border-accent/30 transition-all active:scale-90 shrink-0">−</button>
+                <button onClick={() => step(-1)} aria-label={`Decrease ${spec.name}`} className="w-7 h-7 grid place-items-center rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-stone-400 hover:text-accent hover:border-accent/30 transition active:scale-90 shrink-0">−</button>
                 <input
                     type="range"
                     min="0"
@@ -52,7 +52,7 @@ const CriterionRow = ({ spec, filters, setFilters }) => {
                     className="forge-range flex-1"
                     style={{ '--fill': `${(value / spec.max) * 100}%` }}
                 />
-                <button onClick={() => step(1)} aria-label={`Increase ${spec.name}`} className="w-7 h-7 grid place-items-center rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-stone-400 hover:text-accent hover:border-accent/30 transition-all active:scale-90 shrink-0">+</button>
+                <button onClick={() => step(1)} aria-label={`Increase ${spec.name}`} className="w-7 h-7 grid place-items-center rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-stone-400 hover:text-accent hover:border-accent/30 transition active:scale-90 shrink-0">+</button>
             </div>
         </div>
     );
@@ -164,7 +164,7 @@ const GradeFilterBar = ({
                     <div className="max-h-72 overflow-y-auto custom-scrollbar py-1">
                         <button
                             onClick={() => pickProducer('ALL')}
-                            className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-all duration-200 ${activeProducer === 'ALL' ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
+                            className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-colors duration-200 ${activeProducer === 'ALL' ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
                         >
                             <span className={`text-[9px] font-mono w-5 shrink-0 ${activeProducer === 'ALL' ? 'text-accent' : 'text-stone-700'}`}>00</span>
                             <span className={`flex-1 truncate text-xs font-bold ${activeProducer === 'ALL' ? 'text-bone' : 'text-stone-400'}`}>All Producers</span>
@@ -176,7 +176,7 @@ const GradeFilterBar = ({
                                 <button
                                     key={p}
                                     onClick={() => pickProducer(p)}
-                                    className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-all duration-200 ${active ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
+                                    className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-colors duration-200 ${active ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
                                 >
                                     <span className={`text-[9px] font-mono w-5 shrink-0 ${active ? 'text-accent' : 'text-stone-700'}`}>{String(i + 1).padStart(2, '0')}</span>
                                     <span className={`flex-1 truncate text-xs font-bold ${active ? 'text-bone' : 'text-stone-400'}`}>{PRODUCER_SHORT[p] ?? p}</span>
@@ -210,7 +210,7 @@ const GradeFilterBar = ({
                                 <button
                                     key={pr.label}
                                     onClick={() => { hapticFeedback('light'); setFilters({ ...filters, ...pr.patch }); }}
-                                    className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-accent hover:border-accent/30 transition-all duration-300"
+                                    className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-accent hover:border-accent/30 transition-colors duration-300"
                                 >
                                     {pr.label}
                                 </button>

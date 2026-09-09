@@ -56,7 +56,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             </ViewHeader>
 
             {/* Category Filters & Search */}
-            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] transition-all">
+            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] transition-colors">
                 {/* Mobile categories — plain block, NOT inside flex */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
@@ -64,7 +64,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-3 py-2 rounded-2xl text-[10px] font-mono font-medium transition-all whitespace-nowrap uppercase tracking-[0.2em] shrink-0 ${activeCategory === cat
+                                className={`px-3 py-2 rounded-2xl text-[10px] font-mono font-medium transition-colors whitespace-nowrap uppercase tracking-[0.2em] shrink-0 ${activeCategory === cat
                                     ? "bg-accent text-[#1A0C05] scale-105 shadow-ember-sm"
                                     : "bg-white/5 text-stone-500 hover:text-white hover:bg-white/10"
                                     }`}
@@ -82,7 +82,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-4 py-2 rounded-lg text-[10px] font-mono font-medium transition-all whitespace-nowrap uppercase tracking-[0.2em] shrink-0 active:scale-95 ${activeCategory === cat
+                                className={`px-4 py-2 rounded-lg text-[10px] font-mono font-medium transition whitespace-nowrap uppercase tracking-[0.2em] shrink-0 active:scale-95 ${activeCategory === cat
                                     ? "bg-accent text-[#1A0C05] shadow-ember-sm"
                                     : "bg-white/5 text-stone-500 hover:text-white hover:bg-white/10 border border-white/5"
                                     }`}
@@ -155,7 +155,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
             <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
                 {Object.entries(groupedKnives).map(([maker, makerKnives]) => (
                     <section key={maker}>
-                        <div className="sticky top-[7.25rem] md:top-16 z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-[#0B0A08]/85 backdrop-blur-2xl transition-all">
+                        <div className="sticky top-[7.25rem] md:top-16 z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-[#0B0A08]/85 backdrop-blur-2xl transition-colors">
                             <div className="flex items-center gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
                                 <h2 className="text-xs md:text-sm font-mono font-medium text-stone-400 uppercase tracking-[0.2em]">{maker}</h2>
@@ -168,7 +168,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 <div
                                     key={knife.id}
                                     onClick={() => setDetailKnife && setDetailKnife(knife)}
-                                    className="glass-panel rounded-3xl overflow-hidden flex flex-col xl:flex-row group border-white/5 hover:border-white/20 transition-all cursor-pointer hover:shadow-plate-lg active:scale-[0.99]"
+                                    className="glass-panel rounded-3xl overflow-hidden flex flex-col xl:flex-row group border-white/5 hover:border-white/20 transition cursor-pointer hover:shadow-plate-lg active:scale-[0.99]"
                                 >
                                     {/* <div className="xl:w-2/5 h-72 xl:h-auto bg-white/5 relative overflow-hidden shrink-0">
                                         {knife.image ? (
@@ -247,7 +247,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                                                     e.stopPropagation();
                                                                     steel ? setDetailSteel(steel) : alert(`Data for ${steelName} not found.`);
                                                                 }}
-                                                                className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-mono font-medium text-stone-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
+                                                                className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-mono font-medium text-stone-200 hover:bg-white/10 hover:text-white hover:border-accent transition active:scale-95"
                                                             >
                                                                 {steelName}
                                                             </button>

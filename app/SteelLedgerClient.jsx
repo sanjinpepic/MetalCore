@@ -680,7 +680,7 @@ Be concise and premium.`;
 
                 {/* AI Coming Soon Modal */}
                 {showAiComingSoon && (
-                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-[#12100D]/95 backdrop-blur-xl transition-all" onClick={() => setShowAiComingSoon(false)}>
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-[#12100D]/95 backdrop-blur-xl transition-colors" onClick={() => setShowAiComingSoon(false)}>
                         <div className="glass-panel w-full md:max-w-lg p-8 rounded-3xl border border-white/10 shadow-plate-lg relative" onClick={e => e.stopPropagation()}>
                             <div className="flex justify-between items-center mb-8">
                                 <div className="flex items-center gap-2.5">
@@ -692,7 +692,7 @@ Be concise and premium.`;
                                     </div>
                                     <h3 className="font-display text-white uppercase tracking-tight text-sm md:text-base">AI Assistant</h3>
                                 </div>
-                                <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-stone-500 transition-all">
+                                <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-stone-500 transition-colors">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <line x1="18" y1="6" x2="6" y2="18" />
                                         <line x1="6" y1="6" x2="18" y2="18" />
@@ -710,7 +710,7 @@ Be concise and premium.`;
                                 <p className="text-[10px] md:text-xs text-stone-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
                             </div>
 
-                            <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-bone text-[#1A0C05] font-semibold uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-plate active:scale-[0.98]">Got It</button>
+                            <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-bone text-[#1A0C05] font-semibold uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition shadow-plate active:scale-[0.98]">Got It</button>
                         </div>
                     </div>
                 )}

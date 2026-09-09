@@ -25,7 +25,7 @@ const ViewHeader = ({
                             <span className={`text-[10px] font-medium font-mono ${theme.text} uppercase tracking-[0.25em]`}>{subtitle}</span>
                         </div>
 
-                        <h1 className="forge-enter text-[clamp(2.75rem,13vw,8rem)] font-display text-white uppercase tracking-tight leading-[0.9]" style={{ '--stagger': '90ms' }}>
+                        <h1 className="forge-enter text-[clamp(2.75rem,13vw,8rem)] font-display text-white uppercase tracking-tight leading-[0.9] text-balance" style={{ '--stagger': '90ms' }}>
                             {title}<br />
                             <span className={theme.text}>{highlight}</span>
                         </h1>

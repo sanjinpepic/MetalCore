@@ -51,13 +51,13 @@ const Footer = () => {
                         href="https://buymeacoffee.com/metal.core"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-xl transition-all duration-300"
+                        className="group relative flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 rounded-xl transition-colors duration-300"
                     >
                         <div className="absolute inset-0 bg-accent/5 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
                         <span className="text-[10px] font-mono font-medium text-stone-400 group-hover:text-white uppercase tracking-[0.2em] transition-colors relative">
                             Support me
                         </span>
-                        <div className="p-1.5 bg-accent/20 rounded-lg text-accent group-hover:bg-accent group-hover:text-[#1A0C05] transition-all relative">
+                        <div className="p-1.5 bg-accent/20 rounded-lg text-accent group-hover:bg-accent group-hover:text-[#1A0C05] transition-colors relative">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                             </svg>

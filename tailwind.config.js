@@ -65,8 +65,6 @@ module.exports = {
             transitionTimingFunction: {
                 'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
                 'snap': 'cubic-bezier(0.22, 1, 0.36, 1)',
-                'inout-soft': 'cubic-bezier(0.65, 0, 0.35, 1)',
-                'dramatic': 'cubic-bezier(0.77, 0, 0.175, 1)',
             },
             animation: {
                 'float': 'float 6s ease-in-out infinite',

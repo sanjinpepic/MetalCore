@@ -106,17 +106,17 @@ export const TYPE = {
 
 // Button Patterns
 export const BUTTON = {
-  primary: `px-6 py-3 bg-accent text-[#1A0C05] font-bold uppercase tracking-wider text-sm ${RADIUS.sm} hover:bg-accent-400 transition-all duration-300 ease-snap ${SHADOW.glow} active:scale-[0.97]`,
-  secondary: `px-6 py-3 bg-white/[0.06] text-white font-bold uppercase tracking-wider text-sm ${RADIUS.sm} border border-white/10 hover:bg-white/[0.1] hover:border-white/20 transition-all duration-300 ease-snap active:scale-[0.97]`,
-  ghost: `px-4 py-2 text-stone-400 font-semibold text-sm hover:text-white hover:bg-white/[0.06] ${RADIUS.sm} transition-all duration-300 ease-snap`,
-  icon: 'p-2 hover:bg-white/[0.06] rounded-lg text-stone-400 hover:text-accent transition-all duration-300 ease-snap'
+  primary: `px-6 py-3 bg-accent text-[#1A0C05] font-bold uppercase tracking-wider text-sm ${RADIUS.sm} hover:bg-accent-400 transition duration-300 ease-snap ${SHADOW.glow} active:scale-[0.97]`,
+  secondary: `px-6 py-3 bg-white/[0.06] text-white font-bold uppercase tracking-wider text-sm ${RADIUS.sm} border border-white/10 hover:bg-white/[0.1] hover:border-white/20 transition duration-300 ease-snap active:scale-[0.97]`,
+  ghost: `px-4 py-2 text-stone-400 font-semibold text-sm hover:text-white hover:bg-white/[0.06] ${RADIUS.sm} transition-colors duration-300 ease-snap`,
+  icon: 'p-2 hover:bg-white/[0.06] rounded-lg text-stone-400 hover:text-accent transition-colors duration-300 ease-snap'
 };
 
 // Animation Patterns — Physical personality.
 // Springs for entries/state, snap for hover. Three curves, no more.
 export const ANIMATION = {
-  transition: 'transition-all duration-300 ease-out-expo',
-  transitionFast: 'transition-all duration-150 ease-snap',
+  transition: 'transition-colors duration-300 ease-out-expo',
+  transitionFast: 'transition-colors duration-150 ease-snap',
   springConfig: { type: 'spring', stiffness: 400, damping: 30, mass: 1 },
   springSmooth: { type: 'spring', stiffness: 200, damping: 24, mass: 1 },
   discordEasing: [0.22, 1, 0.36, 1]

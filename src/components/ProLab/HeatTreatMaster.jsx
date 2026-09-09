@@ -81,7 +81,7 @@ const HeatTreatMaster = ({ steel }) => {
                 <div className="space-y-4">
                     <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-1">Target Hardness by Application</div>
                     {data.tempers.map((t, i) => (
-                        <div key={i} className="p-4 bg-white/5 border border-white/5 rounded-2xl flex items-center justify-between group hover:bg-white/10 transition-all cursor-default">
+                        <div key={i} className="p-4 bg-white/5 border border-white/5 rounded-2xl flex items-center justify-between group hover:bg-white/10 transition-colors cursor-default">
                             <div>
                                 <div className="text-[8px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-1">{t.application}</div>
                                 <div className="text-sm font-semibold text-white uppercase group-hover:text-accent-400 transition-colors">{t.target}</div>
