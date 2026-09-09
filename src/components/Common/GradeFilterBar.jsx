@@ -98,8 +98,9 @@ const GradeFilterBar = ({
     };
 
     return (
-        <div ref={barRef} className="relative flex flex-wrap items-center gap-2 min-w-0">
-            <button
+        <div ref={barRef} className="sm:relative flex flex-wrap items-center gap-2 min-w-0">
+                        <span className="sm:relative flex shrink-0">
+<button
                 onClick={() => { hapticFeedback('light'); setOpenPanel(openPanel === 'producer' ? null : 'producer'); }}
                 aria-expanded={openPanel === 'producer'}
                 title="Filter by producer"
@@ -113,8 +114,42 @@ const GradeFilterBar = ({
                     <path d="m6 9 6 6 6-6" />
                 </svg>
             </button>
+            {openPanel === 'producer' && (
+                            <div className="absolute left-4 right-4 sm:left-0 sm:right-auto sm:w-80 sm:max-w-[calc(100vw-2rem)] top-full mt-2.5 glass-strong border border-white/10 rounded-2xl overflow-hidden shadow-plate-lg z-40 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
+                                    <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Producer Index</span>
+                                    <span className="text-[9px] font-mono text-stone-700">{realProducers.length} Mills</span>
+                                </div>
+                                <div className="max-h-72 overflow-y-auto custom-scrollbar py-1">
+                                    <button
+                                        onClick={() => pickProducer('ALL')}
+                                        className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-colors duration-200 ${activeProducer === 'ALL' ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
+                                    >
+                                        <span className={`text-[9px] font-mono w-5 shrink-0 ${activeProducer === 'ALL' ? 'text-accent' : 'text-stone-700'}`}>00</span>
+                                        <span className={`flex-1 truncate text-xs font-bold ${activeProducer === 'ALL' ? 'text-bone' : 'text-stone-400'}`}>All Producers</span>
+                                        <span className="text-[9px] font-mono text-stone-600 shrink-0">{total}</span>
+                                    </button>
+                                    {realProducers.map((p, i) => {
+                                        const active = activeProducer === p;
+                                        return (
+                                            <button
+                                                key={p}
+                                                onClick={() => pickProducer(p)}
+                                                className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-colors duration-200 ${active ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
+                                            >
+                                                <span className={`text-[9px] font-mono w-5 shrink-0 ${active ? 'text-accent' : 'text-stone-700'}`}>{String(i + 1).padStart(2, '0')}</span>
+                                                <span className={`flex-1 truncate text-xs font-bold ${active ? 'text-bone' : 'text-stone-400'}`}>{PRODUCER_SHORT[p] ?? p}</span>
+                                                <span className="text-[9px] font-mono text-stone-600 shrink-0">{producerCounts[p] ?? 0}</span>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+            </span>
 
-            <button
+<span className="sm:relative flex shrink-0">
+<button
                 onClick={() => { hapticFeedback('light'); setOpenPanel(openPanel === 'composition' ? null : 'composition'); }}
                 aria-expanded={openPanel === 'composition'}
                 title="Filter by composition"
@@ -128,8 +163,40 @@ const GradeFilterBar = ({
                     <path d="m6 9 6 6 6-6" />
                 </svg>
             </button>
+            {openPanel === 'composition' && (
+                            <div className="absolute left-4 right-4 sm:left-0 sm:right-auto sm:w-80 sm:max-w-[calc(100vw-2rem)] top-full mt-2.5 glass-strong border border-white/10 rounded-2xl shadow-plate-lg z-40 p-5 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="flex items-center justify-between mb-5">
+                                    <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Composition Floor</span>
+                                    {compActive && (
+                                        <button
+                                            onClick={() => { hapticFeedback('light'); setFilters({ minC: 0, minCr: 0, minV: 0 }); }}
+                                            className="text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-accent hover:underline"
+                                        >
+                                            Reset
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="space-y-5">
+                                    {ALLOY_SPECS.map(spec => (
+                                        <CriterionRow key={spec.id} spec={spec} filters={filters} setFilters={setFilters} />
+                                    ))}
+                                    <div className="pt-3 mt-1 border-t border-white/[0.06] flex flex-wrap gap-2">
+                                        {PRESETS.map(pr => (
+                                            <button
+                                                key={pr.label}
+                                                onClick={() => { hapticFeedback('light'); setFilters({ ...filters, ...pr.patch }); }}
+                                                className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-accent hover:border-accent/30 transition-colors duration-300"
+                                            >
+                                                {pr.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+            </span>
 
-            <button
+<button
                 onClick={() => { hapticFeedback('medium'); setPmOnly(!pmOnly); }}
                 aria-pressed={pmOnly}
                 title="Powder-metallurgy steels only"
@@ -154,71 +221,6 @@ const GradeFilterBar = ({
                 <span className="text-sm font-mono font-semibold text-white">{shown}</span>
                 <span className="text-[9px] font-mono text-stone-600">/ {total} GRADES</span>
             </div>
-
-            {openPanel === 'producer' && (
-                <div className="absolute right-0 top-full mt-2.5 w-80 max-w-[calc(100vw-2rem)] glass-strong border border-white/10 rounded-2xl overflow-hidden shadow-plate-lg z-40 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
-                        <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Producer Index</span>
-                        <span className="text-[9px] font-mono text-stone-700">{realProducers.length} Mills</span>
-                    </div>
-                    <div className="max-h-72 overflow-y-auto custom-scrollbar py-1">
-                        <button
-                            onClick={() => pickProducer('ALL')}
-                            className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-colors duration-200 ${activeProducer === 'ALL' ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
-                        >
-                            <span className={`text-[9px] font-mono w-5 shrink-0 ${activeProducer === 'ALL' ? 'text-accent' : 'text-stone-700'}`}>00</span>
-                            <span className={`flex-1 truncate text-xs font-bold ${activeProducer === 'ALL' ? 'text-bone' : 'text-stone-400'}`}>All Producers</span>
-                            <span className="text-[9px] font-mono text-stone-600 shrink-0">{total}</span>
-                        </button>
-                        {realProducers.map((p, i) => {
-                            const active = activeProducer === p;
-                            return (
-                                <button
-                                    key={p}
-                                    onClick={() => pickProducer(p)}
-                                    className={`w-full flex items-center gap-3 px-5 py-2.5 text-left border-l-2 transition-colors duration-200 ${active ? 'border-accent bg-accent/[0.06]' : 'border-transparent hover:bg-white/[0.04]'}`}
-                                >
-                                    <span className={`text-[9px] font-mono w-5 shrink-0 ${active ? 'text-accent' : 'text-stone-700'}`}>{String(i + 1).padStart(2, '0')}</span>
-                                    <span className={`flex-1 truncate text-xs font-bold ${active ? 'text-bone' : 'text-stone-400'}`}>{PRODUCER_SHORT[p] ?? p}</span>
-                                    <span className="text-[9px] font-mono text-stone-600 shrink-0">{producerCounts[p] ?? 0}</span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
-            )}
-
-            {openPanel === 'composition' && (
-                <div className="absolute right-0 top-full mt-2.5 w-80 max-w-[calc(100vw-2rem)] glass-strong border border-white/10 rounded-2xl shadow-plate-lg z-40 p-5 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="flex items-center justify-between mb-5">
-                        <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Composition Floor</span>
-                        {compActive && (
-                            <button
-                                onClick={() => { hapticFeedback('light'); setFilters({ minC: 0, minCr: 0, minV: 0 }); }}
-                                className="text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-accent hover:underline"
-                            >
-                                Reset
-                            </button>
-                        )}
-                    </div>
-                    <div className="space-y-5">
-                        {ALLOY_SPECS.map(spec => (
-                            <CriterionRow key={spec.id} spec={spec} filters={filters} setFilters={setFilters} />
-                        ))}
-                        <div className="pt-3 mt-1 border-t border-white/[0.06] flex flex-wrap gap-2">
-                            {PRESETS.map(pr => (
-                                <button
-                                    key={pr.label}
-                                    onClick={() => { hapticFeedback('light'); setFilters({ ...filters, ...pr.patch }); }}
-                                    className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:text-accent hover:border-accent/30 transition-colors duration-300"
-                                >
-                                    {pr.label}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
