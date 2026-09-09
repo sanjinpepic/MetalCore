@@ -88,18 +88,6 @@ const VIEW_GRADIENTS = {
     PROFILE: 'rgba(255,90,31,0.07)',
 };
 
-// Flat ember plate — depth from the system ember shadow, never a halo
-const VIEW_ACTIVE_BG = {
-    HOME: 'bg-accent shadow-ember-sm',
-    SEARCH: 'bg-accent shadow-ember-sm',
-    MATRIX: 'bg-accent shadow-ember-sm',
-    KNIVES: 'bg-accent shadow-ember-sm',
-    EDUCATION: 'bg-accent shadow-ember-sm',
-    PRO_LAB: 'bg-accent shadow-ember-sm',
-    COMPARE: 'bg-accent shadow-ember-sm',
-    PROFILE: 'bg-accent shadow-ember-sm'
-};
-
 const VIEW_HOVER = {
     HOME: 'hover:border-accent/25 group-hover:text-accent',
     SEARCH: 'hover:border-accent/25 group-hover:text-accent',
@@ -504,48 +492,56 @@ const Sidebar = ({
                         </button>
                     </div>
 
-                    {/* Desktop Navigation - Hidden on Mobile */}
-                    <div className="hidden md:flex flex-col gap-1.5 mt-4 md:mt-8">
-                        {navItems.map(nav => {
-                            const isSelected = view === nav.id;
-                            return (
-                                <button
-                                    key={nav.id}
-                                    onClick={() => handleNavClick(nav.id)}
-                                    data-tour={
-                                        nav.id === 'SEARCH' ? 'nav-search' :
-                                            nav.id === 'EDUCATION' ? 'nav-education' :
-                                                nav.id === 'MATRIX' ? 'nav-matrix' :
-                                                    nav.id === 'KNIVES' ? 'nav-knives' : undefined
-                                    }
-                                    className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all relative group ${isSelected ? 'text-black' : 'text-stone-500 hover:text-stone-300'}`}
-                                >
-                                    {isSelected && (
-                                        <motion.div
-                                            layoutId="sidebar-active"
-                                            className={`absolute inset-0 rounded-xl z-0 ${VIEW_ACTIVE_BG[nav.id] || VIEW_ACTIVE_BG.SEARCH}`}
-                                            transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                                        />
-                                    )}
-                                    <div className="relative z-10 flex items-center gap-3.5">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                                        {/* Desktop Navigation — Index Ledger */}
+                    <div className="hidden md:block mt-4 md:mt-8">
+                        <div className="flex items-center gap-2.5 px-2 mb-2">
+                            <span className="text-[9px] font-mono font-semibold text-accent/70 shrink-0">00</span>
+                            <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.3em] whitespace-nowrap">Index</span>
+                            <div className="flex-1 h-px bg-white/5" />
+                        </div>
+                        <div className="flex flex-col">
+                            {navItems.map((nav, i) => {
+                                const isSelected = view === nav.id;
+                                return (
+                                    <button
+                                        key={nav.id}
+                                        onClick={() => handleNavClick(nav.id)}
+                                        data-tour={
+                                            nav.id === 'SEARCH' ? 'nav-search' :
+                                                nav.id === 'EDUCATION' ? 'nav-education' :
+                                                    nav.id === 'MATRIX' ? 'nav-matrix' :
+                                                        nav.id === 'KNIVES' ? 'nav-knives' : undefined
+                                        }
+                                        className={`relative w-full flex items-center gap-3.5 px-4 py-3 text-left transition-colors duration-300 ease-snap ${isSelected ? 'bg-accent/[0.07]' : 'hover:bg-white/[0.04]'}`}
+                                    >
+                                        {isSelected && (
+                                            <motion.div
+                                                layoutId="sidebar-rule"
+                                                className="absolute left-0 top-0 h-full w-[2px] bg-accent shadow-ember-sm"
+                                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                                            />
+                                        )}
+                                        <span className={`text-[9px] font-mono font-semibold w-5 shrink-0 ${isSelected ? 'text-accent' : 'text-stone-700'}`}>{String(i + 1).padStart(2, '0')}</span>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`shrink-0 ${isSelected ? 'text-accent' : 'text-stone-600'}`}>
                                             {nav.icon}
                                         </svg>
-                                        {nav.label}
-                                    </div>
-                                </button>
-                            );
-                        })}
+                                        <span className={`text-sm font-bold ${isSelected ? 'text-bone' : 'text-stone-500'}`}>{nav.label}</span>
+                                    </button>
+                                );
+                            })}
 
-                        <button
-                            onClick={() => { hapticFeedback('light'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                            className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap mt-2 border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30 shadow-ember-sm' : 'text-stone-500 hover:bg-white/[0.06] hover:text-accent border-transparent'}`}
-                        >
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
-                                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                            </svg>
-                            Ask Ferry
-                        </button>
+                            <button
+                                onClick={() => { hapticFeedback('light'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
+                                className={`relative w-full flex items-center gap-3.5 px-4 py-3 mt-1 border-t border-white/5 text-left transition-colors duration-300 ease-snap ${aiOpen ? 'bg-accent/[0.05] text-accent' : 'text-stone-500 hover:bg-white/[0.04] hover:text-accent'}`}
+                            >
+                                <span className="text-[9px] font-mono font-semibold w-5 shrink-0 text-stone-700">07</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                                    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 0 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                                </svg>
+                                <span className="text-sm font-bold">Ask Ferry</span>
+                                {aiOpen && <span className="ml-auto text-[8px] font-mono font-semibold text-accent uppercase tracking-[0.25em]">Live</span>}
+                            </button>
+                        </div>
                     </div>
 
                     {/* Mobile Quick Actions */}
