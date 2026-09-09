@@ -182,7 +182,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                 {/* Composition Ticker — live specimen strip */}
                 {steels.length > 0 && (
-                    <div className="forge-enter mt-8 border-y border-white/10 bg-white/[0.015] py-3.5 overflow-hidden relative" style={{ '--stagger': '380ms' }}>
+                    <div className="forge-enter mt-8 shrink-0 border-y border-white/10 bg-white/[0.015] py-3.5 overflow-hidden relative" style={{ '--stagger': '380ms' }}>
                         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0B0A08] to-transparent z-10 pointer-events-none" />
                         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0B0A08] to-transparent z-10 pointer-events-none" />
                         <div className="animate-marquee flex items-center w-max">
@@ -209,7 +209,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                 )}
 
                 {/* Stats — Index Strip */}
-                <div className="forge-enter flex flex-wrap md:flex-nowrap items-stretch justify-center w-full border-b border-white/5 px-4 py-10 md:py-14" style={{ '--stagger': '460ms' }}>
+                <div className="forge-enter flex flex-wrap md:flex-nowrap items-stretch justify-center w-full shrink-0 border-b border-white/5 px-4 py-10 md:py-14" style={{ '--stagger': '460ms' }}>
                     {stats.map((stat, i) => (
                         <button
                             key={i}

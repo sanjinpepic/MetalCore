@@ -105,7 +105,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 onChange={e => setKnifeSearch(e.target.value)}
                             />
                         </div>
-                        <div className="flex-1 min-w-0 overflow-x-auto no-scrollbar">
+                        <div className="flex-1 min-w-0 flex justify-end">
                             <GradeFilterBar
                                 producers={producers}
                                 activeProducer={activeProducer}

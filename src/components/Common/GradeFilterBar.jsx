@@ -98,17 +98,18 @@ const GradeFilterBar = ({
     };
 
     return (
-        <div ref={barRef} className="relative flex items-center gap-2 min-w-0">
+        <div ref={barRef} className="relative flex flex-wrap items-center gap-2 min-w-0">
             <button
                 onClick={() => { hapticFeedback('light'); setOpenPanel(openPanel === 'producer' ? null : 'producer'); }}
                 aria-expanded={openPanel === 'producer'}
+                title="Filter by producer"
                 className={activeProducer && activeProducer !== 'ALL' ? ACTIVE_CHIP : IDLE_CHIP}
             >
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                 </svg>
-                <span className="max-w-[7rem] truncate">{activeProducer && activeProducer !== 'ALL' ? (PRODUCER_SHORT[activeProducer] ?? activeProducer) : 'Producer'}</span>
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`shrink-0 transition-transform duration-300 ${openPanel === 'producer' ? 'rotate-180' : ''}`}>
+                <span className="hidden sm:inline max-w-[7rem] truncate">{activeProducer && activeProducer !== 'ALL' ? (PRODUCER_SHORT[activeProducer] ?? activeProducer) : 'Producer'}</span>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`hidden sm:block shrink-0 transition-transform duration-300 ${openPanel === 'producer' ? 'rotate-180' : ''}`}>
                     <path d="m6 9 6 6 6-6" />
                 </svg>
             </button>
@@ -116,13 +117,14 @@ const GradeFilterBar = ({
             <button
                 onClick={() => { hapticFeedback('light'); setOpenPanel(openPanel === 'composition' ? null : 'composition'); }}
                 aria-expanded={openPanel === 'composition'}
+                title="Filter by composition"
                 className={compActive ? ACTIVE_CHIP : IDLE_CHIP}
             >
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                     <path d="M3 5v14M8 5v14M13 5v14M18 9v6M21 9v6" />
                 </svg>
-                <span className="max-w-[9rem] truncate">{compActive ? compSummary : 'Composition'}</span>
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`shrink-0 transition-transform duration-300 ${openPanel === 'composition' ? 'rotate-180' : ''}`}>
+                <span className="hidden sm:inline max-w-[9rem] truncate">{compActive ? compSummary : 'Composition'}</span>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`hidden sm:block shrink-0 transition-transform duration-300 ${openPanel === 'composition' ? 'rotate-180' : ''}`}>
                     <path d="m6 9 6 6 6-6" />
                 </svg>
             </button>
@@ -130,19 +132,21 @@ const GradeFilterBar = ({
             <button
                 onClick={() => { hapticFeedback('medium'); setPmOnly(!pmOnly); }}
                 aria-pressed={pmOnly}
+                title="Powder-metallurgy steels only"
                 className={pmOnly ? ACTIVE_CHIP : IDLE_CHIP}
             >
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${pmOnly ? 'bg-accent shadow-ember-sm' : 'bg-stone-600'}`} />
-                PM Route
+                <span className="hidden sm:inline">PM Route</span>
             </button>
 
             {isActive && onClear && (
                 <button
                     onClick={() => { hapticFeedback('light'); onClear(); setOpenPanel(null); }}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-500 hover:text-accent transition-colors duration-300 shrink-0 whitespace-nowrap"
+                    title="Clear all criteria"
+                    className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-500 hover:text-accent transition-colors duration-300 shrink-0 whitespace-nowrap"
                 >
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                    Clear
+                    <span className="hidden sm:inline">Clear</span>
                 </button>
             )}
 
@@ -152,7 +156,7 @@ const GradeFilterBar = ({
             </div>
 
             {openPanel === 'producer' && (
-                <div className="absolute right-0 lg:right-auto lg:left-0 top-full mt-2.5 w-80 max-w-[calc(100vw-2rem)] glass-strong border border-white/10 rounded-2xl overflow-hidden shadow-plate-lg z-40 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute right-0 top-full mt-2.5 w-80 max-w-[calc(100vw-2rem)] glass-strong border border-white/10 rounded-2xl overflow-hidden shadow-plate-lg z-40 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
                         <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Producer Index</span>
                         <span className="text-[9px] font-mono text-stone-700">{realProducers.length} Mills</span>

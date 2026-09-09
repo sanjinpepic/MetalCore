@@ -112,7 +112,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             </ViewHeader>
 
             {/* Criteria Rail */}
-            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] px-4 md:px-12 py-3 flex items-center gap-3 transition-all">
+            <div className="sticky top-0 z-30 bg-[#0B0A08]/90 backdrop-blur-2xl border-b border-white/[0.06] px-4 md:px-12 py-3 flex flex-wrap items-center gap-x-3 gap-y-2 transition-all">
                 <div className="relative w-40 md:w-64 shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
                         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
@@ -125,7 +125,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         onChange={e => setSearch(e.target.value)}
                     />
                 </div>
-                <div className="flex-1 min-w-0 flex justify-end overflow-x-auto no-scrollbar">
+                <div className="flex-1 min-w-0 flex justify-end">
                     <GradeFilterBar
                         producers={producers}
                         activeProducer={activeProducer}
