@@ -601,7 +601,7 @@ const PerformanceMatrix = ({ steels, setDetailSteel, activeProducer, setActivePr
                                             const showLabel = labeledSteels.includes(payload.name) || isHovered || isSelected;
 
                                             return (
-                                                <g style={{ opacity: isDimmed ? 0.2 : 1, transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+                                                <g style={{ opacity: isDimmed ? 0.2 : 1, transition: 'opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1)' }}>
                                                     {showLine && showLabel && (
                                                         <line
                                                             x1={cx} y1={cy}

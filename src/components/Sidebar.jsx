@@ -11,48 +11,49 @@ const CriteriaSummary = ({ activeProducer, filters, pmOnly, resetFilters, showIm
 
     return (
         <section className="space-y-4">
-            <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <div className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.3em] flex items-center gap-2.5 px-2">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                 </svg>
-                Active Criteria
+                <span className="whitespace-nowrap">Active Criteria</span>
+                <div className="flex-1 h-px bg-white/5" />
             </div>
-            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden">
+            <div className="border-y border-white/[0.06]">
                 {criteriaActive ? (
-                    <div className="p-5 space-y-3.5">
-                        <div className="flex items-center justify-between gap-3">
+                    <div className="py-2 divide-y divide-white/[0.05]">
+                        <div className="flex items-center justify-between gap-3 py-3">
                             <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Producer</span>
                             <span className="text-[11px] font-bold text-stone-200 truncate">{activeProducer && activeProducer !== 'ALL' ? activeProducer : 'All Mills'}</span>
                         </div>
                         {filters && (
                             <>
-                                <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center justify-between gap-3 py-3">
                                     <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Carbon ≥</span>
                                     <span className={`text-[11px] font-bold font-mono ${filters.minC > 0 ? 'text-accent' : 'text-stone-500'}`}>{filters.minC > 0 ? `${filters.minC.toFixed(2)}%` : 'Any'}</span>
                                 </div>
-                                <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center justify-between gap-3 py-3">
                                     <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Chromium ≥</span>
                                     <span className={`text-[11px] font-bold font-mono ${filters.minCr > 0 ? 'text-accent' : 'text-stone-500'}`}>{filters.minCr > 0 ? `${filters.minCr.toFixed(1)}%` : 'Any'}</span>
                                 </div>
-                                <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center justify-between gap-3 py-3">
                                     <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">Vanadium ≥</span>
                                     <span className={`text-[11px] font-bold font-mono ${filters.minV > 0 ? 'text-accent' : 'text-stone-500'}`}>{filters.minV > 0 ? `${filters.minV.toFixed(1)}%` : 'Any'}</span>
                                 </div>
                             </>
                         )}
-                        <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center justify-between gap-3 py-3">
                             <span className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] shrink-0">PM Route</span>
                             <span className={`text-[11px] font-bold font-mono ${pmOnly ? 'text-accent' : 'text-stone-500'}`}>{pmOnly ? 'On' : 'Off'}</span>
                         </div>
                         <button
                             onClick={() => { hapticFeedback('light'); resetFilters(); }}
-                            className="w-full pt-1 py-2.5 rounded-xl border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 hover:text-accent hover:border-accent/30 transition-colors duration-300"
+                            className="w-full mt-3 py-2.5 rounded-xl border border-white/10 text-[9px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 hover:text-accent hover:border-accent/30 transition-colors duration-300"
                         >
                             Clear All Criteria
                         </button>
                     </div>
                 ) : (
-                    <p className="p-5 text-[11px] text-stone-500 leading-relaxed">
+                    <p className="py-4 text-[11px] text-stone-500 leading-relaxed">
                         No criteria set. Filter producers, composition floor and PM route from the rail inside the library.
                     </p>
                 )}
@@ -86,17 +87,6 @@ const VIEW_GRADIENTS = {
     PRO_LAB: 'rgba(255,90,31,0.07)',
     COMPARE: 'rgba(255,90,31,0.07)',
     PROFILE: 'rgba(255,90,31,0.07)',
-};
-
-const VIEW_HOVER = {
-    HOME: 'hover:border-accent/25 group-hover:text-accent',
-    SEARCH: 'hover:border-accent/25 group-hover:text-accent',
-    MATRIX: 'hover:border-accent/25 group-hover:text-accent',
-    KNIVES: 'hover:border-accent/25 group-hover:text-accent',
-    EDUCATION: 'hover:border-accent/25 group-hover:text-accent',
-    PRO_LAB: 'hover:border-accent/25 group-hover:text-accent',
-    COMPARE: 'hover:border-accent/25 group-hover:text-accent',
-    PROFILE: 'hover:border-accent/25 group-hover:text-accent'
 };
 
 const Sidebar = ({
@@ -472,23 +462,20 @@ const Sidebar = ({
                 </div>
 
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 py-2 custom-scrollbar no-scrollbar scroll-smooth relative">
-                    {/* Command Palette Trigger - Visual Hint */}
-                    <div className="mt-4 px-1">
+                    {/* Command Trigger — ledger row */}
+                    <div className="mt-4">
                         <button
                             onClick={() => { hapticFeedback('light'); openCommandPalette(); }}
-                            className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] ${VIEW_HOVER[view] || VIEW_HOVER.SEARCH} transition-colors group`}
+                            className="w-full flex items-center gap-3.5 px-4 py-3 text-left border-l-2 border-transparent hover:border-accent/50 hover:bg-white/[0.04] transition-colors duration-300 ease-snap group"
                         >
-                            <div className="flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-stone-500 ${(VIEW_HOVER[view] || VIEW_HOVER.SEARCH).split(' ')[1]} transition-colors`}>
-                                    <circle cx="11" cy="11" r="8" />
-                                    <path d="m21 21-4.35-4.35" />
-                                </svg>
-                                <span className="text-sm font-bold text-stone-500 group-hover:text-stone-300 transition-colors">Search Grade...</span>
-                            </div>
-                            <kbd className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-stone-600">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent transition-colors shrink-0">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <span className="text-[11px] font-mono font-medium uppercase tracking-[0.25em] text-stone-500 group-hover:text-stone-200 transition-colors flex-1">Search grades</span>
+                            <kbd className="hidden md:flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[9px] font-mono text-stone-600 shrink-0">
                                 {typeof window !== 'undefined' && /Mac/.test(window.navigator.platform) ? '⌘K' : 'Ctrl+K'}
                             </kbd>
-
                         </button>
                     </div>
 
@@ -570,16 +557,17 @@ const Sidebar = ({
 
                     {view === 'HOME' ? (
                         <section className="space-y-6">
-                            <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
+                            <div className="flex items-center gap-2.5 px-2 mb-2">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent shrink-0">
                                     <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
                                     <line x1="12" y1="7" x2="12" y2="13" />
                                     <line x1="9" y1="10" x2="15" y2="10" />
                                 </svg>
-                                {trending && trending.length > 0 ? 'Trending Now' : 'Popular Searches'}
+                                <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.3em] whitespace-nowrap">{trending && trending.length > 0 ? 'Trending Now' : 'Popular Searches'}</span>
+                                <div className="flex-1 h-px bg-white/5" />
                             </div>
-                            <div className="space-y-2 px-1">
-                                {displayTrending.map(steel => (
+                            <div className="flex flex-col">
+                                {displayTrending.map((steel, i) => (
                                     <button
                                         key={steel.id}
                                         onClick={() => {
@@ -588,18 +576,19 @@ const Sidebar = ({
                                             setView('SEARCH');
                                             if (resetFilters) resetFilters();
                                         }}
-                                        className="w-full text-left px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-colors flex items-center justify-between group"
+                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors duration-300 ease-snap hover:bg-white/[0.04] group"
                                     >
-                                        <span className="text-xs font-bold text-stone-400 group-hover:text-white line-clamp-1">{steel.name}</span>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent transform translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition">
+                                        <span className="text-[9px] font-mono font-semibold w-5 shrink-0 text-stone-700 group-hover:text-accent/70 transition-colors">{String(i + 1).padStart(2, '0')}</span>
+                                        <span className="text-xs font-bold text-stone-400 group-hover:text-white transition-colors truncate flex-1">{steel.name}</span>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent opacity-0 group-hover:opacity-100 transition-[opacity,transform,color] duration-300 ease-snap shrink-0">
                                             <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                                         </svg>
                                     </button>
                                 ))}
                             </div>
 
-                            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] mt-6">
-                                <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.25em] mb-2">Pro Tip</div>
+                            <div className="mt-6 pl-4 border-l-2 border-accent/50">
+                                <div className="text-[9px] font-mono font-medium text-accent uppercase tracking-[0.25em] mb-2">Pro Tip</div>
                                 <p className="text-[11px] text-stone-400 leading-relaxed">
                                     Use the <b>Performance Matrix</b> to find steels that break the toughness/edge retention trade-off.
                                 </p>

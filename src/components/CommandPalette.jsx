@@ -210,32 +210,6 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
         return groups;
     }, [results]);
 
-    const getIcon = (item) => {
-        if (item.type === 'steel') {
-            return (
-                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-[10px] font-mono font-medium shrink-0">
-                    Fe
-                </div>
-            );
-        }
-        if (item.type === 'knife') {
-            return (
-                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
-                        <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
-                    </svg>
-                </div>
-            );
-        }
-        return (
-            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-400">
-                    {item.icon}
-                </svg>
-            </div>
-        );
-    };
-
     // Portal logic for global centering
     if (typeof window === 'undefined') return null;
 
@@ -258,7 +232,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                     <div className="fixed inset-0 z-[9999] flex justify-center items-start pointer-events-none p-4 pt-[15vh]">
                         <motion.div
                             initial={false}
-                            className="pointer-events-auto w-full max-w-xl glass-panel !bg-[#12100D]/95 rounded-2xl border border-white/10 shadow-plate-lg overflow-hidden flex flex-col max-h-[75vh]"
+                            className="pointer-events-auto w-full max-w-xl bg-[#12100D]/95 rounded-2xl border border-white/10 shadow-plate-lg overflow-hidden flex flex-col max-h-[75vh]"
                         >
                             {/* Search Input */}
                             <div className="flex items-center gap-4 px-6 py-5 border-b border-white/5 bg-white/[0.02]">
@@ -296,14 +270,15 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                         <p className="text-xs text-stone-600 mt-1">Search by name or maker — or filter by chemistry: <span className="text-stone-500">Cr:&gt;15 · C:~1 · Mo:&lt;2</span></p>
                                     </div>
                                 ) : (
-                                    Object.entries(groupedResults).map(([category, items]) => (
+                                    Object.entries(groupedResults).map(([category, items], gi) => (
                                         <div key={category} className="mb-2 last:mb-0">
-                                            <div className="px-6 pt-3 pb-2 text-[10px] font-mono font-medium uppercase tracking-[0.25em] text-stone-600 flex items-center gap-3">
-                                                <span>{category}</span>
-                                                <span className="text-[9px] text-stone-700">{String(items.length).padStart(2, '0')}</span>
+                                            <div className="px-6 pt-4 pb-2 text-[9px] font-mono font-medium uppercase tracking-[0.3em] text-stone-500 flex items-center gap-2.5">
+                                                <span className="text-accent/70 font-semibold shrink-0">{String(gi + 1).padStart(2, '0')}</span>
+                                                <span className="whitespace-nowrap">{category}</span>
+                                                <span className="text-stone-700">{String(items.length).padStart(2, '0')}</span>
                                                 <div className="h-px flex-1 bg-white/5" />
                                             </div>
-                                            <div className="px-2">
+                                            <div>
                                                 {items.map((item) => (
                                                     <button
                                                         key={`${item.type}-${item.id || item.label}`}
@@ -313,28 +288,27 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                         onMouseEnter={() => {
                                                             if (!isKeyboard) setActiveIndex(item.globalIndex);
                                                         }}
-                                                        className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl text-left transition-colors ${item.globalIndex === activeIndex
-                                                            ? 'bg-accent/[0.08] text-white'
-                                                            : 'text-stone-400 hover:bg-white/[0.03]'
+                                                        className={`relative w-full flex items-center gap-3 px-6 py-2.5 text-left transition-colors duration-150 ${item.globalIndex === activeIndex
+                                                            ? 'bg-accent/[0.07] text-white'
+                                                            : 'text-stone-400 hover:bg-white/[0.04]'
                                                             }`}
                                                     >
-                                                        {getIcon(item)}
+                                                        {item.globalIndex === activeIndex && (
+                                                            <span className="absolute left-0 top-0 h-full w-[2px] bg-accent" />
+                                                        )}
+                                                        <span className={`text-[9px] font-mono font-semibold w-6 shrink-0 ${item.globalIndex === activeIndex ? 'text-accent' : 'text-stone-700'}`}>{String(item.globalIndex + 1).padStart(2, '0')}</span>
+                                                        {item.type === 'steel' && (
+                                                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.data?.pm ? 'bg-accent shadow-ember-sm' : 'bg-stone-600'}`} />
+                                                        )}
                                                         <div className="flex-1 min-w-0">
-                                                            <div className="flex items-center gap-2">
-                                                                <div className={`text-sm font-bold truncate ${item.globalIndex === activeIndex ? 'text-accent' : ''}`}>{item.label}</div>
-                                                                {item.type === 'steel' && (
-                                                                    <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-mono font-medium tracking-[0.2em] border ${item.metalType === 'PM'
-                                                                        ? 'bg-accent/10 border-accent/20 text-accent'
-                                                                        : 'bg-white/5 border-white/10 text-stone-500'
-                                                                        }`}>
-                                                                        {item.metalType}
-                                                                    </span>
-                                                                )}
-                                                            </div>
+                                                            <div className={`text-sm font-bold truncate ${item.globalIndex === activeIndex ? 'text-accent' : ''}`}>{item.label}</div>
                                                             {item.sublabel && (
                                                                 <div className="text-[11px] text-stone-500 font-medium truncate mt-0.5">{item.sublabel}</div>
                                                             )}
                                                         </div>
+                                                        {item.type === 'steel' && item.metalType && (
+                                                            <span className="text-[8px] font-mono font-medium tracking-[0.2em] text-stone-600 shrink-0">{item.metalType}</span>
+                                                        )}
                                                         {item.globalIndex === activeIndex && (
                                                             <div className="flex items-center gap-1.5 text-accent opacity-60">
                                                                 <span className="text-[10px] font-mono font-medium">ENTER</span>

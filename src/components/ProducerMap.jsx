@@ -19,7 +19,7 @@ const ProducerMap = ({ producers }) => {
                 {producers.map((p, i) => (
                     <div
                         key={i}
-                        className={`group p-8 rounded-3xl border transition cursor-pointer relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent ${activeProducer?.name === p.name ? 'border-accent/30 shadow-ember-sm scale-[1.02]' : 'border-white/5 hover:border-accent/25'}`}
+                        className={`group p-8 rounded-3xl border transition-colors duration-300 ease-snap cursor-pointer relative overflow-hidden bg-white/[0.02] ${activeProducer?.name === p.name ? 'border-accent/30 shadow-ember-sm scale-[1.02]' : 'border-white/5 hover:border-accent/25'}`}
                         onMouseEnter={() => setActiveProducer(p)}
                         onMouseLeave={() => setActiveProducer(null)}
                     >

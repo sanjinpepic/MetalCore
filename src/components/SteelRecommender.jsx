@@ -69,11 +69,11 @@ const resultItemVariants = {
 };
 
 const RANK_STYLES = [
-    'from-accent/15 to-transparent border-accent/30',
-    'from-stone-300/10 to-transparent border-stone-400/20',
-    'from-accent/10 to-transparent border-accent/20',
-    'from-white/5 to-transparent border-white/10',
-    'from-white/5 to-transparent border-white/10',
+    'bg-accent/10 border-accent/30',
+    'bg-white/[0.04] border-stone-400/20',
+    'bg-accent/[0.06] border-accent/20',
+    'bg-white/[0.02] border-white/10',
+    'bg-white/[0.02] border-white/10',
 ];
 
 export default function SteelRecommender({ steels, onClose, onSelectSteel }) {
@@ -257,7 +257,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                             hapticFeedback('medium');
                             onSelectSteel(steel);
                         }}
-                        className={`w-full text-left p-4 md:p-5 rounded-xl border bg-gradient-to-r transition duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
+                        className={`w-full text-left p-4 md:p-5 rounded-xl border transition duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
                     >
                         <div className="flex items-start gap-4">
                             {/* Rank badge */}
