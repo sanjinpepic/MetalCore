@@ -4,8 +4,8 @@
     "description": "Premium metallurgy and knife analysis platform",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#f59e0b",
+    "background_color": "#0B0A08",
+    "theme_color": "#FF5A1F",
     "orientation": "portrait-primary",
     "scope": "/",
     "icons": [

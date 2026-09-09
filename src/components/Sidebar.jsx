@@ -12,51 +12,51 @@ const PRODUCER_SHORT = {
     'Victorinox / Outokumpu': 'Victorinox',
 };
 
-// Gradient tint colors that match each view's theme
+// Single ember accent — views differentiate by content, not hue
 const VIEW_GRADIENTS = {
-    HOME: 'rgba(16,185,129,0.10)',    // emerald
-    SEARCH: 'rgba(245,158,11,0.10)',   // amber
-    MATRIX: 'rgba(244,63,94,0.10)',    // rose
-    KNIVES: 'rgba(14,165,233,0.10)',   // sky
-    EDUCATION: 'rgba(99,102,241,0.10)', // indigo
-    PRO_LAB: 'rgba(249,115,22,0.10)',  // orange
-    COMPARE: 'rgba(6,182,212,0.10)',   // cyan
-    PROFILE: 'rgba(139,92,246,0.10)',  // violet
+    HOME: 'rgba(255,90,31,0.07)',
+    SEARCH: 'rgba(255,90,31,0.07)',
+    MATRIX: 'rgba(255,90,31,0.07)',
+    KNIVES: 'rgba(255,90,31,0.07)',
+    EDUCATION: 'rgba(255,90,31,0.07)',
+    PRO_LAB: 'rgba(255,90,31,0.07)',
+    COMPARE: 'rgba(255,90,31,0.07)',
+    PROFILE: 'rgba(255,90,31,0.07)',
 };
 
 // Map view IDs to tailwind color names for active state
 const VIEW_COLORS = {
-    HOME: 'emerald',
-    SEARCH: 'amber',
-    MATRIX: 'rose',
-    KNIVES: 'sky',
-    EDUCATION: 'indigo',
-    PRO_LAB: 'orange',
-    COMPARE: 'cyan',
-    PROFILE: 'violet'
+    HOME: 'accent',
+    SEARCH: 'accent',
+    MATRIX: 'accent',
+    KNIVES: 'accent',
+    EDUCATION: 'accent',
+    PRO_LAB: 'accent',
+    COMPARE: 'accent',
+    PROFILE: 'accent'
 };
 
 // Static Tailwind classes (runtime-constructed classes are purged by JIT)
 const VIEW_ACTIVE_BG = {
-    HOME: 'bg-emerald-500 shadow-emerald-500/20',
-    SEARCH: 'bg-amber-500 shadow-amber-500/20',
-    MATRIX: 'bg-rose-500 shadow-rose-500/20',
-    KNIVES: 'bg-sky-500 shadow-sky-500/20',
-    EDUCATION: 'bg-indigo-500 shadow-indigo-500/20',
-    PRO_LAB: 'bg-orange-500 shadow-orange-500/20',
-    COMPARE: 'bg-cyan-500 shadow-cyan-500/20',
-    PROFILE: 'bg-violet-500 shadow-violet-500/20'
+    HOME: 'bg-accent shadow-accent/25',
+    SEARCH: 'bg-accent shadow-accent/25',
+    MATRIX: 'bg-accent shadow-accent/25',
+    KNIVES: 'bg-accent shadow-accent/25',
+    EDUCATION: 'bg-accent shadow-accent/25',
+    PRO_LAB: 'bg-accent shadow-accent/25',
+    COMPARE: 'bg-accent shadow-accent/25',
+    PROFILE: 'bg-accent shadow-accent/25'
 };
 
 const VIEW_HOVER = {
-    HOME: 'hover:border-emerald-500/30 group-hover:text-emerald-400',
-    SEARCH: 'hover:border-amber-500/30 group-hover:text-amber-400',
-    MATRIX: 'hover:border-rose-500/30 group-hover:text-rose-400',
-    KNIVES: 'hover:border-sky-500/30 group-hover:text-sky-400',
-    EDUCATION: 'hover:border-indigo-500/30 group-hover:text-indigo-400',
-    PRO_LAB: 'hover:border-orange-500/30 group-hover:text-orange-400',
-    COMPARE: 'hover:border-cyan-500/30 group-hover:text-cyan-400',
-    PROFILE: 'hover:border-violet-500/30 group-hover:text-violet-400'
+    HOME: 'hover:border-accent/25 group-hover:text-accent',
+    SEARCH: 'hover:border-accent/25 group-hover:text-accent',
+    MATRIX: 'hover:border-accent/25 group-hover:text-accent',
+    KNIVES: 'hover:border-accent/25 group-hover:text-accent',
+    EDUCATION: 'hover:border-accent/25 group-hover:text-accent',
+    PRO_LAB: 'hover:border-accent/25 group-hover:text-accent',
+    COMPARE: 'hover:border-accent/25 group-hover:text-accent',
+    PROFILE: 'hover:border-accent/25 group-hover:text-accent'
 };
 
 const Sidebar = ({
@@ -408,13 +408,13 @@ const Sidebar = ({
                 </AnimatePresence>
 
                 <div className="p-6 md:p-8 pb-4 flex items-center justify-between shrink-0 relative">
-                    <div className="flex items-center gap-2 md:gap-3 text-accent font-display font-black text-lg md:text-xl tracking-tighter italic">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <div className="flex items-center gap-2.5 md:gap-3 text-white font-display text-lg md:text-xl uppercase tracking-tight">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" strokeWidth="2.5">
                             <ellipse cx="12" cy="5" rx="9" ry="3" />
                             <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
                             <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
                         </svg>
-                        METALCORE
+                        METAL<span className="text-accent">CORE</span>
                     </div>
                     <button
                         onClick={() => {
@@ -490,7 +490,7 @@ const Sidebar = ({
 
                         <button
                             onClick={() => { hapticFeedback('light'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                            className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all mt-2 ${aiOpen ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:bg-white/5 hover:text-indigo-400'}`}
+                            className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap mt-2 border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30 shadow-ember-sm' : 'text-slate-500 hover:bg-white/[0.06] hover:text-accent border-transparent'}`}
                         >
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
@@ -512,7 +512,7 @@ const Sidebar = ({
                         </button>
                         <button
                             onClick={() => { hapticFeedback('medium'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all ${aiOpen ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:bg-white/5 hover:text-indigo-400 border border-white/5'}`}
+                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30' : 'text-slate-500 hover:bg-white/[0.06] hover:text-accent border-white/5'}`}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
@@ -525,7 +525,7 @@ const Sidebar = ({
 
                     {view === 'HOME' ? (
                         <section className="space-y-6">
-                            <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2.5 px-2">
+                            <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
                                     <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
                                     <line x1="12" y1="7" x2="12" y2="13" />
@@ -553,9 +553,9 @@ const Sidebar = ({
                                 ))}
                             </div>
 
-                            <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-transparent border border-indigo-500/20 mt-6">
-                                <div className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2">Pro Tip</div>
-                                <p className="text-[11px] text-slate-400 leading-relaxed italic">
+                            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] mt-6">
+                                <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.25em] mb-2">Pro Tip</div>
+                                <p className="text-[11px] text-slate-400 leading-relaxed">
                                     Use the <b>Performance Matrix</b> to find steels that break the toughness/edge retention trade-off.
                                 </p>
                             </div>
@@ -563,7 +563,7 @@ const Sidebar = ({
                     ) : (
                         <>
                             <section className="space-y-4">
-                                <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2.5 px-2">
+                                <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                                     </svg>
@@ -574,7 +574,7 @@ const Sidebar = ({
                                         <button
                                             key={p}
                                             onClick={() => { hapticFeedback('light'); setActiveProducer(p); }}
-                                            className={`text-[11px] uppercase font-black px-4 py-2.5 rounded-full border transition-all ${activeProducer === p ? 'bg-white text-black border-white shadow-lg shadow-white/10' : 'text-slate-500 border-white/5 hover:border-white/10 hover:text-slate-300 bg-white/5'}`}
+                                            className={`text-[11px] uppercase font-semibold px-4 py-2.5 rounded-full border transition-all duration-300 ease-snap ${activeProducer === p ? 'bg-bone text-[#1A0C05] border-bone shadow-lg shadow-black/40' : 'text-slate-400 border-white/10 hover:border-white/20 hover:text-white bg-white/[0.04]'}`}
                                         >
                                             {PRODUCER_SHORT[p] ?? p}
                                         </button>
@@ -583,7 +583,7 @@ const Sidebar = ({
                             </section>
 
                             <section className="mt-10 space-y-6">
-                                <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2.5 px-2">
+                                <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] flex items-center gap-2.5 px-2">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
                                         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34-9-3V5" />

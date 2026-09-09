@@ -76,8 +76,8 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-black/80 backdrop-blur-md" onClick={onClose}>
-            <div className="glass-panel w-full h-full md:h-auto md:max-w-2xl p-6 md:p-10 md:rounded-[2.5rem] border-white/10 shadow-2xl relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-[#12100D]/95 backdrop-blur-md" onClick={onClose}>
+            <div className="glass-panel w-full h-full md:h-auto md:max-w-2xl p-6 md:p-10 md:rounded-3xl border-white/10 shadow-plate-lg relative overflow-y-auto custom-scrollbar" onClick={e => e.stopPropagation()}>
                 {/* Close Button */}
                 <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[110]">
                     <button onClick={onClose} className="p-2.5 bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all border border-white/10 backdrop-blur-3xl group">
@@ -89,7 +89,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                 </div>
 
                 <div className="mb-8">
-                    <h2 className="text-2xl md:text-3xl font-display font-black text-white mb-2 italic uppercase tracking-tighter">Import Dataset</h2>
+                    <h2 className="text-2xl md:text-3xl font-display text-white mb-2 uppercase tracking-tight">Import Dataset</h2>
                     <p className="text-slate-400 text-sm">Add custom steel grades or knife data to your local session.</p>
                 </div>
 
@@ -97,13 +97,13 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                 <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 mb-8">
                     <button
                         onClick={() => setMode('UPLOAD')}
-                        className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all ${mode === 'UPLOAD' ? 'bg-accent text-black shadow-lg shadow-accent/20' : 'text-slate-500 hover:text-white'}`}
+                        className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all ${mode === 'UPLOAD' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-slate-500 hover:text-white'}`}
                     >
                         Upload File
                     </button>
                     <button
                         onClick={() => setMode('MANUAL')}
-                        className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all ${mode === 'MANUAL' ? 'bg-accent text-black shadow-lg shadow-accent/20' : 'text-slate-500 hover:text-white'}`}
+                        className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all ${mode === 'MANUAL' ? 'bg-accent text-[#1A0C05] shadow-ember' : 'text-slate-500 hover:text-white'}`}
                     >
                         Manual Entry
                     </button>
@@ -212,7 +212,7 @@ const ImportModal = ({ onClose, onManualImport, onFileUpload }) => {
                             </div>
                         </div>
 
-                        <button type="submit" className="w-full py-4 bg-accent text-black font-black uppercase tracking-widest rounded-xl hover:bg-white transition-colors shadow-lg shadow-accent/10 mt-4">
+                        <button type="submit" className="w-full py-4 bg-accent text-[#1A0C05] font-semibold uppercase tracking-widest rounded-xl hover:bg-white transition-colors shadow-ember mt-4">
                             Add Grade
                         </button>
                     </form>

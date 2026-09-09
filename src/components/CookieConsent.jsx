@@ -33,13 +33,13 @@ export default function CookieConsent() {
     return (
         <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 animate-slide-up">
             <div className="max-w-6xl mx-auto">
-                <div className="glass-panel p-4 md:p-6 rounded-2xl border border-white/10 shadow-2xl">
+                <div className="glass-panel p-4 md:p-6 rounded-2xl border border-white/10 shadow-plate-lg">
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
                         {/* Icon */}
                         <div className="flex-shrink-0">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
                                 <svg
-                                    className="w-6 h-6 text-emerald-400"
+                                    className="w-6 h-6 text-accent"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -59,13 +59,13 @@ export default function CookieConsent() {
                             <h3 className="text-lg font-semibold text-white mb-2">
                                 Cookie Preferences
                             </h3>
-                            <p className="text-sm text-gray-300 leading-relaxed">
+                            <p className="text-sm text-stone-300 leading-relaxed">
                                 We use cookies to enhance your experience, save your preferences, and analyze usage.
                                 Essential cookies are required for the app to function. By clicking "Accept All", you
                                 consent to our use of cookies.{' '}
                                 <a
                                     href="/legal/privacy"
-                                    className="text-emerald-400 hover:text-emerald-300 underline transition-colors"
+                                    className="text-accent hover:text-accent-400 underline transition-colors"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -84,7 +84,7 @@ export default function CookieConsent() {
                             </button>
                             <button
                                 onClick={acceptCookies}
-                                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-medium shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:scale-105"
+                                className="px-6 py-2.5 rounded-xl bg-accent hover:bg-accent-600 text-[#1A0C05] font-medium shadow-ember transition-all duration-200 hover:scale-105"
                             >
                                 Accept All
                             </button>

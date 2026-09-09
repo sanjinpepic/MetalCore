@@ -81,11 +81,11 @@ export default function PageLoader() {
     if (!loading) return null
 
     return (
-        <div id="loading" className="fixed inset-0 z-[9999] bg-black overflow-y-auto">
+        <div id="loading" className="fixed inset-0 z-[9999] bg-[#0B0A08] overflow-y-auto">
             {/* Background elements to match the HomeView */}
-            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-black">
+            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-[#0B0A08]">
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-500/5 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px]" />
             </div>
 
             <div className="relative pt-24">
@@ -100,10 +100,11 @@ export default function PageLoader() {
                             </svg>
                         </div>
                     </div>
-                    <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">
+                    <h2 className="font-display text-2xl text-white uppercase tracking-tight">
                         Initializing MetalCore
                     </h2>
-                    <p className="text-[10px] text-slate-500 font-mono uppercase tracking-widest mt-2">
+                    <div className="h-px w-16 bg-accent/70 mt-4" />
+                    <p className="text-[10px] text-slate-500 font-mono font-medium uppercase tracking-[0.3em] mt-3">
                         Forging Database Resources...
                     </p>
                 </div>

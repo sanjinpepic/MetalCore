@@ -1,117 +1,69 @@
 /**
- * MetalCore Design System Tokens
- * Centralized design constants for consistent styling
+ * MetalCore Design System — "Molten Forge"
+ * One accent (ember). Heat is the only color language.
  */
 
-// Border Radius Scale
+// Border Radius Scale — tighter, machined. Industrial parts are not bubbles.
 export const RADIUS = {
-  sm: 'rounded-xl',      // 12px - Small elements (buttons, tags)
-  md: 'rounded-2xl',     // 16px - Medium cards, inputs
-  lg: 'rounded-[1.5rem]', // 24px - Large cards
-  xl: 'rounded-[2rem]',   // 32px - Modals, major containers
-  xxl: 'rounded-[2.5rem]', // 40px - Hero cards, featured elements
+  sm: 'rounded-lg',       // 8px  - Buttons, tags, inputs
+  md: 'rounded-xl',       // 12px - Cards, containers
+  lg: 'rounded-2xl',      // 16px - Large cards
+  xl: 'rounded-3xl',      // 24px - Modals, major containers
+  xxl: 'rounded-[2rem]',  // 32px - Hero surfaces
   full: 'rounded-full'    // Circles (buttons, avatars)
 };
 
-// View-Specific Color Themes
+// View Themes — collapsed to the single ember accent.
+// Keys are kept so every call site keeps working; views differentiate
+// by composition and data, not by hue.
+const EMBER = {
+  id: 'accent',
+  text: 'text-accent',
+  bg: 'bg-accent',
+  border: 'border-accent/25',
+  glow: 'from-accent/[0.14]',
+  sidebar: 'rgba(255, 90, 31, 0.07)'
+};
+
 export const THEMES = {
-  emerald: {
-    id: 'emerald',
-    text: 'text-emerald-400',
-    bg: 'bg-emerald-500',
-    border: 'border-emerald-500/20',
-    glow: 'from-emerald-500/20',
-    sidebar: 'rgba(16, 185, 129, 0.10)'
-  },
-  amber: {
-    id: 'amber',
-    text: 'text-amber-400',
-    bg: 'bg-amber-500',
-    border: 'border-amber-500/20',
-    glow: 'from-amber-500/20',
-    sidebar: 'rgba(245, 158, 11, 0.10)'
-  },
-  rose: {
-    id: 'rose',
-    text: 'text-rose-400',
-    bg: 'bg-rose-500',
-    border: 'border-rose-500/20',
-    glow: 'from-rose-500/20',
-    sidebar: 'rgba(244, 63, 94, 0.10)'
-  },
-  sky: {
-    id: 'sky',
-    text: 'text-sky-400',
-    bg: 'bg-sky-500',
-    border: 'border-sky-500/20',
-    glow: 'from-sky-500/20',
-    sidebar: 'rgba(14, 165, 233, 0.10)'
-  },
-  indigo: {
-    id: 'indigo',
-    text: 'text-indigo-400',
-    bg: 'bg-indigo-500',
-    border: 'border-indigo-500/20',
-    glow: 'from-indigo-500/20',
-    sidebar: 'rgba(99, 102, 241, 0.10)'
-  },
-  orange: {
-    id: 'orange',
-    text: 'text-orange-400',
-    bg: 'bg-orange-500',
-    border: 'border-orange-500/20',
-    glow: 'from-orange-500/20',
-    sidebar: 'rgba(249, 115, 22, 0.10)'
-  },
-  cyan: {
-    id: 'cyan',
-    text: 'text-cyan-400',
-    bg: 'bg-cyan-500',
-    border: 'border-cyan-500/20',
-    glow: 'from-cyan-500/20',
-    sidebar: 'rgba(6, 182, 212, 0.10)'
-  },
-  violet: {
-    id: 'violet',
-    text: 'text-violet-400',
-    bg: 'bg-violet-500',
-    border: 'border-violet-500/20',
-    glow: 'from-violet-500/20',
-    sidebar: 'rgba(139, 92, 246, 0.10)'
-  }
+  emerald: EMBER,
+  amber: EMBER,
+  rose: EMBER,
+  sky: EMBER,
+  indigo: EMBER,
+  orange: EMBER,
+  cyan: EMBER,
+  violet: EMBER
 };
 
 // Shadow Patterns
 export const SHADOW = {
-  card: 'shadow-xl',                           // Default cards
-  elevated: 'shadow-2xl',                      // Modals, overlays
-  glow: 'shadow-lg shadow-accent/20',          // Interactive accent elements
-  glowStrong: 'shadow-xl shadow-accent/30',    // Strong emphasis
+  card: 'shadow-plate',                       // Default cards
+  elevated: 'shadow-plate-lg',                // Modals, overlays
+  glow: 'shadow-ember-sm',                    // Interactive accent elements
+  glowStrong: 'shadow-ember',                 // Strong emphasis
   none: 'shadow-none'
 };
 
-// Glass Panel Variants
+// Forged Plate Variants (class names kept for compatibility)
 export const GLASS = {
-  // Base glass panel (most common)
-  base: 'glass-panel bg-black/40 border border-white/10 backdrop-blur-xl',
+  // Base plate (most common)
+  base: 'glass-panel',
 
-  // Glass with subtle gradient overlay (premium feel)
-  gradient: 'glass-panel bg-gradient-to-br from-white/5 to-black/40 border border-white/10 backdrop-blur-xl',
+  // Plate with heat gradient (premium feel)
+  gradient: 'glass-gradient',
 
-  // Glass with accent gradient (featured cards)
-  accentGradient: 'glass-panel bg-gradient-to-br from-accent/5 to-black/40 border border-white/10 backdrop-blur-xl',
+  // Accent plate (featured cards)
+  accentGradient: 'glass-accent',
 
-  // Glass with indigo gradient (AI features)
-  indigoGradient: 'glass-panel bg-gradient-to-br from-indigo-500/5 to-black/40 border border-white/10 backdrop-blur-xl',
+  // Stronger plate (modals, overlays)
+  strong: 'glass-strong',
 
-  // Stronger glass (modals, overlays)
-  strong: 'glass-panel bg-black/60 border border-white/10 backdrop-blur-3xl',
+  // Sidebar rail
+  sidebar: 'glass-sidebar',
 
-  // Premium sidebar glass (enhanced transparency, lets gradients shine through)
-  sidebar: 'glass-sidebar bg-gradient-to-br from-white/[0.03] via-black/[0.35] to-black/40 border border-white/10 backdrop-blur-3xl backdrop-saturate-150',
-
-  // Subtle glass (nested elements)
-  subtle: 'bg-white/5 border border-white/5 backdrop-blur-sm'
+  // Subtle inset (nested elements)
+  subtle: 'bg-white/[0.04] border border-white/[0.06]'
 };
 
 // Spacing Scale (for padding/margin)
@@ -131,38 +83,42 @@ export const SPACING = {
   gapLarge: 'gap-4 md:gap-6'
 };
 
-// Typography Patterns
+// Typography Patterns — Molten Forge voice:
+// Display = Archivo Black, upright, uppercase, tight tracking. Never italic.
+// Labels = medium weight, wide tracking. Never font-black on tiny sizes.
 export const TYPE = {
   // Headers
-  pageTitle: 'text-4xl md:text-6xl font-display font-black text-white italic uppercase tracking-tighter leading-none',
-  sectionTitle: 'text-2xl md:text-3xl font-display font-black text-white italic uppercase tracking-tighter',
-  cardTitle: 'text-xl md:text-2xl font-black text-white italic uppercase tracking-tight',
-  heading: 'text-lg md:text-xl font-black text-white uppercase tracking-widest',
-  subheading: 'text-sm md:text-base font-black text-white uppercase tracking-widest',
+  pageTitle: 'text-4xl md:text-6xl font-display text-white uppercase tracking-tight leading-[0.95]',
+  sectionTitle: 'text-2xl md:text-3xl font-display text-white uppercase tracking-tight leading-none',
+  cardTitle: 'text-lg md:text-xl font-display text-white uppercase tracking-tight',
+  heading: 'text-base md:text-lg font-bold text-white uppercase tracking-wide',
+  subheading: 'text-sm md:text-base font-bold text-white uppercase tracking-wide',
 
   // Labels
-  label: 'text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest',
-  microLabel: 'text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]',
+  label: 'text-[10px] md:text-xs font-medium text-stone-500 uppercase tracking-[0.2em]',
+  microLabel: 'text-[9px] md:text-[10px] font-medium text-stone-600 uppercase tracking-[0.25em]',
 
   // Body
-  body: 'text-sm md:text-base text-slate-300',
-  bodySmall: 'text-xs md:text-sm text-slate-400',
-  caption: 'text-[10px] md:text-xs text-slate-500'
+  body: 'text-sm md:text-base text-stone-300',
+  bodySmall: 'text-xs md:text-sm text-stone-400',
+  caption: 'text-[10px] md:text-xs text-stone-500'
 };
 
 // Button Patterns
 export const BUTTON = {
-  primary: `px-6 py-3 bg-accent text-black font-black uppercase tracking-wider ${RADIUS.sm} hover:bg-accent/90 transition-all ${SHADOW.glow} active:scale-[0.98]`,
-  secondary: `px-6 py-3 bg-white/5 text-white font-black uppercase tracking-wider ${RADIUS.sm} border border-white/10 hover:bg-white/10 transition-all active:scale-[0.98]`,
-  ghost: `px-4 py-2 text-slate-400 font-bold hover:text-white hover:bg-white/5 ${RADIUS.sm} transition-all`,
-  icon: 'p-2 hover:bg-white/5 rounded-lg text-slate-400 hover:text-accent transition-all'
+  primary: `px-6 py-3 bg-accent text-[#1A0C05] font-bold uppercase tracking-wider text-sm ${RADIUS.sm} hover:bg-accent-400 transition-all duration-300 ease-snap ${SHADOW.glow} active:scale-[0.97]`,
+  secondary: `px-6 py-3 bg-white/[0.06] text-white font-bold uppercase tracking-wider text-sm ${RADIUS.sm} border border-white/10 hover:bg-white/[0.1] hover:border-white/20 transition-all duration-300 ease-snap active:scale-[0.97]`,
+  ghost: `px-4 py-2 text-stone-400 font-semibold text-sm hover:text-white hover:bg-white/[0.06] ${RADIUS.sm} transition-all duration-300 ease-snap`,
+  icon: 'p-2 hover:bg-white/[0.06] rounded-lg text-stone-400 hover:text-accent transition-all duration-300 ease-snap'
 };
 
-// Animation Patterns
+// Animation Patterns — Physical personality.
+// Springs for entries/state, snap for hover. Three curves, no more.
 export const ANIMATION = {
-  transition: 'transition-all duration-300 ease-out',
-  transitionFast: 'transition-all duration-150 ease-out',
-  springConfig: { type: 'spring', damping: 30, stiffness: 300, mass: 0.5 },
+  transition: 'transition-all duration-300 ease-out-expo',
+  transitionFast: 'transition-all duration-150 ease-snap',
+  springConfig: { type: 'spring', stiffness: 400, damping: 30, mass: 1 },
+  springSmooth: { type: 'spring', stiffness: 200, damping: 24, mass: 1 },
   discordEasing: [0.22, 1, 0.36, 1]
 };
 

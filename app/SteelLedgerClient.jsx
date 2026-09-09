@@ -474,9 +474,9 @@ Be concise and premium.`;
 
                 {/* Database Unavailable Banner */}
                 {showDbBanner && (
-                    <div className="fixed top-safe-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-amber-950 border-b border-amber-700 px-4 py-2.5">
-                        <div className="flex items-center gap-2.5 text-amber-400 text-sm">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                    <div className="fixed top-safe-0 left-0 right-0 z-50 flex items-center justify-between gap-3 bg-[#12100D]/95 backdrop-blur-xl border-b border-accent/40 px-4 py-2.5">
+                        <div className="flex items-center gap-2.5 text-stone-300 text-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-accent">
                                 <path d="M12 9v4m0 4h.01" />
                                 <circle cx="12" cy="12" r="10" />
                             </svg>
@@ -485,13 +485,13 @@ Be concise and premium.`;
                         <div className="flex items-center gap-3 shrink-0">
                             <button
                                 onClick={() => window.location.reload()}
-                                className="px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-700/50 text-amber-400 text-xs font-bold hover:bg-amber-500/20 transition-colors"
+                                className="px-3 py-1 rounded-lg bg-accent/10 border border-accent/30 text-accent text-xs font-bold hover:bg-accent/20 transition-colors"
                             >
                                 Retry
                             </button>
                             <button
                                 onClick={() => setShowDbBanner(false)}
-                                className="text-amber-500 hover:text-amber-300"
+                                className="text-stone-500 hover:text-stone-300"
                                 aria-label="Dismiss"
                             >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -510,7 +510,7 @@ Be concise and premium.`;
                 {(view === 'SEARCH' || view === 'KNIVES' || view === 'MATRIX') && (
                     <button
                         onClick={() => { hapticFeedback('medium'); setMobileMenuOpen(!mobileMenuOpen); }}
-                        className="fixed top-safe-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-lg shadow-accent/20 text-black"
+                        className="fixed top-safe-4 right-4 z-50 md:hidden p-3 bg-accent rounded-xl shadow-ember text-[#1A0C05]"
                         aria-label={mobileMenuOpen ? "Close filters" : "Open filters"}
                     >
                         {mobileMenuOpen ? (
@@ -669,8 +669,8 @@ Be concise and premium.`;
 
                 {/* AI Coming Soon Modal */}
                 {showAiComingSoon && (
-                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl transition-all" onClick={() => setShowAiComingSoon(false)}>
-                        <div className="glass-panel w-full md:max-w-lg p-8 rounded-[2rem] border border-white/10 shadow-2xl relative" onClick={e => e.stopPropagation()}>
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-[#12100D]/95 backdrop-blur-xl transition-all" onClick={() => setShowAiComingSoon(false)}>
+                        <div className="glass-panel w-full md:max-w-lg p-8 rounded-3xl border border-white/10 shadow-plate-lg relative" onClick={e => e.stopPropagation()}>
                             <div className="flex justify-between items-center mb-8">
                                 <div className="flex items-center gap-2.5">
                                     <div className="p-1.5 bg-white/5 rounded-lg">
@@ -679,7 +679,7 @@ Be concise and premium.`;
                                             <circle cx="12" cy="12" r="3" />
                                         </svg>
                                     </div>
-                                    <h3 className="font-display font-black text-white uppercase tracking-tighter italic text-sm md:text-base">AI Assistant</h3>
+                                    <h3 className="font-display text-white uppercase tracking-tight text-sm md:text-base">AI Assistant</h3>
                                 </div>
                                 <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-slate-500 transition-all">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -695,11 +695,11 @@ Be concise and premium.`;
                                         <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                                     </svg>
                                 </div>
-                                <h4 className="font-display font-black text-white uppercase tracking-tighter italic text-base md:text-lg">AI Model Still Being Forged</h4>
+                                <h4 className="font-display text-white uppercase tracking-tight text-base md:text-lg">AI Model Still Being Forged</h4>
                                 <p className="text-[10px] md:text-xs text-slate-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
                             </div>
 
-                            <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-white text-black font-black uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-xl active:scale-[0.98]">Got It</button>
+                            <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-bone text-[#1A0C05] font-semibold uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-plate active:scale-[0.98]">Got It</button>
                         </div>
                     </div>
                 )}

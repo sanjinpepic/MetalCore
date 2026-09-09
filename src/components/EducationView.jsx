@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React, { useState, useMemo } from 'react';
 import ProducerMap from './ProducerMap';
@@ -24,9 +24,9 @@ const FAQ_CATEGORY_ICONS = {
 };
 
 const LEVEL_COLORS = {
-    'Beginner': { bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' },
-    'Intermediate': { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' },
-    'Advanced': { bg: 'bg-rose-500/10', text: 'text-rose-400', border: 'border-rose-500/20' },
+    'Beginner': { bg: 'bg-white/5', text: 'text-stone-300', border: 'border-white/10' },
+    'Intermediate': { bg: 'bg-accent/10', text: 'text-accent', border: 'border-accent/25' },
+    'Advanced': { bg: 'bg-accent-600/10', text: 'text-accent-600', border: 'border-accent-600/25' },
 };
 
 const EducationView = ({ glossary, faq, producers }) => {
@@ -79,7 +79,7 @@ const EducationView = ({ glossary, faq, producers }) => {
     return (
         <div className="flex flex-col flex-1 min-w-0 md:h-full md:overflow-y-auto custom-scrollbar bg-transparent relative pb-40 md:pb-0">
             {/* Desktop gradient overlay */}
-            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-indigo-500/10 to-transparent pointer-events-none" />
+            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
 
             {/* Header */}
             <ViewHeader
@@ -88,7 +88,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                 highlight="Academy"
                 color="indigo"
             >
-                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">
+                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 font-medium hidden md:block">
                     Master the science of steel. Explore technical terms, frequently asked questions, and the global industry leaders.
                 </p>
             </ViewHeader>
@@ -96,7 +96,7 @@ const EducationView = ({ glossary, faq, producers }) => {
 
             {/* Navigation Tabs & Search */}
             <div className="sticky top-0 z-[40] bg-transparent backdrop-blur-2xl transition-all w-full">
-                {/* Mobile tabs — own row */}
+                {/* Mobile tabs â€” own row */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
                         {[
@@ -107,7 +107,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-3 py-2 rounded-2xl flex items-center gap-2 text-[10px] font-black uppercase italic tracking-wider transition-all shrink-0 ${activeTab === tab.id ? 'bg-accent text-black scale-105 shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                                className={`px-3 py-2 rounded-2xl flex items-center gap-2 text-[10px] font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap shrink-0 ${activeTab === tab.id ? 'bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
                             >
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                     <path d={tab.icon} />
@@ -119,7 +119,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                     </div>
                 </div>
 
-                {/* Mobile glossary category chips — own row below tabs */}
+                {/* Mobile glossary category chips â€” own row below tabs */}
                 {activeTab === 'GLOSSARY' && !searchTerm && (
                     <div className="md:hidden px-4 pb-2 overflow-x-auto no-scrollbar" style={{ maxWidth: '100vw' }}>
                         <div className="flex gap-1.5 py-1">
@@ -127,8 +127,8 @@ const EducationView = ({ glossary, faq, producers }) => {
                                 <button
                                     key={cat.id}
                                     onClick={() => setActiveCategory(cat.id)}
-                                    className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wide transition-all whitespace-nowrap shrink-0 ${activeCategory === cat.id
-                                        ? 'bg-indigo-500 text-black shadow-md shadow-indigo-500/20'
+                                    className={`px-2.5 py-1 rounded-lg text-[9px] font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap whitespace-nowrap shrink-0 ${activeCategory === cat.id
+                                        ? 'bg-accent text-[#1A0C05] shadow-ember-sm'
                                         : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'
                                         }`}
                                 >
@@ -150,7 +150,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-6 py-3 rounded-2xl flex items-center gap-3 text-sm font-black uppercase italic tracking-wider transition-all shrink-0 ${activeTab === tab.id ? 'bg-accent text-black scale-105 shadow-lg shadow-accent/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                                className={`px-6 py-3 rounded-2xl flex items-center gap-3 text-sm font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap shrink-0 ${activeTab === tab.id ? 'bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
                             >
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                     <path d={tab.icon} />
@@ -181,15 +181,15 @@ const EducationView = ({ glossary, faq, producers }) => {
             <div className="p-6 md:p-12 pb-32">
                 {activeTab === 'GLOSSARY' && (
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 w-full">
-                        {/* Category Filter Chips — desktop only (mobile chips are in sticky header) */}
+                        {/* Category Filter Chips â€” desktop only (mobile chips are in sticky header) */}
                         {!searchTerm && (
                             <div className="hidden md:flex gap-2 overflow-x-auto no-scrollbar mb-8 pb-1">
                                 {GLOSSARY_CATEGORIES.map(cat => (
                                     <button
                                         key={cat.id}
                                         onClick={() => setActiveCategory(cat.id)}
-                                        className={`px-5 py-2.5 rounded-2xl text-xs font-black uppercase italic tracking-wider transition-all shrink-0 ${activeCategory === cat.id
-                                            ? 'bg-indigo-500 text-black shadow-lg shadow-indigo-500/20'
+                                        className={`px-5 py-2.5 rounded-2xl text-xs font-mono font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-snap shrink-0 ${activeCategory === cat.id
+                                            ? 'bg-accent text-[#1A0C05] shadow-ember-sm'
                                             : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10 border border-white/5'
                                             }`}
                                     >
@@ -210,9 +210,9 @@ const EducationView = ({ glossary, faq, producers }) => {
                                             <div className="sticky top-[8.5rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-2 md:py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
                                                 <div className="flex items-center gap-2 md:gap-3">
                                                     <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-accent"></div>
-                                                    <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{cat.id}</h2>
+                                                    <h2 className="text-xs md:text-sm font-mono font-medium text-slate-400 uppercase tracking-[0.2em]">{cat.id}</h2>
                                                     <div className="flex-1 h-px bg-white/5"></div>
-                                                    <span className="text-[10px] font-bold text-slate-600">{items.length} {items.length === 1 ? 'term' : 'terms'}</span>
+                                                    <span className="text-[10px] font-mono font-medium text-slate-600">{items.length} {items.length === 1 ? 'term' : 'terms'}</span>
                                                 </div>
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
@@ -232,7 +232,7 @@ const EducationView = ({ glossary, faq, producers }) => {
                                 ))}
                                 {filteredGlossary.length === 0 && (
                                     <div className="col-span-full text-center py-20">
-                                        <p className="text-slate-600 text-sm italic font-medium">No terms found matching "{searchTerm}"</p>
+                                        <p className="text-slate-600 text-sm font-medium">No terms found matching "{searchTerm}"</p>
                                     </div>
                                 )}
                             </div>
@@ -254,12 +254,12 @@ const EducationView = ({ glossary, faq, producers }) => {
                             return (
                                 <section key={cat}>
                                     <div className="flex items-center gap-3 mb-5">
-                                        <div className="p-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-400">
+                                        <div className="p-1.5 rounded-lg bg-accent/10 border border-accent/25">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
                                                 <path d={FAQ_CATEGORY_ICONS[cat]} />
                                             </svg>
                                         </div>
-                                        <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{cat}</h2>
+                                        <h2 className="text-xs md:text-sm font-mono font-medium text-slate-400 uppercase tracking-[0.2em]">{cat}</h2>
                                         <div className="flex-1 h-px bg-white/5"></div>
                                     </div>
                                     <div className="space-y-3">
@@ -269,33 +269,33 @@ const EducationView = ({ glossary, faq, producers }) => {
                                             return (
                                                 <div
                                                     key={globalIdx}
-                                                    className={`glass-panel rounded-2xl border transition-all ${isOpen ? 'border-indigo-500/20 bg-gradient-to-r from-indigo-500/5 to-transparent' : 'border-white/5 hover:border-white/10'}`}
+                                                    className={`glass-panel rounded-2xl border transition-all duration-300 ease-snap ${isOpen ? 'border-accent/25 bg-gradient-to-r from-accent/5 to-transparent' : 'border-white/5 hover:border-white/10'}`}
                                                 >
                                                     <button
                                                         onClick={() => toggleFaq(globalIdx)}
                                                         className="w-full p-5 md:p-6 flex items-center gap-4 md:gap-5 text-left"
                                                     >
-                                                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 border font-display font-black italic text-sm transition-all ${isOpen ? 'bg-indigo-600/30 border-indigo-500/30 text-indigo-300' : 'bg-indigo-600/10 border-indigo-500/20 text-indigo-500'}`}>
+                                                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 border font-display text-sm transition-all duration-300 ease-snap ${isOpen ? 'bg-accent/15 border-accent/30 text-accent' : 'bg-accent/10 border-accent/25 text-accent/60'}`}>
                                                             Q
                                                         </div>
-                                                        <h3 className={`flex-1 text-sm md:text-base font-display font-black uppercase italic tracking-tighter leading-tight transition-colors ${isOpen ? 'text-white' : 'text-slate-300'}`}>
+                                                        <h3 className={`flex-1 text-sm md:text-base font-display uppercase tracking-tight leading-tight transition-colors duration-300 ${isOpen ? 'text-white' : 'text-slate-300'}`}>
                                                             {item.q}
                                                         </h3>
                                                         <svg
                                                             width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                                                            className={`shrink-0 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                                                            className={`shrink-0 text-slate-500 transition-transform duration-300 ease-snap ${isOpen ? 'rotate-180' : ''}`}
                                                         >
                                                             <polyline points="6 9 12 15 18 9" />
                                                         </svg>
                                                     </button>
                                                     <div
-                                                        className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                                                        className={`grid transition-all duration-300 ease-out-expo ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                                                     >
                                                         <div className="overflow-hidden">
                                                             <div className="px-5 md:px-6 pb-5 md:pb-6 pl-[4.25rem] md:pl-[5rem]">
                                                                 <div className="flex gap-5">
-                                                                    <div className="w-px bg-indigo-500/20 shrink-0 my-1"></div>
-                                                                    <p className="text-slate-400 text-sm md:text-base leading-relaxed italic font-medium">{item.a}</p>
+                                                                    <div className="w-px bg-accent/25 shrink-0 my-1"></div>
+                                                                    <p className="text-slate-400 text-sm md:text-base leading-relaxed font-medium">{item.a}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -318,13 +318,13 @@ const EducationView = ({ glossary, faq, producers }) => {
 const GlossaryCard = ({ item }) => {
     const level = LEVEL_COLORS[item.level] || LEVEL_COLORS['Beginner'];
     return (
-        <div className="glass-gradient p-4 md:p-7 rounded-xl md:rounded-[2rem] border-white/5 hover:border-white/20 transition-all group">
+        <div className="glass-gradient p-4 md:p-7 rounded-xl md:rounded-3xl border-white/5 hover:border-white/20 transition-all duration-300 ease-snap group">
             {/* Compact inline header: Term + Badge */}
             <div className="flex items-baseline justify-between gap-2 mb-2">
-                <h3 className="text-sm md:text-lg font-display font-black text-white italic uppercase tracking-tighter group-hover:text-accent transition-colors leading-none flex-1">
+                <h3 className="text-sm md:text-lg font-display text-white uppercase tracking-tight group-hover:text-accent transition-colors duration-300 leading-none flex-1">
                     {item.term}
                 </h3>
-                <span className={`text-[8px] md:text-[9px] font-black uppercase tracking-wider px-1.5 md:px-2 py-0.5 rounded-md md:rounded-full border shrink-0 ${level.bg} ${level.text} ${level.border}`}>
+                <span className={`text-[8px] md:text-[9px] font-mono font-medium uppercase tracking-[0.2em] px-1.5 md:px-2 py-0.5 rounded-md md:rounded-full border shrink-0 ${level.bg} ${level.text} ${level.border}`}>
                     {item.level}
                 </span>
             </div>

@@ -99,21 +99,21 @@ function RatingBar({ label, value }) {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <span style={{ color: '#a1a1aa', fontSize: '14px' }}>{label}</span>
-                <span style={{ color: '#e4e4e7', fontSize: '14px', fontFamily: 'monospace' }}>{value}/10</span>
+                <span style={{ color: '#A39E93', fontSize: '14px' }}>{label}</span>
+                <span style={{ color: '#EDE9E2', fontSize: '14px', fontFamily: "'JetBrains Mono', monospace" }}>{value}/10</span>
             </div>
-            <div style={{ height: '6px', background: '#27272a', borderRadius: '9999px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${pct}%`, background: '#f59e0b', borderRadius: '9999px' }} />
+            <div style={{ height: '6px', background: '#1D1915', borderRadius: '9999px', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${pct}%`, background: '#FF5A1F', borderRadius: '9999px' }} />
             </div>
         </div>
     );
 }
 
-function Badge({ children, color = '#f59e0b' }) {
+function Badge({ children, color = '#FF5A1F' }) {
     return (
         <span style={{
             fontSize: '11px',
-            fontFamily: 'monospace',
+            fontFamily: "'JetBrains Mono', monospace",
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             color,
@@ -135,11 +135,11 @@ export default async function SteelPage({ params }) {
 
     if (!steel) {
         return (
-            <div style={{ minHeight: '100vh', background: '#09090b', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}>
+            <div style={{ minHeight: '100vh', background: '#0B0A08', color: '#EDE9E2', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Inter', system-ui, sans-serif" }}>
                 <div style={{ textAlign: 'center' }}>
                     <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Steel Not Found</h1>
-                    <p style={{ color: '#71717a', marginBottom: '24px' }}>No steel matching &quot;{id}&quot; in our database.</p>
-                    <Link href="/" style={{ color: '#f59e0b', textDecoration: 'underline' }}>← Back to MetalCore</Link>
+                    <p style={{ color: '#A39E93', marginBottom: '24px' }}>No steel matching &quot;{id}&quot; in our database.</p>
+                    <Link href="/" style={{ color: '#FF5A1F', textDecoration: 'underline' }}>← Back to MetalCore</Link>
                 </div>
             </div>
         );
@@ -200,18 +200,18 @@ export default async function SteelPage({ params }) {
     };
 
     const s = {
-        page:       { position: 'fixed', inset: 0, overflowY: 'auto', background: '#09090b', color: '#f4f4f5', fontFamily: 'system-ui, sans-serif' },
-        nav:        { borderBottom: '1px solid #27272a', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-        navBrand:   { color: '#f59e0b', fontWeight: 800, fontSize: '18px', letterSpacing: '0.15em', textDecoration: 'none' },
-        navBack:    { color: '#71717a', fontSize: '14px', textDecoration: 'none' },
+        page:       { position: 'fixed', inset: 0, overflowY: 'auto', background: '#0B0A08', color: '#EDE9E2', fontFamily: "'Inter', system-ui, sans-serif" },
+        nav:        { borderBottom: '1px solid rgba(237, 233, 226, 0.08)', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+        navBrand:   { color: '#FF5A1F', fontWeight: 800, fontSize: '18px', letterSpacing: '0.15em', textDecoration: 'none' },
+        navBack:    { color: '#A39E93', fontSize: '14px', textDecoration: 'none' },
         main:       { maxWidth: '900px', margin: '0 auto', padding: '48px 24px' },
-        label:      { fontSize: '11px', fontFamily: 'monospace', color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '12px', display: 'block' },
-        card:       { background: '#18181b', borderRadius: '16px', padding: '24px', border: '1px solid #27272a' },
+        label:      { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#6E685D', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '12px', display: 'block' },
+        card:       { background: '#12100D', borderRadius: '16px', padding: '24px', border: '1px solid rgba(237, 233, 226, 0.08)' },
         grid2:      { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '24px' },
-        h2:         { fontSize: '11px', fontFamily: 'monospace', color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '16px' },
-        knifeItem:  { background: '#27272a', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', color: '#d4d4d8' },
+        h2:         { fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", color: '#6E685D', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '16px' },
+        knifeItem:  { background: '#1D1915', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', color: '#EDE9E2' },
         knifeGrid:  { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '8px' },
-        footer:     { borderTop: '1px solid #27272a', padding: '32px 24px', textAlign: 'center', color: '#52525b', fontSize: '13px' },
+        footer:     { borderTop: '1px solid rgba(237, 233, 226, 0.08)', padding: '32px 24px', textAlign: 'center', color: '#6E685D', fontSize: '13px' },
     };
 
     return (
@@ -233,16 +233,16 @@ export default async function SteelPage({ params }) {
                     <header style={{ marginBottom: '48px' }}>
                         <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
                             <Badge>{steel.producer}</Badge>
-                            {steel.pm && <Badge color="#a855f7">Powder Metal</Badge>}
+                            {steel.pm && <Badge color="#FF9D62">Powder Metal</Badge>}
                         </div>
-                        <h1 style={{ fontSize: '56px', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '20px' }}>
+                        <h1 style={{ fontSize: '56px', fontFamily: "'Archivo Black', sans-serif", fontWeight: 400, textTransform: 'uppercase', letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '20px' }}>
                             {steel.name}
                         </h1>
-                        <p className="steel-description" style={{ color: '#a1a1aa', fontSize: '18px', lineHeight: 1.7, maxWidth: '680px' }}>
+                        <p className="steel-description" style={{ color: '#A39E93', fontSize: '18px', lineHeight: 1.7, maxWidth: '680px' }}>
                             {steel.desc}
                         </p>
                         {steel.use_case && (
-                            <p style={{ marginTop: '12px', color: '#71717a', fontSize: '15px', fontStyle: 'italic' }}>
+                            <p style={{ marginTop: '12px', color: '#A39E93', fontSize: '15px' }}>
                                 Best for: {steel.use_case}
                             </p>
                         )}
@@ -267,18 +267,18 @@ export default async function SteelPage({ params }) {
                                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                         <thead>
                                             <tr>
-                                                <th style={{ textAlign: 'left', fontSize: '11px', color: '#52525b', paddingBottom: '12px', fontWeight: 500 }}>Element</th>
-                                                <th style={{ textAlign: 'right', fontSize: '11px', color: '#52525b', paddingBottom: '12px', fontWeight: 500 }}>Content</th>
+                                                <th style={{ textAlign: 'left', fontSize: '11px', color: '#6E685D', paddingBottom: '12px', fontWeight: 500 }}>Element</th>
+                                                <th style={{ textAlign: 'right', fontSize: '11px', color: '#6E685D', paddingBottom: '12px', fontWeight: 500 }}>Content</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {elements.map((el) => (
-                                                <tr key={el.symbol} style={{ borderTop: '1px solid #27272a' }}>
+                                                <tr key={el.symbol} style={{ borderTop: '1px solid rgba(237, 233, 226, 0.08)' }}>
                                                     <td style={{ padding: '10px 0' }}>
-                                                        <span style={{ fontFamily: 'monospace', color: '#f59e0b', fontSize: '14px' }}>{el.symbol}</span>
-                                                        <span style={{ color: '#71717a', fontSize: '13px', marginLeft: '10px' }}>{el.name}</span>
+                                                        <span style={{ fontFamily: "'JetBrains Mono', monospace", color: '#FF5A1F', fontSize: '14px' }}>{el.symbol}</span>
+                                                        <span style={{ color: '#A39E93', fontSize: '13px', marginLeft: '10px' }}>{el.name}</span>
                                                     </td>
-                                                    <td style={{ padding: '10px 0', textAlign: 'right', fontFamily: 'monospace', color: '#e4e4e7', fontSize: '14px' }}>
+                                                    <td style={{ padding: '10px 0', textAlign: 'right', fontFamily: "'JetBrains Mono', monospace", color: '#EDE9E2', fontSize: '14px' }}>
                                                         {el.value}%
                                                     </td>
                                                 </tr>
@@ -299,7 +299,7 @@ export default async function SteelPage({ params }) {
                                             <h3 style={{ color: '#4ade80', fontWeight: 600, marginBottom: '16px', fontSize: '15px' }}>Advantages</h3>
                                             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                                 {steel.pros.map((pro, i) => (
-                                                    <li key={i} style={{ display: 'flex', gap: '10px', color: '#d4d4d8', fontSize: '14px' }}>
+                                                    <li key={i} style={{ display: 'flex', gap: '10px', color: '#EDE9E2', fontSize: '14px' }}>
                                                         <span style={{ color: '#4ade80', flexShrink: 0 }}>✓</span> {pro}
                                                     </li>
                                                 ))}
@@ -311,7 +311,7 @@ export default async function SteelPage({ params }) {
                                             <h3 style={{ color: '#f87171', fontWeight: 600, marginBottom: '16px', fontSize: '15px' }}>Disadvantages</h3>
                                             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                                 {steel.cons.map((con, i) => (
-                                                    <li key={i} style={{ display: 'flex', gap: '10px', color: '#d4d4d8', fontSize: '14px' }}>
+                                                    <li key={i} style={{ display: 'flex', gap: '10px', color: '#EDE9E2', fontSize: '14px' }}>
                                                         <span style={{ color: '#f87171', flexShrink: 0 }}>✗</span> {con}
                                                     </li>
                                                 ))}
@@ -337,24 +337,27 @@ export default async function SteelPage({ params }) {
                         )}
 
                         {/* ── CTA ── */}
-                        <div style={{ textAlign: 'center', borderTop: '1px solid #27272a', paddingTop: '48px', marginTop: '16px' }}>
-                            <h2 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>
+                        <div style={{ textAlign: 'center', borderTop: '1px solid rgba(237, 233, 226, 0.08)', paddingTop: '48px', marginTop: '16px' }}>
+                            <h2 style={{ fontSize: '22px', fontFamily: "'Archivo Black', sans-serif", fontWeight: 400, letterSpacing: '-0.01em', marginBottom: '8px' }}>
                                 Compare {steel.name} Against 250+ Steels
                             </h2>
-                            <p style={{ color: '#71717a', marginBottom: '24px', fontSize: '15px' }}>
+                            <p style={{ color: '#A39E93', marginBottom: '24px', fontSize: '15px' }}>
                                 Use the MetalCore interactive database to compare composition, heat treatment curves, and performance side-by-side.
                             </p>
                             <Link
                                 href={`/?view=COMPARE&steels=${encodeURIComponent(steel.name)}`}
                                 style={{
                                     display: 'inline-block',
-                                    background: '#f59e0b',
-                                    color: '#000',
+                                    background: '#FF5A1F',
+                                    color: '#1A0C05',
                                     fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.1em',
                                     padding: '14px 32px',
                                     borderRadius: '12px',
                                     textDecoration: 'none',
                                     fontSize: '15px',
+                                    boxShadow: '0 8px 32px -8px rgba(255, 90, 31, 0.35)',
                                 }}
                             >
                                 Open MetalCore App →
@@ -366,9 +369,9 @@ export default async function SteelPage({ params }) {
                 <footer style={s.footer}>
                     <p>© {new Date().getFullYear()} MetalCore · The Premier Knife Steel Database</p>
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '8px' }}>
-                        <Link href="/legal/privacy" style={{ color: '#52525b', textDecoration: 'none' }}>Privacy</Link>
-                        <Link href="/legal/terms"   style={{ color: '#52525b', textDecoration: 'none' }}>Terms</Link>
-                        <Link href="/"              style={{ color: '#52525b', textDecoration: 'none' }}>Full Database</Link>
+                        <Link href="/legal/privacy" style={{ color: '#6E685D', textDecoration: 'none' }}>Privacy</Link>
+                        <Link href="/legal/terms"   style={{ color: '#6E685D', textDecoration: 'none' }}>Terms</Link>
+                        <Link href="/"              style={{ color: '#6E685D', textDecoration: 'none' }}>Full Database</Link>
                     </div>
                 </footer>
             </div>

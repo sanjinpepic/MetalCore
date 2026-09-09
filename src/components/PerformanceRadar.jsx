@@ -27,12 +27,11 @@ const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, index, orientation, r
                 dominantBaseline="central"
                 fill={fill}
                 fontSize={fontSize}
-                fontWeight={900}
+                fontWeight={500}
                 style={{
                     letterSpacing,
                     textTransform: 'uppercase',
-                    // Using a bold display font stack
-                    fontFamily: '"Inter", "Outfit", "system-ui", sans-serif',
+                    fontFamily: '"JetBrains Mono", monospace',
                 }}
             >
                 {payload.value}
@@ -41,7 +40,9 @@ const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, index, orientation, r
     );
 };
 
-const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'], compact = false, noContainer = false, noTitle = false, cardView = false }) => {
+const HEAT_COLORS = ['#FF5A1F', '#FFD9A8', '#FF9D62', '#C53A0C'];
+
+const PerformanceRadar = ({ items, colors = HEAT_COLORS, compact = false, noContainer = false, noTitle = false, cardView = false }) => {
     // Transform data for Radar Chart
     // Expected format: [{ subject: 'Edge', SteelA: 5, SteelB: 8 }, ...]
     const radarData = useMemo(() => {
@@ -65,7 +66,7 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
     const radarContent = (
         <>
             {!noTitle && !compact && (
-                <h3 className="text-lg font-black text-white mb-8 uppercase tracking-widest flex items-center gap-3 italic">
+                <h3 className="text-lg font-display text-white mb-8 uppercase tracking-tight flex items-center gap-3">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                         <circle cx="12" cy="12" r="10" />
                         <path d="m16.24 7.76-2.12 2.12" />
@@ -76,15 +77,14 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
             <div className={cardView ? "h-[500px] w-full" : (compact ? "h-[250px]" : "h-[450px] md:h-[550px]")}>
                 <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius={cardView ? "60%" : (compact ? "65%" : "70%")} data={radarData}>
-                        <PolarGrid stroke="#334155" strokeWidth={1} />
+                        <PolarGrid stroke="#2E2822" strokeWidth={1} />
                         <PolarAngleAxis
                             dataKey="subject"
                             tick={(props) => (
                                 <CustomPolarAngleAxisTick
                                     {...props}
-                                    fill={cardView ? '#94a3b8' : '#94a3b8'}
+                                    fill="rgba(237,233,226,0.55)"
                                     fontSize={cardView ? 18 : (compact ? 9 : 11)}
-                                    fontWeight="black"
                                     letterSpacing={cardView ? '0.2em' : '0.05em'}
                                 />
                             )}
@@ -101,10 +101,10 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
                                 strokeWidth={cardView ? 6 : (compact ? 3 : 4)}
                             />
                         ))}
-                        {!compact && <Legend wrapperStyle={{ paddingTop: '40px', fontWeight: 'bold', fontSize: '11px' }} />}
+                        {!compact && <Legend wrapperStyle={{ paddingTop: '40px', fontWeight: 600, fontSize: '11px' }} />}
                         <Tooltip
-                            contentStyle={{ backgroundColor: '#0a0a0b', borderColor: '#334155', borderRadius: '1rem', color: '#fff', padding: '1rem', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)' }}
-                            itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
+                            contentStyle={{ backgroundColor: '#12100D', borderColor: 'rgba(237,233,226,0.1)', borderRadius: '0.75rem', color: '#EDE9E2', padding: '1rem', fontFamily: 'JetBrains Mono, monospace' }}
+                            itemStyle={{ color: '#EDE9E2', fontSize: '12px', fontWeight: 600 }}
                         />
                     </RadarChart>
                 </ResponsiveContainer>
@@ -115,7 +115,7 @@ const PerformanceRadar = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#
     if (noContainer) return radarContent;
 
     return (
-        <div className={`glass - panel border - white / 10 bg - black / 40 shadow - 2xl ${compact ? '' : 'p-6 md:p-10 rounded-[2.5rem]'} `}>
+        <div className={`glass-panel shadow-plate ${compact ? '' : 'p-6 md:p-10 rounded-3xl'}`}>
             {radarContent}
         </div>
     );

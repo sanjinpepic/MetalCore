@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+﻿import React, { useMemo, useRef, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import { motion } from 'framer-motion';
 import { useSettings } from '../context/SettingsContext';
@@ -40,7 +40,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
             .slice(0, 5);
     }, [search, steels]);
 
-    // Producer Color Logic (shared module — single source of truth)
+    // Producer Color Logic (shared module â€” single source of truth)
     const producerColors = producerColorsShared;
 
     const getProducerColor = getProducerColorShared;
@@ -97,28 +97,28 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
             <div className="relative z-10 flex flex-col min-h-full">
                 {/* Hero Section */}
                 <ViewHeader
-                    subtitle="Command Center 2.0"
-                    title="FORGING"
-                    highlight="EXCELLENCE"
-                    color="emerald"
+                    subtitle="Knife Steel Database"
+                    title="STEEL,"
+                    highlight="DECODED"
+                    color="amber"
                     isHero={true}
                 >
-                    <p className="text-slate-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-                        The ultimate metallurgical database. Real-time edge retention, toughness, and chemical analysis for the world's most elite knife alloys.
+                    <p className="text-stone-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+                        Composition, heat treatment and performance data for the world's finest blade alloys â€” from VG-10 to MagnaCut.
                     </p>
                 </ViewHeader>
 
                 {/* Spotlight Global Search */}
-                <div ref={searchContainerRef} className="relative group w-full max-w-2xl px-4 md:px-0 z-[100] mx-auto -mt-6">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-accent/30 to-indigo-500/30 rounded-2xl blur opacity-25 group-focus-within:opacity-100 transition duration-1000" />
-                    <div className="relative bg-black/60 border border-white/10 rounded-2xl flex items-center px-6 py-5 backdrop-blur-3xl group-focus-within:border-accent/50 transition-all shadow-2xl">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mr-5 group-focus-within:text-accent transition-colors">
+                <div ref={searchContainerRef} className="forge-enter relative group w-full max-w-2xl px-4 md:px-0 z-[100] mx-auto -mt-6" style={{ '--stagger': '280ms' }}>
+                    <div className="absolute -inset-1 bg-accent/40 rounded-2xl blur-lg opacity-20 group-focus-within:opacity-60 transition duration-700 ease-out-expo" />
+                    <div className="relative bg-[#12100D]/90 border border-white/10 rounded-xl flex items-center px-6 py-5 backdrop-blur-2xl group-focus-within:border-accent/50 transition-all duration-300 ease-out-expo shadow-plate-lg">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500 mr-5 group-focus-within:text-accent transition-colors duration-300">
                             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
                         </svg>
                         <input
                             type="text"
                             placeholder="Search steels, producers, or performance tiers..."
-                            className="bg-transparent border-none outline-none text-white placeholder:text-slate-600 w-full font-bold text-xl"
+                            className="bg-transparent border-none outline-none text-white placeholder:text-stone-600 w-full font-semibold text-xl"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             onKeyDown={handleSearchKeyDown}
@@ -127,14 +127,14 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                         />
                         {search && (
                             <button onClick={() => setSearch('')} className="p-2 hover:bg-white/10 rounded-lg transition-colors mr-2">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 hover:text-white transition-colors">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500 hover:text-white transition-colors">
                                     <path d="M18 6 6 18" /><path d="m6 6 12 12" />
                                 </svg>
                             </button>
                         )}
                         <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-white/5 rounded-lg border border-white/10 ml-4 group-focus-within:border-accent/40 transition-colors">
-                            <span className="text-[10px] font-black text-slate-500 group-focus-within:text-accent uppercase tracking-tighter">
-                                {typeof window !== 'undefined' && /Mac/.test(window.navigator.platform) ? '⌘K' : 'Ctrl+K'}
+                            <span className="text-[10px] font-mono font-medium text-stone-500 group-focus-within:text-accent uppercase tracking-widest">
+                                {typeof window !== 'undefined' && /Mac/.test(window.navigator.platform) ? 'âŒ˜K' : 'Ctrl+K'}
                             </span>
                         </div>
                     </div>
@@ -158,32 +158,32 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                         <div className="flex items-center gap-4">
                                             <div className="w-2 h-10 rounded-full" style={{ backgroundColor: getProducerColor(result.producer) }} />
                                             <div className="text-left">
-                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1 flex items-center gap-2">
+                                                <div className="text-[10px] font-medium text-stone-500 uppercase tracking-[0.2em] leading-none mb-1 flex items-center gap-2">
                                                     {result.parent ?? result.producer}
                                                     {result.pm !== undefined && (
                                                         <>
-                                                            <span className="w-1 h-1 rounded-full bg-slate-600" />
+                                                            <span className="w-1 h-1 rounded-full bg-stone-600" />
                                                             <span className={result.pm ? "text-accent" : ""}>{result.pm ? 'PM' : 'CONVENTIONAL'}</span>
                                                         </>
                                                     )}
                                                 </div>
-                                                <div className="text-lg font-black text-white italic leading-none group-hover/item:text-accent transition-colors">{result.name}</div>
+                                                <div className="text-lg font-bold text-white leading-none group-hover/item:text-accent transition-colors duration-200">{result.name}</div>
                                             </div>
                                         </div>
                                     </motion.button>
                                 ))}
                             </div>
-                            <button onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }} className="w-full py-3 bg-white/5 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white hover:bg-white/10 transition-all">
+                            <button onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }} className="w-full py-3 bg-white/[0.04] border-t border-white/5 text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] hover:text-white hover:bg-white/[0.08] transition-all duration-300">
                                 View all results for "{search}"
                             </button>
                         </div>
                     )}
                     {search.trim().length > 0 && searchResults.length === 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl z-[110] p-6 text-center">
-                            <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">No matches for "{search}"</div>
+                        <div className="absolute top-full left-0 right-0 mt-3 glass-strong border border-white/10 rounded-xl overflow-hidden z-[110] p-6 text-center">
+                            <div className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-1">No matches for "{search}"</div>
                             <button
                                 onClick={() => { setView('SEARCH'); if (resetFilters) resetFilters(); }}
-                                className="text-[10px] font-black text-accent uppercase tracking-[0.2em] hover:underline"
+                                className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.25em] hover:underline"
                             >
                                 Search the full database instead
                             </button>
@@ -192,12 +192,12 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                 </div>
 
                 {/* Stats */}
-                <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full border-y border-white/5 py-8 md:py-12 mt-12">
+                <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-6 md:gap-x-12 md:gap-y-8 w-full border-y border-white/5 px-4 py-8 md:py-12 mt-12">
                     {stats.map((stat, i) => (
                         <button key={i} onClick={() => { setView(stat.target); if (stat.target === 'SEARCH' && resetFilters) resetFilters(); }} className="flex flex-col items-center group transition-all" data-tour={`nav-${stat.target.toLowerCase()}`}>
-                            <div className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1 group-hover:text-slate-400 transition-colors">{stat.label}</div>
-                            <div className="text-4xl md:text-5xl font-black text-white font-display group-hover:text-accent transition-all group-hover:scale-110">{stat.value}</div>
-                            <div className="h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full mt-2" />
+                            <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em] mb-1 group-hover:text-stone-400 transition-colors">{stat.label}</div>
+                            <div className="text-4xl md:text-5xl font-display text-white group-hover:text-accent transition-colors duration-300">{stat.value}</div>
+                            <div className="h-0.5 w-0 bg-accent transition-all duration-300 ease-snap group-hover:w-full mt-2" />
                         </button>
                     ))}
                 </div>
@@ -207,23 +207,23 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     {/* Left Column */}
                     <div className="xl:col-span-8 space-y-12">
                         {dashboardLayout.showMatrix && (
-                            <section className="glass-panel p-6 md:p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent relative group h-full flex flex-col min-h-[500px]">
+                            <section className="glass-panel p-6 md:p-10 rounded-3xl relative group h-full flex flex-col min-h-[500px]">
                                 <div className="flex items-center justify-between mb-8 md:mb-12">
                                     <div>
-                                        <h3 className="text-xl md:text-2xl font-black text-white italic uppercase tracking-tighter">Performance Frontier</h3>
-                                        <p className="text-[10px] md:text-xs text-slate-500 uppercase font-black tracking-widest mt-1">Real-time Visualization of the Elite Knife Alloys</p>
+                                        <h3 className="text-xl md:text-2xl font-display text-white uppercase tracking-tight">Performance Frontier</h3>
+                                        <p className="text-[10px] md:text-xs text-stone-500 uppercase font-mono font-medium tracking-[0.2em] mt-2">Real-time visualization of the elite knife alloys</p>
                                     </div>
-                                    <button onClick={() => setView('MATRIX')} className="p-3 bg-white/5 rounded-2xl border border-white/10 text-slate-400 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all group">
+                                    <button onClick={() => setView('MATRIX')} className="p-3 bg-white/[0.05] rounded-xl border border-white/10 text-stone-400 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 ease-snap group">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10H3 M21 6H3 M21 14H3 M21 18H3" /></svg>
                                     </button>
                                 </div>
                                 <div className="flex flex-wrap items-center justify-between gap-3 mb-6 z-20 relative">
-                                    <div className="flex gap-1 p-1 bg-white/5 rounded-2xl w-fit border border-white/5 backdrop-blur-md overflow-x-auto no-scrollbar">
+                                    <div className="flex gap-1 p-1 bg-white/[0.04] rounded-xl w-fit border border-white/[0.06] overflow-x-auto no-scrollbar">
                                         {Object.entries(axisOptions).map(([key, { shortLabel }]) => (
                                             <button
                                                 key={key}
                                                 onClick={() => setXAxis(key)}
-                                                className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${xAxis === key ? 'bg-accent text-black shadow-lg shadow-accent/20 scale-105' : 'text-slate-500 hover:text-slate-300'}`}
+                                                className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.15em] transition-all duration-200 ease-snap whitespace-nowrap ${xAxis === key ? 'bg-accent text-[#1A0C05] shadow-ember-sm' : 'text-stone-500 hover:text-stone-300'}`}
                                             >
                                                 {shortLabel}
                                             </button>
@@ -232,10 +232,10 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                                     {/* Matrix Header Tags */}
                                     <div className="flex gap-2">
-                                        <span className="px-3 py-1.5 bg-black/50 backdrop-blur-md border border-white/10 rounded-xl text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] shadow-xl">
+                                        <span className="px-3 py-1.5 bg-black/50 backdrop-blur-md border border-white/10 rounded-lg text-[9px] font-mono font-medium text-stone-300 uppercase tracking-[0.2em]">
                                             Y: <span className="text-white">Toughness</span>
                                         </span>
-                                        <span className="px-3 py-1.5 bg-accent/10 backdrop-blur-md border border-accent/20 rounded-xl text-[9px] font-black text-accent uppercase tracking-[0.2em] shadow-xl">
+                                        <span className="px-3 py-1.5 bg-accent/10 backdrop-blur-md border border-accent/20 rounded-lg text-[9px] font-mono font-medium text-accent uppercase tracking-[0.2em]">
                                             X: <span className="text-white">{axisOptions[xAxis].label}</span>
                                         </span>
                                     </div>
@@ -249,37 +249,37 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                                 dataKey={xAxis}
                                                 name={axisOptions[xAxis].label}
                                                 domain={[2, 10]}
-                                                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10, fontWeight: 900 }}
+                                                tick={{ fill: 'rgba(237,233,226,0.35)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
                                                 tickLine={false}
-                                                axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+                                                axisLine={{ stroke: 'rgba(237,233,226,0.1)' }}
                                             />
                                             <YAxis
                                                 type="number"
                                                 dataKey={yAxis}
                                                 name="Toughness"
                                                 domain={[2, 10]}
-                                                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10, fontWeight: 900 }}
+                                                tick={{ fill: 'rgba(237,233,226,0.35)', fontSize: 10, fontFamily: 'JetBrains Mono, monospace' }}
                                                 tickLine={false}
                                                 axisLine={false}
                                                 width={30}
                                             />
                                             <Tooltip
-                                                cursor={{ strokeDasharray: '3 3', stroke: 'rgba(20, 184, 166, 0.5)' }}
+                                                cursor={{ strokeDasharray: '3 3', stroke: 'rgba(255, 90, 31, 0.4)' }}
                                                 content={({ active, payload }) => {
                                                     if (active && payload && payload.length) {
                                                         const data = payload[0].payload;
                                                         return (
-                                                            <div className="bg-black/90 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl">
-                                                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{data.parent ?? data.producer}</div>
-                                                                <div className="text-lg font-black text-white italic uppercase">{data.name}</div>
+                                                            <div className="glass-strong p-4 rounded-xl">
+                                                                <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-1">{data.parent ?? data.producer}</div>
+                                                                <div className="text-lg font-bold text-white">{data.name}</div>
                                                                 <div className="mt-3 flex gap-4">
                                                                     <div>
-                                                                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{axisOptions[xAxis].shortLabel}</div>
-                                                                        <div className="text-accent font-black text-sm">{data[xAxis]}</div>
+                                                                        <div className="text-[9px] font-medium text-stone-500 uppercase tracking-[0.2em]">{axisOptions[xAxis].shortLabel}</div>
+                                                                        <div className="text-accent font-mono font-bold text-sm">{data[xAxis]}</div>
                                                                     </div>
                                                                     <div>
-                                                                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Toughness</div>
-                                                                        <div className="text-white font-black text-sm">{data[yAxis]}</div>
+                                                                        <div className="text-[9px] font-medium text-stone-500 uppercase tracking-[0.2em]">Toughness</div>
+                                                                        <div className="text-white font-mono font-bold text-sm">{data[yAxis]}</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -313,36 +313,35 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                     <div className="xl:col-span-4 space-y-8">
                         {featuredSteel && dashboardLayout.showSpotlight && (
                             <motion.section
-                                className="glass-panel p-10 rounded-[3rem] border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent relative overflow-hidden group h-full flex flex-col justify-between"
+                                className="glass-accent p-10 rounded-3xl relative overflow-hidden group h-full flex flex-col justify-between"
                             >
                                 {/* Decorative Background Elements */}
-                                <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-indigo-500/20 transition-colors duration-700" />
-                                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-accent/10 transition-colors duration-700" />
+                                <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-accent/20 transition-colors duration-700" />
 
                                 <div className="relative z-10 space-y-6">
                                     <div className="flex items-center justify-between">
-                                        <div className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em]">Steel of the Day</div>
-                                        <div className="px-3 py-1 bg-accent/20 border border-accent/30 rounded-full text-[9px] font-black text-accent uppercase tracking-widest flex items-center gap-2">
+                                        <div className="text-[10px] font-mono font-medium text-stone-400 uppercase tracking-[0.3em]">Steel of the Day</div>
+                                        <div className="px-3 py-1 bg-accent/15 border border-accent/30 rounded-full text-[9px] font-mono font-medium text-accent uppercase tracking-[0.15em] flex items-center gap-2">
                                             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 15 3.5 3.5L12 22l-3.5-3.5L12 15Z" /><path d="M12 2 4.5 9.5 12 17l7.5-7.5L12 2Z" /></svg>
                                             Community Choice
                                         </div>
                                     </div>
-                                    <h2 className="text-4xl font-display font-black text-white italic leading-none truncate group-hover:text-accent transition-colors cursor-pointer" onClick={() => setDetailSteel(featuredSteel)}>{featuredSteel.name}</h2>
-                                    <p className="text-slate-400 text-sm leading-relaxed italic line-clamp-3">"{featuredSteel.desc}"</p>
+                                    <h2 className="text-4xl font-display text-white leading-none truncate group-hover:text-accent transition-colors duration-300 cursor-pointer" onClick={() => setDetailSteel(featuredSteel)}>{featuredSteel.name}</h2>
+                                    <p className="text-stone-400 text-sm leading-relaxed line-clamp-3">"{featuredSteel.desc}"</p>
                                 </div>
 
                                 <div className="relative z-10 mt-10">
                                     {/* Stats Grid */}
                                     <div className="grid grid-cols-2 gap-3 mb-8">
                                         {[
-                                            { label: 'Edge', value: featuredSteel.edge, color: 'text-rose-400' },
-                                            { label: 'Tough', value: featuredSteel.toughness, color: 'text-emerald-400' },
-                                            { label: 'Rust', value: featuredSteel.corrosion, color: 'text-sky-400' },
-                                            { label: 'Sharp', value: featuredSteel.sharpen, color: 'text-amber-400' }
+                                            { label: 'Edge', value: featuredSteel.edge },
+                                            { label: 'Tough', value: featuredSteel.toughness },
+                                            { label: 'Rust', value: featuredSteel.corrosion },
+                                            { label: 'Sharp', value: featuredSteel.sharpen }
                                         ].map((stat, i) => (
-                                            <div key={i} className="bg-black/40 border border-white/5 rounded-2xl p-4 backdrop-blur-md group-hover:border-white/10 transition-colors">
-                                                <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">{stat.label}</div>
-                                                <div className={`text-xl font-black italic ${stat.color}`}>{stat.value}</div>
+                                            <div key={i} className="bg-black/40 border border-white/5 rounded-xl p-4 group-hover:border-accent/20 transition-colors duration-300">
+                                                <div className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-1">{stat.label}</div>
+                                                <div className="text-xl font-mono font-bold text-white">{stat.value}</div>
                                             </div>
                                         ))}
                                     </div>
@@ -350,7 +349,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                     {/* CTA */}
                                     <button
                                         onClick={() => setDetailSteel(featuredSteel)}
-                                        className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black uppercase text-xs tracking-[0.2em] rounded-2xl transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] active:scale-[0.98] flex items-center justify-center gap-3"
+                                        className="w-full py-4 bg-accent hover:bg-accent-400 text-[#1A0C05] font-bold uppercase text-xs tracking-[0.2em] rounded-xl transition-all duration-300 ease-snap shadow-ember hover:shadow-ember active:scale-[0.97] flex items-center justify-center gap-3"
                                     >
                                         View Full Specs
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">

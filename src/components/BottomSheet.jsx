@@ -277,7 +277,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                             role="dialog"
                             aria-modal="true"
                             aria-label={label}
-                            className="bg-[#0a0a0b] rounded-t-3xl shadow-2xl border-t border-white/10 overflow-hidden flex flex-col"
+                            className="bg-[#0B0A08] rounded-t-3xl shadow-plate-lg border-t border-white/10 overflow-hidden flex flex-col"
                             style={{ height: `${SNAP_HEIGHT * 100}dvh` }}
                         >
                             {/* Drag Handle - always initiates drag */}
@@ -311,7 +311,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-6 hidden md:flex"
+                        className="fixed inset-0 bg-[#12100D]/95 backdrop-blur-md flex items-center justify-center p-6 hidden md:flex"
                         style={{ zIndex: baseZIndex }}
                     >
                         <motion.div
@@ -324,7 +324,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                             exit={{ opacity: 0, transition: { duration: 0.1 } }}
                             transition={springConfig}
                             onClick={(e) => e.stopPropagation()}
-                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-[2.5rem] border-white/10 shadow-2xl overflow-y-auto custom-scrollbar will-change-transform"
+                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-3xl border-white/10 shadow-plate-lg overflow-y-auto custom-scrollbar will-change-transform"
                         >
                             {children}
                         </motion.div>

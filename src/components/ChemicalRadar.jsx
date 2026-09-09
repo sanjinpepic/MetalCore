@@ -34,11 +34,11 @@ const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, index, orientation, r
                 dominantBaseline="central"
                 fill={fill}
                 fontSize={fontSize}
-                fontWeight={900}
+                fontWeight={500}
                 style={{
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    fontFamily: '"Inter", "Outfit", "system-ui", sans-serif',
+                    fontFamily: '"JetBrains Mono", monospace',
                 }}
             >
                 {payload.value}
@@ -77,19 +77,19 @@ const ChemicalRadar = ({ steels, compact = false }) => {
         return entry;
     });
 
-    const colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'];
+    const colors = ['#FF5A1F', '#FFD9A8', '#FF9D62', '#C53A0C'];
 
     return (
         <div className="w-full h-[300px] md:h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-                    <PolarGrid stroke="#334155" />
+                    <PolarGrid stroke="#2E2822" />
                     <PolarAngleAxis
                         dataKey="subject"
                         tick={(props) => (
                             <CustomPolarAngleAxisTick
                                 {...props}
-                                fill="#94a3b8"
+                                fill="rgba(237,233,226,0.55)"
                                 fontSize={11}
                             />
                         )}
@@ -103,14 +103,14 @@ const ChemicalRadar = ({ steels, compact = false }) => {
                             dataKey={s.name}
                             stroke={colors[i % colors.length]}
                             fill={colors[i % colors.length]}
-                            fillOpacity={0.3}
+                            fillOpacity={0.25}
                             strokeWidth={3}
                         />
                     ))}
 
                     <Tooltip
-                        contentStyle={{ backgroundColor: '#0a0a0b', borderColor: '#334155', borderRadius: '1rem', padding: '1rem' }}
-                        itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
+                        contentStyle={{ backgroundColor: '#12100D', borderColor: 'rgba(237,233,226,0.1)', borderRadius: '0.75rem', padding: '1rem', fontFamily: 'JetBrains Mono, monospace' }}
+                        itemStyle={{ color: '#EDE9E2', fontSize: '12px', fontWeight: 600 }}
                         formatter={(value, name, props) => {
                             const rawVal = props.payload[`${name}_raw`];
                             return [`${rawVal}%`, name];

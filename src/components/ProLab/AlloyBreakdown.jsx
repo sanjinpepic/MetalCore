@@ -24,11 +24,11 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h3 className="text-xl font-black text-white italic uppercase tracking-tight">Chemical DNA</h3>
-                    <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">Metallurgical Signature Analysis</p>
+                    <h3 className="text-xl font-display text-white uppercase tracking-tight">Chemical DNA</h3>
+                    <p className="text-[10px] text-slate-500 uppercase font-mono font-medium tracking-widest mt-1">Metallurgical Signature Analysis</p>
                 </div>
                 <div className="px-3 py-1 bg-white/5 rounded-full border border-white/10">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Alloy Content: {(elements.reduce((acc, el) => acc + (steel[el] || 0), 0)).toFixed(1)}%</span>
+                    <span className="text-[10px] font-mono font-medium text-slate-400 uppercase tracking-widest">Alloy Content: {(elements.reduce((acc, el) => acc + (steel[el] || 0), 0)).toFixed(1)}%</span>
                 </div>
             </div>
 
@@ -38,32 +38,33 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
                         key={el}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.05 }}
-                        className={`p-4 rounded-2xl border transition-all group ${steel[el] > 0
-                            ? 'bg-black/40 border-white/5 hover:border-indigo-500/30'
-                            : 'bg-black/10 border-white/5 opacity-40 hover:opacity-100 hover:border-white/10'}`}
+                        transition={{ delay: i * 0.05, type: 'spring', stiffness: 400, damping: 30 }}
+                        className={steel[el] > 0
+                            ? 'p-4 rounded-2xl border transition-all group bg-black/40 border-white/5 hover:border-accent/30'
+                            : 'p-4 rounded-2xl border transition-all group bg-black/10 border-white/5 opacity-40 hover:opacity-100 hover:border-white/10'}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <div className="flex items-center gap-3">
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-colors ${steel[el] > 0
-                                    ? 'bg-indigo-500/10 border-indigo-500/20'
-                                    : 'bg-white/5 border-white/10'}`}>
-                                    <span className={`text-lg font-black ${steel[el] > 0 ? 'text-indigo-400' : 'text-slate-600'}`}>{el}</span>
+                                <div className={steel[el] > 0
+                                    ? 'w-10 h-10 rounded-xl flex items-center justify-center border transition-colors bg-accent/10 border-accent/20'
+                                    : 'w-10 h-10 rounded-xl flex items-center justify-center border transition-colors bg-white/5 border-white/10'}>
+                                    <span className={steel[el] > 0 ? 'text-lg font-mono font-medium text-accent-400' : 'text-lg font-mono font-medium text-slate-600'}>{el}</span>
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{ELEMENT_DATA[el].name}</div>
-                                    <div className={`text-xs font-black uppercase transition-colors ${steel[el] > 0 ? 'text-white group-hover:text-indigo-400' : 'text-slate-600'}`}>{ELEMENT_DATA[el].impact}</div>
+                                    <div className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">{ELEMENT_DATA[el].name}</div>
+                                    <div className={steel[el] > 0 ? 'text-xs font-semibold uppercase transition-colors text-white group-hover:text-accent-400' : 'text-xs font-semibold uppercase transition-colors text-slate-600'}>{ELEMENT_DATA[el].impact}</div>
                                 </div>
                             </div>
-                            <div className={`text-xl font-black italic transition-colors ${steel[el] > 0 ? 'text-white' : 'text-slate-700'}`}>{steel[el] || 0}%</div>
+                            <div className={steel[el] > 0 ? 'text-xl font-mono font-semibold transition-colors text-white' : 'text-xl font-mono font-semibold transition-colors text-slate-700'}>{steel[el] || 0}%</div>
                         </div>
-                        <p className={`text-[10px] leading-relaxed italic transition-colors ${steel[el] > 0 ? 'text-slate-400' : 'text-slate-700'}`}>{ELEMENT_DATA[el].desc}</p>
+                        <p className={steel[el] > 0 ? 'text-[10px] leading-relaxed transition-colors text-slate-400' : 'text-[10px] leading-relaxed transition-colors text-slate-700'}>{ELEMENT_DATA[el].desc}</p>
 
                         <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden">
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${Math.min(((steel[el] || 0) / (el === 'Cr' ? 20 : 5)) * 100, 100)}%` }}
-                                className={`h-full ${steel[el] > 0 ? 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.4)]' : 'bg-slate-800'}`}
+                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                className={steel[el] > 0 ? 'h-full bg-accent shadow-ember-sm' : 'h-full bg-slate-800'}
                             />
                         </div>
                     </motion.div>

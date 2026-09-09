@@ -49,12 +49,12 @@ const HeatTreatSimulator = ({ steel }) => {
         <div className="space-y-6">
             <div className="flex justify-between items-end">
                 <div>
-                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Tempering Temp</div>
-                    <div className="text-2xl font-display font-black text-white italic">{temp}°C</div>
+                    <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-1">Tempering Temp</div>
+                    <div className="text-2xl font-mono font-bold text-white">{temp}°C</div>
                 </div>
                 <div className="text-right">
-                    <div className="text-[10px] font-black text-accent uppercase tracking-widest mb-1">Estimated Hardness</div>
-                    <div className="text-3xl font-mono font-black text-white">{prediction.hrc} <span className="text-sm text-slate-500">HRC</span></div>
+                    <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] mb-1">Estimated Hardness</div>
+                    <div className="text-3xl font-mono font-bold text-white">{prediction.hrc} <span className="text-sm text-stone-500">HRC</span></div>
                 </div>
             </div>
 
@@ -71,7 +71,7 @@ const HeatTreatSimulator = ({ steel }) => {
                     onTouchEnd={(e) => e.stopPropagation()}
                     className="w-full h-1.5 bg-white/5 rounded-full appearance-none cursor-pointer accent-accent border border-white/5 touch-none"
                 />
-                <div className="flex justify-between mt-2 text-[8px] font-mono text-slate-600 font-black uppercase tracking-widest">
+                <div className="flex justify-between mt-2 text-[8px] font-mono text-stone-600 font-medium uppercase tracking-[0.2em]">
                     <span>150°C</span>
                     <span>Secondary Peak</span>
                     <span>700°C</span>
@@ -80,12 +80,12 @@ const HeatTreatSimulator = ({ steel }) => {
 
             {prediction.hasSecondaryHardening && (
                 <div className="p-3 bg-accent/5 border border-accent/20 rounded-xl flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50"></div>
-                    <div className="text-[10px] font-black text-accent uppercase tracking-widest leading-none">Secondary Hardening Peak Active</div>
+                    <div className="w-2 h-2 rounded-full bg-accent animate-ember-pulse shadow-ember-sm"></div>
+                    <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] leading-none">Secondary Hardening Peak Active</div>
                 </div>
             )}
 
-            <p className="text-[10px] text-slate-500 leading-relaxed italic opacity-60">
+            <p className="text-[10px] text-stone-500 leading-relaxed opacity-60">
                 *Simulated response curve based on {steel.V}% Vanadium and {steel.Mo || 0}% Molybdenum.
             </p>
         </div>

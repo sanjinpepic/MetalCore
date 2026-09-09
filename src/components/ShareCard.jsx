@@ -14,17 +14,17 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
             const ctx = canvas.getContext('2d');
 
             // ── Background ────────────────────────────────────────────────────
-            ctx.fillStyle = '#000';
+            ctx.fillStyle = '#0B0A08';
             ctx.fillRect(0, 0, W, H);
 
             const g1 = ctx.createRadialGradient(0, 0, 0, 0, 0, 600);
-            g1.addColorStop(0, 'rgba(245,158,11,0.18)');
+            g1.addColorStop(0, 'rgba(255,90,31,0.18)');
             g1.addColorStop(1, 'rgba(0,0,0,0)');
             ctx.fillStyle = g1;
             ctx.fillRect(0, 0, W, H);
 
             const g2 = ctx.createRadialGradient(W, H, 0, W, H, 600);
-            g2.addColorStop(0, 'rgba(99,102,241,0.18)');
+            g2.addColorStop(0, 'rgba(197,58,12,0.18)');
             g2.addColorStop(1, 'rgba(0,0,0,0)');
             ctx.fillStyle = g2;
             ctx.fillRect(0, 0, W, H);
@@ -44,16 +44,16 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
             ctx.textBaseline = 'alphabetic';
 
             // Group label
-            ctx.fillStyle = '#f59e0b';
+            ctx.fillStyle = '#FF5A1F';
             ctx.font = '700 26px system-ui, sans-serif';
             ctx.fillText(group, PAD, PAD + 26);
 
             // Steel name — shrink font if too long
             let nameSize = 108;
-            ctx.font = `italic 900 ${nameSize}px system-ui, sans-serif`;
+            ctx.font = `800 ${nameSize}px system-ui, sans-serif`;
             while (ctx.measureText(steel.name.toUpperCase()).width > W - PAD * 2 - 60 && nameSize > 54) {
                 nameSize -= 4;
-                ctx.font = `italic 900 ${nameSize}px system-ui, sans-serif`;
+                ctx.font = `800 ${nameSize}px system-ui, sans-serif`;
             }
             ctx.fillStyle = '#fff';
             ctx.fillText(steel.name.toUpperCase(), PAD, PAD + 26 + 22 + nameSize * 0.88);
@@ -62,32 +62,32 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
 
             // PM / Conventional badge
             const badgeLabel = (steel.pm ? 'Powder Metallurgy' : 'Conventional Alloy').toUpperCase();
-            ctx.font = 'italic 800 18px system-ui, sans-serif';
+            ctx.font = '700 18px system-ui, sans-serif';
             const badgeTextW = ctx.measureText(badgeLabel).width;
             const bx = PAD, by = afterName + 20, bw = badgeTextW + 48, bh = 40;
             ctx.fillStyle = 'rgba(255,255,255,0.05)';
             ctx.strokeStyle = 'rgba(255,255,255,0.12)';
             ctx.lineWidth = 1;
             rr(bx, by, bw, bh, 100); ctx.fill(); ctx.stroke();
-            ctx.fillStyle = '#94a3b8';
+            ctx.fillStyle = '#A8A29E';
             ctx.fillText(badgeLabel, bx + 24, by + 27);
 
             // METALCORE brand (top-right)
-            ctx.font = 'italic 900 44px system-ui, sans-serif';
-            ctx.fillStyle = '#f59e0b';
+            ctx.font = '800 44px system-ui, sans-serif';
+            ctx.fillStyle = '#FF5A1F';
             const brandW = ctx.measureText('METALCORE').width;
             ctx.fillText('METALCORE', W - PAD - brandW, PAD + 44);
             ctx.font = '700 13px system-ui, sans-serif';
-            ctx.fillStyle = '#334155';
+            ctx.fillStyle = '#44403C';
             const subW = ctx.measureText('KNIFE STEEL DATABASE').width;
             ctx.fillText('KNIFE STEEL DATABASE', W - PAD - subW, PAD + 44 + 24);
 
             // ── Performance Bars ──────────────────────────────────────────────
             const bars = [
-                { label: 'Edge Retention',      value: steel.edge,      color: '#f59e0b' },
-                { label: 'Toughness',            value: steel.toughness, color: '#3b82f6' },
-                { label: 'Corrosion Resistance', value: steel.corrosion, color: '#10b981' },
-                { label: 'Ease of Sharpening',   value: steel.sharpen,   color: '#8b5cf6' },
+                { label: 'Edge Retention',      value: steel.edge,      color: '#FF5A1F' },
+                { label: 'Toughness',            value: steel.toughness, color: '#FFD9A8' },
+                { label: 'Corrosion Resistance', value: steel.corrosion, color: '#FF8A5C' },
+                { label: 'Ease of Sharpening',   value: steel.sharpen,   color: '#C53A0C' },
             ];
 
             const barsStart = by + bh + 52;
@@ -97,7 +97,7 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
                 const top = barsStart + i * barGap;
                 const val = Math.min(value ?? 0, 10);
 
-                ctx.fillStyle = '#94a3b8';
+                ctx.fillStyle = '#A8A29E';
                 ctx.font = '700 20px system-ui, sans-serif';
                 ctx.fillText(label.toUpperCase(), PAD, top);
 
@@ -105,7 +105,7 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
                 ctx.font = '900 24px system-ui, sans-serif';
                 const numW = ctx.measureText(`${val}`).width;
                 ctx.fillText(`${val}`, W - PAD - numW - 28, top);
-                ctx.fillStyle = '#475569';
+                ctx.fillStyle = '#57534E';
                 ctx.font = '700 18px system-ui, sans-serif';
                 ctx.fillText('/10', W - PAD - 26, top);
 
@@ -134,7 +134,7 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
                 ctx.lineWidth = 1;
                 rr(cx, gridTop, cellW, cellH, 16); ctx.fill(); ctx.stroke();
 
-                ctx.fillStyle = '#475569';
+                ctx.fillStyle = '#57534E';
                 ctx.font = '900 13px system-ui, sans-serif';
                 ctx.fillText(el, cx + 18, gridTop + 28);
 
@@ -153,13 +153,13 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
             ctx.lineTo(W - PAD, footerY);
             ctx.stroke();
 
-            ctx.fillStyle = '#334155';
+            ctx.fillStyle = '#44403C';
             ctx.font = '900 13px system-ui, sans-serif';
             ctx.fillText('OPTIMAL DEPLOYMENT', PAD, footerY + 34);
 
             // Word-wrap use_case
-            ctx.fillStyle = '#64748b';
-            ctx.font = 'italic 22px system-ui, sans-serif';
+            ctx.fillStyle = '#78716C';
+            ctx.font = '600 22px system-ui, sans-serif';
             const maxW = 680;
             const words = (steel.use_case || '').split(' ');
             let line = '"', lineY = footerY + 68;
@@ -172,8 +172,8 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
             }
             ctx.fillText(line + '"', PAD, lineY);
 
-            ctx.fillStyle = '#1e293b';
-            ctx.font = 'italic 900 22px system-ui, sans-serif';
+            ctx.fillStyle = '#292524';
+            ctx.font = '800 22px system-ui, sans-serif';
             const site = 'metalcre.vercel.app';
             ctx.fillText(site, W - PAD - ctx.measureText(site).width, H - PAD);
 
@@ -197,10 +197,10 @@ const ShareCard = React.forwardRef(({ steel, onGenerated, hideButton = false }, 
         <button
             onClick={generateImage}
             disabled={generating}
-            className="w-full py-4 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-black font-black uppercase text-xs tracking-[0.2em] rounded-2xl transition-all shadow-xl shadow-accent/20 active:scale-[0.98] flex items-center justify-center gap-3"
+            className="w-full py-4 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-[#1A0C05] font-semibold uppercase text-xs tracking-[0.2em] rounded-2xl transition-all shadow-ember active:scale-[0.98] flex items-center justify-center gap-3"
         >
             {generating ? (
-                <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-[#1A0C05]/20 border-t-[#1A0C05] rounded-full animate-spin" />
             ) : (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

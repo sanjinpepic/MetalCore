@@ -126,7 +126,7 @@ const Spotlight = ({ targetId, padding = 10, borderRadius = 12 }) => {
                     }}
                     rx={borderRadius}
                     fill="none"
-                    stroke="#f59e0b" // Accent color
+                    stroke="#FF5A1F" // Accent color
                     strokeWidth="2"
                     className="drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"
                 />

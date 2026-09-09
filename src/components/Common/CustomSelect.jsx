@@ -103,20 +103,20 @@ const CustomSelect = ({
 
     const colors = {
         indigo: {
-            border: 'border-indigo-500/30',
-            bg: 'bg-indigo-500/5',
-            text: 'text-indigo-400',
-            glow: 'shadow-[0_0_15px_rgba(99,102,241,0.1)]',
-            accent: 'bg-indigo-500',
-            highlight: 'bg-indigo-500/20'
+            border: 'border-accent/30',
+            bg: 'bg-accent/5',
+            text: 'text-accent',
+            glow: 'shadow-ember-sm',
+            accent: 'bg-accent',
+            highlight: 'bg-accent/15'
         },
         emerald: {
-            border: 'border-emerald-500/30',
-            bg: 'bg-emerald-500/5',
-            text: 'text-emerald-400',
-            glow: 'shadow-[0_0_15px_rgba(16,185,129,0.1)]',
-            accent: 'bg-emerald-500',
-            highlight: 'bg-emerald-500/20'
+            border: 'border-accent/30',
+            bg: 'bg-accent/5',
+            text: 'text-accent',
+            glow: 'shadow-ember-sm',
+            accent: 'bg-accent',
+            highlight: 'bg-accent/15'
         }
     };
 
@@ -139,10 +139,10 @@ const CustomSelect = ({
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
                 aria-label={selectedOption ? `Selected: ${selectedOption.name}` : placeholder}
-                className={`w-full bg-white/5 border ${isOpen ? 'border-white/20' : 'border-white/10'} rounded-2xl px-5 py-4 flex items-center justify-between group transition-all hover:bg-white/[0.07] ${isOpen ? activeColor.glow : ''} focus:outline-none focus:ring-2 focus:ring-${accentColor}-500/50`}
+                className={`w-full bg-white/5 border ${isOpen ? 'border-white/20' : 'border-white/10'} rounded-2xl px-5 py-4 flex items-center justify-between group transition-all hover:bg-white/[0.07] ${isOpen ? 'shadow-ember-sm' : ''} focus:outline-none focus:ring-2 focus:ring-accent/50`}
             >
                 <div className="flex flex-col items-start">
-                    <span className="text-sm font-black text-white uppercase tracking-tight italic">
+                    <span className="text-sm font-semibold text-white uppercase tracking-tight">
                         {selectedOption ? selectedOption.name : placeholder}
                     </span>
                 </div>
@@ -162,7 +162,7 @@ const CustomSelect = ({
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="absolute z-[100] top-full mt-3 w-full bg-[#0a0a0b] border border-white/10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden backdrop-blur-3xl"
+                        className="absolute z-[100] top-full mt-3 w-full bg-[#12100D]/95 border border-white/10 rounded-3xl shadow-plate-lg overflow-hidden backdrop-blur-3xl"
                     >
                         <div className="p-3 border-b border-white/5">
                             <div className="relative">
@@ -174,7 +174,7 @@ const CustomSelect = ({
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onKeyDown={handleInputKeyDown}
-                                    className="w-full bg-white/5 border border-white/5 rounded-xl px-10 py-3 text-xs font-black text-white uppercase tracking-widest outline-none focus:border-indigo-500/50 transition-all"
+                                    className="w-full bg-white/5 border border-white/5 rounded-xl px-10 py-3 text-xs font-mono font-medium text-white uppercase tracking-widest outline-none focus:border-accent/50 transition-all"
                                 />
                                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -211,15 +211,15 @@ const CustomSelect = ({
                                             `}
                                         >
                                             <div className="flex flex-col items-start">
-                                                <span className={`text-sm font-black uppercase italic tracking-tight 
-                                                    ${isSelected ? activeColor.text : ''} 
+                                                <span className={`text-sm font-semibold uppercase tracking-tight
+                                                    ${isSelected ? 'text-accent' : ''}
                                                     ${isHighlighted && !isSelected ? 'text-white' : ''}
                                                     ${!isSelected && !isHighlighted ? 'text-slate-400 group-hover:text-white' : ''}
                                                 `}>
                                                     {opt.name}
                                                 </span>
                                                 {opt.producer && (
-                                                    <span className={`text-[9px] font-black uppercase tracking-widest ${isSelected ? activeColor.text + '/70' : 'text-slate-600'}`}>
+                                                    <span className={`text-[9px] font-mono font-medium uppercase tracking-widest ${isSelected ? 'text-accent/70' : 'text-slate-600'}`}>
                                                         {opt.parent ?? opt.producer}
                                                     </span>
                                                 )}
@@ -236,7 +236,7 @@ const CustomSelect = ({
                                 })
                             ) : (
                                 <div className="py-8 text-center">
-                                    <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">No specimens matched</p>
+                                    <p className="text-[10px] font-mono font-medium text-slate-600 uppercase tracking-widest">No steels matched</p>
                                 </div>
                             )}
                         </div>

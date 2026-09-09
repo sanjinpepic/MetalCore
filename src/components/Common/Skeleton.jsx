@@ -36,10 +36,10 @@ export const HomeSkeleton = () => {
             {/* Main Content Skeleton */}
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 max-w-[1920px] mx-auto w-full">
                 <div className="xl:col-span-8 flex flex-col space-y-6">
-                    <Skeleton width="100%" height="500px" borderRadius="48px" />
+                    <Skeleton width="100%" height="500px" borderRadius="24px" />
                 </div>
                 <div className="xl:col-span-4 flex flex-col space-y-6">
-                    <Skeleton width="100%" height="500px" borderRadius="48px" />
+                    <Skeleton width="100%" height="500px" borderRadius="24px" />
                 </div>
             </div>
         </div>

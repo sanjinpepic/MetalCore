@@ -1,5 +1,5 @@
 import './globals.css'
-import { Inter, JetBrains_Mono, Outfit } from 'next/font/google'
+import { Inter, JetBrains_Mono, Archivo_Black } from 'next/font/google'
 import PageLoader from './components/PageLoader'
 import CookieConsent from '@/components/CookieConsent'
 import { ConsentProvider } from '@/lib/hooks/use-consent'
@@ -18,9 +18,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
-const outfit = Outfit({
+const archivoBlack = Archivo_Black({
   subsets: ['latin'],
-  weight: ['700', '900'],
+  weight: '400',
   variable: '--font-display',
   display: 'swap',
 })
@@ -70,7 +70,7 @@ export const metadata = {
 }
 
 export const viewport = {
-  themeColor: '#050505',
+  themeColor: '#0B0A08',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -79,7 +79,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} font-sans min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${archivoBlack.variable} font-sans min-h-screen flex flex-col`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

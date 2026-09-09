@@ -54,7 +54,7 @@ const DISCORD_EASE = [0.22, 1, 0.36, 1];
 
 const stepVariants = {
     enter: (dir) => ({ opacity: 0, x: dir > 0 ? 40 : -40 }),
-    center: { opacity: 1, x: 0, transition: { duration: 0.3, ease: DISCORD_EASE } },
+    center: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 400, damping: 30 } },
     exit: (dir) => ({ opacity: 0, x: dir > 0 ? -40 : 40, transition: { duration: 0.2, ease: DISCORD_EASE } }),
 };
 
@@ -65,13 +65,13 @@ const resultVariants = {
 
 const resultItemVariants = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: DISCORD_EASE } },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 400, damping: 30 } },
 };
 
 const RANK_STYLES = [
-    'from-amber-500/15 to-transparent border-amber-500/30',
+    'from-accent/15 to-transparent border-accent/30',
     'from-slate-300/10 to-transparent border-slate-400/20',
-    'from-orange-700/10 to-transparent border-orange-600/20',
+    'from-accent/10 to-transparent border-accent/20',
     'from-white/5 to-transparent border-white/10',
     'from-white/5 to-transparent border-white/10',
 ];
@@ -125,12 +125,12 @@ export default function SteelRecommender({ steels, onClose, onSelectSteel }) {
             <div className="px-5 pt-2 pb-3 md:px-8 md:pt-8 md:pb-4">
                 <div className="flex items-center justify-between mb-4">
                     {step > 0 ? (
-                        <button onClick={handleBack} className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors text-sm font-bold">
+                        <button onClick={handleBack} className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors duration-300 ease-snap text-sm font-medium">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></svg>
                             Back
                         </button>
                     ) : <div />}
-                    <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors p-1">
+                    <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors duration-300 ease-snap p-1">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                     </button>
                 </div>
@@ -139,7 +139,7 @@ export default function SteelRecommender({ steels, onClose, onSelectSteel }) {
                 {!showResults && (
                     <div className="flex items-center gap-2 mb-1">
                         {STEPS.map((_, i) => (
-                            <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${i < step ? 'bg-accent' : i === step ? 'bg-accent/60' : 'bg-white/10'}`} />
+                            <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ease-snap ${i < step ? 'bg-accent' : i === step ? 'bg-accent/60' : 'bg-white/10'}`} />
                         ))}
                     </div>
                 )}
@@ -189,8 +189,8 @@ function StepView({ step, selected, onSelect }) {
     return (
         <div>
             <div className="mb-6 md:mb-8">
-                <h2 className="text-xl md:text-2xl font-display font-black text-white italic uppercase tracking-tighter leading-tight">{step.title}</h2>
-                <p className="text-slate-500 text-xs md:text-sm mt-1.5 font-medium italic">{step.subtitle}</p>
+                <h2 className="text-xl md:text-2xl font-display text-white uppercase tracking-tight leading-tight">{step.title}</h2>
+                <p className="text-slate-500 text-xs md:text-sm mt-1.5 font-medium">{step.subtitle}</p>
             </div>
 
             <div className={`grid gap-3 md:gap-4 ${step.options.length === 4 ? 'grid-cols-2' : step.options.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'}`}>
@@ -201,7 +201,7 @@ function StepView({ step, selected, onSelect }) {
                             key={opt.id}
                             whileTap={{ scale: 0.97 }}
                             onClick={() => onSelect(opt.id)}
-                            className={`text-left p-5 md:p-6 rounded-2xl border transition-all duration-200 group ${isSelected
+                            className={`text-left p-5 md:p-6 rounded-2xl border transition-all duration-300 ease-snap group ${isSelected
                                 ? 'border-accent bg-accent/10 shadow-lg shadow-accent/10'
                                 : 'border-white/5 bg-white/[0.03] hover:border-white/15 hover:bg-white/[0.06]'
                                 }`}
@@ -211,7 +211,7 @@ function StepView({ step, selected, onSelect }) {
                                     <path d={opt.icon} />
                                 </svg>
                             </div>
-                            <h3 className={`font-display font-black italic uppercase tracking-tight text-sm md:text-base mb-1 transition-colors ${isSelected ? 'text-accent' : 'text-white'}`}>{opt.label}</h3>
+                            <h3 className={`font-display uppercase tracking-tight text-sm md:text-base mb-1 transition-colors duration-300 ${isSelected ? 'text-accent' : 'text-white'}`}>{opt.label}</h3>
                             <p className="text-slate-500 text-[11px] md:text-xs font-medium leading-relaxed">{opt.desc}</p>
                         </motion.button>
                     );
@@ -225,12 +225,12 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
     return (
         <div>
             <div className="mb-6 md:mb-8">
-                <div className="text-[10px] font-black text-accent uppercase tracking-[0.2em] mb-1.5 flex items-center gap-2">
+                <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.25em] mb-1.5 flex items-center gap-2">
                     <span className="w-5 h-px bg-accent/40"></span>
                     Your Matches
                 </div>
-                <h2 className="text-xl md:text-2xl font-display font-black text-white italic uppercase tracking-tighter leading-tight">Top Steel Recommendations</h2>
-                <p className="text-slate-500 text-xs md:text-sm mt-1.5 font-medium italic">Based on your preferences, ranked by compatibility</p>
+                <h2 className="text-xl md:text-2xl font-display text-white uppercase tracking-tight leading-tight">Top Steel Recommendations</h2>
+                <p className="text-slate-500 text-xs md:text-sm mt-1.5 font-medium">Based on your preferences, ranked by compatibility</p>
             </div>
 
             <motion.div
@@ -248,21 +248,21 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                             hapticFeedback('medium');
                             onSelectSteel(steel);
                         }}
-                        className={`w-full text-left p-4 md:p-5 rounded-2xl border bg-gradient-to-r transition-all hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
+                        className={`w-full text-left p-4 md:p-5 rounded-2xl border bg-gradient-to-r transition-all duration-300 ease-snap hover:scale-[1.01] ${RANK_STYLES[i] || RANK_STYLES[4]}`}
                     >
                         <div className="flex items-start gap-4">
                             {/* Rank badge */}
-                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 font-display font-black italic text-lg ${i === 0 ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-white/5 text-slate-500 border border-white/10'}`}>
+                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 font-display text-lg ${i === 0 ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-white/5 text-slate-500 border border-white/10'}`}>
                                 {i + 1}
                             </div>
 
                             {/* Info */}
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between gap-3 mb-1">
-                                    <h3 className="font-display font-black text-white italic uppercase tracking-tight text-base md:text-lg truncate">{steel.name}</h3>
-                                    <span className={`text-sm md:text-base font-display font-black italic shrink-0 ${i === 0 ? 'text-amber-400' : 'text-accent'}`}>{steel.matchScore}%</span>
+                                    <h3 className="font-display text-white uppercase tracking-tight text-base md:text-lg truncate">{steel.name}</h3>
+                                    <span className={`text-sm md:text-base font-display shrink-0 ${i === 0 ? 'text-accent' : 'text-accent'}`}>{steel.matchScore}%</span>
                                 </div>
-                                <div className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <div className="text-slate-500 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] mb-2 flex items-center gap-2">
                                     {steel.producer}
                                     {steel.pm !== undefined && (
                                         <>
@@ -275,7 +275,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                                 {/* Top metrics */}
                                 <div className="flex flex-wrap gap-2">
                                     {steel.topMetrics.map(m => (
-                                        <span key={m.metric} className="text-[10px] md:text-[11px] font-bold text-slate-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
+                                        <span key={m.metric} className="text-[10px] md:text-[11px] font-mono font-medium text-slate-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
                                             {metricLabels[m.metric]}: {m.value.toFixed(1)}
                                         </span>
                                     ))}
@@ -295,7 +295,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
             <div className="flex gap-3 mt-8">
                 <button
                     onClick={onRestart}
-                    className="flex-1 py-3 rounded-2xl border border-white/10 text-slate-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all"
+                    className="flex-1 py-3 rounded-2xl border border-white/10 text-slate-400 text-sm font-medium hover:bg-white/5 hover:text-white transition-all duration-300 ease-snap"
                 >
                     Start Over
                 </button>

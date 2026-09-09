@@ -3,7 +3,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { useSettings } from '../context/SettingsContext';
 import { convertTemperature, getTemperatureUnit } from '../utils/temperature';
 
-const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'], containerClass = "h-[300px] md:h-[400px]", compact = false, noContainer = false, noTitle = false }) => {
+const HEAT_COLORS = ['#FF5A1F', '#FFD9A8', '#FF9D62', '#C53A0C'];
+
+const HeatTreatChart = ({ items, colors = HEAT_COLORS, containerClass = "h-[300px] md:h-[400px]", compact = false, noContainer = false, noTitle = false }) => {
     const { unitSystem } = useSettings();
 
     // Transform data for Heat Treatment Line Chart
@@ -41,16 +43,16 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
 
     if (lineData.length === 0) {
         return (
-            <div className={`glass-gradient rounded-[2.5rem] shadow-2xl ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
+            <div className={`glass-gradient rounded-3xl shadow-plate ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
                 {!noTitle && (
-                    <h3 className={`${compact ? 'text-sm mb-4' : 'text-lg mb-8'} font-black text-white uppercase tracking-widest flex items-center gap-3 italic`}>
-                        <svg width={compact ? "16" : "20"} height={compact ? "16" : "20"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
+                    <h3 className={`${compact ? 'text-sm mb-4' : 'text-lg mb-8'} font-display text-white uppercase tracking-tight flex items-center gap-3`}>
+                        <svg width={compact ? "16" : "20"} height={compact ? "16" : "20"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
                         Hitting Hardness Matrix
                     </h3>
                 )}
-                <p className={`${compact ? 'text-xs' : 'text-sm'} text-slate-400 font-mono`}>
+                <p className={`${compact ? 'text-xs' : 'text-sm'} text-stone-400 font-mono`}>
                     No heat treatment data available for {items?.length === 1 ? items[0].name : 'these steels'}.
                 </p>
             </div>
@@ -60,8 +62,8 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
     const chartContent = (
         <>
             {!noTitle && (
-                <h3 className={`${compact ? 'text-sm mb-4' : 'text-lg mb-8'} font-black text-white uppercase tracking-widest flex items-center gap-3 italic`}>
-                    <svg width={compact ? "16" : "20"} height={compact ? "16" : "20"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
+                <h3 className={`${compact ? 'text-sm mb-4' : 'text-lg mb-8'} font-display text-white uppercase tracking-tight flex items-center gap-3`}>
+                    <svg width={compact ? "16" : "20"} height={compact ? "16" : "20"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                     </svg>
                     Hitting Hardness Matrix
@@ -70,27 +72,26 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
             <div className={containerClass}>
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={lineData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#292420" />
                         <XAxis
                             dataKey="temp"
-                            stroke="#475569"
+                            stroke="#3A332B"
                             fontSize={11}
-                            fontWeight="bold"
-                            tick={{ fill: '#94a3b8' }}
-                            label={{ value: `Tempering Temp (${getTemperatureUnit(unitSystem)})`, position: 'bottom', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dy: 5 }}
+                            tick={{ fill: 'rgba(237,233,226,0.45)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
+                            label={{ value: `Tempering Temp (${getTemperatureUnit(unitSystem)})`, position: 'bottom', fill: '#6E685D', fontSize: 10, dy: 5 }}
                         />
                         <YAxis
                             domain={['auto', 'auto']}
-                            stroke="#475569"
+                            stroke="#3A332B"
                             fontSize={10}
-                            tick={{ fill: '#94a3b8' }}
-                            label={{ value: 'Hardness (HRC)', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11, fontWeight: 'bold', dx: 5 }}
+                            tick={{ fill: 'rgba(237,233,226,0.45)', fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}
+                            label={{ value: 'Hardness (HRC)', angle: -90, position: 'insideLeft', fill: '#6E685D', fontSize: 10, dx: 5 }}
                         />
                         <Tooltip
-                            contentStyle={{ backgroundColor: '#0a0a0b', borderColor: '#334155', borderRadius: '1rem', padding: '1rem' }}
-                            itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 'bold' }}
+                            contentStyle={{ backgroundColor: '#12100D', borderColor: 'rgba(237,233,226,0.1)', borderRadius: '0.75rem', padding: '1rem', fontFamily: 'JetBrains Mono, monospace' }}
+                            itemStyle={{ color: '#EDE9E2', fontSize: '12px', fontWeight: 600 }}
                         />
-                        <Legend wrapperStyle={{ paddingTop: '25px', fontWeight: 'bold', fontSize: '11px' }} />
+                        <Legend wrapperStyle={{ paddingTop: '25px', fontWeight: 600, fontSize: '11px' }} />
                         {items.map((s, i) => (
                             <Line
                                 key={s.id}
@@ -98,8 +99,8 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
                                 dataKey={s.id}
                                 name={s.name}
                                 stroke={colors[i % colors.length]}
-                                strokeWidth={5}
-                                dot={{ r: 6, strokeWidth: 2, stroke: '#000' }}
+                                strokeWidth={4}
+                                dot={{ r: 6, strokeWidth: 2, stroke: '#0B0A08' }}
                                 activeDot={{ r: 10, strokeWidth: 0 }}
                                 connectNulls
                             />
@@ -113,7 +114,7 @@ const HeatTreatChart = ({ items, colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef
     if (noContainer) return chartContent;
 
     return (
-        <div className={`glass-gradient rounded-[2.5rem] shadow-2xl ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
+        <div className={`glass-gradient rounded-3xl shadow-plate ${compact ? 'p-5 md:p-6' : 'p-6 md:p-10'}`}>
             {chartContent}
         </div>
     );

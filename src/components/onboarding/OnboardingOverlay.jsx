@@ -234,24 +234,25 @@ const OnboardingOverlay = () => {
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto"
                 >
                     <motion.div
-                        initial={{ scale: 0.9, y: 20 }}
-                        animate={{ scale: 1, y: 0 }}
-                        exit={{ scale: 0.9, y: 20 }}
-                        className="w-full max-w-2xl md:max-w-4xl bg-[#0a0a0c] border border-white/10 rounded-3xl overflow-hidden shadow-2xl relative my-8"
+                        initial={{ scale: 0.94, y: 20, opacity: 0 }}
+                        animate={{ scale: 1, y: 0, opacity: 1 }}
+                        exit={{ scale: 0.94, y: 20, opacity: 0 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                        className="w-full max-w-2xl md:max-w-4xl glass-strong rounded-3xl overflow-hidden relative my-8"
                     >
                         {/* Decorative Gradient Blob */}
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                         <div className="p-4 sm:p-6 md:p-8 lg:p-12 relative z-10">
                             <div className="text-center mb-8 md:mb-10">
-                                <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] sm:text-xs font-black uppercase tracking-widest mb-3 md:mb-4">
+                                <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] sm:text-xs font-mono font-medium uppercase tracking-[0.25em] mb-3 md:mb-4">
                                     Welcome to MetalCore
                                 </span>
-                                <h2 className="text-lg md:text-3xl lg:text-5xl font-display font-black text-white italic mb-3 md:mb-4">
+                                <h2 className="text-lg md:text-3xl lg:text-5xl font-display text-white mb-3 md:mb-4 uppercase tracking-tight">
                                     How well do you know <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">Knife Steel?</span>
+                                    <span className="text-accent">Knife Steel?</span>
                                 </h2>
-                                <p className="text-slate-400 max-w-xl mx-auto text-xs md:text-sm lg:text-base px-2">
+                                <p className="text-stone-400 max-w-xl mx-auto text-xs md:text-sm lg:text-base px-2">
                                     Select your experience level to customize your onboarding tour. We'll highlight the features that matter most to you.
                                 </p>
                             </div>
@@ -260,16 +261,16 @@ const OnboardingOverlay = () => {
                                 {/* Newbie Card */}
                                 <button
                                     onClick={() => startTour('newbie')}
-                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-emerald-500/5 to-black/40 border border-white/10 hover:border-emerald-500/40 hover:bg-emerald-500/10 backdrop-blur-xl transition-all text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel border border-white/10 hover:border-accent/40 hover:bg-accent/[0.06] transition-all duration-300 ease-snap text-left flex flex-col h-full"
                                 >
-                                    <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                    <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap">
                                         <Map size={24} strokeWidth={2.5} />
                                     </div>
-                                    <h3 className="text-base md:text-lg font-black text-white italic mb-2">The Explorer</h3>
-                                    <p className="text-[11px] md:text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+                                    <h3 className="text-base md:text-lg font-bold text-white mb-2">The Explorer</h3>
+                                    <p className="text-[11px] md:text-xs text-stone-400 leading-relaxed mb-4 flex-1">
                                         Active in the EDC world but new to metallurgy. Help me understand steel compositions and what makes a knife "good".
                                     </p>
-                                    <div className="text-[9px] md:text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="text-[9px] md:text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                         Start Tour <ChevronRight size={12} />
                                     </div>
                                 </button>
@@ -277,16 +278,16 @@ const OnboardingOverlay = () => {
                                 {/* Enthusiast Card */}
                                 <button
                                     onClick={() => startTour('enthusiast')}
-                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-amber-500/5 to-black/40 border border-white/10 hover:border-amber-500/40 hover:bg-amber-500/10 backdrop-blur-xl transition-all text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-accent/[0.08] to-transparent border border-accent/20 hover:border-accent/40 hover:bg-accent/10 transition-all duration-300 ease-snap text-left flex flex-col h-full"
                                 >
-                                    <div className="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform relative z-10">
+                                    <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap relative z-10">
                                         <Flame size={24} strokeWidth={2.5} />
                                     </div>
-                                    <h3 className="text-base md:text-lg font-black text-white italic mb-2 relative z-10">The Enthusiast</h3>
-                                    <p className="text-[11px] md:text-xs text-slate-400 leading-relaxed mb-4 flex-1 relative z-10">
+                                    <h3 className="text-base md:text-lg font-bold text-white mb-2 relative z-10">The Enthusiast</h3>
+                                    <p className="text-[11px] md:text-xs text-stone-400 leading-relaxed mb-4 flex-1 relative z-10">
                                         I know my M390 from my D2. Show me the comparison tools, performance charts, and advanced search filters.
                                     </p>
-                                    <div className="text-[9px] md:text-[10px] font-black text-amber-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity relative z-10">
+                                    <div className="text-[9px] md:text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 relative z-10">
                                         Start Tour <ChevronRight size={12} />
                                     </div>
                                 </button>
@@ -294,16 +295,16 @@ const OnboardingOverlay = () => {
                                 {/* Expert Card */}
                                 <button
                                     onClick={() => startTour('expert')}
-                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel bg-gradient-to-br from-indigo-500/5 to-black/40 border border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/10 backdrop-blur-xl transition-all text-left flex flex-col h-full"
+                                    className="group relative p-4 md:p-6 rounded-2xl glass-panel border border-white/10 hover:border-accent/40 hover:bg-accent/[0.06] transition-all duration-300 ease-snap text-left flex flex-col h-full"
                                 >
-                                    <div className="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                    <div className="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 ease-snap">
                                         <FlaskConical size={24} strokeWidth={2.5} />
                                     </div>
-                                    <h3 className="text-base md:text-lg font-black text-white italic mb-2">The Metallurgist</h3>
-                                    <p className="text-[11px] md:text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+                                    <h3 className="text-base md:text-lg font-bold text-white mb-2">The Metallurgist</h3>
+                                    <p className="text-[11px] md:text-xs text-stone-400 leading-relaxed mb-4 flex-1">
                                         I need raw data. Heat treatment protocols, crystalline structure analysis, and proprietary alloy mapping.
                                     </p>
-                                    <div className="text-[9px] md:text-[10px] font-black text-indigo-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="text-[9px] md:text-[10px] font-mono font-medium text-accent uppercase tracking-[0.2em] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                         Start Tour <ChevronRight size={12} />
                                     </div>
                                 </button>
@@ -311,7 +312,7 @@ const OnboardingOverlay = () => {
 
                             <button
                                 onClick={skipTour}
-                                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-slate-500 hover:text-white transition-colors"
+                                className="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-stone-500 hover:text-white transition-colors duration-200"
                             >
                                 <X size={20} />
                             </button>
@@ -319,7 +320,7 @@ const OnboardingOverlay = () => {
                             <div className="mt-6 md:mt-8 text-center">
                                 <button
                                     onClick={skipTour}
-                                    className="text-xs font-bold text-slate-600 hover:text-slate-400 transition-colors"
+                                    className="text-xs font-medium text-stone-600 hover:text-stone-400 transition-colors duration-200"
                                 >
                                     Skip onboarding for now
                                 </button>
@@ -345,19 +346,19 @@ const OnboardingOverlay = () => {
                         className="z-[9999] w-64 sm:w-72 md:w-80 pointer-events-auto"
                         ref={tooltipRef}
                     >
-                        <div className="glass-panel p-2 sm:p-4 md:p-6 rounded-2xl border border-white/10 bg-[#0a0a0c]/90 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                        <div className="glass-panel p-2 sm:p-4 md:p-6 rounded-2xl border border-white/10 bg-[#12100D]/95 shadow-plate-lg relative max-h-[90vh] overflow-y-auto">
                             {/* Arrow/Tail (Simplified, could add real SVG arrow later) */}
 
                             <div className="flex justify-between items-start mb-1 sm:mb-3">
-                                <span className="text-[6px] sm:text-[8px] md:text-[10px] font-black text-accent uppercase tracking-widest">
+                                <span className="text-[6px] sm:text-[8px] md:text-[10px] font-mono font-medium text-accent uppercase tracking-[0.25em]">
                                     Step {currentStepIndex + 1} of {totalSteps}
                                 </span>
-                                <button onClick={skipTour} className="text-slate-500 hover:text-white">
+                                <button onClick={skipTour} className="text-stone-500 hover:text-white transition-colors duration-200">
                                     <X size={14} />
                                 </button>
                             </div>
 
-                            <h3 className="text-xs sm:text-lg md:text-xl font-display font-black text-white italic mb-1 sm:mb-2">
+                            <h3 className="text-xs sm:text-lg md:text-xl font-display text-white mb-1 sm:mb-2 uppercase tracking-tight">
                                 {currentStepData.title}
                             </h3>
                             <p className="text-[10px] sm:text-xs md:text-sm text-slate-400 leading-relaxed mb-3 sm:mb-6">
@@ -384,7 +385,7 @@ const OnboardingOverlay = () => {
                                     )}
                                     <button
                                         onClick={nextStep}
-                                        className="px-3 sm:px-4 py-1 sm:py-2 rounded-lg bg-accent hover:bg-accent/90 text-black text-[10px] sm:text-xs font-black uppercase tracking-wider flex items-center gap-1 sm:gap-2 transition-colors"
+                                        className="px-3 sm:px-4 py-1 sm:py-2 rounded-lg bg-accent hover:bg-accent-400 text-[#1A0C05] text-[10px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1 sm:gap-2 transition-colors duration-200 ease-snap"
                                     >
                                         {currentStepIndex === totalSteps - 1 ? 'Finish' : 'Next'}
                                         {currentStepIndex === totalSteps - 1 ? <CheckCircle2 size={12} /> : <ChevronRight size={12} />}

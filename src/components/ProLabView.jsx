@@ -32,7 +32,7 @@ const ProLabView = ({ steels }) => {
     return (
         <div className="flex flex-col flex-1 min-w-0 md:h-full md:overflow-y-auto custom-scrollbar bg-transparent relative pb-40 md:pb-0">
             {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
-            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-500/10 to-transparent pointer-events-none" />
+            <div className="hidden md:block absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
 
             <ViewHeader
                 subtitle="Metallurgical Suite"
@@ -47,13 +47,13 @@ const ProLabView = ({ steels }) => {
                     <div className="flex gap-2 overflow-x-auto no-scrollbar">
                         <button
                             onClick={() => setActiveTab('ANALYZE')}
-                            className={`px-6 py-3 rounded-2xl text-xs md:text-sm font-black whitespace-nowrap uppercase italic tracking-wider transition-all shrink-0 ${activeTab === 'ANALYZE' ? 'bg-orange-500 text-black scale-105 shadow-lg shadow-orange-500/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                            className={activeTab === 'ANALYZE' ? 'px-6 py-3 rounded-2xl text-xs md:text-sm font-semibold whitespace-nowrap uppercase tracking-wider transition-all shrink-0 bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'px-6 py-3 rounded-2xl text-xs md:text-sm font-semibold whitespace-nowrap uppercase tracking-wider transition-all shrink-0 bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}
                         >
                             Deep Analysis
                         </button>
                         <button
                             onClick={() => setActiveTab('DUEL')}
-                            className={`px-6 py-3 rounded-2xl text-xs md:text-sm font-black whitespace-nowrap uppercase italic tracking-wider transition-all shrink-0 ${activeTab === 'DUEL' ? 'bg-orange-500 text-black scale-105 shadow-lg shadow-orange-500/20' : 'bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}`}
+                            className={activeTab === 'DUEL' ? 'px-6 py-3 rounded-2xl text-xs md:text-sm font-semibold whitespace-nowrap uppercase tracking-wider transition-all shrink-0 bg-accent text-[#1A0C05] scale-105 shadow-ember-sm' : 'px-6 py-3 rounded-2xl text-xs md:text-sm font-semibold whitespace-nowrap uppercase tracking-wider transition-all shrink-0 bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10'}
                         >
                             Alloy Duel
                         </button>
@@ -65,7 +65,7 @@ const ProLabView = ({ steels }) => {
                 {/* Global Selection Bar */}
                 <div className="glass-panel p-6 rounded-3xl flex flex-wrap items-center gap-6 border-white/5">
                     <div className="flex flex-col gap-2">
-                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Primary Grade</span>
+                        <span className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">Primary Grade</span>
                         <CustomSelect
                             options={filteredSteels}
                             value={simSteel.id}
@@ -77,9 +77,9 @@ const ProLabView = ({ steels }) => {
 
                     {activeTab === 'DUEL' && (
                         <>
-                            <div className="text-indigo-500 font-display font-black italic text-2xl pt-4">VS</div>
+                            <div className="text-accent font-display text-2xl pt-4">VS</div>
                             <div className="flex flex-col gap-2">
-                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Opponent Grade</span>
+                                <span className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">Opponent Grade</span>
                                 <CustomSelect
                                     options={filteredSteels.filter(s => s.id !== simSteel.id)}
                                     value={compareSteel?.id || ''}
@@ -95,13 +95,13 @@ const ProLabView = ({ steels }) => {
                     <div className="ml-auto hidden xl:block">
                         <div className="flex items-center gap-6">
                             <div className="text-right">
-                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Selected Class</div>
-                                <div className="text-sm font-black text-white italic uppercase">{simSteel.pm ? 'Powder Metallurgy' : 'Ingot Steel'}</div>
+                                <div className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">Selected Class</div>
+                                <div className="text-sm font-semibold text-white uppercase">{simSteel.pm ? 'Powder Metallurgy' : 'Ingot Steel'}</div>
                             </div>
                             <div className="w-px h-8 bg-white/10" />
                             <div className="text-right">
-                                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Producer</div>
-                                <div className="text-sm font-black text-indigo-400 italic uppercase">{simSteel.parent ?? simSteel.producer}</div>
+                                <div className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">Producer</div>
+                                <div className="text-sm font-semibold text-accent-400 uppercase">{simSteel.parent ?? simSteel.producer}</div>
                                 {simSteel.parent && <div className="text-[9px] text-slate-600 uppercase tracking-widest">inv. {simSteel.producer}</div>}
                             </div>
                         </div>
@@ -111,18 +111,18 @@ const ProLabView = ({ steels }) => {
                 {activeTab === 'ANALYZE' ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Row 1: DNA & Performance Side-by-Side */}
-                        <div className="glass-panel p-8 rounded-[2.5rem] border-white/5">
+                        <div className="glass-panel p-8 rounded-3xl border-white/5">
                             <AlloyBreakdown steel={simSteel} />
                         </div>
 
-                        <div className="glass-panel p-8 rounded-[2.5rem] border-white/5 h-[600px]">
+                        <div className="glass-panel p-8 rounded-3xl border-white/5 h-[600px]">
                             <PerformanceFrontier steel={simSteel} steels={steels} />
                         </div>
 
                         {/* Interactive Laboratory Tools */}
-                        <div className="glass-panel p-8 rounded-[2.5rem] border-white/5">
-                            <h4 className="text-sm font-black text-white uppercase tracking-widest mb-8 flex items-center gap-3 italic">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-500">
+                        <div className="glass-panel p-8 rounded-3xl border-white/5">
+                            <h4 className="text-sm font-semibold text-white uppercase tracking-widest mb-8 flex items-center gap-3">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                                 </svg>
                                 Thermodynamic Simulator
@@ -131,14 +131,14 @@ const ProLabView = ({ steels }) => {
                         </div>
 
                         {/* Row 2: Industrial HT Protocols - Full Width */}
-                        <div className="lg:col-span-2 glass-panel p-8 rounded-[2.5rem] border-indigo-500/10 bg-indigo-500/5">
+                        <div className="lg:col-span-2 glass-panel p-8 rounded-3xl border-accent/10 bg-accent/5">
                             <div className="flex items-center gap-3 mb-8">
-                                <div className="p-2 bg-indigo-500/20 rounded-xl">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-400">
+                                <div className="p-2 bg-accent/20 rounded-xl">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent-400">
                                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-sm md:text-base font-black text-white uppercase tracking-widest italic">Industrial Protocol</h3>
+                                <h3 className="text-sm md:text-base font-semibold text-white uppercase tracking-widest">Industrial Protocol</h3>
                             </div>
                             <HeatTreatMaster steel={simSteel} />
                         </div>
@@ -147,50 +147,50 @@ const ProLabView = ({ steels }) => {
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                         {compareSteel ? (
                             <>
-                                <div className="xl:col-span-2 glass-panel p-8 rounded-[2.5rem] border-indigo-500/20 bg-indigo-500/5">
+                                <div className="xl:col-span-2 glass-panel p-8 rounded-3xl border-accent/20 bg-accent/5">
                                     <div className="flex items-center gap-3 mb-8">
-                                        <div className="p-2 bg-indigo-500/20 rounded-xl">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-400">
+                                        <div className="p-2 bg-accent/20 rounded-xl">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent-400">
                                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                             </svg>
                                         </div>
-                                        <h3 className="text-sm md:text-base font-black text-white uppercase tracking-widest italic">Metallurgical Duel Analysis</h3>
+                                        <h3 className="text-sm md:text-base font-semibold text-white uppercase tracking-widest">Metallurgical Duel Analysis</h3>
                                     </div>
-                                    <p className="text-slate-400 text-sm italic uppercase font-black tracking-widest max-w-2xl">
+                                    <p className="text-slate-400 text-sm max-w-2xl">
                                         Comparing the chemical signatures and thermal processing protocols of {simSteel.name} versus {compareSteel.name}.
                                         Below you will find the carbide-forming element breakdown and suggested optimization protocols for both grades.
                                     </p>
                                 </div>
-                                <div className="glass-panel p-8 rounded-[2.5rem] border-white/5 space-y-8">
+                                <div className="glass-panel p-8 rounded-3xl border-white/5 space-y-8">
                                     <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                                        <h2 className="text-3xl font-black text-white italic uppercase">{simSteel.name}</h2>
+                                        <h2 className="text-3xl font-display text-white uppercase">{simSteel.name}</h2>
                                         <div className="text-right">
-                                            <span className="text-[10px] font-black text-slate-500 uppercase">{simSteel.parent ?? simSteel.producer}</span>
+                                            <span className="text-[10px] font-mono font-medium text-slate-500 uppercase">{simSteel.parent ?? simSteel.producer}</span>
                                             {simSteel.parent && <div className="text-[9px] text-slate-600 uppercase tracking-widest">inv. {simSteel.producer}</div>}
                                         </div>
                                     </div>
                                     <AlloyBreakdown steel={simSteel} customElements={duelElements} />
                                     <div className="pt-8 border-t border-white/5">
                                         <div className="flex items-center gap-2 mb-6">
-                                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Industrial Protocol</span>
+                                            <div className="w-2 h-2 rounded-full bg-accent animate-ember-pulse" />
+                                            <span className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">Industrial Protocol</span>
                                         </div>
                                         <HeatTreatSimulator steel={simSteel} />
                                     </div>
                                 </div>
-                                <div className="glass-panel p-8 rounded-[2.5rem] border-indigo-500/20 bg-indigo-500/5 space-y-8">
+                                <div className="glass-panel p-8 rounded-3xl border-accent/20 bg-accent/5 space-y-8">
                                     <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                                        <h2 className="text-3xl font-black text-indigo-400 italic uppercase">{compareSteel.name}</h2>
+                                        <h2 className="text-3xl font-display text-accent-400 uppercase">{compareSteel.name}</h2>
                                         <div className="text-right">
-                                            <span className="text-[10px] font-black text-indigo-500/50 uppercase">{compareSteel.parent ?? compareSteel.producer}</span>
-                                            {compareSteel.parent && <div className="text-[9px] text-indigo-900/80 uppercase tracking-widest">inv. {compareSteel.producer}</div>}
+                                            <span className="text-[10px] font-mono font-medium text-accent/50 uppercase">{compareSteel.parent ?? compareSteel.producer}</span>
+                                            {compareSteel.parent && <div className="text-[9px] text-accent-900/80 uppercase tracking-widest">inv. {compareSteel.producer}</div>}
                                         </div>
                                     </div>
                                     <AlloyBreakdown steel={compareSteel} customElements={duelElements} />
                                     <div className="pt-8 border-t border-white/5">
                                         <div className="flex items-center gap-2 mb-6">
-                                            <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                                            <span className="text-[10px] font-black text-indigo-500/50 uppercase tracking-widest">Industrial Protocol</span>
+                                            <div className="w-2 h-2 rounded-full bg-accent animate-ember-pulse" />
+                                            <span className="text-[10px] font-mono font-medium text-accent/50 uppercase tracking-widest">Industrial Protocol</span>
                                         </div>
                                         <HeatTreatSimulator steel={compareSteel} />
                                     </div>
@@ -198,13 +198,13 @@ const ProLabView = ({ steels }) => {
                             </>
                         ) : (
                             <div className="xl:col-span-2 py-32 flex flex-col items-center justify-center text-center">
-                                <div className="w-20 h-20 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-500 mb-6 animate-bounce">
+                                <div className="w-20 h-20 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-6 animate-bounce">
                                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">Initialize Duel</h3>
-                                <p className="text-slate-500 text-sm max-w-xs mt-2 uppercase font-black tracking-widest leading-loose">
+                                <h3 className="text-2xl font-display text-white uppercase tracking-tight">Initialize Duel</h3>
+                                <p className="text-slate-500 text-sm max-w-xs mt-2 leading-relaxed">
                                     Select an opponent grade above to compare chemical signatures and heat-treat protocols side-by-side.
                                 </p>
                             </div>

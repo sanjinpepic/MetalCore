@@ -213,15 +213,15 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
     const getIcon = (item) => {
         if (item.type === 'steel') {
             return (
-                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-[10px] font-black shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-[10px] font-mono font-medium shrink-0">
                     Fe
                 </div>
             );
         }
         if (item.type === 'knife') {
             return (
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-blue-400">
+                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
                         <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
                     </svg>
                 </div>
@@ -251,7 +251,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/70 backdrop-blur-md z-[9998]"
+                        className="fixed inset-0 bg-[#0B0A08]/70 backdrop-blur-md z-[9998]"
                         style={{ pointerEvents: 'auto' }}
                     />
 
@@ -261,8 +261,8 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                             initial={{ opacity: 0, scale: 0.98, y: -10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.98, y: -10 }}
-                            transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="pointer-events-auto w-full max-w-xl glass-panel !bg-black/90 rounded-[2rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,1)] overflow-hidden flex flex-col max-h-[75vh]"
+                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                            className="pointer-events-auto w-full max-w-xl glass-panel !bg-[#12100D]/95 rounded-3xl border border-white/10 shadow-plate-lg overflow-hidden flex flex-col max-h-[75vh]"
                         >
                             {/* Search Input */}
                             <div className="flex items-center gap-4 px-6 py-5 border-b border-white/5 bg-white/[0.02]">
@@ -282,7 +282,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                     autoCorrect="off"
                                     spellCheck={false}
                                 />
-                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-black text-slate-500">
+                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono font-medium text-slate-500">
                                     <span className="opacity-60">ESC</span>
                                 </div>
                             </div>
@@ -302,7 +302,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                 ) : (
                                     Object.entries(groupedResults).map(([category, items]) => (
                                         <div key={category} className="mb-2 last:mb-0">
-                                            <div className="px-6 pt-3 pb-2 text-[10px] font-black uppercase tracking-[0.25em] text-slate-600 flex items-center gap-3">
+                                            <div className="px-6 pt-3 pb-2 text-[10px] font-mono font-medium uppercase tracking-[0.25em] text-slate-600 flex items-center gap-3">
                                                 {category}
                                                 <div className="h-px flex-1 bg-white/5" />
                                             </div>
@@ -326,7 +326,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                             <div className="flex items-center gap-2">
                                                                 <div className={`text-sm font-bold truncate ${item.globalIndex === activeIndex ? 'text-accent' : ''}`}>{item.label}</div>
                                                                 {item.type === 'steel' && (
-                                                                    <span className={`text-[8px] px-1.5 py-0.5 rounded font-black tracking-widest border ${item.metalType === 'PM'
+                                                                    <span className={`text-[8px] px-1.5 py-0.5 rounded font-mono font-medium tracking-[0.2em] border ${item.metalType === 'PM'
                                                                         ? 'bg-accent/10 border-accent/20 text-accent'
                                                                         : 'bg-white/5 border-white/10 text-slate-500'
                                                                         }`}>
@@ -340,7 +340,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                         </div>
                                                         {item.globalIndex === activeIndex && (
                                                             <div className="flex items-center gap-1.5 text-accent opacity-60">
-                                                                <span className="text-[10px] font-black">ENTER</span>
+                                                                <span className="text-[10px] font-mono font-medium">ENTER</span>
                                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                                                     <polyline points="9 10 4 15 9 20" /><path d="M20 4v7a4 4 0 0 1-4 4H4" />
                                                                 </svg>
@@ -355,17 +355,17 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                             </div>
 
                             {/* Footer Keys */}
-                            <div className="flex items-center gap-4 px-6 py-3 border-t border-white/5 text-[9px] font-black text-slate-600 uppercase tracking-widest bg-white/[0.01] flex-wrap">
+                            <div className="flex items-center gap-4 px-6 py-3 border-t border-white/5 text-[9px] font-mono font-medium text-slate-600 uppercase tracking-[0.2em] bg-white/[0.01] flex-wrap">
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">↑↓</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[10px]">↑↓</span>
                                     <span>Navigate</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">↵</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[10px]">↵</span>
                                     <span>Select</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">ESC</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[10px]">ESC</span>
                                     <span>Close</span>
                                 </div>
                                 <div className="ml-auto text-slate-700 normal-case tracking-normal font-medium">

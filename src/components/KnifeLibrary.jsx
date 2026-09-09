@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+﻿import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
@@ -7,7 +7,7 @@ const normalize = (val) => {
     if (typeof val !== 'string') return "";
     return val.toLowerCase()
         .replace(/cpm[- ]?/, "")
-        .replace(/böhler |bohler /, "")
+        .replace(/bÃ¶hler |bohler /, "")
         .replace(/sandvik |alleima |alleima-/, "")
         .replace(/[ \-]/g, "")
         .trim();
@@ -40,32 +40,32 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
     }, [filteredKnives]);
 
     return (
-        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-black custom-scrollbar max-w-[100vw] [overflow-x:clip]">
-            {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
-            <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-sky-500/10 to-transparent pointer-events-none" />
+        <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-[#0B0A08] custom-scrollbar max-w-[100vw] [overflow-x:clip]">
+            {/* Desktop gradient overlay â€” matches sidebar and HomeView gradient spread */}
+            <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
             <ViewHeader
                 subtitle="Armory"
                 title="Knife"
                 highlight="Registry"
                 color="sky"
             >
-                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 italic font-medium hidden md:block">
+                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 font-medium hidden md:block">
                     Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.
                 </p>
             </ViewHeader>
 
             {/* Category Filters & Search */}
             <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl transition-all">
-                {/* Mobile categories — plain block, NOT inside flex */}
+                {/* Mobile categories â€” plain block, NOT inside flex */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-3 py-2 rounded-2xl text-[10px] font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
-                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
-                                    : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
+                                className={`px-3 py-2 rounded-2xl text-[10px] font-mono font-medium transition-all whitespace-nowrap uppercase tracking-[0.2em] shrink-0 ${activeCategory === cat
+                                    ? "bg-accent text-[#1A0C05] scale-105 shadow-ember-sm"
+                                    : "bg-white/5 text-stone-500 hover:text-white hover:bg-white/10"
                                     }`}
                             >
                                 {cat}
@@ -81,9 +81,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-6 py-3 rounded-2xl text-sm font-black transition-all whitespace-nowrap uppercase italic tracking-wider shrink-0 ${activeCategory === cat
-                                    ? "bg-sky-500 text-black scale-105 shadow-lg shadow-sky-500/20"
-                                    : "bg-white/5 text-slate-500 hover:text-slate-300 hover:bg-white/10"
+                                className={`px-6 py-3 rounded-2xl text-sm font-mono font-medium transition-all whitespace-nowrap uppercase tracking-[0.2em] shrink-0 ${activeCategory === cat
+                                    ? "bg-accent text-[#1A0C05] scale-105 shadow-ember-sm"
+                                    : "bg-white/5 text-stone-500 hover:text-white hover:bg-white/10"
                                     }`}
                             >
                                 {cat}
@@ -112,9 +112,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                         <div className="sticky top-[6.75rem] md:top-[4.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
                             <div className="flex items-center gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                                <h2 className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] italic">{maker}</h2>
+                                <h2 className="text-xs md:text-sm font-mono font-medium text-slate-400 uppercase tracking-[0.2em]">{maker}</h2>
                                 <div className="flex-1 h-px bg-white/5"></div>
-                                <span className="text-[10px] font-bold text-slate-600">{makerKnives.length} {makerKnives.length === 1 ? 'knife' : 'knives'}</span>
+                                <span className="text-[10px] font-mono font-medium text-slate-600">{makerKnives.length} {makerKnives.length === 1 ? 'knife' : 'knives'}</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
@@ -122,7 +122,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                 <div
                                     key={knife.id}
                                     onClick={() => setDetailKnife && setDetailKnife(knife)}
-                                    className="glass-panel rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col xl:flex-row group border-white/5 hover:border-white/20 transition-all cursor-pointer hover:shadow-2xl hover:shadow-accent/5 active:scale-[0.99]"
+                                    className="glass-panel rounded-3xl overflow-hidden flex flex-col xl:flex-row group border-white/5 hover:border-white/20 transition-all cursor-pointer hover:shadow-plate-lg active:scale-[0.99]"
                                 >
                                     {/* <div className="xl:w-2/5 h-72 xl:h-auto bg-white/5 relative overflow-hidden shrink-0">
                                         {knife.image ? (
@@ -152,20 +152,20 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                                         <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-8 md:right-8">
                                             <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-1.5">{knife.maker}</div>
-                                            <h3 className="text-xl md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">{knife.name}</h3>
+                                            <h3 className="text-xl md:text-4xl font-display text-white tracking-tight uppercase leading-none">{knife.name}</h3>
                                         </div>
                                     </div> */}
                                     <div className="xl:w-full p-8 md:p-10 flex flex-col justify-between">
                                         <div className="mb-6">
                                             <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-1.5">{knife.maker}</div>
-                                            <h3 className="text-xl md:text-4xl font-display font-black text-white italic tracking-tight uppercase leading-none">{knife.name}</h3>
+                                            <h3 className="text-xl md:text-4xl font-display text-white tracking-tight uppercase leading-none">{knife.name}</h3>
                                         </div>
                                         <div className="space-y-6">
                                             <div className="flex gap-3 items-start">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent mt-1 shrink-0">
                                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                                                 </svg>
-                                                <p className="text-xs md:text-sm text-slate-400 italic leading-relaxed">{knife.description}</p>
+                                                <p className="text-xs md:text-sm text-slate-400 leading-relaxed">{knife.description}</p>
                                             </div>
                                             <div className="flex gap-3 items-start">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mt-1 shrink-0">
@@ -202,7 +202,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                                                     e.stopPropagation();
                                                                     steel ? setDetailSteel(steel) : alert(`Data for ${steelName} not found.`);
                                                                 }}
-                                                                className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
+                                                                className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-mono font-medium text-slate-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
                                                             >
                                                                 {steelName}
                                                             </button>
