@@ -63,11 +63,22 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
     if (!items || items.length === 0) {
         return (
-            <div className="flex items-center justify-center min-h-[60vh] md:h-full bg-transparent text-stone-500">
-                <div className="text-center">
-                    <p className="mb-4">No items selected for comparison.</p>
-                    <button onClick={() => setView('SEARCH')} className="px-4 py-2 bg-accent text-[#1A0C05] rounded-lg font-bold transition-colors duration-300 ease-snap">
-                        Back to Library
+            <div className="flex flex-col items-center justify-center min-h-[60vh] md:h-full bg-[#0B0A08] relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-[400px] bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
+                <div className="relative text-center px-6">
+                    <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.3em] mb-6 flex items-center justify-center gap-3">
+                        <span className="inline-block w-8 h-px bg-accent/50" />
+                        00 — Workbench
+                        <span className="inline-block w-8 h-px bg-accent/50" />
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-display text-white uppercase tracking-tight leading-[0.95] mb-5">
+                        Nothing<br />On The Bench
+                    </h2>
+                    <p className="text-stone-500 text-xs md:text-sm font-mono font-medium uppercase tracking-[0.2em] mb-10 max-w-md mx-auto leading-relaxed">
+                        Pull grades from the library to open a comparative analysis
+                    </p>
+                    <button onClick={() => setView('SEARCH')} className="px-8 py-4 bg-accent text-[#1A0C05] rounded-full text-xs font-mono font-medium uppercase tracking-[0.25em] transition-all duration-300 ease-snap shadow-ember-sm hover:shadow-ember active:scale-95">
+                        Open Grade Library
                     </button>
                 </div>
             </div>
