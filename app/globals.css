@@ -505,3 +505,19 @@ body::after {
     animation: shimmer 2s infinite linear;
     border-radius: 4px;
 }
+
+/* ── Composition ticker (ambient marquee) ── */
+@keyframes forge-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: forge-marquee 48s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+        animation: none;
+    }
+}

@@ -44,6 +44,23 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
     const colors = ['#FFD9A8', '#FF9D62', '#FF5A1F', '#C53A0C'];
 
+    // Datasheet matrix: element rows
+    const matrixElements = useMemo(() => {
+        if (!items || items.length === 0) return [];
+        const els = ['C', 'Cr', 'V', 'Mo', 'W', 'Co'];
+        if (items.some(item => item.N > 0)) els.push('N');
+        if (items.some(item => item.Nb > 0)) els.push('Nb');
+        return els;
+    }, [items]);
+
+    // Datasheet matrix: performance rows
+    const perfSpecs = [
+        { key: 'edge', label: 'Edge Retention' },
+        { key: 'toughness', label: 'Toughness' },
+        { key: 'corrosion', label: 'Corrosion Res.' },
+        { key: 'sharpen', label: 'Ease of Sharpening' }
+    ];
+
     if (!items || items.length === 0) {
         return (
             <div className="flex items-center justify-center min-h-[60vh] md:h-full bg-transparent text-slate-500">
@@ -143,29 +160,95 @@ const CompareView = ({ items, setView, toggleCompare, clearCompare, generateRepo
 
 
             <div className="p-6 md:p-12 space-y-12">
-                {/* Cards Row */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                    {items.map((s, i) => (
-                        <div key={s.id} className="glass-panel p-6 md:p-8 rounded-3xl relative group border-white/10 hover:border-accent/40 transition-all duration-300 ease-snap border-t-4 shadow-plate-lg" style={{ borderTopColor: colors[i % colors.length] }}>
-                            <button onClick={() => toggleCompare(s)} className="absolute top-4 right-4 p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-all duration-300 ease-snap opacity-0 group-hover:opacity-100 border border-white/5">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                    <path d="M18 6 6 18" />
-                                    <path d="m6 6 12 12" />
-                                </svg>
-                            </button>
-                            <div className="text-[10px] md:text-xs font-mono font-medium text-slate-500 uppercase tracking-[0.2em] mb-2">{s.producer}</div>
-                            <h3 className="text-xl md:text-3xl font-display text-white mb-5 uppercase tracking-tight leading-none">{s.name}</h3>
-                            <div className="grid grid-cols-3 gap-2.5">
-                                {['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'].filter(el => s[el] > 0).map(el => (
-                                    <div key={el} className="bg-black/40 rounded-xl p-2.5 text-center border border-white/5">
-                                        <div className="text-[9px] text-slate-500 uppercase font-mono font-medium tracking-[0.2em] mb-1.5">{el}</div>
-                                        <div className="text-sm font-mono font-semibold text-slate-200">{s[el]}</div>
-                                    </div>
-                                ))}
+                {/* Specification Matrix */}
+                <section className="glass-panel rounded-3xl border border-white/10 shadow-plate-lg overflow-hidden">
+                    <div className="overflow-x-auto no-scrollbar">
+                        <div
+                            className="min-w-[42rem]"
+                            style={{ display: 'grid', gridTemplateColumns: `minmax(8.5rem, 11rem) repeat(${items.length}, minmax(9.5rem, 1fr))` }}
+                        >
+                            {/* Column headers */}
+                            <div className="px-5 md:px-7 pt-9 pb-7 flex items-end">
+                                <div>
+                                    <div className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] mb-1">Reference</div>
+                                    <div className="text-lg md:text-xl font-display text-stone-400 uppercase tracking-tight leading-none">Spec Sheet</div>
+                                </div>
                             </div>
+                            {items.map((s, i) => (
+                                <div key={s.id} className="relative border-l border-white/5 px-5 md:px-7 pt-9 pb-7 group/col">
+                                    <span className="absolute top-0 inset-x-0 h-[3px]" style={{ backgroundColor: colors[i % colors.length] }} />
+                                    <button onClick={() => toggleCompare(s)} title={`Remove ${s.name}`} className="absolute top-4 right-3 p-1.5 text-stone-600 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-300 ease-snap z-10">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                                    </button>
+                                    <div className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em] mb-2.5 truncate pr-6">{s.producer}</div>
+                                    <h3 className="text-lg md:text-2xl font-display text-white uppercase tracking-tight leading-none truncate pr-4">{s.name}</h3>
+                                </div>
+                            ))}
+
+                            {/* Composition rows */}
+                            {matrixElements.map(el => {
+                                const max = Math.max(...items.map(s => s[el] || 0));
+                                return (
+                                    <React.Fragment key={el}>
+                                        <div className="px-5 md:px-7 py-4 border-t border-white/5 flex items-center">
+                                            <span className="text-[10px] md:text-xs font-mono font-semibold text-stone-500 uppercase tracking-[0.25em]">{el}</span>
+                                        </div>
+                                        {items.map((s, i) => (
+                                            <div key={s.id} className="border-l border-t border-white/5 px-5 md:px-7 py-4">
+                                                <div className="flex items-baseline justify-between gap-2">
+                                                    <span className="font-mono text-sm md:text-base font-semibold text-stone-200">{s[el] || 0}</span>
+                                                </div>
+                                                <div className="mt-2 h-[3px] bg-white/[0.07] rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full rounded-full origin-left transition-all duration-700 ease-out-expo"
+                                                        style={{
+                                                            width: `${max > 0 ? ((s[el] || 0) / max) * 100 : 0}%`,
+                                                            backgroundColor: colors[i % colors.length],
+                                                            opacity: max > 0 ? 0.85 : 0
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </React.Fragment>
+                                );
+                            })}
+
+                            {/* Performance rows */}
+                            {perfSpecs.map(spec => {
+                                const max = Math.max(...items.map(s => s[spec.key] || 0));
+                                return (
+                                    <React.Fragment key={spec.key}>
+                                        <div className="px-5 md:px-7 py-4 border-t border-white/[0.08] bg-white/[0.02] flex items-center">
+                                            <span className="text-[9px] md:text-[10px] font-mono font-semibold text-stone-400 uppercase tracking-[0.2em] leading-snug">{spec.label}</span>
+                                        </div>
+                                        {items.map(s => {
+                                            const v = s[spec.key] || 0;
+                                            const isBest = items.length > 1 && max > 0 && v === max;
+                                            return (
+                                                <div key={s.id} className="border-l border-t border-white/[0.08] bg-white/[0.02] px-5 md:px-7 py-4">
+                                                    <div className="flex items-baseline justify-between gap-2">
+                                                        <span className={`font-mono text-sm md:text-base font-bold ${isBest ? 'text-accent' : 'text-stone-200'}`}>{v}</span>
+                                                        {isBest && <span className="text-[7px] font-mono font-medium text-accent/70 tracking-[0.25em]">BEST</span>}
+                                                    </div>
+                                                    <div className="mt-2 h-[3px] bg-white/[0.07] rounded-full overflow-hidden">
+                                                        <div
+                                                            className="h-full rounded-full origin-left transition-all duration-700 ease-out-expo"
+                                                            style={{
+                                                                width: `${(v / 10) * 100}%`,
+                                                                backgroundColor: isBest ? '#FF5A1F' : 'rgba(237,233,226,0.25)'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </React.Fragment>
+                                );
+                            })}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                </section>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 pb-20">
                     {/* Radar Chart */}

@@ -4,44 +4,80 @@ import ViewHeader from './Common/ViewHeader';
 
 import { hapticFeedback } from '../hooks/useMobile';
 
-const SteelCard = ({ s, compareList, toggleCompare, setDetailSteel }) => {
-    const isSelected = compareList.find(i => i.id === s.id);
-    return (
-        <div onClick={() => { hapticFeedback('light'); setDetailSteel(s); }} className={`glass-panel rounded-2xl md:rounded-3xl p-6 md:p-8 cursor-pointer border transition-all duration-300 ease-snap hover:border-white/20 active:scale-[0.98] relative group ${isSelected ? 'border-accent bg-accent/5' : 'border-white/5'}`}>
-            <div className="flex justify-between items-start mb-4 md:mb-6">
-                <div className="min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-accent transition-colors duration-300 ease-snap leading-tight truncate uppercase tracking-tight">{s.name}</h3>
-                    <p className="text-xs md:text-sm text-slate-400 line-clamp-1 mt-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity">{s.desc}</p>
-                </div>
-                <div className={`p-2.5 rounded-full transition-all duration-300 ease-snap shrink-0 ${isSelected ? 'bg-accent text-[#1A0C05] scale-110 shadow-ember-sm' : 'bg-white/5 text-slate-500 hover:text-white hover:bg-white/10'}`}
-                    onClick={(e) => { e.stopPropagation(); hapticFeedback('medium'); toggleCompare(s); }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-                        <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-                        <path d="M7 21h10" />
-                        <path d="M12 3v18" />
-                        <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
-                    </svg>
-                </div>
+const ELEMENTS = ['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'];
+
+const PerfMicro = ({ label, value }) => (
+    <div className="flex flex-col gap-1.5 w-14 shrink-0">
+        <span className="text-[8px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em]">{label}</span>
+        <div className="flex items-center gap-2">
+            <div className="w-9 h-[3px] bg-white/10 rounded-full overflow-hidden shrink-0">
+                <div className="h-full bg-accent/80 rounded-full" style={{ width: `${((value ?? 0) / 10) * 100}%` }} />
             </div>
-            <div className="grid grid-cols-3 gap-px bg-white/5 rounded-xl overflow-hidden group-hover:bg-accent/10 transition-colors">
-                {['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'].filter(el => s[el] > 0).map(el => (
-                    <div key={el} className="bg-[#12100D]/95 p-3 text-center">
-                        <div className="text-[9px] text-slate-500 uppercase font-mono font-medium tracking-[0.2em] mb-1.5">{el}</div>
-                        <div className="text-xs md:text-sm font-mono font-semibold text-slate-300">{s[el]}</div>
-                    </div>
-                ))}
+            <span className="text-[10px] font-mono font-semibold text-stone-300">{value ?? '—'}</span>
+        </div>
+    </div>
+);
+
+const LedgerHeader = () => (
+    <div className="hidden md:flex items-center gap-6 px-8 pb-3 border-b border-white/10 text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em]">
+        <span className="w-8 shrink-0">No.</span>
+        <span className="w-48 shrink-0">Grade</span>
+        <span className="flex-1">Composition</span>
+        <span className="hidden xl:block w-[13rem] shrink-0">Performance</span>
+        <span className="w-28 shrink-0 text-right">Workbench</span>
+    </div>
+);
+
+const LedgerRow = ({ s, index, isSelected, toggleCompare, setDetailSteel }) => (
+    <div
+        onClick={() => { hapticFeedback('light'); setDetailSteel(s); }}
+        className={`group relative flex items-center gap-4 md:gap-6 px-4 md:px-8 py-4 md:py-5 cursor-pointer border-b border-white/[0.04] transition-colors duration-300 ease-snap ${isSelected ? 'bg-accent/[0.05]' : 'hover:bg-white/[0.025]'}`}
+    >
+        <span className={`absolute left-0 top-0 h-full w-[2px] bg-accent origin-top transition-transform duration-500 ease-snap ${isSelected ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'}`} />
+        <span className={`hidden md:block w-8 shrink-0 text-[10px] font-mono font-medium transition-colors duration-300 ${isSelected ? 'text-accent' : 'text-stone-700 group-hover:text-stone-500'}`}>
+            {String(index + 1).padStart(3, '0')}
+        </span>
+        <div className="w-32 sm:w-40 md:w-48 shrink-0 min-w-0">
+            <h3 className={`text-base md:text-lg font-display uppercase tracking-tight truncate leading-tight transition-colors duration-300 ${isSelected ? 'text-accent' : 'text-white group-hover:text-accent'}`}>{s.name}</h3>
+            <div className="text-[8px] md:text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em] mt-1 truncate">
+                {(Array.isArray(s.parent) ? s.parent[0] : s.parent) || s.producer}
             </div>
-            <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs text-slate-600 font-mono font-medium uppercase tracking-[0.2em]">View Details</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-700 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 ease-snap">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
+        </div>
+        <div className="hidden md:flex flex-1 items-center gap-x-4 gap-y-1 flex-wrap font-mono text-[11px] min-w-0">
+            {ELEMENTS.filter(el => s[el] > 0).map(el => (
+                <span key={el} className="whitespace-nowrap">
+                    <span className="text-stone-600 mr-1">{el}</span>
+                    <span className="text-stone-300 font-semibold">{s[el]}</span>
+                </span>
+            ))}
+            {s.pm !== undefined && (
+                <span className={`px-2 py-0.5 text-[8px] font-mono font-medium uppercase tracking-[0.2em] border rounded-full shrink-0 ${s.pm ? 'text-accent border-accent/30 bg-accent/5' : 'text-stone-600 border-white/10'}`}>
+                    {s.pm ? 'PM' : 'CONV'}
+                </span>
+            )}
+        </div>
+        <div className="hidden xl:flex items-center gap-5 shrink-0">
+            <PerfMicro label="Edge" value={s.edge} />
+            <PerfMicro label="Tough" value={s.toughness} />
+            <PerfMicro label="Rust" value={s.corrosion} />
+        </div>
+        <div className="ml-auto md:ml-0 shrink-0 flex items-center gap-3 pl-2">
+            <span className="hidden sm:block text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.25em] opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Open</span>
+            <div
+                onClick={(e) => { e.stopPropagation(); hapticFeedback('medium'); toggleCompare(s); }}
+                className={`p-2.5 rounded-full transition-all duration-300 ease-snap shrink-0 ${isSelected ? 'bg-accent text-[#1A0C05] shadow-ember-sm' : 'bg-white/5 text-stone-500 hover:text-white hover:bg-white/10'}`}
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                    <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                    <path d="M7 21h10" />
+                    <path d="M12 3v18" />
+                    <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
                 </svg>
             </div>
         </div>
-    );
-};
+    </div>
+);
 
 const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters, activeProducer }) => {
     const isFiltered = activeProducer && activeProducer !== 'ALL';
@@ -74,7 +110,6 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 </p>
             </ViewHeader>
 
-
             {/* Search Bar */}
             <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl px-4 md:px-12 py-3 md:py-4 flex justify-end items-center transition-all">
                 <div className="relative w-full md:w-64">
@@ -91,7 +126,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 </div>
             </div>
 
-            <div className="p-6 md:p-12 pb-32 space-y-10 md:space-y-16">
+            <div className="p-6 md:p-12 pt-6 md:pt-8 pb-32 space-y-10 md:space-y-16">
                 {filteredSteels.length === 0 && (
                     <div className="flex flex-col items-center justify-center py-24 text-center gap-6">
                         <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-2">
@@ -111,30 +146,47 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         </button>
                     </div>
                 )}
-                {filteredSteels.length > 0 && isFiltered ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 items-start">
-                        {filteredSteels.map(s => <SteelCard key={s.id} s={s} compareList={compareList} toggleCompare={toggleCompare} setDetailSteel={setDetailSteel} />)}
+                {filteredSteels.length > 0 && (
+                    <div>
+                        <LedgerHeader />
+                        {isFiltered ? (
+                            filteredSteels.map((s, i) => (
+                                <LedgerRow
+                                    key={s.id}
+                                    s={s}
+                                    index={i}
+                                    isSelected={!!compareList.find(item => item.id === s.id)}
+                                    toggleCompare={toggleCompare}
+                                    setDetailSteel={setDetailSteel}
+                                />
+                            ))
+                        ) : (
+                            Object.entries(groupedSteels).sort(([a], [b]) => {
+                                if (a === 'Various') return 1;
+                                if (b === 'Various') return -1;
+                                return a.localeCompare(b);
+                            }).map(([producer, steels]) => (
+                                <section key={producer}>
+                                    <div className="sticky top-[3.75rem] md:top-[4.25rem] z-20 flex items-center gap-3 px-4 md:px-8 py-3 bg-[#0B0A08]/90 backdrop-blur-xl border-b border-white/5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
+                                        <h2 className="text-xs md:text-sm font-mono font-medium text-stone-400 uppercase tracking-[0.2em] truncate">{producer}</h2>
+                                        <div className="flex-1 h-px bg-white/5"></div>
+                                        <span className="text-[10px] font-mono font-medium text-stone-600 shrink-0">{steels.length} {steels.length === 1 ? 'grade' : 'grades'}</span>
+                                    </div>
+                                    {steels.map((s, i) => (
+                                        <LedgerRow
+                                            key={s.id}
+                                            s={s}
+                                            index={i}
+                                            isSelected={!!compareList.find(item => item.id === s.id)}
+                                            toggleCompare={toggleCompare}
+                                            setDetailSteel={setDetailSteel}
+                                        />
+                                    ))}
+                                </section>
+                            ))
+                        )}
                     </div>
-                ) : (
-                    Object.entries(groupedSteels).sort(([a], [b]) => {
-                        if (a === 'Various') return 1;
-                        if (b === 'Various') return -1;
-                        return a.localeCompare(b);
-                    }).map(([producer, steels]) => (
-                        <section key={producer}>
-                            <div className="sticky top-[3.75rem] md:top-[4.25rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                                    <h2 className="text-xs md:text-sm font-mono font-medium text-slate-400 uppercase tracking-[0.2em]">{producer}</h2>
-                                    <div className="flex-1 h-px bg-white/5"></div>
-                                    <span className="text-[10px] font-mono font-medium text-slate-600">{steels.length} {steels.length === 1 ? 'grade' : 'grades'}</span>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8 items-start">
-                                {steels.map(s => <SteelCard key={s.id} s={s} compareList={compareList} toggleCompare={toggleCompare} setDetailSteel={setDetailSteel} />)}
-                            </div>
-                        </section>
-                    ))
                 )}
             </div>
 
