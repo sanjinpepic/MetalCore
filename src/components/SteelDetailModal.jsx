@@ -153,7 +153,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                     </svg>
                                 </button>
                             </div>
-                            <p className="text-stone-300 text-xs md:text-sm leading-relaxed font-medium mb-6">"{steel.desc}"</p>
+                            <p className="text-stone-300 text-xs md:text-sm leading-relaxed font-medium mb-6">{steel.desc}</p>
                         </div>
 
                         <div className="grid grid-cols-3 gap-2">

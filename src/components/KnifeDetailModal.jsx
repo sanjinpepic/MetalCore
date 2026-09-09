@@ -73,12 +73,6 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                     </div>
 
                     <div className="space-y-8">
-                        <div className="md:hidden flex">
-                            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono font-medium text-stone-400 uppercase tracking-[0.25em]">
-                                {knife.category}
-                            </div>
-                        </div>
-
                         <div>
                             <h3 className="text-xs md:text-sm font-mono font-medium text-white uppercase tracking-[0.25em] mb-4 flex items-center gap-3">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500">
@@ -99,11 +93,11 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                     <path d="m4.93 4.93 14.14 14.14" />
                                     <path d="m19.07 4.93-14.14 14.14" />
                                 </svg>
-                                The "Buy It" Factor
+                                The Buy-It Factor
                             </h3>
                             <div className="p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl shadow-plate-lg">
                                 <p className="text-stone-200 leading-relaxed text-sm md:text-base font-bold">
-                                    "{knife.whySpecial}"
+                                    {knife.whySpecial}
                                 </p>
                             </div>
                         </div>

@@ -544,7 +544,7 @@ Be concise and premium.`;
                 />
 
                 {/* Main Content with View Transitions - Above background layer */}
-                <div className="w-full md:ml-80 md:w-[calc(100%-20rem)] md:h-full relative z-10 grid [&>*]:[grid-area:1/1]">
+                <div className="w-full md:ml-80 md:w-[calc(100%-20rem)] md:h-full relative z-10 grid grid-cols-[minmax(0,1fr)] [&>*]:[grid-area:1/1]">
                     <AnimatePresence initial={false}>
                         <motion.div
                             key={view}
