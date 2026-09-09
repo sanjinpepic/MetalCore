@@ -26,7 +26,7 @@ const PerformanceFrontier = ({ steel, steels }) => {
         <div className="space-y-6 flex flex-col h-full">
             <div>
                 <h3 className="text-xl font-display text-white uppercase tracking-tight">Performance Frontier</h3>
-                <p className="text-[10px] text-slate-500 uppercase font-mono font-medium tracking-widest mt-1">Pareto Analysis: Toughness vs Wear Resistance</p>
+                <p className="text-[10px] text-stone-500 uppercase font-mono font-medium tracking-widest mt-1">Pareto Analysis: Toughness vs Wear Resistance</p>
             </div>
 
             <div className="flex-1 min-h-[300px] bg-black/40 rounded-3xl border border-white/5 p-6 relative group">
@@ -57,16 +57,16 @@ const PerformanceFrontier = ({ steel, steels }) => {
                                     const isTarget = data.id === steel?.id;
                                     return (
                                         <div className="glass-strong p-3 border border-white/10 rounded-xl shadow-plate">
-                                            <div className={isTarget ? 'text-xs font-mono font-medium uppercase tracking-widest mb-1 text-accent-400' : 'text-xs font-mono font-medium uppercase tracking-widest mb-1 text-slate-400'}>
+                                            <div className={isTarget ? 'text-xs font-mono font-medium uppercase tracking-widest mb-1 text-accent-400' : 'text-xs font-mono font-medium uppercase tracking-widest mb-1 text-stone-400'}>
                                                 {data.name}
                                             </div>
                                             <div className="flex gap-4">
                                                 <div>
-                                                    <div className="text-[8px] text-slate-500 uppercase font-mono font-medium">Tough</div>
+                                                    <div className="text-[8px] text-stone-500 uppercase font-mono font-medium">Tough</div>
                                                     <div className="text-sm font-mono font-semibold text-white">{data.toughness}</div>
                                                 </div>
                                                 <div>
-                                                    <div className="text-[8px] text-slate-500 uppercase font-mono font-medium">Wear</div>
+                                                    <div className="text-[8px] text-stone-500 uppercase font-mono font-medium">Wear</div>
                                                     <div className="text-sm font-mono font-semibold text-white">{data.edge}</div>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@ const PerformanceFrontier = ({ steel, steels }) => {
                 </div>
                 <div>
                     <h4 className="text-[10px] font-mono font-medium text-accent-400 uppercase tracking-widest mb-1">Metallurgical Efficiency</h4>
-                    <p className="text-[10px] text-slate-400 leading-relaxed">
+                    <p className="text-[10px] text-stone-400 leading-relaxed">
                         {steel.name} is positioned <b>{Math.max(18 - steel.toughness - steel.edge, 0).toFixed(1)} units</b> away from the theoretical performance limit.
                         Its specific gravity of {steel.C}% Carbon suggests a focus on <b>{steel.edge > steel.toughness ? 'Secondary Carbide Volume' : 'Impact Stability'}</b>.
                     </p>

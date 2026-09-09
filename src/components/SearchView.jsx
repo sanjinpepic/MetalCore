@@ -1,4 +1,4 @@
-﻿import React, { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
 
@@ -105,7 +105,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 highlight="Database"
                 color="amber"
             >
-                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 font-medium hidden md:block">
+                <p className="text-stone-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 font-medium hidden md:block">
                     Comprehensive database of premium knife & tool steels. Filter by alloy content or search by grade.
                 </p>
             </ViewHeader>
@@ -113,7 +113,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
             {/* Search Bar */}
             <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl px-4 md:px-12 py-3 md:py-4 flex justify-end items-center transition-all">
                 <div className="relative w-full md:w-64">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
                         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                     </svg>
                     <input
@@ -130,17 +130,17 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                 {filteredSteels.length === 0 && (
                     <div className="flex flex-col items-center justify-center py-24 text-center gap-6">
                         <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-2">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-600">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-stone-600">
                                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                             </svg>
                         </div>
                         <div>
-                            <p className="text-slate-400 font-bold text-lg">No grades match your filters</p>
-                            <p className="text-slate-600 text-sm mt-1">Try adjusting the alloy minimums or changing the brand filter.</p>
+                            <p className="text-stone-400 font-bold text-lg">No grades match your filters</p>
+                            <p className="text-stone-600 text-sm mt-1">Try adjusting the alloy minimums or changing the brand filter.</p>
                         </div>
                         <button
                             onClick={resetFilters}
-                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-bold text-slate-300 hover:bg-white/10 hover:border-accent/30 hover:text-white transition-all duration-300 ease-snap"
+                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-bold text-stone-300 hover:bg-white/10 hover:border-accent/30 hover:text-white transition-all duration-300 ease-snap"
                         >
                             Reset Filters
                         </button>
@@ -200,7 +200,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         </div>
                         <button
                             onClick={(e) => { e.stopPropagation(); clearCompare(); }}
-                            className="text-xs font-mono font-medium text-slate-500 hover:text-red-400 uppercase tracking-tight transition-colors duration-300 ease-snap bg-white/5 px-2.5 md:px-3 py-1.5 rounded-full border border-white/5 hover:border-red-400/20"
+                            className="text-xs font-mono font-medium text-stone-500 hover:text-red-400 uppercase tracking-tight transition-colors duration-300 ease-snap bg-white/5 px-2.5 md:px-3 py-1.5 rounded-full border border-white/5 hover:border-red-400/20"
                         >
                             Reset
                         </button>

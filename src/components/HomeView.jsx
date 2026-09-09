@@ -195,7 +195,7 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
 
                 {/* Composition Ticker */}
                 {steels.length > 0 && (
-                    <div className="forge-enter mt-14 border-y border-white/5 py-3.5 overflow-hidden relative select-none" style={{ '--stagger': '380ms' }} aria-hidden="true">
+                    <div className="forge-enter mt-10 border-y border-white/5 py-3 overflow-hidden relative" style={{ '--stagger': '380ms' }}>
                         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0B0A08] to-transparent z-10 pointer-events-none" />
                         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0B0A08] to-transparent z-10 pointer-events-none" />
                         <div className="animate-marquee flex items-center w-max">
@@ -203,8 +203,13 @@ const HomeView = ({ setView, steels, setDetailSteel, search, setSearch, compareL
                                 <div key={rep} className="flex items-center shrink-0">
                                     {steels.slice(0, 24).map(s => (
                                         <span key={`${rep}-${s.id}`} className="flex items-center shrink-0">
-                                            <span className="text-[10px] font-mono font-medium uppercase tracking-[0.3em] text-stone-600 px-7 whitespace-nowrap">{s.name}</span>
-                                            <span className="w-1 h-1 rounded-full bg-accent/40 shrink-0" />
+                                            <button
+                                                onClick={() => { hapticFeedback('light'); setDetailSteel(s); }}
+                                                className="text-[10px] font-mono font-medium uppercase tracking-[0.3em] text-stone-600 hover:text-accent px-7 py-2 transition-colors duration-300 whitespace-nowrap"
+                                            >
+                                                {s.name}
+                                            </button>
+                                            <span className="w-1 h-1 rounded-full bg-accent/40 shrink-0 pointer-events-none" />
                                         </span>
                                     ))}
                                 </div>

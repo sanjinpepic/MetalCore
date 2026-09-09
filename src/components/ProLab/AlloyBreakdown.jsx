@@ -25,10 +25,10 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
             <div className="flex items-center justify-between">
                 <div>
                     <h3 className="text-xl font-display text-white uppercase tracking-tight">Chemical DNA</h3>
-                    <p className="text-[10px] text-slate-500 uppercase font-mono font-medium tracking-widest mt-1">Metallurgical Signature Analysis</p>
+                    <p className="text-[10px] text-stone-500 uppercase font-mono font-medium tracking-widest mt-1">Metallurgical Signature Analysis</p>
                 </div>
                 <div className="px-3 py-1 bg-white/5 rounded-full border border-white/10">
-                    <span className="text-[10px] font-mono font-medium text-slate-400 uppercase tracking-widest">Alloy Content: {(elements.reduce((acc, el) => acc + (steel[el] || 0), 0)).toFixed(1)}%</span>
+                    <span className="text-[10px] font-mono font-medium text-stone-400 uppercase tracking-widest">Alloy Content: {(elements.reduce((acc, el) => acc + (steel[el] || 0), 0)).toFixed(1)}%</span>
                 </div>
             </div>
 
@@ -48,23 +48,23 @@ const AlloyBreakdown = ({ steel, customElements = null }) => {
                                 <div className={steel[el] > 0
                                     ? 'w-10 h-10 rounded-xl flex items-center justify-center border transition-colors bg-accent/10 border-accent/20'
                                     : 'w-10 h-10 rounded-xl flex items-center justify-center border transition-colors bg-white/5 border-white/10'}>
-                                    <span className={steel[el] > 0 ? 'text-lg font-mono font-medium text-accent-400' : 'text-lg font-mono font-medium text-slate-600'}>{el}</span>
+                                    <span className={steel[el] > 0 ? 'text-lg font-mono font-medium text-accent-400' : 'text-lg font-mono font-medium text-stone-600'}>{el}</span>
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">{ELEMENT_DATA[el].name}</div>
-                                    <div className={steel[el] > 0 ? 'text-xs font-semibold uppercase transition-colors text-white group-hover:text-accent-400' : 'text-xs font-semibold uppercase transition-colors text-slate-600'}>{ELEMENT_DATA[el].impact}</div>
+                                    <div className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest">{ELEMENT_DATA[el].name}</div>
+                                    <div className={steel[el] > 0 ? 'text-xs font-semibold uppercase transition-colors text-white group-hover:text-accent-400' : 'text-xs font-semibold uppercase transition-colors text-stone-600'}>{ELEMENT_DATA[el].impact}</div>
                                 </div>
                             </div>
-                            <div className={steel[el] > 0 ? 'text-xl font-mono font-semibold transition-colors text-white' : 'text-xl font-mono font-semibold transition-colors text-slate-700'}>{steel[el] || 0}%</div>
+                            <div className={steel[el] > 0 ? 'text-xl font-mono font-semibold transition-colors text-white' : 'text-xl font-mono font-semibold transition-colors text-stone-700'}>{steel[el] || 0}%</div>
                         </div>
-                        <p className={steel[el] > 0 ? 'text-[10px] leading-relaxed transition-colors text-slate-400' : 'text-[10px] leading-relaxed transition-colors text-slate-700'}>{ELEMENT_DATA[el].desc}</p>
+                        <p className={steel[el] > 0 ? 'text-[10px] leading-relaxed transition-colors text-stone-400' : 'text-[10px] leading-relaxed transition-colors text-stone-700'}>{ELEMENT_DATA[el].desc}</p>
 
                         <div className="mt-3 h-1 bg-white/5 rounded-full overflow-hidden">
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${Math.min(((steel[el] || 0) / (el === 'Cr' ? 20 : 5)) * 100, 100)}%` }}
                                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                                className={steel[el] > 0 ? 'h-full bg-accent shadow-ember-sm' : 'h-full bg-slate-800'}
+                                className={steel[el] > 0 ? 'h-full bg-accent shadow-ember-sm' : 'h-full bg-stone-800'}
                             />
                         </div>
                     </motion.div>

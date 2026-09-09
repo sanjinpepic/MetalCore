@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 // Import removed
 
 const ProducerMap = ({ producers }) => {
@@ -26,16 +26,16 @@ const ProducerMap = ({ producers }) => {
                         {/* Status / Region Badge */}
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <span className={`w-2 h-2 rounded-full transition-all duration-500 ${activeProducer?.name === p.name ? 'bg-accent shadow-ember-sm scale-125' : 'bg-slate-700'}`}></span>
-                                <span className="text-[10px] font-mono font-medium text-slate-500 uppercase tracking-widest">{p.region}</span>
+                                <span className={`w-2 h-2 rounded-full transition-all duration-500 ${activeProducer?.name === p.name ? 'bg-accent shadow-ember-sm scale-125' : 'bg-stone-700'}`}></span>
+                                <span className="text-[10px] font-mono font-medium text-stone-500 uppercase tracking-widest">{p.region}</span>
                             </div>
-                            <div className="text-[9px] font-mono text-slate-600 font-medium uppercase tracking-[0.2em]">Hub ID: 0{i + 1}</div>
+                            <div className="text-[9px] font-mono text-stone-600 font-medium uppercase tracking-[0.2em]">Hub ID: 0{i + 1}</div>
                         </div>
 
                         {/* Title & Location */}
                         <div className="mb-6">
                             <h4 className="text-xl font-display text-white uppercase tracking-tight group-hover:text-accent transition-colors mb-1">{p.name}</h4>
-                            <div className="text-[10px] font-bold text-slate-400 flex items-center gap-2">
+                            <div className="text-[10px] font-bold text-stone-400 flex items-center gap-2">
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-accent/60">
                                     <path d="M20 10c0 4.418-8 12-8 12s-8-7.582-8-12a8 8 0 1 1 16 0Z" />
                                     <circle cx="12" cy="10" r="3" />
@@ -45,7 +45,7 @@ const ProducerMap = ({ producers }) => {
                         </div>
 
                         {/* Description */}
-                        <p className="text-xs text-slate-400 leading-relaxed font-medium">"{p.desc}"</p>
+                        <p className="text-xs text-stone-400 leading-relaxed font-medium">"{p.desc}"</p>
 
                         {/* Hover Overlay Visual */}
                         <div className={`absolute -bottom-6 -right-6 w-32 h-32 bg-accent/5 rounded-full blur-2xl transition-all duration-700 ${activeProducer?.name === p.name ? 'opacity-100 scale-150' : 'opacity-0 scale-50'}`}></div>
@@ -54,7 +54,7 @@ const ProducerMap = ({ producers }) => {
             </div>
 
             {/* System Footer (Internal) */}
-            <div className="mt-16 pt-8 border-t border-white/5 flex justify-between items-center text-[8px] font-mono text-slate-800 uppercase tracking-[0.4em] font-bold">
+            <div className="mt-16 pt-8 border-t border-white/5 flex justify-between items-center text-[8px] font-mono text-stone-800 uppercase tracking-[0.4em] font-bold">
                 <span>Network Integrity: Verified</span>
                 <span>Active Nodes: {producers.length}</span>
             </div>

@@ -361,7 +361,7 @@ const OnboardingOverlay = () => {
                             <h3 className="text-xs sm:text-lg md:text-xl font-display text-white mb-1 sm:mb-2 uppercase tracking-tight">
                                 {currentStepData.title}
                             </h3>
-                            <p className="text-[10px] sm:text-xs md:text-sm text-slate-400 leading-relaxed mb-3 sm:mb-6">
+                            <p className="text-[10px] sm:text-xs md:text-sm text-stone-400 leading-relaxed mb-3 sm:mb-6">
                                 {currentStepData.content}
                             </p>
 

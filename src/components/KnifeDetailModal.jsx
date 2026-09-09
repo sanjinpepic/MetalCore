@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Image from 'next/image';
 import BottomSheet from './BottomSheet';
 
@@ -55,7 +55,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                     <div className="absolute top-6 right-6 z-50">
                         <button
                             onClick={onClose}
-                            className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-slate-500 hover:text-white transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group"
+                            className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-500 hover:text-white transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform duration-300 ease-snap">
                                 <path d="M18 6 6 18" />
@@ -67,26 +67,26 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                     <div className="mb-10">
                         <div className="text-xs font-mono font-medium text-accent uppercase tracking-[0.25em] mb-2">{knife.maker}</div>
                         <h2 className="text-3xl md:text-5xl font-display text-white mb-4 tracking-tight uppercase leading-none">{knife.name}</h2>
-                        <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-xs font-mono font-medium text-slate-400 uppercase tracking-[0.25em]">
+                        <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-xs font-mono font-medium text-stone-400 uppercase tracking-[0.25em]">
                             {knife.category}
                         </div>
                     </div>
 
                     <div className="space-y-8">
                         <div className="md:hidden flex">
-                            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono font-medium text-slate-400 uppercase tracking-[0.25em]">
+                            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono font-medium text-stone-400 uppercase tracking-[0.25em]">
                                 {knife.category}
                             </div>
                         </div>
 
                         <div>
                             <h3 className="text-xs md:text-sm font-mono font-medium text-white uppercase tracking-[0.25em] mb-4 flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                                 </svg>
                                 Design Philosophy
                             </h3>
-                            <p className="text-slate-400 leading-relaxed text-xs md:text-sm font-medium">
+                            <p className="text-stone-400 leading-relaxed text-xs md:text-sm font-medium">
                                 {knife.description}
                             </p>
                         </div>
@@ -102,7 +102,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                 The "Buy It" Factor
                             </h3>
                             <div className="p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl shadow-plate-lg">
-                                <p className="text-slate-200 leading-relaxed text-sm md:text-base font-bold">
+                                <p className="text-stone-200 leading-relaxed text-sm md:text-base font-bold">
                                     "{knife.whySpecial}"
                                 </p>
                             </div>
@@ -123,7 +123,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                     <button
                                         key={steel.id}
                                         onClick={() => onOpenSteel(steel.name)}
-                                        className="px-4 py-2.5 bg-white/5 hover:bg-accent hover:text-[#1A0C05] border border-white/10 rounded-xl text-xs font-medium text-slate-300 transition-all duration-300 ease-snap group flex items-center gap-2.5 active:scale-95"
+                                        className="px-4 py-2.5 bg-white/5 hover:bg-accent hover:text-[#1A0C05] border border-white/10 rounded-xl text-xs font-medium text-stone-300 transition-all duration-300 ease-snap group flex items-center gap-2.5 active:scale-95"
                                     >
                                         {steel.name}
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 ease-snap">
@@ -141,7 +141,7 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                     href={knife.link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2.5 text-[10px] md:text-xs font-mono font-medium text-slate-500 hover:text-accent transition-colors duration-300 ease-snap uppercase tracking-[0.2em]"
+                                    className="inline-flex items-center gap-2.5 text-[10px] md:text-xs font-mono font-medium text-stone-500 hover:text-accent transition-colors duration-300 ease-snap uppercase tracking-[0.2em]"
                                 >
                                     Visit Manufacturer Page
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

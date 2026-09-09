@@ -15,7 +15,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                         </div>
                         <h3 className="font-display text-white uppercase tracking-tight text-sm md:text-base">Ferry - AI Analyst</h3>
                     </div>
-                    <button onClick={() => setAiOpen(false)} className="w-9 h-9 flex items-center justify-center hover:bg-white/5 bg-white/5 rounded-full text-slate-500 hover:text-white transition-all border border-white/5">
+                    <button onClick={() => setAiOpen(false)} className="w-9 h-9 flex items-center justify-center hover:bg-white/5 bg-white/5 rounded-full text-stone-500 hover:text-white transition-all border border-white/5">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -29,12 +29,12 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent/20 mx-auto">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                             </svg>
-                            <p className="text-slate-500 text-sm md:text-base px-10 leading-relaxed font-medium">Hello, my name is Ferry!<br /> Ask me anything about blade steels, use cases, or chemistry. I can also trigger comparisons automatically.</p>
+                            <p className="text-stone-500 text-sm md:text-base px-10 leading-relaxed font-medium">Hello, my name is Ferry!<br /> Ask me anything about blade steels, use cases, or chemistry. I can also trigger comparisons automatically.</p>
                         </div>
                     )}
                     {aiChat.map((msg, i) => (
                         <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[90%] p-4 md:p-5 rounded-2xl text-sm md:text-base leading-relaxed ${msg.role === 'user' ? 'bg-accent/15 border border-accent/25 text-accent font-semibold rounded-tr-none' : 'bg-white/[0.06] border border-white/10 text-slate-200 rounded-tl-none font-medium'}`}>
+                            <div className={`max-w-[90%] p-4 md:p-5 rounded-2xl text-sm md:text-base leading-relaxed ${msg.role === 'user' ? 'bg-accent/15 border border-accent/25 text-accent font-semibold rounded-tr-none' : 'bg-white/[0.06] border border-white/10 text-stone-200 rounded-tl-none font-medium'}`}>
                                 {msg.isReport && (
                                     <div className="text-[9px] font-mono font-medium text-accent mb-2 uppercase tracking-[0.2em] flex items-center gap-2">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -44,7 +44,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                                         Analytical Report
                                     </div>
                                 )}
-                                <div className="prose prose-invert prose-slate max-w-none">
+                                <div className="prose prose-invert prose-stone max-w-none">
                                     {msg.content.split('\n').map((line, j) => <p key={j} className="mb-3 last:mb-0">{line}</p>)}
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                                     <div className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce [animation-delay:0.2s]"></div>
                                     <div className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce [animation-delay:0.4s]"></div>
                                 </div>
-                                <span className="text-xs md:text-sm text-slate-500 font-mono font-medium tracking-[0.2em]">Analyzing...</span>
+                                <span className="text-xs md:text-sm text-stone-500 font-mono font-medium tracking-[0.2em]">Analyzing...</span>
                             </div>
                         </div>
                     )}
@@ -68,7 +68,7 @@ const AIAnalystPanel = ({ aiOpen, setAiOpen, aiChat, isAiLoading, aiQuery, setAi
                     <div className="relative">
                         <textarea
                             placeholder="Ask about a steel..."
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 pr-12 text-sm md:text-base text-white outline-none focus:border-accent/50 transition-all resize-none h-32 md:h-36 font-medium placeholder:text-slate-600"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 pr-12 text-sm md:text-base text-white outline-none focus:border-accent/50 transition-all resize-none h-32 md:h-36 font-medium placeholder:text-stone-600"
                             value={aiQuery}
                             onChange={e => setAiQuery(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), askAi())}

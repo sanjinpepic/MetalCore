@@ -70,7 +70,7 @@ const resultItemVariants = {
 
 const RANK_STYLES = [
     'from-accent/15 to-transparent border-accent/30',
-    'from-slate-300/10 to-transparent border-slate-400/20',
+    'from-stone-300/10 to-transparent border-stone-400/20',
     'from-accent/10 to-transparent border-accent/20',
     'from-white/5 to-transparent border-white/10',
     'from-white/5 to-transparent border-white/10',
@@ -125,12 +125,12 @@ export default function SteelRecommender({ steels, onClose, onSelectSteel }) {
             <div className="px-5 pt-2 pb-3 md:px-8 md:pt-8 md:pb-4">
                 <div className="flex items-center justify-between mb-4">
                     {step > 0 ? (
-                        <button onClick={handleBack} className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors duration-300 ease-snap text-sm font-medium">
+                        <button onClick={handleBack} className="flex items-center gap-1.5 text-stone-400 hover:text-white transition-colors duration-300 ease-snap text-sm font-medium">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></svg>
                             Back
                         </button>
                     ) : <div />}
-                    <button onClick={onClose} className="text-slate-500 hover:text-white transition-colors duration-300 ease-snap p-1">
+                    <button onClick={onClose} className="text-stone-500 hover:text-white transition-colors duration-300 ease-snap p-1">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                     </button>
                 </div>
@@ -190,7 +190,7 @@ function StepView({ step, selected, onSelect }) {
         <div>
             <div className="mb-6 md:mb-8">
                 <h2 className="text-xl md:text-2xl font-display text-white uppercase tracking-tight leading-tight">{step.title}</h2>
-                <p className="text-slate-500 text-xs md:text-sm mt-1.5 font-medium">{step.subtitle}</p>
+                <p className="text-stone-500 text-xs md:text-sm mt-1.5 font-medium">{step.subtitle}</p>
             </div>
 
             <div className={`grid gap-3 md:gap-4 ${step.options.length === 4 ? 'grid-cols-2' : step.options.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'}`}>
@@ -207,12 +207,12 @@ function StepView({ step, selected, onSelect }) {
                                 }`}
                         >
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 border transition-colors ${isSelected ? 'bg-accent/20 border-accent/30' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-colors ${isSelected ? 'text-accent' : 'text-slate-400 group-hover:text-slate-300'}`}>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-colors ${isSelected ? 'text-accent' : 'text-stone-400 group-hover:text-stone-300'}`}>
                                     <path d={opt.icon} />
                                 </svg>
                             </div>
                             <h3 className={`font-display uppercase tracking-tight text-sm md:text-base mb-1 transition-colors duration-300 ${isSelected ? 'text-accent' : 'text-white'}`}>{opt.label}</h3>
-                            <p className="text-slate-500 text-[11px] md:text-xs font-medium leading-relaxed">{opt.desc}</p>
+                            <p className="text-stone-500 text-[11px] md:text-xs font-medium leading-relaxed">{opt.desc}</p>
                         </motion.button>
                     );
                 })}
@@ -230,7 +230,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                     Your Matches
                 </div>
                 <h2 className="text-xl md:text-2xl font-display text-white uppercase tracking-tight leading-tight">Top Steel Recommendations</h2>
-                <p className="text-slate-500 text-xs md:text-sm mt-1.5 font-medium">Based on your preferences, ranked by compatibility</p>
+                <p className="text-stone-500 text-xs md:text-sm mt-1.5 font-medium">Based on your preferences, ranked by compatibility</p>
             </div>
 
             <motion.div
@@ -252,7 +252,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                     >
                         <div className="flex items-start gap-4">
                             {/* Rank badge */}
-                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 font-display text-lg ${i === 0 ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-white/5 text-slate-500 border border-white/10'}`}>
+                            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 font-display text-lg ${i === 0 ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-white/5 text-stone-500 border border-white/10'}`}>
                                 {i + 1}
                             </div>
 
@@ -262,11 +262,11 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                                     <h3 className="font-display text-white uppercase tracking-tight text-base md:text-lg truncate">{steel.name}</h3>
                                     <span className={`text-sm md:text-base font-display shrink-0 ${i === 0 ? 'text-accent' : 'text-accent'}`}>{steel.matchScore}%</span>
                                 </div>
-                                <div className="text-slate-500 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] mb-2 flex items-center gap-2">
+                                <div className="text-stone-500 text-[10px] md:text-xs font-mono font-medium uppercase tracking-[0.25em] mb-2 flex items-center gap-2">
                                     {steel.producer}
                                     {steel.pm !== undefined && (
                                         <>
-                                            <span className="w-1 h-1 rounded-full bg-slate-600" />
+                                            <span className="w-1 h-1 rounded-full bg-stone-600" />
                                             <span className={steel.pm ? "text-accent" : ""}>{steel.pm ? 'PM' : 'CONVENTIONAL'}</span>
                                         </>
                                     )}
@@ -275,7 +275,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                                 {/* Top metrics */}
                                 <div className="flex flex-wrap gap-2">
                                     {steel.topMetrics.map(m => (
-                                        <span key={m.metric} className="text-[10px] md:text-[11px] font-mono font-medium text-slate-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
+                                        <span key={m.metric} className="text-[10px] md:text-[11px] font-mono font-medium text-stone-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/5">
                                             {metricLabels[m.metric]}: {m.value.toFixed(1)}
                                         </span>
                                     ))}
@@ -283,7 +283,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
                             </div>
 
                             {/* Arrow */}
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-600 shrink-0 mt-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 shrink-0 mt-1">
                                 <polyline points="9 18 15 12 9 6" />
                             </svg>
                         </div>
@@ -295,7 +295,7 @@ function ResultsView({ results, onSelectSteel, onRestart }) {
             <div className="flex gap-3 mt-8">
                 <button
                     onClick={onRestart}
-                    className="flex-1 py-3 rounded-2xl border border-white/10 text-slate-400 text-sm font-medium hover:bg-white/5 hover:text-white transition-all duration-300 ease-snap"
+                    className="flex-1 py-3 rounded-2xl border border-white/10 text-stone-400 text-sm font-medium hover:bg-white/5 hover:text-white transition-all duration-300 ease-snap"
                 >
                     Start Over
                 </button>

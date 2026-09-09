@@ -422,7 +422,7 @@ const Sidebar = ({
                             setShowSettings(true);
                             setMobileMenuOpen(false);
                         }}
-                        className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg text-slate-400 hover:text-accent transition-all"
+                        className="w-10 h-10 flex items-center justify-center hover:bg-white/5 rounded-lg text-stone-400 hover:text-accent transition-all"
                         aria-label="Settings"
                         data-tour="nav-profile"
                     >
@@ -441,13 +441,13 @@ const Sidebar = ({
                             className={`w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] ${VIEW_HOVER[view] || VIEW_HOVER.SEARCH} transition-all group`}
                         >
                             <div className="flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-slate-500 ${(VIEW_HOVER[view] || VIEW_HOVER.SEARCH).split(' ')[1]} transition-colors`}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`text-stone-500 ${(VIEW_HOVER[view] || VIEW_HOVER.SEARCH).split(' ')[1]} transition-colors`}>
                                     <circle cx="11" cy="11" r="8" />
                                     <path d="m21 21-4.35-4.35" />
                                 </svg>
-                                <span className="text-sm font-bold text-slate-500 group-hover:text-slate-300 transition-colors">Search Grade...</span>
+                                <span className="text-sm font-bold text-stone-500 group-hover:text-stone-300 transition-colors">Search Grade...</span>
                             </div>
-                            <kbd className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-slate-600">
+                            <kbd className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-stone-600">
                                 {typeof window !== 'undefined' && /Mac/.test(window.navigator.platform) ? '⌘K' : 'Ctrl+K'}
                             </kbd>
 
@@ -469,7 +469,7 @@ const Sidebar = ({
                                                 nav.id === 'MATRIX' ? 'nav-matrix' :
                                                     nav.id === 'KNIVES' ? 'nav-knives' : undefined
                                     }
-                                    className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all relative group ${isSelected ? 'text-black' : 'text-slate-500 hover:text-slate-300'}`}
+                                    className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all relative group ${isSelected ? 'text-black' : 'text-stone-500 hover:text-stone-300'}`}
                                 >
                                     {isSelected && (
                                         <motion.div
@@ -490,7 +490,7 @@ const Sidebar = ({
 
                         <button
                             onClick={() => { hapticFeedback('light'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                            className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap mt-2 border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30 shadow-ember-sm' : 'text-slate-500 hover:bg-white/[0.06] hover:text-accent border-transparent'}`}
+                            className={`w-full py-3.5 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap mt-2 border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30 shadow-ember-sm' : 'text-stone-500 hover:bg-white/[0.06] hover:text-accent border-transparent'}`}
                         >
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
@@ -503,7 +503,7 @@ const Sidebar = ({
                     <div className="flex md:hidden flex-col gap-3 mt-4">
                         <button
                             onClick={() => handleNavClick('PRO_LAB')}
-                            className="w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all text-slate-500 hover:bg-white/5 hover:text-accent border border-white/5"
+                            className="w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all text-stone-500 hover:bg-white/5 hover:text-accent border border-white/5"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="M10 2v7.5M14 2v7.5M8.5 2h7M21 22H3l7-12.5M21 22l-7-12.5" />
@@ -512,7 +512,7 @@ const Sidebar = ({
                         </button>
                         <button
                             onClick={() => { hapticFeedback('medium'); setAiOpen(!aiOpen); setMobileMenuOpen(false); }}
-                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30' : 'text-slate-500 hover:bg-white/[0.06] hover:text-accent border-white/5'}`}
+                            className={`w-full py-4 px-6 rounded-xl flex items-center gap-3.5 text-sm font-bold transition-all duration-300 ease-snap border ${aiOpen ? 'bg-accent/15 text-accent border-accent/30' : 'text-stone-500 hover:bg-white/[0.06] hover:text-accent border-white/5'}`}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                 <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
@@ -545,8 +545,8 @@ const Sidebar = ({
                                         }}
                                         className="w-full text-left px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-all flex items-center justify-between group"
                                     >
-                                        <span className="text-xs font-bold text-slate-400 group-hover:text-white line-clamp-1">{steel.name}</span>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-600 group-hover:text-accent transform translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all">
+                                        <span className="text-xs font-bold text-stone-400 group-hover:text-white line-clamp-1">{steel.name}</span>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent transform translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all">
                                             <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                                         </svg>
                                     </button>
@@ -555,7 +555,7 @@ const Sidebar = ({
 
                             <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] mt-6">
                                 <div className="text-[10px] font-mono font-medium text-accent uppercase tracking-[0.25em] mb-2">Pro Tip</div>
-                                <p className="text-[11px] text-slate-400 leading-relaxed">
+                                <p className="text-[11px] text-stone-400 leading-relaxed">
                                     Use the <b>Performance Matrix</b> to find steels that break the toughness/edge retention trade-off.
                                 </p>
                             </div>
@@ -574,7 +574,7 @@ const Sidebar = ({
                                         <button
                                             key={p}
                                             onClick={() => { hapticFeedback('light'); setActiveProducer(p); }}
-                                            className={`text-[11px] uppercase font-semibold px-4 py-2.5 rounded-full border transition-all duration-300 ease-snap ${activeProducer === p ? 'bg-bone text-[#1A0C05] border-bone shadow-lg shadow-black/40' : 'text-slate-400 border-white/10 hover:border-white/20 hover:text-white bg-white/[0.04]'}`}
+                                            className={`text-[11px] uppercase font-semibold px-4 py-2.5 rounded-full border transition-all duration-300 ease-snap ${activeProducer === p ? 'bg-bone text-[#1A0C05] border-bone shadow-lg shadow-black/40' : 'text-stone-400 border-white/10 hover:border-white/20 hover:text-white bg-white/[0.04]'}`}
                                         >
                                             {PRODUCER_SHORT[p] ?? p}
                                         </button>
@@ -597,9 +597,9 @@ const Sidebar = ({
                                         { id: 'minV', label: 'Vanadium', icon: 'V' },
                                     ].map(f => (
                                         <div key={f.id} className="space-y-2.5">
-                                            <div className="flex justify-between items-center text-xs font-mono text-slate-400">
+                                            <div className="flex justify-between items-center text-xs font-mono text-stone-400">
                                                 <span className="flex items-center gap-2.5">
-                                                    <span className="w-5 h-5 flex items-center justify-center bg-white/5 rounded border border-white/10 text-[9px] font-bold text-slate-500">{f.icon}</span>
+                                                    <span className="w-5 h-5 flex items-center justify-center bg-white/5 rounded border border-white/10 text-[9px] font-bold text-stone-500">{f.icon}</span>
                                                     {f.label}
                                                 </span>
                                                 <span className="text-accent font-bold text-sm">{filters[f.id]}%</span>
@@ -611,7 +611,7 @@ const Sidebar = ({
                                                 step="0.1"
                                                 value={filters[f.id]}
                                                 onChange={e => setFilters({ ...filters, [f.id]: parseFloat(e.target.value) })}
-                                                className="w-full accent-accent h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer hover:bg-slate-700 transition-colors"
+                                                className="w-full accent-accent h-1.5 bg-stone-800 rounded-lg appearance-none cursor-pointer hover:bg-stone-700 transition-colors"
                                             />
                                         </div>
                                     ))}
@@ -622,7 +622,7 @@ const Sidebar = ({
 
                     {(view === 'SEARCH' || view === 'KNIVES') && (
                         <section className="mt-10 pt-6 border-t border-white/5">
-                            <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
+                            <button onClick={() => { hapticFeedback('light'); handleImportClick(); }} data-tour="import-dataset" className="w-full py-4 border border-dashed border-white/10 rounded-2xl flex items-center justify-center gap-3 text-xs md:text-sm font-bold text-stone-500 hover:text-white hover:bg-white/5 transition-all group">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-accent transition-colors">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                     <polyline points="14 2 14 8 20 8" />

@@ -681,7 +681,7 @@ Be concise and premium.`;
                                     </div>
                                     <h3 className="font-display text-white uppercase tracking-tight text-sm md:text-base">AI Assistant</h3>
                                 </div>
-                                <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-slate-500 transition-all">
+                                <button onClick={() => setShowAiComingSoon(false)} className="p-2 hover:bg-white/5 rounded-full text-stone-500 transition-all">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <line x1="18" y1="6" x2="6" y2="18" />
                                         <line x1="6" y1="6" x2="18" y2="18" />
@@ -696,7 +696,7 @@ Be concise and premium.`;
                                     </svg>
                                 </div>
                                 <h4 className="font-display text-white uppercase tracking-tight text-base md:text-lg">AI Model Still Being Forged</h4>
-                                <p className="text-[10px] md:text-xs text-slate-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
+                                <p className="text-[10px] md:text-xs text-stone-400 leading-relaxed font-medium max-w-xs">Our AI assistant is currently in the furnace. This feature will be available soon.</p>
                             </div>
 
                             <button onClick={() => setShowAiComingSoon(false)} className="w-full py-4 mt-4 bg-bone text-[#1A0C05] font-semibold uppercase tracking-[0.2em] rounded-xl text-xs md:text-sm hover:bg-accent transition-all shadow-plate active:scale-[0.98]">Got It</button>

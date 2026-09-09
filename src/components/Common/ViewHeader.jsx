@@ -14,7 +14,7 @@ const ViewHeader = ({
 
     if (isHero) {
         return (
-            <div className={`w-full bg-gradient-to-b ${theme.glow} to-transparent pb-12 overflow-clip ${className}`}>
+            <div className={`hero-condensed w-full bg-gradient-to-b ${theme.glow} to-transparent pb-12 overflow-clip ${className}`}>
                 <div className="p-6 md:p-12 lg:p-20 pt-24 md:pt-24 flex flex-col items-center text-center max-w-7xl mx-auto w-full space-y-10">
                     <div className="space-y-6">
                         <div className={`forge-enter inline-flex items-center gap-2.5 px-4 py-1.5 bg-white/[0.04] rounded-full border ${theme.border}`} style={{ '--stagger': '0ms' }}>

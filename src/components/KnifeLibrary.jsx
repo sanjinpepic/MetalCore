@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Footer from './Footer';
 import ViewHeader from './Common/ViewHeader';
@@ -7,7 +7,7 @@ const normalize = (val) => {
     if (typeof val !== 'string') return "";
     return val.toLowerCase()
         .replace(/cpm[- ]?/, "")
-        .replace(/bÃ¶hler |bohler /, "")
+        .replace(/böhler |bohler /, "")
         .replace(/sandvik |alleima |alleima-/, "")
         .replace(/[ \-]/g, "")
         .trim();
@@ -41,7 +41,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
 
     return (
         <div className="flex-1 min-h-dvh md:h-full md:overflow-y-auto bg-[#0B0A08] custom-scrollbar max-w-[100vw] [overflow-x:clip]">
-            {/* Desktop gradient overlay â€” matches sidebar and HomeView gradient spread */}
+            {/* Desktop gradient overlay — matches sidebar and HomeView gradient spread */}
             <div className="hidden md:block h-[500px] -mb-[500px] bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
             <ViewHeader
                 subtitle="Armory"
@@ -49,14 +49,14 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                 highlight="Registry"
                 color="sky"
             >
-                <p className="text-slate-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 font-medium hidden md:block">
+                <p className="text-stone-500 max-w-2xl text-xs md:text-lg leading-relaxed mt-2 md:mt-4 font-medium hidden md:block">
                     Iconic models that defined the industry. Click any card for details. Click a steel variant to view its metallurgical breakdown.
                 </p>
             </ViewHeader>
 
             {/* Category Filters & Search */}
             <div className="sticky top-0 z-30 bg-transparent backdrop-blur-2xl transition-all">
-                {/* Mobile categories â€” plain block, NOT inside flex */}
+                {/* Mobile categories — plain block, NOT inside flex */}
                 <div className="md:hidden px-4 pt-3 overflow-x-auto no-scrollbar">
                     <div className="flex gap-2">
                         {categories.map(cat => (
@@ -92,7 +92,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                     </div>
 
                     <div className="relative w-full md:w-64 md:shrink-0">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-600">
                             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                         </svg>
                         <input
@@ -112,9 +112,9 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                         <div className="sticky top-[6.75rem] md:top-[4.5rem] z-20 -mx-6 px-6 md:-mx-12 md:px-12 py-3 mb-4 md:mb-6 bg-transparent backdrop-blur-2xl transition-all">
                             <div className="flex items-center gap-3">
                                 <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                                <h2 className="text-xs md:text-sm font-mono font-medium text-slate-400 uppercase tracking-[0.2em]">{maker}</h2>
+                                <h2 className="text-xs md:text-sm font-mono font-medium text-stone-400 uppercase tracking-[0.2em]">{maker}</h2>
                                 <div className="flex-1 h-px bg-white/5"></div>
-                                <span className="text-[10px] font-mono font-medium text-slate-600">{makerKnives.length} {makerKnives.length === 1 ? 'knife' : 'knives'}</span>
+                                <span className="text-[10px] font-mono font-medium text-stone-600">{makerKnives.length} {makerKnives.length === 1 ? 'knife' : 'knives'}</span>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
@@ -165,22 +165,22 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent mt-1 shrink-0">
                                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                                                 </svg>
-                                                <p className="text-xs md:text-sm text-slate-400 leading-relaxed">{knife.description}</p>
+                                                <p className="text-xs md:text-sm text-stone-400 leading-relaxed">{knife.description}</p>
                                             </div>
                                             <div className="flex gap-3 items-start">
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-500 mt-1 shrink-0">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500 mt-1 shrink-0">
                                                     <path d="M12 2v20" />
                                                     <path d="M2 12h20" />
                                                     <path d="m4.93 4.93 14.14 14.14" />
                                                     <path d="m19.07 4.93-14.14 14.14" />
                                                 </svg>
-                                                <p className="text-sm md:text-base text-slate-300 font-medium leading-relaxed">{knife.whySpecial}</p>
+                                                <p className="text-sm md:text-base text-stone-300 font-medium leading-relaxed">{knife.whySpecial}</p>
                                             </div>
                                         </div>
                                         <div className="mt-8 pt-6 border-t border-white/5 space-y-6">
                                             <div className="flex flex-wrap items-center gap-6">
-                                                <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest">{knife.category}</div>
-                                                <a href={knife.link} onClick={e => e.stopPropagation()} target="_blank" rel="noreferrer" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest hover:text-accent transition-colors flex items-center gap-2">
+                                                <div className="text-[10px] md:text-xs font-bold text-stone-500 uppercase tracking-widest">{knife.category}</div>
+                                                <a href={knife.link} onClick={e => e.stopPropagation()} target="_blank" rel="noreferrer" className="text-[10px] md:text-xs font-bold text-stone-400 uppercase tracking-widest hover:text-accent transition-colors flex items-center gap-2">
                                                     Product Page
                                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -190,7 +190,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                                 </a>
                                             </div>
                                             <div className="space-y-3">
-                                                <div className="text-[10px] md:text-xs font-bold text-slate-600 uppercase tracking-widest">Available Configurations</div>
+                                                <div className="text-[10px] md:text-xs font-bold text-stone-600 uppercase tracking-widest">Available Configurations</div>
                                                 <div className="flex flex-wrap gap-2 md:gap-3">
                                                     {knife.steels.map(s => {
                                                         const steelName = typeof s === 'string' ? s : s.name;
@@ -202,7 +202,7 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                                                     e.stopPropagation();
                                                                     steel ? setDetailSteel(steel) : alert(`Data for ${steelName} not found.`);
                                                                 }}
-                                                                className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-mono font-medium text-slate-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
+                                                                className="px-3.5 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-mono font-medium text-stone-200 hover:bg-white/10 hover:text-white hover:border-accent transition-all active:scale-95"
                                                             >
                                                                 {steelName}
                                                             </button>

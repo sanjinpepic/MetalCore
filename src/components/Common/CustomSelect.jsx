@@ -148,7 +148,7 @@ const CustomSelect = ({
                 </div>
                 <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    className="text-slate-500 group-hover:text-white transition-colors"
+                    className="text-stone-500 group-hover:text-white transition-colors"
                 >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <path d="m6 9 6 6 6-6" />
@@ -176,7 +176,7 @@ const CustomSelect = ({
                                     onKeyDown={handleInputKeyDown}
                                     className="w-full bg-white/5 border border-white/5 rounded-xl px-10 py-3 text-xs font-mono font-medium text-white uppercase tracking-widest outline-none focus:border-accent/50 transition-all"
                                 />
-                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
+                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                                         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
                                     </svg>
@@ -214,12 +214,12 @@ const CustomSelect = ({
                                                 <span className={`text-sm font-semibold uppercase tracking-tight
                                                     ${isSelected ? 'text-accent' : ''}
                                                     ${isHighlighted && !isSelected ? 'text-white' : ''}
-                                                    ${!isSelected && !isHighlighted ? 'text-slate-400 group-hover:text-white' : ''}
+                                                    ${!isSelected && !isHighlighted ? 'text-stone-400 group-hover:text-white' : ''}
                                                 `}>
                                                     {opt.name}
                                                 </span>
                                                 {opt.producer && (
-                                                    <span className={`text-[9px] font-mono font-medium uppercase tracking-widest ${isSelected ? 'text-accent/70' : 'text-slate-600'}`}>
+                                                    <span className={`text-[9px] font-mono font-medium uppercase tracking-widest ${isSelected ? 'text-accent/70' : 'text-stone-600'}`}>
                                                         {opt.parent ?? opt.producer}
                                                     </span>
                                                 )}
@@ -236,7 +236,7 @@ const CustomSelect = ({
                                 })
                             ) : (
                                 <div className="py-8 text-center">
-                                    <p className="text-[10px] font-mono font-medium text-slate-600 uppercase tracking-widest">No steels matched</p>
+                                    <p className="text-[10px] font-mono font-medium text-stone-600 uppercase tracking-widest">No steels matched</p>
                                 </div>
                             )}
                         </div>

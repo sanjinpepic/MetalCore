@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 const COMP_KEYS = ['C', 'Cr', 'V', 'Mo', 'W', 'Co'];
 const PERF_KEYS = ['edge', 'toughness', 'corrosion', 'sharpen'];
@@ -39,7 +39,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
             try {
                 await navigator.share({
                     title: `${steel.name} | MetalCore`,
-                    text: `Check out ${steel.name} on MetalCore â€” the knife steel database`,
+                    text: `Check out ${steel.name} on MetalCore — the knife steel database`,
                     url,
                 });
             } catch (err) {
@@ -91,7 +91,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
             <div className="relative">
                 {/* Close button - positioned for both mobile and desktop */}
                 <div className="absolute top-1 right-0 z-10 flex items-center gap-2">
-                    <button onClick={onClose} aria-label="Close details" className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-slate-400 transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group">
+                    <button onClick={onClose} aria-label="Close details" className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-400 transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform duration-300 ease-snap">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -117,7 +117,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                     onClick={(e) => { e.stopPropagation(); toggleFavorite(steel.id); }}
                                     aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                     aria-pressed={isFavorite}
-                                    className={`p-2 rounded-xl border transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 ${isFavorite ? 'bg-accent text-[#1A0C05] border-accent shadow-ember-sm' : 'bg-white/5 text-slate-500 border-white/10 hover:text-accent'}`}
+                                    className={`p-2 rounded-xl border transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 ${isFavorite ? 'bg-accent text-[#1A0C05] border-accent shadow-ember-sm' : 'bg-white/5 text-stone-500 border-white/10 hover:text-accent'}`}
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5" className="shrink-0">
                                         <path d="m12 17.75-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
@@ -126,7 +126,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 <button
                                     onClick={(e) => { e.stopPropagation(); shareSteel(); }}
                                     aria-label={copied ? 'Link copied' : 'Copy share link'}
-                                    className="p-2 rounded-xl border border-white/10 transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-slate-500 hover:text-accent"
+                                    className="p-2 rounded-xl border border-white/10 transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-stone-500 hover:text-accent"
                                 >
                                     {copied ? (
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-green-400 shrink-0">
@@ -142,7 +142,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); shareCardRef.current?.generateImage(); }}
-                                    className="p-2 rounded-xl border border-white/10 transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-slate-500 hover:text-accent group"
+                                    className="p-2 rounded-xl border border-white/10 transition-all duration-300 ease-snap flex items-center justify-center w-9 h-9 shrink-0 bg-white/5 text-stone-500 hover:text-accent group"
                                     title="Export Performance Card"
                                     aria-label="Export performance card as image"
                                 >
@@ -153,13 +153,13 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                     </svg>
                                 </button>
                             </div>
-                            <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-medium mb-6">"{steel.desc}"</p>
+                            <p className="text-stone-300 text-xs md:text-sm leading-relaxed font-medium mb-6">"{steel.desc}"</p>
                         </div>
 
                         <div className="grid grid-cols-3 gap-2">
                             {['C', 'Cr', 'V', 'Mo', 'W', 'Co', 'N', 'Nb'].filter(el => steel[el] > 0).map(el => (
                                 <div key={el} className="bg-black/40 rounded-2xl p-2 text-center border border-white/10">
-                                    <div className="text-[8px] text-slate-500 uppercase font-medium tracking-[0.2em] mb-1">{el}</div>
+                                    <div className="text-[8px] text-stone-500 uppercase font-medium tracking-[0.2em] mb-1">{el}</div>
                                     <div className="text-xs font-mono font-bold text-white">{steel[el]}%</div>
                                 </div>
                             ))}
@@ -172,7 +172,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 </svg>
                                 Optimal Deployment
                             </div>
-                            <div className="text-xs text-slate-200 font-semibold leading-tight">
+                            <div className="text-xs text-stone-200 font-semibold leading-tight">
                                 {steel.use_case}
                             </div>
                         </div>
@@ -193,7 +193,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                         <button
                                             key={i}
                                             onClick={() => onOpenKnife && onOpenKnife(k.name)}
-                                            className="px-3 py-1.5 bg-white/3 border border-white/5 hover:border-accent/40 hover:bg-white/8 rounded-lg text-[10px] text-slate-200 transition-all duration-300 ease-snap font-medium"
+                                            className="px-3 py-1.5 bg-white/3 border border-white/5 hover:border-accent/40 hover:bg-white/8 rounded-lg text-[10px] text-stone-200 transition-all duration-300 ease-snap font-medium"
                                         >
                                             {k.name}
                                         </button>
@@ -216,8 +216,8 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                             onClick={() => onOpenSteel && onOpenSteel(s)}
                                             className="text-left p-3 rounded-xl bg-white/3 border border-white/5 hover:border-accent/40 hover:bg-white/8 transition-all duration-300 ease-snap group"
                                         >
-                                            <div className="text-xs font-medium text-slate-200 group-hover:text-white transition-colors duration-300 ease-snap uppercase tracking-tight leading-tight">{s.name}</div>
-                                            <div className="text-[10px] text-slate-600 mt-0.5 font-medium">{s.producer}</div>
+                                            <div className="text-xs font-medium text-stone-200 group-hover:text-white transition-colors duration-300 ease-snap uppercase tracking-tight leading-tight">{s.name}</div>
+                                            <div className="text-[10px] text-stone-600 mt-0.5 font-medium">{s.producer}</div>
                                         </button>
                                     ))}
                                 </div>
@@ -244,7 +244,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 <div className="text-[10px] font-mono font-medium text-emerald-500 uppercase tracking-[0.25em] mb-3">Core Strengths</div>
                                 <div className="space-y-2.5">
                                     {steel.pros?.map((p, i) => (
-                                        <div key={i} className="text-xs text-slate-300 flex items-start gap-2 leading-snug">
+                                        <div key={i} className="text-xs text-stone-300 flex items-start gap-2 leading-snug">
                                             <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 shadow-lg shadow-emerald-500/20"></div>
                                             <span className="font-medium">{p}</span>
                                         </div>
@@ -255,7 +255,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                                 <div className="text-[10px] font-mono font-medium text-rose-500 uppercase tracking-[0.25em] mb-3">Trade-offs</div>
                                 <div className="space-y-2.5">
                                     {steel.cons?.map((p, i) => (
-                                        <div key={i} className="text-xs text-slate-300 flex items-start gap-2 leading-snug">
+                                        <div key={i} className="text-xs text-stone-300 flex items-start gap-2 leading-snug">
                                             <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0 shadow-lg shadow-rose-500/20"></div>
                                             <span className="font-medium">{p}</span>
                                         </div>
@@ -298,7 +298,7 @@ const SteelDetailModal = ({ steel, onClose, onOpenKnife, allSteels = [], onOpenS
                     </div>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-slate-700 uppercase tracking-[0.4em] font-medium">
+                <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-stone-700 uppercase tracking-[0.4em] font-medium">
                     <span>Metallurgy Core</span>
                     <span>System v2.5</span>
                 </div>

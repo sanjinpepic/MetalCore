@@ -229,7 +229,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
         }
         return (
             <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-400">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-400">
                     {item.icon}
                 </svg>
             </div>
@@ -277,12 +277,12 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                     onChange={(e) => setQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
                                     placeholder="Search steels, knives, views…  or try Cr:>15"
-                                    className="flex-1 bg-transparent text-white text-base font-bold placeholder:text-slate-500 outline-none"
+                                    className="flex-1 bg-transparent text-white text-base font-bold placeholder:text-stone-500 outline-none"
                                     autoComplete="off"
                                     autoCorrect="off"
                                     spellCheck={false}
                                 />
-                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono font-medium text-slate-500">
+                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono font-medium text-stone-500">
                                     <span className="opacity-60">ESC</span>
                                 </div>
                             </div>
@@ -291,18 +291,18 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                             <div ref={listRef} className="flex-1 overflow-y-auto overscroll-contain py-3 custom-scrollbar no-scrollbar" style={{ scrollbarWidth: 'none' }}>
                                 {results.length === 0 ? (
                                     <div className="px-6 py-12 text-center">
-                                        <div className="mb-4 inline-flex p-3 rounded-full bg-white/5 text-slate-600">
+                                        <div className="mb-4 inline-flex p-3 rounded-full bg-white/5 text-stone-600">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                                             </svg>
                                         </div>
-                                        <p className="text-sm font-bold text-slate-400">No results for &quot;{query}&quot;</p>
-                                        <p className="text-xs text-slate-600 mt-1">Search by name or maker — or filter by chemistry: <span className="text-slate-500">Cr:&gt;15 · C:~1 · Mo:&lt;2</span></p>
+                                        <p className="text-sm font-bold text-stone-400">No results for &quot;{query}&quot;</p>
+                                        <p className="text-xs text-stone-600 mt-1">Search by name or maker — or filter by chemistry: <span className="text-stone-500">Cr:&gt;15 · C:~1 · Mo:&lt;2</span></p>
                                     </div>
                                 ) : (
                                     Object.entries(groupedResults).map(([category, items]) => (
                                         <div key={category} className="mb-2 last:mb-0">
-                                            <div className="px-6 pt-3 pb-2 text-[10px] font-mono font-medium uppercase tracking-[0.25em] text-slate-600 flex items-center gap-3">
+                                            <div className="px-6 pt-3 pb-2 text-[10px] font-mono font-medium uppercase tracking-[0.25em] text-stone-600 flex items-center gap-3">
                                                 {category}
                                                 <div className="h-px flex-1 bg-white/5" />
                                             </div>
@@ -318,7 +318,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                         }}
                                                         className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl text-left transition-all ${item.globalIndex === activeIndex
                                                             ? 'bg-accent/10 text-white shadow-inner shadow-white/5'
-                                                            : 'text-slate-400 hover:bg-white/[0.03]'
+                                                            : 'text-stone-400 hover:bg-white/[0.03]'
                                                             }`}
                                                     >
                                                         {getIcon(item)}
@@ -328,14 +328,14 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                                                 {item.type === 'steel' && (
                                                                     <span className={`text-[8px] px-1.5 py-0.5 rounded font-mono font-medium tracking-[0.2em] border ${item.metalType === 'PM'
                                                                         ? 'bg-accent/10 border-accent/20 text-accent'
-                                                                        : 'bg-white/5 border-white/10 text-slate-500'
+                                                                        : 'bg-white/5 border-white/10 text-stone-500'
                                                                         }`}>
                                                                         {item.metalType}
                                                                     </span>
                                                                 )}
                                                             </div>
                                                             {item.sublabel && (
-                                                                <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">{item.sublabel}</div>
+                                                                <div className="text-[11px] text-stone-500 font-medium truncate mt-0.5">{item.sublabel}</div>
                                                             )}
                                                         </div>
                                                         {item.globalIndex === activeIndex && (
@@ -355,21 +355,21 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                             </div>
 
                             {/* Footer Keys */}
-                            <div className="flex items-center gap-4 px-6 py-3 border-t border-white/5 text-[9px] font-mono font-medium text-slate-600 uppercase tracking-[0.2em] bg-white/[0.01] flex-wrap">
+                            <div className="flex items-center gap-4 px-6 py-3 border-t border-white/5 text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em] bg-white/[0.01] flex-wrap">
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[10px]">↑↓</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-stone-400 font-mono text-[10px]">↑↓</span>
                                     <span>Navigate</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[10px]">↵</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-stone-400 font-mono text-[10px]">↵</span>
                                     <span>Select</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[10px]">ESC</span>
+                                    <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-stone-400 font-mono text-[10px]">ESC</span>
                                     <span>Close</span>
                                 </div>
-                                <div className="ml-auto text-slate-700 normal-case tracking-normal font-medium">
-                                    Chemical filter: <span className="text-slate-500">El:value · El:&gt;val · El:~val</span>
+                                <div className="ml-auto text-stone-700 normal-case tracking-normal font-medium">
+                                    Chemical filter: <span className="text-stone-500">El:value · El:&gt;val · El:~val</span>
                                 </div>
                             </div>
                         </motion.div>

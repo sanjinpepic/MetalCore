@@ -104,7 +104,7 @@ export default function PageLoader() {
                         Initializing MetalCore
                     </h2>
                     <div className="h-px w-16 bg-accent/70 mt-4" />
-                    <p className="text-[10px] text-slate-500 font-mono font-medium uppercase tracking-[0.3em] mt-3">
+                    <p className="text-[10px] text-stone-500 font-mono font-medium uppercase tracking-[0.3em] mt-3">
                         Forging Database Resources...
                     </p>
                 </div>
