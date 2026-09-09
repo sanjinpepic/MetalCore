@@ -203,7 +203,6 @@ const KnifeLibrary = ({ knives, steels, setDetailSteel, setDetailKnife, knifeSea
                                     </div> */}
                                     <div className="xl:w-full p-8 md:p-10 flex flex-col justify-between">
                                         <div className="mb-6">
-                                            <div className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest mb-1.5">{knife.maker}</div>
                                             <h3 className="text-xl md:text-4xl font-display text-white tracking-tight uppercase leading-none">{knife.name}</h3>
                                         </div>
                                         <div className="space-y-6">
