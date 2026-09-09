@@ -1,60 +1,36 @@
 import React from 'react';
-import Image from 'next/image';
 import BottomSheet from './BottomSheet';
 
-const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
+const normalize = (val) => {
+    if (typeof val !== 'string') return "";
+    return val.toLowerCase()
+        .replace(/cpm[- ]?/, "")
+        .replace(/böhler |bohler /, "")
+        .replace(/sandvik |alleima |alleima-/, "")
+        .replace(/[ \-]/g, "")
+        .trim();
+};
+
+const SectionLabel = ({ index, title }) => (
+    <div className="flex items-center gap-3 mb-5">
+        <span className="text-[9px] font-mono font-semibold text-accent/70 shrink-0">{index}</span>
+        <h3 className="text-[10px] md:text-xs font-mono font-medium text-stone-300 uppercase tracking-[0.3em] whitespace-nowrap">{title}</h3>
+        <div className="flex-1 h-px bg-white/5" />
+    </div>
+);
+
+const KnifeDetailModal = ({ knife, onClose, onOpenSteel, allSteels = [] }) => {
     if (!knife) return null;
 
-    // Helper to extract clean name for matching
-    const cleanImage = knife.image?.replace('file:///', '') || '';
-
     return (
-        <BottomSheet isOpen={!!knife} onClose={onClose}>
-            <div className="relative w-full flex flex-col md:flex-row md:items-stretch md:min-h-[750px]">
-
-                {/* Image Section */}
-                {/* <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white/5 relative group shrink-0 overflow-hidden">
-                    {cleanImage ? (
-                        <Image
-                            src={cleanImage}
-                            alt={knife.name}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            className="object-cover"
-                        />
-                    ) : (
-                        <div className="w-full h-full flex items-center justify-center text-white/10">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
-                                <line x1="13" y1="19" x2="19" y2="13" />
-                                <line x1="16" y1="16" x2="20" y2="20" />
-                                <line x1="19" y1="21" x2="21" y2="19" />
-                            </svg>
-                        </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0a0b]" />
-
-                    <button
-                        onClick={onClose}
-                        className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center bg-black/50 hover:bg-black/80 rounded-full text-white/70 hover:text-white transition-all backdrop-blur-md md:hidden border border-white/10 z-50"
-                    >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M18 6 6 18" />
-                            <path d="m6 6 12 12" />
-                        </svg>
-                    </button>
-
-                    <div className="absolute bottom-6 left-8 md:hidden">
-                        <div className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] mb-1.5">{knife.maker}</div>
-                        <h2 className="text-2xl font-display text-white tracking-tight leading-none uppercase">{knife.name}</h2>
-                    </div>
-                </div> */}
-
-                {/* Content Section */}
-                <div className="w-full p-6 md:p-10 relative md:overflow-y-auto md:custom-scrollbar md:h-full">
-                    <div className="absolute top-6 right-6 z-50">
+        <BottomSheet isOpen={!!knife} onClose={onClose} label={`${knife?.name ?? 'Knife'} details`}>
+            <div className="relative max-w-4xl mx-auto">
+                {/* Dossier Header */}
+                <header className="relative pt-2 pb-8 border-b border-white/10">
+                    <div className="absolute top-1 right-0 z-50">
                         <button
                             onClick={onClose}
+                            aria-label="Close details"
                             className="w-10 h-10 flex items-center justify-center bg-black/40 hover:bg-white/10 rounded-full text-stone-500 hover:text-white transition-all duration-300 ease-snap border border-white/10 backdrop-blur-3xl group"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:rotate-90 transition-transform duration-300 ease-snap">
@@ -64,78 +40,75 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                         </button>
                     </div>
 
-                    <div className="mb-10">
-                        <div className="text-xs font-mono font-medium text-accent uppercase tracking-[0.25em] mb-2">{knife.maker}</div>
-                        <h2 className="text-3xl md:text-5xl font-display text-white mb-4 tracking-tight uppercase leading-none">{knife.name}</h2>
-                        <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-xs font-mono font-medium text-stone-400 uppercase tracking-[0.25em]">
-                            {knife.category}
-                        </div>
+                    <div className="text-xs font-mono font-medium text-accent uppercase tracking-[0.3em] mb-3 pr-24">{knife.maker}</div>
+                    <div className="flex items-center gap-4 flex-wrap pr-24 mb-4">
+                        <h2 className="text-3xl md:text-5xl font-display text-white tracking-tight uppercase leading-none">{knife.name}</h2>
                     </div>
+                    {knife.category && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[9px] font-mono font-medium text-stone-400 uppercase tracking-[0.25em]">
+                            {knife.category}
+                        </span>
+                    )}
+                </header>
 
-                    <div className="space-y-8">
-                        <div>
-                            <h3 className="text-xs md:text-sm font-mono font-medium text-white uppercase tracking-[0.25em] mb-4 flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-500">
-                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                                </svg>
-                                Design Philosophy
-                            </h3>
-                            <p className="text-stone-400 leading-relaxed text-xs md:text-sm font-medium">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10 pt-10">
+                    {/* 01/02 — Philosophy & Pull Quote */}
+                    <div className="lg:col-span-7 space-y-12">
+                        <section>
+                            <SectionLabel index="01" title="Design Philosophy" />
+                            <p className="text-stone-400 leading-relaxed text-sm font-medium">
                                 {knife.description}
                             </p>
-                        </div>
+                        </section>
 
-                        <div>
-                            <h3 className="text-xs md:text-sm font-mono font-medium text-white uppercase tracking-[0.25em] mb-4 flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
-                                    <path d="M12 2v20" />
-                                    <path d="M2 12h20" />
-                                    <path d="m4.93 4.93 14.14 14.14" />
-                                    <path d="m19.07 4.93-14.14 14.14" />
-                                </svg>
-                                The Buy-It Factor
-                            </h3>
-                            <div className="p-6 md:p-8 bg-white/5 border border-white/10 rounded-3xl shadow-plate-lg">
-                                <p className="text-stone-200 leading-relaxed text-sm md:text-base font-bold">
+                        <section>
+                            <SectionLabel index="02" title="The Buy-It Factor" />
+                            <blockquote className="pl-6 border-l-2 border-accent">
+                                <p className="text-stone-100 leading-relaxed text-base md:text-lg font-medium">
                                     {knife.whySpecial}
                                 </p>
-                            </div>
-                        </div>
+                            </blockquote>
+                        </section>
+                    </div>
 
-                        <div>
-                            <h3 className="text-xs md:text-sm font-mono font-medium text-white uppercase tracking-[0.25em] mb-4 flex items-center gap-3">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent">
-                                    <line x1="6" y1="3" x2="6" y2="15" />
-                                    <circle cx="18" cy="6" r="3" />
-                                    <circle cx="6" cy="18" r="3" />
-                                    <path d="M18 9a9 9 0 0 1-9 9" />
-                                </svg>
-                                Available Steels
-                            </h3>
-                            <div className="flex flex-wrap gap-2 md:gap-3 pb-8 md:pb-0">
-                                {knife.steels.map(steel => (
-                                    <button
-                                        key={steel.id}
-                                        onClick={() => onOpenSteel(steel.name)}
-                                        className="px-4 py-2.5 bg-white/5 hover:bg-accent hover:text-[#1A0C05] border border-white/10 rounded-xl text-xs font-medium text-stone-300 transition-all duration-300 ease-snap group flex items-center gap-2.5 active:scale-95"
-                                    >
-                                        {steel.name}
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 ease-snap">
-                                            <path d="M5 12h14" />
-                                            <path d="m12 5 7 7-7 7" />
-                                        </svg>
-                                    </button>
-                                ))}
+                    {/* 03 — Steel Configurations ledger */}
+                    <div className="lg:col-span-5">
+                        <section>
+                            <SectionLabel index="03" title="Steel Configurations" />
+                            <div className="flex flex-col gap-2">
+                                {knife.steels.map((steel, i) => {
+                                    const steelName = typeof steel === 'string' ? steel : steel.name;
+                                    const data = allSteels.find(s => normalize(s.name) === normalize(steelName));
+                                    return (
+                                        <button
+                                            key={steelName}
+                                            onClick={() => onOpenSteel(steelName)}
+                                            className="w-full flex items-center gap-3.5 px-4 py-3.5 bg-white/[0.03] hover:bg-accent/[0.06] border border-white/[0.07] hover:border-accent/30 rounded-xl text-left transition-all duration-300 ease-snap group active:scale-[0.99]"
+                                        >
+                                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${data?.pm ? 'bg-accent shadow-ember-sm' : 'bg-stone-600'}`} />
+                                            <span className="text-sm font-display text-white group-hover:text-accent uppercase tracking-tight transition-colors duration-300 truncate flex-1">{steelName}</span>
+                                            {data && (
+                                                <span className="hidden sm:flex items-center gap-2.5 font-mono text-[10px] text-stone-500 shrink-0">
+                                                    <span><span className="text-stone-700">C</span> <span className="text-stone-300 font-semibold">{data.C}</span></span>
+                                                    <span><span className="text-stone-700">Cr</span> <span className="text-stone-300 font-semibold">{data.Cr}</span></span>
+                                                    {data.V > 0 && <span><span className="text-stone-700">V</span> <span className="text-stone-300 font-semibold">{data.V}</span></span>}
+                                                </span>
+                                            )}
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-stone-600 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-300 shrink-0">
+                                                <path d="M5 12h14" />
+                                                <path d="m12 5 7 7-7 7" />
+                                            </svg>
+                                        </button>
+                                    );
+                                })}
                             </div>
-                        </div>
 
-                        {knife.link && (
-                            <div className="pt-8 border-t border-white/10 text-center md:text-left pb-16 md:pb-0">
+                            {knife.link && (
                                 <a
                                     href={knife.link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2.5 text-[10px] md:text-xs font-mono font-medium text-stone-500 hover:text-accent transition-colors duration-300 ease-snap uppercase tracking-[0.2em]"
+                                    className="mt-6 inline-flex items-center gap-2.5 text-[10px] font-mono font-medium text-stone-500 hover:text-accent transition-colors duration-300 ease-snap uppercase tracking-[0.25em]"
                                 >
                                     Visit Manufacturer Page
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -144,9 +117,14 @@ const KnifeDetailModal = ({ knife, onClose, onOpenSteel }) => {
                                         <line x1="10" y1="14" x2="21" y2="3" />
                                     </svg>
                                 </a>
-                            </div>
-                        )}
+                            )}
+                        </section>
                     </div>
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-stone-700 uppercase tracking-[0.4em] font-medium">
+                    <span>{knife.maker}</span>
+                    <span>Armory Registry</span>
                 </div>
             </div>
         </BottomSheet>

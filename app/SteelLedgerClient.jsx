@@ -763,6 +763,7 @@ Be concise and premium.`;
                         knife={detailKnife}
                         onClose={() => navigate({ detailKnife: null })}
                         onOpenSteel={openSteelModal}
+                        allSteels={steels}
                     />
                 )}
             </div>

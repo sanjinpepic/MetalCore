@@ -45,7 +45,7 @@ const ProducerMap = ({ producers }) => {
                         </div>
 
                         {/* Description */}
-                        <p className="text-xs text-stone-400 leading-relaxed font-medium">"{p.desc}"</p>
+                        <p className="text-xs text-stone-400 leading-relaxed font-medium">{p.desc}</p>
 
                         {/* Hover Overlay Visual */}
                         <div className={`absolute -bottom-6 -right-6 w-32 h-32 bg-accent/5 rounded-full blur-2xl transition-all duration-700 ${activeProducer?.name === p.name ? 'opacity-100 scale-150' : 'opacity-0 scale-50'}`}></div>

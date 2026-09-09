@@ -87,7 +87,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
                                     </button>
                                 </div>
-                                <p className="text-stone-500 text-xs md:text-lg max-w-xl font-medium leading-relaxed hidden md:block">"{user.bio}"</p>
+                                <p className="text-stone-500 text-xs md:text-lg max-w-xl font-medium leading-relaxed hidden md:block">{user.bio}</p>
                             </div>
                         )}
                     </div>
@@ -234,7 +234,7 @@ const ProfileView = ({ steels, setDetailSteel, setView }) => {
                                                 </div>
                                             )}
 
-                                            <p className="text-stone-400 text-xs font-medium leading-relaxed mb-6 border-l-2 border-accent/20 pl-4">"{knife.notes || 'No registration notes provided.'}"</p>
+                                            <p className="text-stone-400 text-xs font-medium leading-relaxed mb-6 border-l-2 border-accent/20 pl-4">{knife.notes || 'No registration notes provided.'}</p>
 
                                             <div className="flex items-center gap-3">
                                                 <button onClick={() => { if (steel) setDetailSteel(steel); }} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-stone-400 hover:bg-accent hover:text-[#1A0C05] hover:border-accent transition-all">Specs</button>

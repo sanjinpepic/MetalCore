@@ -324,7 +324,7 @@ export default function BottomSheet({ isOpen, onClose, children, baseZIndex = 10
                             exit={{ opacity: 0, transition: { duration: 0.1 } }}
                             transition={springConfig}
                             onClick={(e) => e.stopPropagation()}
-                            className="glass-panel w-full max-h-[90vh] max-w-7xl p-8 rounded-3xl border border-white/10 shadow-plate-lg overflow-y-auto custom-scrollbar will-change-transform"
+                            className="bg-forge-900 w-full max-h-[90vh] max-w-7xl p-8 rounded-2xl border border-white/10 shadow-plate-lg overflow-y-auto custom-scrollbar will-change-transform"
                         >
                             {children}
                         </motion.div>

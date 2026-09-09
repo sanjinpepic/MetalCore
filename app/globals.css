@@ -102,38 +102,30 @@ body::after {
    warm border and a top rim-light. Depth comes from shadow, not blur. */
 
 .glass-panel {
-    background: linear-gradient(168deg, rgba(29, 25, 21, 0.88) 0%, rgba(16, 14, 11, 0.94) 100%);
+    background: rgba(18, 16, 13, 0.97);
     border: 1px solid rgba(237, 233, 226, 0.07);
-    box-shadow:
-        inset 0 1px 0 0 rgba(237, 233, 226, 0.05),
-        0 24px 48px -24px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.65);
 }
 
-/* Plate with subtle heat gradient for featured cards */
+/* Featured plate — same flat material, ember hairline reserved for accents */
 .glass-gradient {
-    background: linear-gradient(165deg, rgba(255, 90, 31, 0.05) 0%, rgba(16, 14, 11, 0.94) 45%);
+    background: rgba(18, 16, 13, 0.97);
     border: 1px solid rgba(237, 233, 226, 0.07);
-    box-shadow:
-        inset 0 1px 0 0 rgba(237, 233, 226, 0.05),
-        0 24px 48px -24px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.65);
 }
 
 /* Accent plate (featured/highlighted cards) */
 .glass-accent {
-    background: linear-gradient(165deg, rgba(255, 90, 31, 0.09) 0%, rgba(16, 14, 11, 0.94) 55%);
+    background: rgba(18, 16, 13, 0.97);
     border: 1px solid rgba(255, 90, 31, 0.16);
-    box-shadow:
-        inset 0 1px 0 0 rgba(255, 122, 57, 0.08),
-        0 24px 48px -24px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.65);
 }
 
 /* Neutral plate (formerly AI-indigo; the AI voice is ember now) */
 .glass-indigo {
-    background: linear-gradient(165deg, rgba(29, 25, 21, 0.9) 0%, rgba(16, 14, 11, 0.94) 100%);
+    background: rgba(18, 16, 13, 0.97);
     border: 1px solid rgba(237, 233, 226, 0.07);
-    box-shadow:
-        inset 0 1px 0 0 rgba(237, 233, 226, 0.05),
-        0 24px 48px -24px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.65);
 }
 
 /* Elevated plate — modals and overlays */
