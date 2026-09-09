@@ -88,28 +88,16 @@ const VIEW_GRADIENTS = {
     PROFILE: 'rgba(255,90,31,0.07)',
 };
 
-// Map view IDs to tailwind color names for active state
-const VIEW_COLORS = {
-    HOME: 'accent',
-    SEARCH: 'accent',
-    MATRIX: 'accent',
-    KNIVES: 'accent',
-    EDUCATION: 'accent',
-    PRO_LAB: 'accent',
-    COMPARE: 'accent',
-    PROFILE: 'accent'
-};
-
-// Static Tailwind classes (runtime-constructed classes are purged by JIT)
+// Flat ember plate — depth from the system ember shadow, never a halo
 const VIEW_ACTIVE_BG = {
-    HOME: 'bg-accent shadow-accent/25',
-    SEARCH: 'bg-accent shadow-accent/25',
-    MATRIX: 'bg-accent shadow-accent/25',
-    KNIVES: 'bg-accent shadow-accent/25',
-    EDUCATION: 'bg-accent shadow-accent/25',
-    PRO_LAB: 'bg-accent shadow-accent/25',
-    COMPARE: 'bg-accent shadow-accent/25',
-    PROFILE: 'bg-accent shadow-accent/25'
+    HOME: 'bg-accent shadow-ember-sm',
+    SEARCH: 'bg-accent shadow-ember-sm',
+    MATRIX: 'bg-accent shadow-ember-sm',
+    KNIVES: 'bg-accent shadow-ember-sm',
+    EDUCATION: 'bg-accent shadow-ember-sm',
+    PRO_LAB: 'bg-accent shadow-ember-sm',
+    COMPARE: 'bg-accent shadow-ember-sm',
+    PROFILE: 'bg-accent shadow-ember-sm'
 };
 
 const VIEW_HOVER = {
@@ -520,7 +508,6 @@ const Sidebar = ({
                     <div className="hidden md:flex flex-col gap-1.5 mt-4 md:mt-8">
                         {navItems.map(nav => {
                             const isSelected = view === nav.id;
-                            const color = VIEW_COLORS[nav.id] || 'amber';
                             return (
                                 <button
                                     key={nav.id}
@@ -536,7 +523,7 @@ const Sidebar = ({
                                     {isSelected && (
                                         <motion.div
                                             layoutId="sidebar-active"
-                                            className={`absolute inset-0 rounded-xl z-0 shadow-lg ${VIEW_ACTIVE_BG[color] || VIEW_ACTIVE_BG.SEARCH}`}
+                                            className={`absolute inset-0 rounded-xl z-0 ${VIEW_ACTIVE_BG[nav.id] || VIEW_ACTIVE_BG.SEARCH}`}
                                             transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                                         />
                                     )}

@@ -120,7 +120,7 @@ export default function MobileBottomNav({ view, setView, setAiOpen }) {
                                 setIsExpanded(false);
                                 hapticFeedback('medium');
                             }}
-                            className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 border border-accent/25 text-accent hover:from-accent/30 hover:to-accent/20"
+                            className="flex flex-col items-center gap-2 p-3 rounded-xl bg-accent/10 border border-accent/25 text-accent hover:bg-accent/15"
                         >
                             <SparklesIcon className="w-5 h-5" />
                             <span className="text-[9px] font-mono font-medium uppercase tracking-[0.15em]">Ferry AI</span>
