@@ -30,6 +30,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as XLSX from 'xlsx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { EMPTY_MATCH_TARGET, hasActiveTarget, rankByMatch } from '../src/lib/alloyMatch';
 
 export default function SteelLedgerClient({ initialSteels, initialKnives, initialGlossary, initialFaq, initialProducers, dbError, initialRouteState }) {
     return (
@@ -59,6 +60,7 @@ function AppContent({ initialSteels, initialKnives, initialGlossary, initialFaq,
     const [knifeSearch, setKnifeSearch] = useState("");
     const [compareList, setCompareList] = useState([]);
     const [filters, setFilters] = useState({ minC: 0, minCr: 0, minV: 0 });
+    const [matchTarget, setMatchTarget] = useState({ ...EMPTY_MATCH_TARGET });
     const [activeProducer, setActiveProducer] = useState("ALL");
     const [pmOnly, setPmOnly] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -341,11 +343,13 @@ Be concise and premium.`;
         reader.readAsBinaryString(file);
     };
 
+    const targetActive = hasActiveTarget(matchTarget);
+
     const filteredSteels = useMemo(() => {
         const normalize = (str) => (str || '').toLowerCase().replace(/[\s-]/g, '');
         const normalizedSearch = search ? normalize(search) : '';
 
-        return steels.filter(s => {
+        let result = steels.filter(s => {
             const matchesSearch = !search ||
                 normalize(s.name).includes(normalizedSearch) ||
                 normalize(s.producer).includes(normalizedSearch);
@@ -354,7 +358,13 @@ Be concise and premium.`;
             const matchesPm = !pmOnly || !!s.pm;
             return matchesSearch && matchesFilters && matchesProducer && matchesPm;
         });
-    }, [steels, search, filters, activeProducer, pmOnly]);
+
+        if (targetActive) {
+            result = rankByMatch(result, matchTarget);
+        }
+
+        return result;
+    }, [steels, search, filters, activeProducer, pmOnly, targetActive, matchTarget]);
 
     const toggleCompare = (steel, e) => {
         if (e) e.stopPropagation();
@@ -443,6 +453,7 @@ Be concise and premium.`;
 
     const resetFilters = () => {
         setFilters({ minC: 0, minCr: 0, minV: 0 });
+        setMatchTarget({ ...EMPTY_MATCH_TARGET });
         setActiveProducer("ALL");
         setPmOnly(false);
     };
@@ -593,6 +604,9 @@ Be concise and premium.`;
                                     producers={producers}
                                     producerCounts={producerCounts}
                                     totalSteels={steels.length}
+                                    matchTarget={matchTarget}
+                                    setMatchTarget={setMatchTarget}
+                                    targetActive={targetActive}
                                 />
                             )}
 

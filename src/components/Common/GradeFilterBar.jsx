@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { hapticFeedback } from '../../hooks/useMobile';
+import { ELEMENT_SPECS, EMPTY_MATCH_TARGET, hasActiveTarget, parseCompositionString, formatTargetSummary } from '../../lib/alloyMatch';
 
 const PRODUCER_SHORT = {
     'New Jersey Steel Baron': 'NJSB',
@@ -58,6 +59,46 @@ const CriterionRow = ({ spec, filters, setFilters }) => {
     );
 };
 
+const fmtTarget = (el, v) => {
+    const spec = ELEMENT_SPECS.find(s => s.el === el);
+    if (v <= 0) return '—';
+    return `${v.toFixed(spec.step < 0.1 ? 2 : spec.step < 1 ? 2 : 0)}%`;
+};
+
+const TargetRow = ({ spec, target, setMatchTarget }) => {
+    const value = target[spec.el] || 0;
+    const step = (dir) => {
+        const next = Math.min(spec.max, Math.max(0, +(value + dir * spec.step).toFixed(2)));
+        hapticFeedback('light');
+        setMatchTarget({ ...target, [spec.el]: next });
+    };
+    return (
+        <div>
+            <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 grid place-items-center bg-white/5 border border-white/10 rounded-md text-[9px] font-mono font-bold text-stone-400 shrink-0">{spec.el}</span>
+                    <span className="text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-stone-500">{spec.name} Target</span>
+                </div>
+                <span className={`text-sm font-mono font-semibold ${value > 0 ? 'text-accent' : 'text-stone-600'}`}>{fmtTarget(spec.el, value)}</span>
+            </div>
+            <div className="flex items-center gap-3">
+                <button onClick={() => step(-1)} aria-label={`Decrease ${spec.name} target`} className="w-7 h-7 grid place-items-center rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-stone-400 hover:text-accent hover:border-accent/30 transition active:scale-90 shrink-0">−</button>
+                <input
+                    type="range"
+                    min="0"
+                    max={spec.max}
+                    step={spec.step}
+                    value={value}
+                    onChange={(e) => setMatchTarget({ ...target, [spec.el]: parseFloat(e.target.value) })}
+                    className="forge-range flex-1"
+                    style={{ '--fill': `${(value / spec.max) * 100}%` }}
+                />
+                <button onClick={() => step(1)} aria-label={`Increase ${spec.name} target`} className="w-7 h-7 grid place-items-center rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-stone-400 hover:text-accent hover:border-accent/30 transition active:scale-90 shrink-0">+</button>
+            </div>
+        </div>
+    );
+};
+
 const GradeFilterBar = ({
     producers = [],
     activeProducer,
@@ -69,9 +110,13 @@ const GradeFilterBar = ({
     producerCounts = {},
     total = 0,
     shown = 0,
-    onClear
+    onClear,
+    matchTarget,
+    setMatchTarget
 }) => {
     const [openPanel, setOpenPanel] = useState(null);
+    const [pasteText, setPasteText] = useState('');
+    const [pasteError, setPasteError] = useState(false);
     const barRef = useRef(null);
 
     useEffect(() => {
@@ -84,7 +129,8 @@ const GradeFilterBar = ({
     }, [openPanel]);
 
     const compActive = filters && (filters.minC > 0 || filters.minCr > 0 || filters.minV > 0);
-    const isActive = (activeProducer && activeProducer !== 'ALL') || pmOnly || compActive;
+    const matchActive = matchTarget && hasActiveTarget(matchTarget);
+    const isActive = (activeProducer && activeProducer !== 'ALL') || pmOnly || compActive || matchActive;
     const realProducers = producers.filter(p => p !== 'ALL');
 
     const compSummary = compActive
@@ -195,6 +241,71 @@ const GradeFilterBar = ({
                             </div>
                         )}
             </span>
+
+{matchTarget && setMatchTarget && (
+<span className="sm:relative flex shrink-0">
+<button
+                onClick={() => { hapticFeedback('light'); setOpenPanel(openPanel === 'match' ? null : 'match'); }}
+                aria-expanded={openPanel === 'match'}
+                title="Find closest alloys to a target composition"
+                className={matchActive ? ACTIVE_CHIP : IDLE_CHIP}
+            >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0">
+                    <circle cx="12" cy="12" r="9" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                <span className="hidden sm:inline max-w-[9rem] truncate">{matchActive ? formatTargetSummary(matchTarget) : 'Target Match'}</span>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className={`hidden sm:block shrink-0 transition-transform duration-300 ${openPanel === 'match' ? 'rotate-180' : ''}`}>
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+            {openPanel === 'match' && (
+                            <div className="absolute left-4 right-4 sm:left-0 sm:right-auto sm:w-80 sm:max-w-[calc(100vw-2rem)] top-full mt-2.5 glass-strong border border-white/10 rounded-2xl shadow-plate-lg z-40 p-5 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.25em]">Target Composition</span>
+                                    {matchActive && (
+                                        <button
+                                            onClick={() => { hapticFeedback('light'); setMatchTarget({ ...EMPTY_MATCH_TARGET }); setPasteText(''); }}
+                                            className="text-[9px] font-mono font-medium uppercase tracking-[0.2em] text-accent hover:underline"
+                                        >
+                                            Reset
+                                        </button>
+                                    )}
+                                </div>
+                                <p className="text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.15em] leading-relaxed mb-4">
+                                    Set a target per element — untouched elements are ignored. Closest alloys rank first.
+                                </p>
+                                <div className="space-y-5">
+                                    {ELEMENT_SPECS.map(spec => (
+                                        <TargetRow key={spec.el} spec={spec} target={matchTarget} setMatchTarget={setMatchTarget} />
+                                    ))}
+                                </div>
+                                <div className="pt-4 mt-5 border-t border-white/[0.06]">
+                                    <label className="block text-[9px] font-mono font-medium text-stone-500 uppercase tracking-[0.2em] mb-2">Paste Composition</label>
+                                    <input
+                                        type="text"
+                                        value={pasteText}
+                                        placeholder="C 1.45 Cr 10.5 V 4 Mo 1.6"
+                                        onChange={(e) => { setPasteText(e.target.value); setPasteError(false); }}
+                                        onKeyDown={(e) => {
+                                            if (e.key !== 'Enter') return;
+                                            const { target, matched } = parseCompositionString(pasteText);
+                                            if (matched.length === 0) { setPasteError(true); return; }
+                                            hapticFeedback('light');
+                                            setMatchTarget(target);
+                                            setPasteError(false);
+                                        }}
+                                        className={`w-full bg-white/5 border rounded-xl py-2.5 px-3.5 text-white text-xs font-mono focus:outline-none transition-colors placeholder:text-stone-700 ${pasteError ? 'border-red-400/50' : 'border-white/10 focus:border-accent/40'}`}
+                                    />
+                                    <p className={`text-[8px] font-mono font-medium uppercase tracking-[0.15em] mt-1.5 ${pasteError ? 'text-red-400' : 'text-stone-700'}`}>
+                                        {pasteError ? 'No elements recognized — try C 1.45 Cr 10.5' : 'Syntax: C 1.45 Cr 10.5 V 4 · press Enter'}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+</span>
+)}
 
 <button
                 onClick={() => { hapticFeedback('medium'); setPmOnly(!pmOnly); }}

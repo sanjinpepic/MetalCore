@@ -29,6 +29,22 @@ const LedgerHeader = () => (
     </div>
 );
 
+const MatchBadge = ({ match }) => {
+    if (!match) return null;
+    const { score, deltas } = match;
+    const tone = score >= 90 ? 'text-accent border-accent/30 bg-accent/5' : score >= 75 ? 'text-stone-300 border-white/15 bg-white/5' : 'text-stone-600 border-white/10 bg-white/[0.03]';
+    const summary = deltas.map(d => `${d.el} ${d.delta > 0 ? '+' : ''}${d.delta}`).join(' · ');
+    return (
+        <div
+            title={`Δ vs target: ${summary}`}
+            className={`flex items-center gap-1.5 px-2 py-0.5 text-[8px] font-mono font-bold uppercase tracking-[0.2em] border rounded-full shrink-0 ${tone}`}
+        >
+            <span className={`w-1 h-1 rounded-full shrink-0 ${score >= 90 ? 'bg-accent shadow-ember-sm' : 'bg-stone-500'}`} />
+            {score}% Match
+        </div>
+    );
+};
+
 const LedgerRow = ({ s, index, isSelected, toggleCompare, setDetailSteel }) => (
     <div
         onClick={() => { hapticFeedback('light'); setDetailSteel(s); }}
@@ -39,7 +55,10 @@ const LedgerRow = ({ s, index, isSelected, toggleCompare, setDetailSteel }) => (
             {String(index + 1).padStart(3, '0')}
         </span>
         <div className="w-32 sm:w-40 md:w-48 shrink-0 min-w-0">
-            <h3 className={`text-base md:text-lg font-display uppercase tracking-tight truncate leading-tight transition-colors duration-300 ${isSelected ? 'text-accent' : 'text-white group-hover:text-accent'}`}>{s.name}</h3>
+            <div className="flex items-center gap-2 min-w-0">
+                <h3 className={`text-base md:text-lg font-display uppercase tracking-tight truncate leading-tight transition-colors duration-300 ${isSelected ? 'text-accent' : 'text-white group-hover:text-accent'}`}>{s.name}</h3>
+                <MatchBadge match={s._match} />
+            </div>
             <div className="text-[8px] md:text-[9px] font-mono font-medium text-stone-600 uppercase tracking-[0.2em] mt-1 truncate">
                 {(Array.isArray(s.parent) ? s.parent[0] : s.parent) || s.producer}
             </div>
@@ -80,8 +99,8 @@ const LedgerRow = ({ s, index, isSelected, toggleCompare, setDetailSteel }) => (
     </div>
 );
 
-const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters, activeProducer, setActiveProducer, filters, setFilters, pmOnly, setPmOnly, producers, producerCounts, totalSteels }) => {
-    const isFiltered = activeProducer && activeProducer !== 'ALL';
+const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleCompare, clearCompare, setDetailSteel, setView, resetFilters, activeProducer, setActiveProducer, filters, setFilters, pmOnly, setPmOnly, producers, producerCounts, totalSteels, matchTarget, setMatchTarget, targetActive }) => {
+    const isFiltered = (activeProducer && activeProducer !== 'ALL') || targetActive;
 
     const groupedSteels = useMemo(() => {
         if (isFiltered) return null;
@@ -138,6 +157,8 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         total={totalSteels}
                         shown={filteredSteels.length}
                         onClear={resetFilters}
+                        matchTarget={matchTarget}
+                        setMatchTarget={setMatchTarget}
                     />
                 </div>
             </div>
@@ -152,7 +173,7 @@ const SearchView = ({ search, setSearch, filteredSteels, compareList, toggleComp
                         </div>
                         <div>
                             <p className="text-stone-400 font-bold text-lg">No grades match your criteria</p>
-                            <p className="text-stone-600 text-sm mt-1">Try widening the composition floor or clearing the producer filter.</p>
+                            <p className="text-stone-600 text-sm mt-1">Try widening the composition floor, adjusting the target, or clearing the producer filter.</p>
                         </div>
                         <button
                             onClick={resetFilters}
