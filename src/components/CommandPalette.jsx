@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { hapticFeedback } from '../hooks/useMobile';
+import { parseCompositionString, scoreAlloyMatch } from '../lib/alloyMatch';
 
 const VIEWS = [
     { id: 'HOME', label: 'Dashboard', type: 'nav', icon: <><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></> },
@@ -102,6 +103,64 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                     globalIndex: i
                 }));
             return matched;
+        }
+
+        // --- Multi-element threshold filter — e.g. "C:>1 Cr:>13" ---
+        // Any explicit comparison operator (>, <, >=, <=, =, ~) means threshold mode.
+        if (/\b[a-zA-Z]{1,2}\s*[:=\-]?\s*(?:>=|<=|[><=~])\s*\d/.test(query)) {
+            const tokenRe = /\b(nb|mo|cr|co|c|v|w|n)\s*[:=\-]?\s*(>=|<=|[><=~])\s*(\d+(?:\.\d+)?)\s*%?/gi;
+            const terms = [];
+            let tm;
+            while ((tm = tokenRe.exec(query)) !== null) {
+                const elKey = CHEM_ELEMENTS[tm[1].toLowerCase()];
+                if (elKey) terms.push({ elKey, op: tm[2], val: parseFloat(tm[3]) });
+            }
+            if (terms.length > 0) {
+                const matched = steels
+                    .filter(s => terms.every(t => matchChem(s[t.elKey], t.op, t.val)))
+                    .sort((a, b) =>
+                        terms.reduce((acc, t) => acc + Math.abs(a[t.elKey] - t.val), 0) -
+                        terms.reduce((acc, t) => acc + Math.abs(b[t.elKey] - t.val), 0)
+                    )
+                    .slice(0, 12)
+                    .map((s, i) => ({
+                        type: 'steel',
+                        id: s.id,
+                        label: s.name,
+                        sublabel: `${s.parent ?? s.producer}  ·  ${terms.map(t => `${t.elKey} ${s[t.elKey]}%`).join(' · ')}`,
+                        data: s,
+                        category: terms.map(t => `${t.elKey} ${t.op === '~' ? '≈' : t.op}${t.val}%`).join(' + '),
+                        metalType: s.pm ? 'PM' : 'CONV',
+                        globalIndex: i
+                    }));
+                return matched;
+            }
+        }
+
+        // --- Multi-element composition target — e.g. "C 1.42, Cr 4" or "C:1.42 Cr:4" ---
+        // No comparison operators → treat entered values as a target alloy and
+        // rank every steel by closeness (same scoring as the Target Match panel).
+        const compQuery = parseCompositionString(query.trim());
+        if (compQuery.matched.length > 0) {
+            const target = compQuery.target;
+            const scored = steels
+                .map(s => ({ s, m: scoreAlloyMatch(s, target) }))
+                .filter(x => x.m)
+                .sort((a, b) => b.m.score - a.m.score)
+                .slice(0, 12)
+                .map((x, i) => ({
+                    type: 'steel',
+                    id: x.s.id,
+                    label: x.s.name,
+                    sublabel: `${x.m.score}% match  ·  ${x.m.deltas.map(d => `${d.el} ${d.delta > 0 ? '+' : ''}${d.delta}`).join(' · ')}`,
+                    data: x.s,
+                    category: compQuery.matched.length > 1
+                        ? 'Composition Match'
+                        : `${compQuery.matched[0]} ≈ ${target[compQuery.matched[0]]}%`,
+                    metalType: x.s.pm ? 'PM' : 'CONV',
+                    globalIndex: i
+                }));
+            return scored;
         }
 
         // --- Normal text search ---
@@ -267,7 +326,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                             </svg>
                                         </div>
                                         <p className="text-sm font-bold text-stone-400">No results for &quot;{query}&quot;</p>
-                                        <p className="text-xs text-stone-600 mt-1">Search by name or maker — or filter by chemistry: <span className="text-stone-500">Cr:&gt;15 · C:~1 · Mo:&lt;2</span></p>
+                                        <p className="text-xs text-stone-600 mt-1">Search by name — or match by chemistry: <span className="text-stone-500">C 1.42 Cr 4 · Cr:&gt;15 · C:&gt;1 Cr:&gt;13</span></p>
                                     </div>
                                 ) : (
                                     Object.entries(groupedResults).map(([category, items], gi) => (
@@ -340,7 +399,7 @@ export default function CommandPalette({ isOpen, onClose, steels = [], knives = 
                                     <span>Close</span>
                                 </div>
                                 <div className="ml-auto text-stone-700 normal-case tracking-normal font-medium">
-                                    Chemical filter: <span className="text-stone-500">El:value · El:&gt;val · El:~val</span>
+                                    Chemical match: <span className="text-stone-500">C 1.42 Cr 4 · Cr:&gt;15 · C:&gt;1 Cr:&gt;13</span>
                                 </div>
                             </div>
                         </motion.div>
