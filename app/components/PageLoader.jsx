@@ -1,15 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { HomeSkeleton } from '../../src/components/Common/Skeleton.jsx'
 
 export default function PageLoader() {
     // Always start with true to match server render and prevent hydration errors
     const [loading, setLoading] = useState(true)
+    const [exiting, setExiting] = useState(false)
     const [mounted, setMounted] = useState(false)
 
+    const hideLoader = () => {
+        setExiting(true)
+        setTimeout(() => setLoading(false), 500)
+    }
+
     useEffect(() => {
-        // Mark as mounted (client-side only)
         setMounted(true)
 
         // Register service worker for PWA
@@ -23,93 +27,56 @@ export default function PageLoader() {
             });
         }
 
-        // Check if loader has already been shown in this session
+        // Show the splash only once per session
         if (typeof window !== 'undefined' && sessionStorage.getItem('metalcore_loader_shown')) {
-            // Already shown, hide immediately
             setLoading(false)
             return
         }
 
-        // Mark loader as shown to prevent multiple flashes
         if (typeof window !== 'undefined') {
             sessionStorage.setItem('metalcore_loader_shown', 'true')
         }
 
-        const minDisplayTime = 300 // Brief brand moment without blocking real content
+        const minDisplayTime = 500 // brief brand moment, never blocking real content
         const startTime = Date.now()
 
-        // Wait for page to load, then ensure minimum display time
-        const hideLoader = () => {
-            const elapsed = Date.now() - startTime
-            const remaining = Math.max(0, minDisplayTime - elapsed)
-            // Ensure loader shows for at least minDisplayTime
-            setTimeout(() => {
-                setLoading(false)
-            }, remaining)
+        const onReady = () => {
+            const remaining = Math.max(0, minDisplayTime - (Date.now() - startTime))
+            setTimeout(hideLoader, remaining)
         }
 
-        let timeoutId = null
-
-        // Hide loader once DOM is ready and fonts are loaded
-        if (typeof window !== 'undefined') {
-            if (document.readyState === 'complete') {
-                // Page already loaded, but still show for minimum time to give that cool effect
-                hideLoader()
-            } else {
-                const handleLoad = () => {
-                    hideLoader()
-                }
-                window.addEventListener('load', handleLoad)
-
-                // Cleanup function
-                return () => {
-                    window.removeEventListener('load', handleLoad)
-                    if (timeoutId) clearTimeout(timeoutId)
-                }
-            }
-        }
-
-        // Cleanup timeout if component unmounts
-        return () => {
-            if (timeoutId) clearTimeout(timeoutId)
+        if (typeof window !== 'undefined' && document.readyState === 'complete') {
+            onReady()
+        } else if (typeof window !== 'undefined') {
+            window.addEventListener('load', onReady)
+            return () => window.removeEventListener('load', onReady)
         }
     }, [])
 
     // Don't render on server to prevent hydration errors
-    // But once mounted, show loader if loading is true
-    if (!mounted) return null
-    if (!loading) return null
+    if (!mounted || !loading) return null
 
     return (
-        <div id="loading" className="fixed inset-0 z-[9999] bg-[#0B0A08] overflow-y-auto">
-            {/* Background elements to match the HomeView */}
-            <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-[#0B0A08]">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px]" />
-            </div>
+        <div
+            aria-hidden="true"
+            className={`fixed inset-0 z-[9999] bg-[#0B0A08] flex flex-col items-center justify-center transition-opacity duration-500 ease-snap ${exiting ? 'opacity-0' : 'opacity-100'}`}
+        >
+            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="relative pt-24">
-                <div className="flex flex-col items-center justify-center mb-12">
-                    <div className="w-16 h-16 mb-6 relative">
-                        <div className="absolute inset-0 skeleton rounded-full opacity-20" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="animate-pulse">
-                                <ellipse cx="12" cy="5" rx="9" ry="3" />
-                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                            </svg>
-                        </div>
-                    </div>
-                    <h2 className="font-display text-2xl text-white uppercase tracking-tight">
-                        Initializing MetalCore
-                    </h2>
-                    <div className="h-px w-16 bg-accent/70 mt-4" />
-                    <p className="text-[10px] text-stone-500 font-mono font-medium uppercase tracking-[0.3em] mt-3">
-                        Forging Database Resources...
-                    </p>
+            <div className="flex flex-col items-center">
+                <h1 className="font-display text-3xl md:text-5xl uppercase tracking-tight text-white select-none">
+                    Metal<span className="text-accent">Core</span>
+                </h1>
+                <div className="h-px w-40 md:w-56 bg-white/10 mt-6 rounded-full overflow-hidden">
+                    <div
+                        className="h-full w-1/4 bg-accent rounded-full"
+                        style={{ animation: 'forge-sweep 1.4s cubic-bezier(0.65, 0, 0.35, 1) infinite' }}
+                    />
                 </div>
-
-                <HomeSkeleton />
+                <p className="text-[9px] text-stone-500 font-mono font-medium uppercase tracking-[0.35em] mt-5">
+                    Forging Database
+                </p>
             </div>
         </div>
     )

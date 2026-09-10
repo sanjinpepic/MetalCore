@@ -473,22 +473,10 @@ body::after {
     animation: slide-up 0.4s var(--ease-out);
 }
 
-/* Skeleton Loading Animation */
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
-    }
-
-    100% {
-        background-position: 1000px 0;
-    }
-}
-
-.skeleton {
-    background: linear-gradient(90deg, #171411 25%, #221d17 50%, #171411 75%);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite linear;
-    border-radius: 4px;
+/* ── Brand splash loader ── */
+@keyframes forge-sweep {
+    0% { transform: translateX(-130%); }
+    100% { transform: translateX(430%); }
 }
 
 /* ── Composition ticker (ambient marquee) ── */
